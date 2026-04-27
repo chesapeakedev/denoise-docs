@@ -1,0 +1,13 @@
+services:
+  denoise-docs:
+    image: denoise-docs:latest
+    restart: unless-stopped
+    ports:
+      - "4321:4321"
+    env_file:
+      - .env
+    volumes:
+      - kv-data:/root/.deno/kv
+
+volumes:
+  kv-data:

@@ -1,0 +1,18 @@
+{
+  "name": "denoise-docs",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "deno run -A src/app/serve.ts",
+    "deno-deploy": "npm run build && deployctl deploy --project=denoise-docs --entrypoint=src/app/serve.ts .",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/starlight": "^0.37.5",
+    "@catppuccin/starlight": "^1.1.1",
+    "astro": "^5.17.1"
+  }
+}

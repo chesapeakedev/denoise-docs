@@ -1,0 +1,116 @@
+---
+import EditLink from "virtual:starlight/components/EditLink";
+import LastUpdated from "virtual:starlight/components/LastUpdated";
+import Pagination from "virtual:starlight/components/Pagination";
+import config from "virtual:starlight/user-config";
+import { Icon } from "@astrojs/starlight/components";
+
+// Main marketing site base URL (update if your site URL differs)
+const WEBSITE_BASE = "https://chesapeakecomputing.com";
+---
+
+<footer class="sl-flex">
+  <div class="meta sl-flex">
+    <EditLink />
+    <LastUpdated />
+  </div>
+  <Pagination />
+
+  {
+    config.credits && (
+      <a class="kudos sl-flex" href="https://starlight.astro.build">
+        <Icon name="starlight" /> {Astro.locals.t("builtWithStarlight.label")}
+      </a>
+    )
+  }
+
+  <div class="site-footer-bar">
+    <div class="site-footer-inner">
+      <span class="site-footer-copy">© 2025 Chesapeake Computing</span>
+      <nav class="site-footer-nav" aria-label="Footer">
+        <a href={WEBSITE_BASE} class="site-footer-link" target="_blank" rel="noopener noreferrer">
+          Website
+        </a>
+        <a href={`${WEBSITE_BASE}/about`} class="site-footer-link" target="_blank" rel="noopener noreferrer">
+          About
+        </a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<style>
+  @layer starlight.core {
+    footer {
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .meta {
+      gap: 0.75rem 3rem;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-top: 3rem;
+      font-size: var(--sl-text-sm);
+      color: var(--sl-color-gray-3);
+    }
+    .meta > :global(p:only-child) {
+      margin-inline-start: auto;
+    }
+
+    .kudos {
+      align-items: center;
+      gap: 0.5em;
+      margin: 1.5rem auto;
+      font-size: var(--sl-text-xs);
+      text-decoration: none;
+      color: var(--sl-color-gray-3);
+    }
+    .kudos:hover {
+      color: var(--sl-color-white);
+    }
+  }
+
+  @layer starlight.components {
+    .kudos :global(svg) {
+      color: var(--sl-color-orange);
+    }
+  }
+
+  .site-footer-bar {
+    flex-shrink: 0;
+    border-top: 1px solid var(--sl-color-gray-5);
+    padding: 1rem 1.5rem;
+    margin-top: 2rem;
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-3);
+  }
+
+  .site-footer-inner {
+    max-width: 80rem;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .site-footer-copy {
+    margin: 0;
+  }
+
+  .site-footer-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .site-footer-link {
+    color: var(--sl-color-gray-3);
+    text-decoration: none;
+  }
+
+  .site-footer-link:hover {
+    color: var(--sl-color-accent);
+  }
+</style>
