@@ -9,7 +9,7 @@ There are two layers of documentation:
 | Guide | When to use it |
 | ----- | -------------- |
 | [dn GitHub Actions integration](/kickstart/github-actions-integration/) | Installed canonical workflows (`dn init workflows`), dispatch payloads, secrets, validation |
-| [OpenCode with DeepInfra Kimi K2.6](/kickstart/opencode-deepinfra-kimi-k2.6/) | OpenCode + DeepInfra Kimi K2.6 in those workflows |
+| [OpenCode with DeepInfra Kimi K2.6](/kickstart/opencode-deepinfra-kimi-k2-6/) | OpenCode + DeepInfra Kimi K2.6 in those workflows |
 
 ## Quick setup (canonical workflows)
 

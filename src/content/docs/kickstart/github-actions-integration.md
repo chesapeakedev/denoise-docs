@@ -9,7 +9,7 @@ installed into consumer repos under `.github/workflows/`. Denoise and other tool
 dispatch these workflows through stable `repository_dispatch` contracts.
 
 For a quick label-based kickstart setup, see [GitHub Actions](/kickstart/github-actions/).
-For OpenCode with [DeepInfra Kimi K2.6](/kickstart/opencode-deepinfra-kimi-k2.6/), see
+For OpenCode with [DeepInfra Kimi K2.6](/kickstart/opencode-deepinfra-kimi-k2-6/), see
 that guide after installing workflows here.
 
 ## Install canonical workflows

@@ -62,7 +62,7 @@ export default defineConfig({
             },
             {
               label: "OpenCode + DeepInfra Kimi K2.6",
-              slug: "kickstart/opencode-deepinfra-kimi-k2.6",
+              slug: "kickstart/opencode-deepinfra-kimi-k2-6",
             },
             { label: "Troubleshooting", slug: "kickstart/troubleshooting" },
           ],
