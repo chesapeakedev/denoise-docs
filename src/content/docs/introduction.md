@@ -38,3 +38,4 @@ Use dn when you want to:
 | -------------- | ---------------------------------------------------------------------------------- |
 | denoise        | [Getting started](/denoise/getting-started/)                                       |
 | dn / kickstart | [Installation](/dn-cli/installation/) → [Kickstart overview](/kickstart/overview/) |
+| GitHub Actions | [dn workflow integration](/kickstart/github-actions-integration/) → [DeepInfra Kimi K2.6](/kickstart/opencode-deepinfra-kimi-k2.6/) |
