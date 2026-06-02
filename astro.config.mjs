@@ -56,6 +56,14 @@ export default defineConfig({
             { label: "Configuration", slug: "kickstart/configuration" },
             { label: "Artifacts & Cursor", slug: "kickstart/artifacts-cursor" },
             { label: "GitHub Actions", slug: "kickstart/github-actions" },
+            {
+              label: "dn workflow integration",
+              slug: "kickstart/github-actions-integration",
+            },
+            {
+              label: "OpenCode + DeepInfra Kimi K2.6",
+              slug: "kickstart/opencode-deepinfra-kimi-k2-6",
+            },
             { label: "Troubleshooting", slug: "kickstart/troubleshooting" },
           ],
         },
