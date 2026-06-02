@@ -15,6 +15,8 @@
 #
 # Override via environment variables:
 #   DEPLOY_HOST=user@hostname DEPLOY_DIR=/opt/denoise-docs make deploy
+#
+# See DEPLOY.md for developer setup and Pi access.
 
 set -euo pipefail
 

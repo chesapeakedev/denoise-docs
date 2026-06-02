@@ -1,14 +1,13 @@
----
-title: Deployment
-description: Deploy denoise-docs locally with Docker or to the Raspberry Pi.
----
+# Deploying denoise-docs
 
-denoise-docs can run locally with Docker or on the **washington** Raspberry Pi
-(Tailscale). Production is served on port **4321**; a Cloudflare Tunnel on the
-Pi forwards public traffic to `localhost:4321` — deploys do not change tunnel
-configuration as long as that port stays mapped.
+Internal guide for developers maintaining this documentation site. End users of
+denoise do not deploy the app (it is hosted as SaaS).
 
-## Local deployment
+Production runs on the **washington** Raspberry Pi (Tailscale) on port **4321**.
+A Cloudflare Tunnel on the Pi forwards public traffic to `localhost:4321` —
+deploys do not change tunnel configuration as long as that port stays mapped.
+
+## Local Docker
 
 Build and run with Docker Compose from this directory:
 
@@ -24,9 +23,9 @@ npm run build
 docker compose up -d --force-recreate
 ```
 
-## Remote deployment (Pi)
+## Pi deployment (washington)
 
-All developers deploy to the **same** stack on washington:
+All developers deploy to the **same** stack:
 
 | Setting | Default |
 | ------- | ------- |
@@ -85,13 +84,14 @@ DEPLOY_HOST=user@hostname DEPLOY_DIR=/custom/path make deploy
 ./scripts/deploy.sh user@hostname /custom/path
 ```
 
-### What the deploy script does
+### What `make deploy` does
 
-1. Build the Astro static site (`make build`)
-2. Cross-compile the Docker image for `linux/arm64`
-3. `docker save | ssh | docker load` to the Pi
-4. Copy `compose.yml` to the deploy directory
-5. `COMPOSE_PROJECT_NAME=denoise-docs docker compose up -d --force-recreate`
+1. Open SSH to the Pi (fails fast if unauthorized)
+2. Build the Astro static site (`make build`)
+3. Cross-compile the Docker image for `linux/arm64`
+4. `docker save | ssh | docker load` to the Pi
+5. Copy `compose.yml` to the deploy directory
+6. `COMPOSE_PROJECT_NAME=denoise-docs docker compose up -d --force-recreate`
 
 Production **`.env` lives on the Pi** at `/opt/denoise-docs/.env`. The deploy
 script does not copy `.env` from your laptop (avoids accidental overwrites).
@@ -134,7 +134,6 @@ curl -s -o /dev/null -w '%{http_code}\n' http://127.0.0.1:4321
 
 Then confirm the public Cloudflare URL still loads.
 
-### Deno Deploy (cloud)
+## Deno Deploy (cloud)
 
-For cloud hosting via Deno Deploy, use `make deploy_deno` or the GitHub Action
-described in the project README.
+For cloud hosting via Deno Deploy, see [README.md](README.md#deploy-to-deno-deploy).

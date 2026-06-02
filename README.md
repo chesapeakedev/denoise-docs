@@ -16,6 +16,7 @@ src/
     └── serve.ts        # Deno file server (serves static build for preview/deploy)
 astro.config.mjs        # Starlight sidebar and component configuration
 Makefile                # Build, lint, deploy, hot reload
+DEPLOY.md               # Pi deploy guide (developers only)
 ```
 
 Documentation pages live in `src/content/docs/`. Each `.md` file is a route
@@ -32,6 +33,9 @@ All commands are run from the `denoise-docs/` directory:
 | `npm run build`           | Build your production site to `./dist/`               |
 | `npm run preview`         | Serve the built site locally (Deno server)            |
 | `make dev_hot_reload`     | Astro build watcher + Deno server (restart on change) |
+| `make sync`               | Lint, `sl pull --rebase`, restack if needed, push drafts |
+| `make check_deploy`       | Verify SSH to the Pi before deploying                 |
+| `make deploy`             | Build and deploy the docs site to washington (see [DEPLOY.md](DEPLOY.md)) |
 | `npm run deno-deploy`     | Build and deploy to Deno Deploy (CLI)                 |
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check`      |
 | `npm run astro -- --help` | Get help using the Astro CLI                          |

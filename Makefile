@@ -48,8 +48,9 @@ lint:
 	deno lint src/app/
 	deno check $(DENO_ENTRYPOINT)
 
-# Delegate to repo root Makefile
-sync: ; $(MAKE) -C .. sync
+# Sapling: lint, pull --rebase main, restack if needed, push drafts (see scripts/repo_sync.sh)
+sync:
+	@$(SHELL) ./scripts/repo_sync.sh
 
 # Stop dev background processes
 clean_dev:
@@ -82,8 +83,7 @@ check_deploy:
 	    echo "  (no default key found — run: ssh-keygen -t ed25519)"; \
 	  fi; \
 	  echo ""; \
-	  echo "Admin on washington:"; \
-	  echo "  echo '<paste-pubkey>' | sudo tee -a /home/denoise-docs/.ssh/authorized_keys"; \
+	  echo "See DEPLOY.md for admin steps."; \
 	  exit 1; \
 	fi
 

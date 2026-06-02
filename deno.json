@@ -1,4 +1,5 @@
 {
+  "lock": false,
   "imports": {
     "@std/http/file-server": "jsr:@std/http@1.0.14/file-server",
     "clsx": "npm:clsx@2.1.1",
