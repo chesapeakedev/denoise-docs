@@ -9,10 +9,12 @@
 #
 # Usage: ./scripts/deploy.sh [ssh_host] [deploy_dir]
 #
-# Default: nick@washington, ~/denoise-docs
+# All deploys SSH as the shared "denoise-docs" build user to guarantee the same
+# deploy directory and Docker Compose project (and therefore the same
+# named volumes) regardless of who runs the deploy.
 #
 # Override via environment variables:
-#   DEPLOY_HOST=user@hostname DEPLOY_DIR=~/denoise-docs make deploy
+#   DEPLOY_HOST=user@hostname DEPLOY_DIR=/opt/denoise-docs make deploy
 
 set -euo pipefail
 
@@ -24,16 +26,20 @@ DOCKER_IMAGE_NAME="denoise-docs"
 DOCKER_IMAGE_TAG="latest"
 TARGET_PLATFORM="linux/arm64/v8"
 COMPOSE_FILE="compose.yml"
+COMPOSE_PROJECT_NAME="denoise-docs"
 
 SSH_HOST_ARG="${1:-}"
 DEPLOY_DIR_ARG="${2:-}"
+
+BUILD_USER="denoise-docs"
+DEFAULT_DEPLOY_DIR="/opt/denoise-docs"
 
 if [ -n "$SSH_HOST_ARG" ]; then
   SSH_HOST="$SSH_HOST_ARG"
 elif [ -n "${DEPLOY_HOST:-}" ]; then
   SSH_HOST="$DEPLOY_HOST"
 else
-  SSH_HOST="nick@washington"
+  SSH_HOST="${BUILD_USER}@washington"
 fi
 
 if [ -n "$DEPLOY_DIR_ARG" ]; then
@@ -41,12 +47,28 @@ if [ -n "$DEPLOY_DIR_ARG" ]; then
 elif [ -n "${DEPLOY_DIR:-}" ]; then
   : # already set via env
 else
-  DEPLOY_DIR="~/denoise-docs"
+  DEPLOY_DIR="$DEFAULT_DEPLOY_DIR"
 fi
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DOCS_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 REPO_ROOT="$(cd "$DOCS_DIR/.." && pwd)"
+
+# SSH multiplexing — authenticate once, reuse for all ssh/scp calls
+SSH_CONTROL_DIR="${HOME}/.ssh/sockets"
+SSH_CONTROL_PATH="${SSH_CONTROL_DIR}/%r@%h-%p"
+SSH_OPTS="-o ControlMaster=auto -o ControlPath=${SSH_CONTROL_PATH} -o ControlPersist=60"
+export SSH_OPTS
+
+mkdir -p "$SSH_CONTROL_DIR"
+
+cleanup_ssh() {
+  ssh -o ControlPath="${SSH_CONTROL_PATH}" -O exit "${SSH_HOST}" 2>/dev/null || true
+}
+trap cleanup_ssh EXIT
+
+# Open the master connection (single password prompt happens here)
+ssh $SSH_OPTS -o ControlMaster=yes -fN "${SSH_HOST}"
 
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "🚀 Cross-compile deploy to ${SSH_HOST}:${DEPLOY_DIR}"
@@ -79,9 +101,6 @@ echo ""
 # ---------------------------------------------------------------------------
 echo "📤 Step 3/4: Transferring image to ${SSH_HOST}..."
 
-# Reuse one SSH connection to avoid multiple password prompts
-SSH_OPTS="-o ControlMaster=auto -o ControlPath=/tmp/ssh-dd-%r@%h:%p -o ControlPersist=60"
-
 IMAGE_SIZE=$(docker image inspect "${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}" \
   --format '{{.Size}}' | awk '{printf "%.0f MB", $1/1024/1024}')
 echo "   Image size: ~${IMAGE_SIZE} (will be compressed for transfer)"
@@ -100,14 +119,11 @@ echo "🔄 Step 4/4: Restarting service on ${SSH_HOST}..."
 ssh $SSH_OPTS "${SSH_HOST}" "mkdir -p ${DEPLOY_DIR}"
 scp $SSH_OPTS "$DOCS_DIR/${COMPOSE_FILE}" "${SSH_HOST}:${DEPLOY_DIR}/${COMPOSE_FILE}"
 
-# Copy .env if it exists locally; otherwise ensure empty .env on Pi so compose does not fail
-if [ -f "$DOCS_DIR/.env" ]; then
-  scp $SSH_OPTS "$DOCS_DIR/.env" "${SSH_HOST}:${DEPLOY_DIR}/.env"
-else
-  ssh $SSH_OPTS "${SSH_HOST}" "touch ${DEPLOY_DIR}/.env"
-fi
+# Prod .env lives on the Pi — ensure compose has a file without overwriting from laptops
+ssh $SSH_OPTS "${SSH_HOST}" "test -f ${DEPLOY_DIR}/.env || touch ${DEPLOY_DIR}/.env"
 
-ssh $SSH_OPTS "${SSH_HOST}" "cd ${DEPLOY_DIR} && docker compose up -d --force-recreate"
+ssh $SSH_OPTS "${SSH_HOST}" \
+  "cd ${DEPLOY_DIR} && COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME} docker compose up -d --force-recreate"
 
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

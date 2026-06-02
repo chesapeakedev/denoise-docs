@@ -1,62 +1,140 @@
 ---
 title: Deployment
-description: Deploy denoise locally with Docker or to a remote device.
+description: Deploy denoise-docs locally with Docker or to the Raspberry Pi.
 ---
 
-The app can be deployed to a remote device (e.g., Raspberry Pi) using Docker.
+denoise-docs can run locally with Docker or on the **washington** Raspberry Pi
+(Tailscale). Production is served on port **4321**; a Cloudflare Tunnel on the
+Pi forwards public traffic to `localhost:4321` — deploys do not change tunnel
+configuration as long as that port stays mapped.
 
 ## Local deployment
 
-To build and run locally:
+Build and run with Docker Compose from this directory:
 
 ```bash
-make docker_run
+npm run build
+docker compose up -d
 ```
 
-To rebuild and restart:
+Rebuild after changes:
 
 ```bash
-make docker_restart
+npm run build
+docker compose up -d --force-recreate
 ```
 
-## Remote deployment
+## Remote deployment (Pi)
 
-The deployment system supports multiple developers deploying to the same
-Tailscale device. The SSH host is auto-detected from your local username (e.g.
-`mooch` → `mooch@baltimore`).
+All developers deploy to the **same** stack on washington:
 
-**Basic usage:**
+| Setting | Default |
+| ------- | ------- |
+| SSH host | `denoise-docs@washington` |
+| Deploy directory | `/opt/denoise-docs` |
+| Image | `denoise-docs:latest` |
+| Host port | `4321` |
+
+Each developer uses their **personal SSH public key** (added to
+`denoise-docs@washington`), not a shared private key. The deploy script
+cross-compiles the image on your laptop, transfers it over SSH, and runs
+`docker compose up` on the Pi.
+
+### Developer setup
+
+1. **Tailscale** — ensure you can reach `washington`.
+2. **SSH access** — see [Request deploy access](#request-deploy-access) below.
+3. **Docker buildx** — required locally for `linux/arm64` cross-builds.
+4. Confirm SSH, then deploy:
 
 ```bash
-# First-time setup: Generate SSH key and add to agent
-make setup_ssh_agent
-# (Add the displayed public key to your GitHub account)
-
-# Deploy using auto-detected SSH host
+make check_deploy
 make deploy
 ```
 
-**Manual override:**
+`make check_deploy` only tests SSH; it does not build or change anything on the
+Pi. If you run `make deploy` without access, the script fails on the first SSH
+connection (before Astro/Docker run) with `Permission denied (publickey)` and
+production stays as-is.
+
+### Request deploy access
+
+Send a Pi admin your **public** key (never the private key):
 
 ```bash
-# Override SSH host
-DEPLOY_HOST=user@hostname make deploy
-
-# Override both host and path
-DEPLOY_HOST=user@hostname DEPLOY_PATH=~/custom/path make deploy
-
-# Or using the script directly
-./scripts/deploy.sh user@hostname ~/p/cts/apps/todo
+cat ~/.ssh/id_ed25519.pub
+# or: ssh-keygen -t ed25519 -C "you@company"
 ```
 
-The deployment script will:
+Admin on **washington** (append only — do not replace the whole file):
 
-1. Auto-detect your username and map to the appropriate SSH host
-2. SSH into the remote device with agent forwarding enabled (`ssh -A`)
-3. Pull the latest changes from git (using your forwarded SSH key)
-4. Stop any existing container
-5. Build and start a new Docker container
+```bash
+echo 'ssh-ed25519 AAAA... you@laptop' | sudo tee -a /home/denoise-docs/.ssh/authorized_keys
+sudo chown denoise-docs:denoise-docs /home/denoise-docs/.ssh/authorized_keys
+sudo chmod 600 /home/denoise-docs/.ssh/authorized_keys
+```
 
-**Note:** Deployment uses SSH agent forwarding with a project-local SSH key
-(e.g. `.ssh/deploy_key`). Run `make setup_ssh_agent` on first use to generate
-the key and add it to your SSH agent.
+After the admin confirms, run `make check_deploy`. When that succeeds, run
+`make deploy`.
+
+### Overrides
+
+```bash
+DEPLOY_HOST=user@hostname make deploy
+DEPLOY_HOST=user@hostname DEPLOY_DIR=/custom/path make deploy
+./scripts/deploy.sh user@hostname /custom/path
+```
+
+### What the deploy script does
+
+1. Build the Astro static site (`make build`)
+2. Cross-compile the Docker image for `linux/arm64`
+3. `docker save | ssh | docker load` to the Pi
+4. Copy `compose.yml` to the deploy directory
+5. `COMPOSE_PROJECT_NAME=denoise-docs docker compose up -d --force-recreate`
+
+Production **`.env` lives on the Pi** at `/opt/denoise-docs/.env`. The deploy
+script does not copy `.env` from your laptop (avoids accidental overwrites).
+
+### One-time Pi migration (admin)
+
+If production previously ran under a personal account (e.g.
+`/home/nick/denoise-docs`), run once on washington before the first shared
+deploy:
+
+```bash
+# Create shared deploy user
+sudo useradd -m -s /bin/bash denoise-docs 2>/dev/null || true
+sudo usermod -aG docker denoise-docs
+sudo mkdir -p /opt/denoise-docs
+sudo chown denoise-docs:denoise-docs /opt/denoise-docs
+
+# Authorize developer SSH keys
+sudo mkdir -p /home/denoise-docs/.ssh
+sudo chmod 700 /home/denoise-docs/.ssh
+# Append each developer public key:
+# sudo tee -a /home/denoise-docs/.ssh/authorized_keys
+sudo chown -R denoise-docs:denoise-docs /home/denoise-docs/.ssh
+sudo chmod 600 /home/denoise-docs/.ssh/authorized_keys
+
+# Migrate prod .env from the old deploy location
+sudo cp /home/nick/denoise-docs/.env /opt/denoise-docs/.env
+sudo chown denoise-docs:denoise-docs /opt/denoise-docs/.env
+
+# Stop the old stack to free port 4321
+cd /home/nick/denoise-docs && docker compose down
+```
+
+After migration, any authorized developer runs `make deploy` from their
+machine. Verify on the Pi:
+
+```bash
+curl -s -o /dev/null -w '%{http_code}\n' http://127.0.0.1:4321
+```
+
+Then confirm the public Cloudflare URL still loads.
+
+### Deno Deploy (cloud)
+
+For cloud hosting via Deno Deploy, use `make deploy_deno` or the GitHub Action
+described in the project README.

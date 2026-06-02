@@ -10,4 +10,6 @@ services:
       - kv-data:/root/.deno/kv
 
 volumes:
+  # Fixed name so deploy dir / COMPOSE_PROJECT_NAME changes cannot create a new empty volume.
   kv-data:
+    name: denoise-docs_kv-data

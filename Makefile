@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 DENO_ENTRYPOINT := src/app/serve.ts
 
-.PHONY: dev_hot_reload dev_astro_watch dev_deno_serve clean clean_dev build fmt fmt_check lint sync deploy deploy_deno
+.PHONY: dev_hot_reload dev_astro_watch dev_deno_serve clean clean_dev build fmt fmt_check lint sync check_deploy deploy deploy_deno
 
 # Intelligent hot reload: Astro build watcher + Deno server (restarts on server file changes)
 dev_hot_reload: clean_dev
@@ -59,7 +59,36 @@ clean_dev:
 	@sleep 0.5
 	@echo "Cleanup complete"
 
-# Deploy to Raspberry Pi (default: nick@washington). Override: DEPLOY_HOST=user@host DEPLOY_DIR=~/denoise-docs make deploy
+BUILD_USER ?= denoise-docs
+DEFAULT_DEPLOY_DIR ?= /opt/denoise-docs
+DEPLOY_SSH_HOST ?= $(BUILD_USER)@washington
+
+# Verify SSH to the Pi before building (same host as deploy; override DEPLOY_HOST=).
+check_deploy:
+	@host="$(or $(DEPLOY_HOST),$(DEPLOY_SSH_HOST))"; \
+	echo "Checking SSH to $$host..."; \
+	if ssh -o BatchMode=yes -o ConnectTimeout=10 "$$host" true 2>/dev/null; then \
+	  echo "SSH OK — ready for make deploy"; \
+	else \
+	  echo ""; \
+	  echo "SSH failed. The Pi is unchanged (deploy opens SSH before any build)."; \
+	  echo ""; \
+	  echo "Request access — send this public key to a Pi admin:"; \
+	  found=0; \
+	  for k in "$$HOME/.ssh/id_ed25519.pub" "$$HOME/.ssh/id_rsa.pub"; do \
+	    if [ -f "$$k" ]; then cat "$$k"; found=1; break; fi; \
+	  done; \
+	  if [ "$$found" -eq 0 ]; then \
+	    echo "  (no default key found — run: ssh-keygen -t ed25519)"; \
+	  fi; \
+	  echo ""; \
+	  echo "Admin on washington:"; \
+	  echo "  echo '<paste-pubkey>' | sudo tee -a /home/denoise-docs/.ssh/authorized_keys"; \
+	  exit 1; \
+	fi
+
+# Deploy to Raspberry Pi (default: denoise-docs@washington:/opt/denoise-docs).
+# Override: DEPLOY_HOST=user@host DEPLOY_DIR=/path make deploy
 deploy:
 	@./scripts/deploy.sh "${DEPLOY_HOST}" "${DEPLOY_DIR}"
 
