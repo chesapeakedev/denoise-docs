@@ -1,5 +1,5 @@
 ---
-title: Output & Environment
+title: Output & environment
 description: Control dn color, unattended output, agent harness selection, and exit-code behavior.
 ---
 

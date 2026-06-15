@@ -1,5 +1,5 @@
 ---
-title: GitHub Automation
+title: GitHub automation
 description: Dispatch workflows, manage issues, and inspect GitHub activity with dn.
 ---
 
@@ -96,7 +96,8 @@ share.
 
 ## `dn peek`
 
-Suggests next open issues with a fixed heuristic scoring model:
+Suggests next open issues with a fixed heuristic scoring model. In conversation,
+this gives an agent a concrete way to propose what it should work on next:
 
 ```bash
 dn peek
@@ -110,5 +111,5 @@ kickstart readiness scorer.
 
 ## Canonical workflow contracts
 
-For installed dn workflow payloads, permissions, and Denoise integration, see
+For installed `dn` workflow payloads, permissions, and denoise integration, see
 [GitHub workflow integration](/kickstart/github-actions-integration/).

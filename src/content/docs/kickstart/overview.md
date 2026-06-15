@@ -1,5 +1,5 @@
 ---
-title: Kickstart Usage
+title: Kickstart usage
 description: How dn kickstart plans and implements GitHub issues or local markdown specs.
 ---
 

@@ -5,12 +5,12 @@ description: Link milestones to GitHub, sync issues, and trigger dn-backed workf
 
 Denoise connects the app experience to GitHub issues, milestones, and installed
 `dn` workflows. The app can sync task state with GitHub and, when a repository
-has canonical dn workflows installed, trigger planning and kickstart automation
+has canonical `dn` workflows installed, trigger planning and kickstart
 automation from the UI.
 
 ## Prepare the repository
 
-Install the dn workflow templates in the target repository:
+Install the `dn` workflow templates in the target repository:
 
 ```bash
 dn init workflows --agent opencode

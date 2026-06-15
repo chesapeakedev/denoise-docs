@@ -1,5 +1,5 @@
 ---
-title: Plan Files & Continuation
+title: Plan files & continuation
 description: Plan file locations, structure, completion detection, and continuation prompts.
 ---
 
@@ -36,7 +36,7 @@ summary, remaining items, and continuation instructions.
 
 ## Plan naming
 
-Default mode can start with `.last.plan.md` for quick iteration. If incomplete
+Default mode can start with `.last.plan.md` for local iteration. If incomplete
 work needs to continue later, kickstart prompts for a durable plan name and
 writes `plans/[name].plan.md` plus the continuation prompt. Use
 `--saved-plan <name>` when the plan name must be non-interactive.

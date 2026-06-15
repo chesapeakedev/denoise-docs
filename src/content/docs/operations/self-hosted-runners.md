@@ -37,7 +37,7 @@ sudo su - github-runner
 ```bash
 mkdir actions-runner && cd actions-runner
 
-# Download latest runner (check https://github.com/actions/runner/releases for version)
+# Check https://github.com/actions/runner/releases, then substitute the version below
 curl -o actions-runner-linux-x64-2.311.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.311.0/actions-runner-linux-x64-2.311.0.tar.gz
 
 tar xzf ./actions-runner-linux-x64-2.311.0.tar.gz

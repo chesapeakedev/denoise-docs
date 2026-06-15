@@ -1,12 +1,12 @@
 ---
-title: Basic Usage
+title: Basic usage
 description: Plan, implement, archive plans, and address PR feedback with dn
 ---
 
 Workflow commands turn issues, pull requests, or local markdown into durable
 plans and code changes.
 
-## Working Above Syntax
+## Working above syntax
 
 The commands on this page are for **orchestration** — working one level above
 syntax. Instead of writing every line yourself, you define inputs (issues,

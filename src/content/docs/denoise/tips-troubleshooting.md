@@ -3,13 +3,17 @@ title: Tips & troubleshooting
 description: Best practices and fixing common denoise issues.
 ---
 
+Use this page when denoise is connected to GitHub but sync, issue creation, or
+milestone linking does not behave as expected. The tips keep app data, GitHub
+issues, and collaborator visibility predictable.
+
 ## Tips and best practices
 
 ### GitHub integration
 
 1. **Link milestones early** — Link your milestone to GitHub before adding many
    tasks, so you can convert them to issues as you go.
-2. **Use tags strategically** — Tags in the app become GitHub labels.
+2. **Use tags for GitHub labels** — Tags in the app become GitHub labels.
 3. **Keep descriptions detailed** — When converting tasks to issues, add
    detailed descriptions (they become the GitHub issue body).
 4. **Monitor sync status** — The connection indicator shows when you're online
@@ -20,7 +24,7 @@ description: Best practices and fixing common denoise issues.
 ### General
 
 1. Use milestones for projects to group related tasks.
-2. Use tags to categorize across milestones (e.g. "bug", "feature", "urgent").
+2. Use tags to categorize tasks across milestones.
 3. Set due dates to track deadlines.
 4. Mark urgent tasks for high-priority items.
 5. Use **Publish** to make tasks visible to collaborators (default is private).

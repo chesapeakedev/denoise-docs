@@ -16,7 +16,7 @@ General workflow installation and dispatch reference:
 ## Overview
 
 ```text
-repository_dispatch / Denoise UI
+repository_dispatch / denoise UI
         │
         ▼
 dn-kickstart-issue.yml (or prep / init-stack)
@@ -222,9 +222,9 @@ echo '{"schema_version":"1.0","dispatch_id":"'"$(uuidgen)"'","issue_url":"https:
   | dn workflows run dn.kickstart_issue --repo owner/repo --json --wait
 ```
 
-### Dispatch from Denoise
+### Dispatch from denoise
 
-Link the repository milestone in Denoise and trigger kickstart from the UI. The
+Link the repository milestone in denoise and trigger kickstart from the UI. The
 backend sends the same `dn.kickstart_issue` payload shape.
 
 ### What the workflow does

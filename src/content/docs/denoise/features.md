@@ -5,7 +5,7 @@ description: Tasks, milestones, and focus timer in denoise.
 
 ## Overview
 
-denoise is an offline-first planning app for small tasks, project milestones,
+Denoise is an offline-first planning app for small tasks, project milestones,
 and GitHub-backed work. It keeps personal planning fast and local by default,
 then adds sync, collaboration, GitHub issue integration, and dn-powered
 automation when you sign in and connect a repository.
@@ -68,7 +68,7 @@ helpful when you have many milestones and need to quickly find a specific one.
 
 ## Usage metrics (opt-in)
 
-denoise can collect anonymous usage metrics, such as upgrade clicks and
+Denoise can collect anonymous usage metrics, such as upgrade clicks and
 milestone/task counts, to help improve the product. Metrics are opt-in only. In
 Settings, enable **Share anonymous usage data to help us improve the product**.
 

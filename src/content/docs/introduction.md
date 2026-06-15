@@ -45,13 +45,13 @@ Use denoise when you want the app experience around dn-powered work:
 - Trigger installed dn workflows from the UI
 - Use focus tools while keeping planning and execution connected
 
-**Next:** [Denoise - Getting started](/denoise/getting-started/)
+**Next:** [denoise getting started](/denoise/getting-started/)
 
 ## Quick links
 
 | Need                          | Start here                                                                                                                  |
 | ----------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| Install and use dn            | [Installation](/dn-cli/installation/) -> [Command Overview](/dn-cli/subcommands/)                                           |
-| Authenticate GitHub access    | [Authentication](/dn-cli/authentication/) -> [GitHub Token Setup](/dn-cli/github-token-setup/)                              |
-| Run issue implementation      | [Workflows](/dn-cli/workflows/) -> [Kickstart Usage](/kickstart/overview/)                                                  |
-| Connect denoise to automation | [GitHub Integration](/denoise/github-integration/) -> [GitHub Workflow Integration](/kickstart/github-actions-integration/) |
+| Install and use dn            | [Installation](/dn-cli/installation/) -> [Command overview](/dn-cli/subcommands/)                                           |
+| Authenticate GitHub access    | [Authentication](/dn-cli/authentication/) -> [GitHub token setup](/dn-cli/github-token-setup/)                              |
+| Run issue implementation      | [Basic usage](/dn-cli/workflows/) -> [Kickstart usage](/kickstart/overview/)                                                |
+| Connect denoise to automation | [GitHub integration](/denoise/github-integration/) -> [GitHub workflow integration](/kickstart/github-actions-integration/) |

@@ -1,5 +1,5 @@
 ---
-title: GitHub Workflow Integration
+title: GitHub workflow integration
 description: Install canonical dn workflows, configure agents, dispatch events, and validate repository readiness.
 ---
 
@@ -172,7 +172,7 @@ implement files.
 ## Denoise and other integrators
 
 Denoise dispatches the same payload shapes through its backend GitHub App. The
-Denoise UI milestone dashboard can trigger `dn.init_stack`,
+denoise UI milestone dashboard can trigger `dn.init_stack`,
 `dn.prep_issue_plan`, and `dn.kickstart_issue` on linked repositories that have
 installed templates.
 

@@ -36,7 +36,7 @@ echo '{"schema_version":"1.0","dispatch_id":"'"$(uuidgen)"'","issue_number":42}'
 ```
 
 See [GitHub workflow integration](/kickstart/github-actions-integration/) for
-full payload schemas, permissions, and Denoise integration.
+full payload schemas, permissions, and denoise integration.
 
 ## Legacy label workflows
 

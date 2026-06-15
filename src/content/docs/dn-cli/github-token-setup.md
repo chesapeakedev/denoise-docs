@@ -1,9 +1,9 @@
 ---
-title: GitHub Token Setup
-description: Create and configure a GitHub Personal Access Token for dn.
+title: GitHub token setup
+description: Create and configure a GitHub personal access token for dn.
 ---
 
-This supplemental guide explains how to create a GitHub Personal Access Token
+This supplemental guide explains how to create a GitHub personal access token
 (PAT) for `dn` when you cannot use GitHub CLI or browser auth. For the normal
 token resolution order, see [Authentication](/dn-cli/authentication/).
 
@@ -34,52 +34,25 @@ These operations require authentication. Personal Access Tokens are supported
 for CI, scripts, and other headless environments where GitHub CLI or browser
 auth are not available.
 
-## Creating a Personal Access Token
+## Create a personal access token
 
-**Fine-grained PATs (recommended):** Scoped to specific repos and permissions.
-[Create a fine-grained token](https://github.com/settings/personal-access-tokens/new)
-→ choose **Repository access** (only the repos you need) → under
-**Permissions**, set **Contents** (Read and write), **Pull requests** (Read and
-write), **Metadata** (Read-only). For org repos, add **Organization permissions
-→ Members** (Read-only) if needed.
+Prefer a fine-grained PAT. It can be scoped to the repositories and permissions
+`dn` needs, which limits the impact if the token is exposed.
 
-**Classic PATs:** Broader access. Use only when fine-grained tokens don't fit
-(e.g. some CI setups).
+1. Open
+   [GitHub's fine-grained token page](https://github.com/settings/personal-access-tokens/new).
+2. Set **Repository access** to only the repositories `dn` should use.
+3. Under **Permissions**, set **Contents** and **Pull requests** to **Read and
+   write**, and keep **Metadata** at **Read-only**.
+4. For organization repositories, add **Organization permissions → Members**
+   with **Read-only** access when needed.
+5. Copy the token when GitHub shows it and store it in a password manager or
+   another secure store. GitHub only shows the token value once.
 
-### Step 1: Navigate to GitHub Settings
-
-1. Go to [GitHub.com](https://github.com) and sign in
-2. Click your profile picture in the top right corner
-3. Select **Settings** from the dropdown menu
-
-### Step 2: Access Developer Settings
-
-1. In the left sidebar, scroll down and click **Developer settings**
-2. Click **Personal access tokens** in the left sidebar
-3. Prefer **Fine-grained tokens** (recommended); or **Tokens (classic)** if
-   needed
-
-### Step 3: Generate New Token
-
-**Fine-grained:** Use **Generate new token** → **Generate new token
-(fine-grained)**. Set resource owner, repository access, and permissions
-(Contents, Pull requests, Metadata; add org Members read if needed).
-
-**Classic:** Use **Generate new token** → **Generate new token (classic)**. Set:
-
-- Name (e.g. "dn-kickstart")
-- Expiration (e.g. 90 days)
-- Scopes: **`repo`** (or **`public_repo`**) and **`read:org`** for organization
-  repos
-
-### Step 4: Copy and Save Token
-
-**IMPORTANT**: GitHub will only show the token once. Copy it immediately and
-store it securely.
-
-1. Copy the generated token (it starts with `ghp_`)
-2. Store it securely (password manager, encrypted file, etc.)
-3. **Never commit this token to version control**
+Use a classic PAT only when a fine-grained token does not fit the environment,
+such as a CI setup that still requires classic scopes. For classic PATs, use
+`repo` for private repositories or `public_repo` for public repositories, and
+add `read:org` for organization repositories.
 
 ## Setting the environment variable
 
@@ -141,21 +114,17 @@ CI logs.
 | `public_repo` | Access public repositories           | Public repositories only           |
 | `read:org`    | Read org and team membership         | Organization repositories          |
 
-**Recommendation:** Prefer fine-grained PATs; for classic, minimum is `repo` (or
-`public_repo`) and `read:org` for org repos.
+Prefer fine-grained PATs. For classic tokens, the minimum is `repo` or
+`public_repo`, plus `read:org` for organization repositories.
 
 ## Security best practices
 
-**Best practices:**
-
-1. **Never commit tokens to version control** — Use environment variables; add
-   `GITHUB_TOKEN` to `.gitignore` if storing in a file.
-2. **Use token expiration** — Set tokens to expire (30–90 days); rotate
-   regularly.
-3. **Limit scope** — Prefer fine-grained PATs scoped to specific repositories.
-4. **Revoke unused tokens** — Review and revoke in GitHub Settings.
-5. **Use separate tokens** — Different tokens for different tools/environments.
-6. **Monitor usage** — Check GitHub's security log for unexpected API usage.
+1. Use environment variables; never commit tokens to version control.
+2. Set tokens to expire and rotate them regularly.
+3. Scope each token to the repositories and permissions it needs.
+4. Use separate tokens for separate tools or environments.
+5. Revoke unused tokens in GitHub settings.
+6. Check GitHub's security log for unexpected API usage.
 
 ## Troubleshooting
 

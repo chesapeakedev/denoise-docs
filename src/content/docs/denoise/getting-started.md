@@ -3,24 +3,28 @@ title: Getting started
 description: Sign in and create your first task in denoise.
 ---
 
+Use this page to sign in, understand the GitHub requirement, and create a first
+task in denoise. Start here when you are using the app UI rather than the `dn`
+CLI.
+
 ## Authentication
 
-The app supports authentication via GitHub or Google. To get started:
+The app supports GitHub and Google sign-in:
 
-1. Click the **Sign In** button
-2. Choose your preferred authentication method (GitHub or Google)
-3. Complete the OAuth flow
-4. You'll be redirected back to the app, now authenticated
+1. Click **Sign In**.
+2. Choose GitHub or Google.
+3. Complete the OAuth flow.
+4. Return to the app after authentication completes.
 
-**Note:** GitHub authentication is required for GitHub milestone and issue
-integration features. For how sign-in works and how it interacts with the
-offline/online toggle, see [Authentication](/denoise/authentication/).
+GitHub authentication is required for GitHub milestone and issue integration.
+For sign-in behavior and the offline/online toggle, see
+[Authentication](/denoise/authentication/).
 
 ## Creating your first task
 
-1. Type your task in the input field at the top
-2. Press **Enter** or click the add button
-3. Your task appears in the list below
+1. Type the task in the input field.
+2. Press **Enter** or click the add button.
+3. Confirm the task appears in the list.
 
 ## Next steps
 

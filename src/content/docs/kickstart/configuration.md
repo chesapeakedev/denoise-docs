@@ -1,5 +1,5 @@
 ---
-title: OpenCode Configuration
+title: OpenCode configuration
 description: OpenCode config files required for kickstart (plan and implement phases).
 ---
 

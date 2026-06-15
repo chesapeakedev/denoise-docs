@@ -1,5 +1,5 @@
 ---
-title: Kickstart Troubleshooting
+title: Kickstart troubleshooting
 description: Debug files, common kickstart errors, and workspace root issues.
 ---
 

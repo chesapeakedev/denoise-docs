@@ -1,5 +1,5 @@
 ---
-title: Task List & Sync
+title: Task list & sync
 description: Maintain dn's local task queue and keep Sapling work synchronized.
 ---
 
@@ -58,7 +58,8 @@ notes:
 3. Runs `sl restack` when stranded draft descendants exist.
 4. Runs `sl push --to main` when drafts exist on the main-line stack.
 
-Prerequisites are Sapling (`sl`), `make`, and Deno.
+Prerequisites are Sapling (`sl`), `make`, and Deno. We are working on reducing
+these dependencies and adding Git support.
 
 ```bash
 dn sync
