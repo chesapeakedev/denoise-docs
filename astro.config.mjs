@@ -65,7 +65,6 @@ export default defineConfig({
             { label: "Authentication", slug: "denoise/authentication" },
             { label: "Features", slug: "denoise/features" },
             { label: "GitHub integration", slug: "denoise/github-integration" },
-            { label: "Deployment", slug: "denoise/deployment" },
             {
               label: "Tips & troubleshooting",
               slug: "denoise/tips-troubleshooting",
