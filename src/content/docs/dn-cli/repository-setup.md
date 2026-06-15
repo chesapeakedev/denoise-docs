@@ -1,5 +1,5 @@
 ---
-title: Repository setup
+title: Repository Setup
 description: Initialize dn workflows, agent guidance, milestone stacks, and inherited agent context.
 ---
 

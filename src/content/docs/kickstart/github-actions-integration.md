@@ -1,16 +1,18 @@
 ---
-title: GitHub workflow integration
+title: GitHub Workflow Integration
 description: Install canonical dn workflows, configure agents, dispatch events, and validate repository readiness.
 ---
 
-This page is the developer reference for **installed dn GitHub Actions workflows** — the
-templates shipped in the [`dn`](https://github.com/chesapeakedev/dn) repository and
-installed into consumer repos under `.github/workflows/`. Denoise and other tools
-dispatch these workflows through stable `repository_dispatch` contracts.
+This page is the developer reference for **installed dn GitHub Actions
+workflows** — the templates shipped in the
+[`dn`](https://github.com/chesapeakedev/dn) repository and installed into
+consumer repos under `.github/workflows/`. Denoise and other tools dispatch
+these workflows through stable `repository_dispatch` contracts.
 
-For the short setup path, see [GitHub Actions quickstart](/kickstart/github-actions/).
-For OpenCode with [DeepInfra Kimi K2.6](/kickstart/opencode-deepinfra-kimi-k2-6/), see
-that guide after installing workflows here.
+For the short setup path, see
+[GitHub Actions quickstart](/kickstart/github-actions/). For OpenCode with
+[DeepInfra Kimi K2.6](/kickstart/opencode-deepinfra-kimi-k2-6/), see that guide
+after installing workflows here.
 
 ## Install canonical workflows
 
@@ -23,13 +25,13 @@ gh secret set OPENAI_API_KEY   # or the secret for your chosen agent (see below)
 
 Commit the generated support files and workflow YAML:
 
-| Path | Purpose |
-| ---- | ------- |
-| `.github/dn/config.json` | Repo-wide agent preference (`opencode`, `cursor`, `claude`, or `codex`) |
-| `.github/dn/install-agent.sh` | Installs only the configured agent harness on the runner |
-| `.github/workflows/dn-init-stack.yml` | Milestone stack generation |
-| `.github/workflows/dn-prep-issue-plan.yml` | Plan-only phase for an issue |
-| `.github/workflows/dn-kickstart-issue.yml` | Full kickstart (plan + implement, optional AWP) |
+| Path                                       | Purpose                                                                 |
+| ------------------------------------------ | ----------------------------------------------------------------------- |
+| `.github/dn/config.json`                   | Repo-wide agent preference (`opencode`, `cursor`, `claude`, or `codex`) |
+| `.github/dn/install-agent.sh`              | Installs only the configured agent harness on the runner                |
+| `.github/workflows/dn-init-stack.yml`      | Milestone stack generation                                              |
+| `.github/workflows/dn-prep-issue-plan.yml` | Plan-only phase for an issue                                            |
+| `.github/workflows/dn-kickstart-issue.yml` | Full kickstart (plan + implement, optional AWP)                         |
 
 Validate the installation:
 
@@ -46,21 +48,26 @@ dn workflows update --json
 
 ## Workflow templates
 
-| Template ID | Installed file | `repository_dispatch` type | Primary `dn` command |
-| ----------- | -------------- | ---------------------------- | -------------------- |
-| `dn.init_stack` | `dn-init-stack.yml` | `dn.init_stack` | `dn init stack` |
-| `dn.prep_issue_plan` | `dn-prep-issue-plan.yml` | `dn.prep_issue_plan` | `dn prep` |
-| `dn.kickstart_issue` | `dn-kickstart-issue.yml` | `dn.kickstart_issue` | `dn kickstart` |
+| Template ID          | Installed file           | `repository_dispatch` type | Primary `dn` command |
+| -------------------- | ------------------------ | -------------------------- | -------------------- |
+| `dn.init_stack`      | `dn-init-stack.yml`      | `dn.init_stack`            | `dn init stack`      |
+| `dn.prep_issue_plan` | `dn-prep-issue-plan.yml` | `dn.prep_issue_plan`       | `dn prep`            |
+| `dn.kickstart_issue` | `dn-kickstart-issue.yml` | `dn.kickstart_issue`       | `dn kickstart`       |
 
 Each job:
 
-1. Validates the dispatch payload (`schema_version`, `dispatch_id`, and workflow-specific fields).
-2. Reads `.github/dn/config.json` for the agent — **dispatch payloads do not carry `agent`**.
-3. Installs `dn` via [`chesapeakedev/dn-action@v1`](https://github.com/chesapeakedev/dn-action).
+1. Validates the dispatch payload (`schema_version`, `dispatch_id`, and
+   workflow-specific fields).
+2. Reads `.github/dn/config.json` for the agent — **dispatch payloads do not
+   carry `agent`**.
+3. Installs `dn` via
+   [`chesapeakedev/dn-action@v1`](https://github.com/chesapeakedev/dn-action).
 4. Runs `.github/dn/install-agent.sh` for the configured harness.
-5. Invokes `dn --agent <configured> …` with CI-friendly env vars (`NO_COLOR`, `IS_OPEN_SOURCE`, etc.).
+5. Invokes `dn --agent <configured> …` with CI-friendly env vars (`NO_COLOR`,
+   `IS_OPEN_SOURCE`, etc.).
 
-Machine-readable contract: `templates/workflows/manifest.json` in the `dn` repository.
+Machine-readable contract: `templates/workflows/manifest.json` in the `dn`
+repository.
 
 ## Agent configuration and secrets
 
@@ -73,12 +80,12 @@ Set the agent once in `.github/dn/config.json`:
 }
 ```
 
-| Agent | Install flag | Repository secret | Notes |
-| ----- | ------------ | ------------------- | ----- |
-| `opencode` | `dn init workflows` (default) | `OPENAI_API_KEY` | OpenCode install script; key may point at OpenAI, DeepInfra, or another OpenAI-compatible API when configured in `opencode*.json` |
-| `claude` | `--agent claude` | `ANTHROPIC_API_KEY` | Workflow sets `CLAUDE_CODE_BARE=1` |
-| `cursor` | `--agent cursor` | `CURSOR_API_KEY` | Cursor CLI install script |
-| `codex` | `--agent codex` | `OPENAI_API_KEY` | Requires Node.js 22 on the runner |
+| Agent      | Install flag                  | Repository secret   | Notes                                                                                                                             |
+| ---------- | ----------------------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `opencode` | `dn init workflows` (default) | `OPENAI_API_KEY`    | OpenCode install script; key may point at OpenAI, DeepInfra, or another OpenAI-compatible API when configured in `opencode*.json` |
+| `claude`   | `--agent claude`              | `ANTHROPIC_API_KEY` | Workflow sets `CLAUDE_CODE_BARE=1`                                                                                                |
+| `cursor`   | `--agent cursor`              | `CURSOR_API_KEY`    | Cursor CLI install script                                                                                                         |
+| `codex`    | `--agent codex`               | `OPENAI_API_KEY`    | Requires Node.js 22 on the runner                                                                                                 |
 
 Workflows pass `GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}` automatically. You do
 **not** create a `GITHUB_TOKEN` repository secret — GitHub Actions injects it.
@@ -134,14 +141,15 @@ echo '{"schema_version":"1.0","dispatch_id":"'"$(uuidgen)"'","issue_url":"https:
 gh run list --repo owner/repo --event repository_dispatch
 ```
 
-Use `dn workflows run --wait` to block until a new run appears and print its URL.
+Use `dn workflows run --wait` to block until a new run appears and print its
+URL.
 
 ## Permissions
 
-| Workflow | `permissions` |
-| -------- | ------------- |
-| `dn.init_stack` | `contents: write`, `issues: write` |
-| `dn.prep_issue_plan` | `contents: write`, `issues: write` |
+| Workflow             | `permissions`                                              |
+| -------------------- | ---------------------------------------------------------- |
+| `dn.init_stack`      | `contents: write`, `issues: write`                         |
+| `dn.prep_issue_plan` | `contents: write`, `issues: write`                         |
 | `dn.kickstart_issue` | `contents: write`, `pull-requests: write`, `issues: write` |
 
 For AWP kickstart, also enable **Allow GitHub Actions to create and approve pull
@@ -164,8 +172,9 @@ implement files.
 ## Denoise and other integrators
 
 Denoise dispatches the same payload shapes through its backend GitHub App. The
-Denoise UI milestone dashboard can trigger `dn.init_stack`, `dn.prep_issue_plan`,
-and `dn.kickstart_issue` on linked repositories that have installed templates.
+Denoise UI milestone dashboard can trigger `dn.init_stack`,
+`dn.prep_issue_plan`, and `dn.kickstart_issue` on linked repositories that have
+installed templates.
 
 Compatibility paths (still supported, separate from dispatch):
 
@@ -176,13 +185,13 @@ Dispatch events are the canonical integration path for automation.
 
 ## Troubleshooting
 
-| Symptom | Check |
-| ------- | ----- |
-| `Missing .github/dn/config.json` | Run `dn init workflows --agent <agent>` and commit |
-| Agent secret missing | `dn workflows validate --json`; set the secret for your configured agent |
-| OpenCode auth errors in CI | Provider `apiKey` must reference an env var the workflow sets (usually `OPENAI_API_KEY`) |
-| No PR created | Workflow permissions and `pull-requests: write`; kickstart logs in the Actions run |
-| Dispatch accepted but no run | Poll `repository_dispatch` runs; confirm workflow files exist on the default branch |
+| Symptom                          | Check                                                                                    |
+| -------------------------------- | ---------------------------------------------------------------------------------------- |
+| `Missing .github/dn/config.json` | Run `dn init workflows --agent <agent>` and commit                                       |
+| Agent secret missing             | `dn workflows validate --json`; set the secret for your configured agent                 |
+| OpenCode auth errors in CI       | Provider `apiKey` must reference an env var the workflow sets (usually `OPENAI_API_KEY`) |
+| No PR created                    | Workflow permissions and `pull-requests: write`; kickstart logs in the Actions run       |
+| Dispatch accepted but no run     | Poll `repository_dispatch` runs; confirm workflow files exist on the default branch      |
 
 See also [Troubleshooting](/kickstart/troubleshooting/) and
 [Self-hosted runners](/operations/self-hosted-runners/).

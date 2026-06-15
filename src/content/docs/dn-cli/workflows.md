@@ -1,10 +1,27 @@
 ---
-title: Workflows
-description: Plan, implement, merge context, archive plans, and address PR feedback with dn.
+title: Basic Usage
+description: Plan, implement, archive plans, and address PR feedback with dn
 ---
 
 Workflow commands turn issues, pull requests, or local markdown into durable
 plans and code changes.
+
+## Working Above Syntax
+
+The commands on this page are for **orchestration** — working one level above
+syntax. Instead of writing every line yourself, you define inputs (issues,
+specs, PR feedback), choose how far automation should run, and hand off durable
+artifacts — plans, branches, commits — at each boundary.
+
+The goal is a **shared workflow** between you and an agent. Each step in the
+flow — plan, implement, review, fix up, archive — can be picked up by either
+side. Run `prep` yourself and let an agent `loop`. Kick off `kickstart` and step
+in when the plan needs a human judgment call. Resume from a plan file after
+someone else left off.
+
+That split is deliberate. You dive deep exactly when you need to — editing a
+plan, rejecting a direction, landing the final commit — and stay at 10,000 feet
+when you can so you move fast across more work.
 
 ## `dn kickstart`
 
@@ -79,8 +96,8 @@ dn meld research.md ops-notes.md --target AGENTS.md
 dn meld handoff.md --target github:comment:123 --dry-run
 ```
 
-Use `meld` when useful context is spread across more than one source. Use
-`prep` when a single issue or file is already the right planning input.
+Use `meld` when useful context is spread across more than one source. Use `prep`
+when a single issue or file is already the right planning input.
 
 ## `dn fixup`
 

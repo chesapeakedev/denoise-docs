@@ -4,8 +4,8 @@
  * Uses github-slugger (same default as docsLoader) so dotted filenames are caught early.
  * Exit 1 on mismatch. Copy to scripts/ when adopting permanently.
  */
-import { readFileSync, readdirSync, statSync } from "node:fs";
-import { resolve, dirname, join } from "node:path";
+import { readdirSync, readFileSync, statSync } from "node:fs";
+import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import GithubSlugger from "github-slugger";
 
@@ -40,7 +40,9 @@ function walkDocs(dir, prefix = "") {
 }
 
 const config = readFileSync(configPath, "utf8");
-const sidebarSlugs = [...config.matchAll(/slug:\s*["']([^"']+)["']/g)].map((m) => m[1]);
+const sidebarSlugs = [...config.matchAll(/slug:\s*["']([^"']+)["']/g)].map((
+  m,
+) => m[1]);
 const uniqueSidebarSlugs = [...new Set(sidebarSlugs)];
 
 const docFiles = walkDocs(docsDir);
@@ -69,9 +71,11 @@ if (missing.length) {
     console.error("");
   }
   console.error(
-    "Tip: dots in filenames are slugified (e.g. kimi-k2.6.md → …-kimi-k26). Use generateId in content.config.ts or rename the file.\n"
+    "Tip: dots in filenames are slugified (e.g. kimi-k2.6.md → …-kimi-k26). Use generateId in content.config.ts or rename the file.\n",
   );
   process.exit(1);
 }
 
-console.log(`OK: ${uniqueSidebarSlugs.length} sidebar slug(s) match docs collection ids.`);
+console.log(
+  `OK: ${uniqueSidebarSlugs.length} sidebar slug(s) match docs collection ids.`,
+);

@@ -1,12 +1,12 @@
 ---
-title: Kickstart details
+title: Kickstart Usage
 description: How dn kickstart plans and implements GitHub issues or local markdown specs.
 ---
 
 Kickstart is one `dn` workflow for turning a GitHub issue, issue number,
-milestone queue item, or local markdown spec into a plan and implementation.
-For the broader command map, start with [Command overview](/dn-cli/subcommands/)
-or [Workflows](/dn-cli/workflows/).
+milestone queue item, or local markdown spec into a plan and implementation. For
+the broader command map, start with [Command overview](/dn-cli/subcommands/) or
+[Workflows](/dn-cli/workflows/).
 
 ## CLI usage
 
@@ -29,12 +29,19 @@ dn --agent codex kickstart 123
 dn --agent claude prep 123
 ```
 
-Issue arguments can be full GitHub issue URLs, issue numbers for the current repository, or local markdown files. Cross-repository issue URLs require `--allow-cross-repo`; AWP mode remains same-repository because branch, commit, and PR operations need the current workspace repository.
+Issue arguments can be full GitHub issue URLs, issue numbers for the current
+repository, or local markdown files. Cross-repository issue URLs require
+`--allow-cross-repo`; AWP mode remains same-repository because branch, commit,
+and PR operations need the current workspace repository.
 
 ## Two modes
 
-- **Default mode** - Applies changes locally. You handle commits and PRs manually. It uses `plans/.last.plan.md` unless a specific plan is selected with `--saved-plan <name>` or a plan name is requested during continuation.
-- **AWP mode** - Creates a branch/bookmark, commits changes, pushes, and opens a PR. It uses named plan files in `plans/[name].plan.md` and requires Git or Sapling.
+- **Default mode** - Applies changes locally. You handle commits and PRs
+  manually. It uses `plans/.last.plan.md` unless a specific plan is selected
+  with `--saved-plan <name>` or a plan name is requested during continuation.
+- **AWP mode** - Creates a branch/bookmark, commits changes, pushes, and opens a
+  PR. It uses named plan files in `plans/[name].plan.md` and requires Git or
+  Sapling.
 
 ## How it works
 
@@ -55,7 +62,9 @@ dn kickstart --milestone 42
 dn kickstart --milestone 42 --complete
 ```
 
-`--complete` runs remaining unchecked stack tasks without prompting between queue items. Plan naming and agent prompts can still occur unless separately configured.
+`--complete` runs remaining unchecked stack tasks without prompting between
+queue items. Plan naming and agent prompts can still occur unless separately
+configured.
 
 ## Dependencies
 

@@ -1,7 +1,10 @@
 SHELL := /bin/bash
 DENO_ENTRYPOINT := src/app/serve.ts
+DENO_FMT_PATHS := astro.config.mjs src/app scripts src/content/docs .cursor/skills
+DENO_LINT_PATHS := src/app scripts
+SKILL_DIRS := $(wildcard .cursor/skills/*)
 
-.PHONY: dev_hot_reload dev_astro_watch dev_deno_serve clean clean_dev build fmt fmt_check lint sync check_deploy deploy deploy_deno
+.PHONY: dev_hot_reload dev_astro_watch dev_deno_serve clean clean_dev build fmt fmt_check lint check fix validate_skills sync check_deploy deploy deploy_deno
 
 # Intelligent hot reload: Astro build watcher + Deno server (restarts on server file changes)
 dev_hot_reload: clean_dev
@@ -34,19 +37,36 @@ dev_deno_serve:
 build:
 	npm run build
 
-# Format Deno server code (run from denoise-docs/; ci.mk invokes with explicit cd)
+# Format code, scripts, docs markdown, and local skill files.
 fmt:
-	deno fmt src/app/
+	deno fmt $(DENO_FMT_PATHS)
 
-# Check Deno formatting (no writes)
+# Check formatting without writing files.
 fmt_check:
-	deno fmt --check src/app/
+	deno fmt --check $(DENO_FMT_PATHS)
 
-# Lint Deno server code
-lint:
-	deno fmt --check src/app/
-	deno lint src/app/
+# Lint and type-check Deno code.
+lint: fmt_check
+	deno lint $(DENO_LINT_PATHS)
 	deno check $(DENO_ENTRYPOINT)
+	deno check scripts/quick_validate.ts
+
+# Validate local skill packages.
+validate_skills:
+	@if [ -z "$(SKILL_DIRS)" ]; then \
+		echo "No local skills found"; \
+	else \
+		for skill in $(SKILL_DIRS); do \
+			echo "Validating $$skill"; \
+			./scripts/quick_validate.ts "$$skill"; \
+		done; \
+	fi
+
+# Fix easy formatting issues.
+fix: fmt
+
+# Public-repo quality gate for local use and CI.
+check: lint validate_skills build
 
 # Sapling: lint, pull --rebase main, restack if needed, push drafts (see scripts/repo_sync.sh)
 sync:

@@ -12,12 +12,15 @@ automation when you sign in and connect a repository.
 
 ## Core features
 
-- **Offline-first tasks** - Create and edit tasks locally, even without signing in.
+- **Offline-first tasks** - Create and edit tasks locally, even without signing
+  in.
 - **Milestones** - Group tasks into projects or planning slices.
 - **Focus timer** - Track focused work sessions alongside task progress.
-- **Sign-in with GitHub or Google** - Enable cloud sync and identity-backed workflows.
+- **Sign-in with GitHub or Google** - Enable cloud sync and identity-backed
+  workflows.
 - **Collaboration** - Share published milestones with collaborators.
-- **GitHub issue sync** - Link milestones, import issues, and push task updates back to GitHub.
+- **GitHub issue sync** - Link milestones, import issues, and push task updates
+  back to GitHub.
 
 ## Task management
 

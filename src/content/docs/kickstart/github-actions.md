@@ -1,16 +1,17 @@
 ---
-title: GitHub Actions quickstart
+title: GitHub Actions
 description: Install canonical dn workflows and run kickstart in CI.
 ---
 
 `dn` can run in GitHub Actions to prepare plans, generate milestone stacks, or
-implement issues and open pull requests. Start with canonical workflows installed
-by `dn init workflows`; use legacy label workflows only for older repositories.
+implement issues and open pull requests. Start with canonical workflows
+installed by `dn init workflows`; use legacy label workflows only for older
+repositories.
 
-| Guide | When to use it |
-| ----- | -------------- |
-| [GitHub workflow integration](/kickstart/github-actions-integration/) | Installed canonical workflows (`dn init workflows`), dispatch payloads, secrets, validation |
-| [OpenCode with DeepInfra Kimi K2.6](/kickstart/opencode-deepinfra-kimi-k2-6/) | OpenCode + DeepInfra Kimi K2.6 in those workflows |
+| Guide                                                                         | When to use it                                                                              |
+| ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| [GitHub workflow integration](/kickstart/github-actions-integration/)         | Installed canonical workflows (`dn init workflows`), dispatch payloads, secrets, validation |
+| [OpenCode with DeepInfra Kimi K2.6](/kickstart/opencode-deepinfra-kimi-k2-6/) | OpenCode + DeepInfra Kimi K2.6 in those workflows                                           |
 
 ## Quick setup (canonical workflows)
 
@@ -23,8 +24,9 @@ gh secret set OPENAI_API_KEY
 dn workflows validate --json
 ```
 
-Each workflow reads `.github/dn/config.json`, installs only that agent harness, and
-runs `dn --agent <configured>`. Dispatch payloads do **not** include `agent`.
+Each workflow reads `.github/dn/config.json`, installs only that agent harness,
+and runs `dn --agent <configured>`. Dispatch payloads do **not** include
+`agent`.
 
 Trigger kickstart:
 
@@ -41,10 +43,10 @@ full payload schemas, permissions, and Denoise integration.
 Some repositories still ship standalone workflows (for example
 `kickstart-opencode.yml` / `kickstart-cursor.yml`) that trigger on issue labels:
 
-| Label | Workflow |
-| ----- | -------- |
+| Label          | Workflow           |
+| -------------- | ------------------ |
 | `opencode awp` | OpenCode kickstart |
-| `cursor awp` | Cursor kickstart |
+| `cursor awp`   | Cursor kickstart   |
 
 These workflows typically support:
 
@@ -113,8 +115,8 @@ Pin the action version when you need reproducibility:
 ## Workflow output
 
 After execution, integrations typically post a comment on the issue with status,
-PR link, and error details. Branch names use the `kickstart/` prefix, for example
-`kickstart/issue_123_add-new-feature`.
+PR link, and error details. Branch names use the `kickstart/` prefix, for
+example `kickstart/issue_123_add-new-feature`.
 
 ## Self-hosted runners
 

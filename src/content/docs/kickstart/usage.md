@@ -33,7 +33,8 @@ dn kickstart --awp https://github.com/owner/repo/issues/123
 dn --agent opencode kickstart --awp 123
 ```
 
-AWP mode is same-repository only. For issues from another repository, use default mode with `--allow-cross-repo`:
+AWP mode is same-repository only. For issues from another repository, use
+default mode with `--allow-cross-repo`:
 
 ```bash
 dn kickstart --allow-cross-repo https://github.com/private-org/specs/issues/123
@@ -69,23 +70,29 @@ dn kickstart --milestone 42 --complete
 ## Common flags
 
 - `--awp` - Enable branch/bookmark, commit, push, and PR creation.
-- `--allow-cross-repo` - Allow planning or implementation from an issue in another repo, without AWP mode.
-- `--saved-plan <name>` - Use `plans/<name>.plan.md` without prompting for a name.
-- `--milestone <url-or-number>` - Use `plans/{owner}_{repo}_{milestone}.stack.md` as the task queue.
-- `--complete` - With `--milestone`, run all unchecked stack tasks without queue prompts.
+- `--allow-cross-repo` - Allow planning or implementation from an issue in
+  another repo, without AWP mode.
+- `--saved-plan <name>` - Use `plans/<name>.plan.md` without prompting for a
+  name.
+- `--milestone <url-or-number>` - Use
+  `plans/{owner}_{repo}_{milestone}.stack.md` as the task queue.
+- `--complete` - With `--milestone`, run all unchecked stack tasks without queue
+  prompts.
 - `--workspace-root <path>` - Run against a specific workspace root.
-- `--agent <name>` - Select `opencode`, `cursor`, `claude`, or `codex`. Legacy aliases such as `--cursor`, `--claude`, and `--codex` are still supported.
+- `--agent <name>` - Select `opencode`, `cursor`, `claude`, or `codex`. Legacy
+  aliases such as `--cursor`, `--claude`, and `--codex` are still supported.
 
 ## Environment variables
 
-| Variable | Description |
-| -------- | ----------- |
-| `GITHUB_TOKEN` | GitHub API token for CI/scripts. Prefer `gh auth login` or `dn auth` for normal use. |
-| `WORKSPACE_ROOT` | Workspace root. Defaults to the current working directory. |
-| `ISSUE` | Issue URL, issue number, or markdown path when no positional argument is provided. |
-| `PLAN` | Plan file path for `dn loop`. |
-| `SAVE_CTX` | Set to `1` to keep debug files on success. |
-| `CURSOR_ENABLED`, `CLAUDE_ENABLED`, `CODEX_ENABLED` | Legacy environment toggles for agent selection. |
-| `OPENCODE_TIMEOUT_MS`, `CLAUDE_TIMEOUT_MS`, `CODEX_TIMEOUT_MS` | Agent phase timeouts. |
+| Variable                                                       | Description                                                                          |
+| -------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| `GITHUB_TOKEN`                                                 | GitHub API token for CI/scripts. Prefer `gh auth login` or `dn auth` for normal use. |
+| `WORKSPACE_ROOT`                                               | Workspace root. Defaults to the current working directory.                           |
+| `ISSUE`                                                        | Issue URL, issue number, or markdown path when no positional argument is provided.   |
+| `PLAN`                                                         | Plan file path for `dn loop`.                                                        |
+| `SAVE_CTX`                                                     | Set to `1` to keep debug files on success.                                           |
+| `CURSOR_ENABLED`, `CLAUDE_ENABLED`, `CODEX_ENABLED`            | Legacy environment toggles for agent selection.                                      |
+| `OPENCODE_TIMEOUT_MS`, `CLAUDE_TIMEOUT_MS`, `CODEX_TIMEOUT_MS` | Agent phase timeouts.                                                                |
 
-See [Output and environment](/dn-cli/output-and-environment/) for unattended mode and color flags.
+See [Output and environment](/dn-cli/output-and-environment/) for unattended
+mode and color flags.

@@ -3,7 +3,6 @@ title: Authentication
 description: "GitHub authentication for dn: environment tokens, GitHub CLI, and browser device flow."
 ---
 
-
 `dn` needs a GitHub token for subcommands that access the GitHub API
 (`kickstart`, `prep`, `glance`, `peek`, `fixup`, `issue`, `meld` with issue
 URLs).

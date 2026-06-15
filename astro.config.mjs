@@ -10,7 +10,7 @@ export default defineConfig({
   },
   integrations: [
     starlight({
-      title: "denoise & dn",
+      title: "denoise",
       customCss: ["./src/styles/theme.css"],
       components: {
         ThemeProvider: "./src/components/ThemeProvider.astro",
@@ -20,42 +20,48 @@ export default defineConfig({
       sidebar: [
         { label: "Introduction", slug: "introduction" },
         {
-          label: "dn CLI",
+          label: "dn",
           items: [
             {
-              label: "Installation & prerequisites",
+              label: "Installation",
               slug: "dn-cli/installation",
             },
-            { label: "Command overview", slug: "dn-cli/subcommands" },
-            { label: "Workflows", slug: "dn-cli/workflows" },
-            { label: "Repository setup", slug: "dn-cli/repository-setup" },
-            { label: "GitHub automation", slug: "dn-cli/github-automation" },
+            { label: "Command Overview", slug: "dn-cli/subcommands" },
+            { label: "Basic Usage", slug: "dn-cli/workflows" },
+            { label: "Repository Setup", slug: "dn-cli/repository-setup" },
+            { label: "GitHub Automation", slug: "dn-cli/github-automation" },
             {
-              label: "Task list & sync",
+              label: "Task List & Sync",
               slug: "dn-cli/task-list-and-sync",
             },
             { label: "Authentication", slug: "dn-cli/authentication" },
             {
-              label: "Output & environment",
+              label: "Output & Environment",
               slug: "dn-cli/output-and-environment",
             },
-            { label: "GitHub token setup", slug: "dn-cli/github-token-setup" },
-            { label: "Kickstart details", slug: "kickstart/overview" },
+            { label: "GitHub Token Setup", slug: "dn-cli/github-token-setup" },
+            { label: "Kickstart Usage", slug: "kickstart/overview" },
             {
-              label: "Plan files & continuation",
+              label: "Plan Files & Continuation",
               slug: "kickstart/plan-files",
             },
-            { label: "OpenCode configuration", slug: "kickstart/configuration" },
+            {
+              label: "OpenCode Configuration",
+              slug: "kickstart/configuration",
+            },
             { label: "GitHub Actions", slug: "kickstart/github-actions" },
             {
-              label: "GitHub workflow integration",
+              label: "GitHub Workflow Integration",
               slug: "kickstart/github-actions-integration",
             },
             {
               label: "OpenCode + DeepInfra Kimi K2.6",
               slug: "kickstart/opencode-deepinfra-kimi-k2-6",
             },
-            { label: "Kickstart troubleshooting", slug: "kickstart/troubleshooting" },
+            {
+              label: "Kickstart Troubleshooting",
+              slug: "kickstart/troubleshooting",
+            },
           ],
         },
         {

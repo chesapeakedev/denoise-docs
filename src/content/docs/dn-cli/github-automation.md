@@ -1,5 +1,5 @@
 ---
-title: GitHub automation
+title: GitHub Automation
 description: Dispatch workflows, manage issues, and inspect GitHub activity with dn.
 ---
 
@@ -75,9 +75,10 @@ dn issue relationship reprioritize sub-issue 123 789 --after 456
 dn issue relationship mark-duplicate 123 456
 ```
 
-Issue references accept a number (`123`), `#123`, or a full URL. `--repo
-owner/repo` sets the repository used for numeric refs and commands without an
-issue ref, such as `list` and `create`.
+Issue references accept a number (`123`), `#123`, or a full URL.
+`--repo
+owner/repo` sets the repository used for numeric refs and commands
+without an issue ref, such as `list` and `create`.
 
 ## `dn glance`
 

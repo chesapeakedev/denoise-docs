@@ -1,5 +1,5 @@
 ---
-title: Configuration
+title: OpenCode Configuration
 description: OpenCode config files required for kickstart (plan and implement phases).
 ---
 
@@ -41,8 +41,9 @@ For the implement phase, you need an `opencode.implement.json` (or equivalent)
 that allows the edits your implementation phase requires. Create it in the
 workspace root according to [opencode](https://opencode.dev/) documentation.
 
-For GitHub Actions with DeepInfra [Kimi K2.6](https://deepinfra.com/moonshotai/Kimi-K2.6/api),
-add model and provider settings to **both** phase files. See
+For GitHub Actions with DeepInfra
+[Kimi K2.6](https://deepinfra.com/moonshotai/Kimi-K2.6/api), add model and
+provider settings to **both** phase files. See
 [OpenCode with DeepInfra Kimi K2.6](/kickstart/opencode-deepinfra-kimi-k2-6/).
 
 ## Config file location

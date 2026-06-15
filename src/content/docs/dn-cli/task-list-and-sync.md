@@ -1,5 +1,5 @@
 ---
-title: Task list and sync
+title: Task List & Sync
 description: Maintain dn's local task queue and keep Sapling work synchronized.
 ---
 
@@ -45,7 +45,8 @@ running the top item. If the list is empty, it can search the current repository
 for open issues and plan files, score them, write the list, and suggest the
 first item.
 
-After a successful run, `dn` can mark the item done and continue to the next one.
+After a successful run, `dn` can mark the item done and continue to the next
+one.
 
 ## `dn sync`
 

@@ -4,10 +4,11 @@ description: Configure Kimi K2.6 via DeepInfra for opencode in installed dn GitH
 ---
 
 Use [DeepInfra](https://deepinfra.com/moonshotai/Kimi-K2.6) to run
-[moonshotai/Kimi-K2.6](https://deepinfra.com/moonshotai/Kimi-K2.6/api) through OpenCode in
-**installed dn GitHub Actions workflows**. DeepInfra exposes an
+[moonshotai/Kimi-K2.6](https://deepinfra.com/moonshotai/Kimi-K2.6/api) through
+OpenCode in **installed dn GitHub Actions workflows**. DeepInfra exposes an
 [OpenAI-compatible Chat Completions API](https://deepinfra.com/moonshotai/Kimi-K2.6/api);
-OpenCode calls it via a custom provider block in your repo's `opencode*.json` files.
+OpenCode calls it via a custom provider block in your repo's `opencode*.json`
+files.
 
 General workflow installation and dispatch reference:
 [GitHub workflow integration](/kickstart/github-actions-integration/).
@@ -174,7 +175,8 @@ every agent step. Mapping `{env:OPENAI_API_KEY}` in OpenCode config reuses that
 secret name for the DeepInfra token — no workflow edits required.
 
 If you prefer a dedicated secret (for example `DEEPINFRA_TOKEN`), add it to the
-workflow `env` block and change the config to `"apiKey": "{env:DEEPINFRA_TOKEN}"`.
+workflow `env` block and change the config to
+`"apiKey": "{env:DEEPINFRA_TOKEN}"`.
 
 ## Step 2 — Store the DeepInfra token
 
@@ -242,13 +244,13 @@ gh run view <run-id> --log
 
 ## API reference (DeepInfra)
 
-| Item | Value |
-| ---- | ----- |
-| Model ID | `moonshotai/Kimi-K2.6` |
-| Endpoint | `POST https://api.deepinfra.com/v1/openai/chat/completions` |
-| Auth header | `Authorization: Bearer <token>` |
-| Context | 262,144 tokens (per DeepInfra model page) |
-| Pricing | Listed on [DeepInfra model page](https://deepinfra.com/moonshotai/Kimi-K2.6) |
+| Item        | Value                                                                        |
+| ----------- | ---------------------------------------------------------------------------- |
+| Model ID    | `moonshotai/Kimi-K2.6`                                                       |
+| Endpoint    | `POST https://api.deepinfra.com/v1/openai/chat/completions`                  |
+| Auth header | `Authorization: Bearer <token>`                                              |
+| Context     | 262,144 tokens (per DeepInfra model page)                                    |
+| Pricing     | Listed on [DeepInfra model page](https://deepinfra.com/moonshotai/Kimi-K2.6) |
 
 Minimal curl check:
 
@@ -264,21 +266,23 @@ curl "https://api.deepinfra.com/v1/openai/chat/completions" \
 
 ## Troubleshooting
 
-| Symptom | Likely cause | Fix |
-| ------- | ------------ | --- |
-| `401` / unauthorized from OpenCode | Missing or wrong token | Re-set `OPENAI_API_KEY` with the DeepInfra dashboard token |
-| Model not found | Wrong model string | Use `deepinfra/moonshotai/Kimi-K2.6` in config and `moonshotai/Kimi-K2.6` under `models` |
-| Works locally, fails in CI | Phase config missing provider | Add provider block to **both** `opencode.plan.json` and `opencode.implement.json` |
-| OpenCode uses wrong model | Stale root `opencode.json` | Align `model` across all opencode config files |
-| Timeouts on long issues | Large context / slow inference | Check run logs; consider self-hosted runners for long jobs |
+| Symptom                            | Likely cause                   | Fix                                                                                      |
+| ---------------------------------- | ------------------------------ | ---------------------------------------------------------------------------------------- |
+| `401` / unauthorized from OpenCode | Missing or wrong token         | Re-set `OPENAI_API_KEY` with the DeepInfra dashboard token                               |
+| Model not found                    | Wrong model string             | Use `deepinfra/moonshotai/Kimi-K2.6` in config and `moonshotai/Kimi-K2.6` under `models` |
+| Works locally, fails in CI         | Phase config missing provider  | Add provider block to **both** `opencode.plan.json` and `opencode.implement.json`        |
+| OpenCode uses wrong model          | Stale root `opencode.json`     | Align `model` across all opencode config files                                           |
+| Timeouts on long issues            | Large context / slow inference | Check run logs; consider self-hosted runners for long jobs                               |
 
-OpenCode also lists Deep Infra as a built-in provider (`/connect` in the TUI). That
-path stores credentials interactively and is suited to local development. For
-unattended CI, the explicit `provider` block with `{env:OPENAI_API_KEY}` above is
-the supported approach.
+OpenCode also lists Deep Infra as a built-in provider (`/connect` in the TUI).
+That path stores credentials interactively and is suited to local development.
+For unattended CI, the explicit `provider` block with `{env:OPENAI_API_KEY}`
+above is the supported approach.
 
 ## Related
 
-- [GitHub workflow integration](/kickstart/github-actions-integration/) — templates, dispatch payloads, permissions
+- [GitHub workflow integration](/kickstart/github-actions-integration/) —
+  templates, dispatch payloads, permissions
 - [Configuration](/kickstart/configuration/) — OpenCode plan/implement files
-- [Self-hosted runners](/operations/self-hosted-runners/) — longer-running kickstart jobs
+- [Self-hosted runners](/operations/self-hosted-runners/) — longer-running
+  kickstart jobs

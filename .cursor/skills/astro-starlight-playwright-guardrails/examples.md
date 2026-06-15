@@ -35,14 +35,16 @@ export default defineConfig({
 
 ## Regenerating slug list for tests
 
-After sidebar changes, run validation and mirror slugs in `e2e/sidebar-slugs.ts`:
+After sidebar changes, run validation and mirror slugs in
+`e2e/sidebar-slugs.ts`:
 
 ```bash
 node .cursor/skills/astro-starlight-playwright-guardrails/scripts/validate-sidebar-slugs.mjs
 # Then update SIDEBAR_SLUGS in e2e/sidebar-pages.spec.ts
 ```
 
-Long term: export slugs from a small shared `scripts/list-sidebar-slugs.mjs` used by both validator and test codegen.
+Long term: export slugs from a small shared `scripts/list-sidebar-slugs.mjs`
+used by both validator and test codegen.
 
 ## Failure: file exists but build still fails
 
@@ -50,7 +52,8 @@ Long term: export slugs from a small shared `scripts/list-sidebar-slugs.mjs` use
 The slug "kickstart/opencode-deepinfra-kimi-k2.6" specified in the Starlight sidebar config does not exist.
 ```
 
-`src/content/docs/kickstart/opencode-deepinfra-kimi-k2.6.md` may exist. Slugifier maps it to `kickstart/opencode-deepinfra-kimi-k26`.
+`src/content/docs/kickstart/opencode-deepinfra-kimi-k2.6.md` may exist.
+Slugifier maps it to `kickstart/opencode-deepinfra-kimi-k26`.
 
 ```bash
 node .cursor/skills/astro-starlight-playwright-guardrails/scripts/validate-sidebar-slugs.mjs
@@ -59,4 +62,5 @@ node .cursor/skills/astro-starlight-playwright-guardrails/scripts/validate-sideb
 #     use sidebar slug: kickstart/opencode-deepinfra-kimi-k26
 ```
 
-Playwright never runs until sidebar slugs and collection ids align. The validate script catches this faster than a full `npm run build`.
+Playwright never runs until sidebar slugs and collection ids align. The validate
+script catches this faster than a full `npm run build`.

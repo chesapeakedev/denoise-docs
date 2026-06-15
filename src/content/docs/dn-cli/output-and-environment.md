@@ -1,8 +1,7 @@
 ---
-title: Output and environment
+title: Output & Environment
 description: Control dn color, unattended output, agent harness selection, and exit-code behavior.
 ---
-
 
 This document describes how `dn` decides output style (colors, spinners,
 branding) and how to control it via environment variables and global flags.

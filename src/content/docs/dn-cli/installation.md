@@ -1,16 +1,20 @@
 ---
-title: Installation & prerequisites
+title: Installation
 description: Install dn and prepare Deno, GitHub auth, agents, and VCS support.
 ---
 
-`dn` is the CLI technology behind denoise automation. Use it directly when setting up a repository, running kickstart locally, dispatching GitHub Actions workflows, or managing issues from the terminal.
+`dn` is the CLI technology behind denoise automation. Use it directly when
+setting up a repository, running kickstart locally, dispatching GitHub Actions
+workflows, or managing issues from the terminal.
 
 ## Prerequisites
 
 - [Deno](https://deno.com/) installed and available in `PATH`
-- An agent harness for agent-backed workflows: [opencode](https://opencode.dev/) by default, or Cursor, Claude Code, or Codex CLI
+- An agent harness for agent-backed workflows: [opencode](https://opencode.dev/)
+  by default, or Cursor, Claude Code, or Codex CLI
 - GitHub authentication through `gh auth login`, `dn auth`, or `GITHUB_TOKEN`
-- Git or [Sapling](https://sapling-scm.com/) for workflows that create branches, commits, or PRs
+- Git or [Sapling](https://sapling-scm.com/) for workflows that create branches,
+  commits, or PRs
 
 ## Install dn
 
@@ -46,7 +50,8 @@ dn init workflows --agent opencode
 dn workflows validate --json
 ```
 
-Agent-backed commands default to OpenCode. Select another harness with the global flag:
+Agent-backed commands default to OpenCode. Select another harness with the
+global flag:
 
 ```bash
 dn --agent codex prep 123

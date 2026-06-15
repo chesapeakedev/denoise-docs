@@ -1,5 +1,5 @@
 ---
-title: GitHub token setup
+title: GitHub Token Setup
 description: Create and configure a GitHub Personal Access Token for dn.
 ---
 
@@ -22,13 +22,17 @@ For **normal use**, prefer **GitHub CLI** (`gh auth login`) or **browser auth**
 
 ## Why a GitHub token is needed
 
-`dn` commands such as `kickstart`, `prep`, `glance`, `peek`, `fixup`, `issue`, and `meld` with issue URLs interact with the GitHub API to:
+`dn` commands such as `kickstart`, `prep`, `glance`, `peek`, `fixup`, `issue`,
+and `meld` with issue URLs interact with the GitHub API to:
 
 - Fetch repository information
 - Retrieve issues and commits
-- Create or update issues, comments, pull requests, releases, and workflow dispatches when requested
+- Create or update issues, comments, pull requests, releases, and workflow
+  dispatches when requested
 
-These operations require authentication. Personal Access Tokens are supported for CI, scripts, and other headless environments where GitHub CLI or browser auth are not available.
+These operations require authentication. Personal Access Tokens are supported
+for CI, scripts, and other headless environments where GitHub CLI or browser
+auth are not available.
 
 ## Creating a Personal Access Token
 
