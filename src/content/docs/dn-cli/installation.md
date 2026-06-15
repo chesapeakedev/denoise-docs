@@ -18,7 +18,18 @@ workflows, or managing issues from the terminal.
 
 ## Install dn
 
-From a checkout of the `dn` repository, compile and install the binary:
+GitHub redirects the
+[latest `dn` release](https://github.com/chesapeakedev/dn/releases/latest) to
+the current release tag.
+
+Install using the installation script:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/chesapeakedev/dn/main/scripts/install.sh | sh
+```
+
+Alternatively, from a clone of the `dn` repository, compile and install the
+binary:
 
 ```bash
 make configure
