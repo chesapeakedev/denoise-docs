@@ -20,51 +20,56 @@ export default defineConfig({
       sidebar: [
         { label: "Introduction", slug: "introduction" },
         {
-          label: "Denoise",
-          items: [
-            { label: "Getting started", slug: "denoise/getting-started" },
-            { label: "Authentication", slug: "denoise/authentication" },
-            { label: "Features", slug: "denoise/features" },
-            { label: "GitHub integration", slug: "denoise/github-integration" },
-            {
-              label: "Tips & troubleshooting",
-              slug: "denoise/tips-troubleshooting",
-            },
-          ],
-        },
-        {
           label: "dn CLI",
           items: [
             {
               label: "Installation & prerequisites",
               slug: "dn-cli/installation",
             },
-            { label: "Subcommands", slug: "dn-cli/subcommands" },
+            { label: "Command overview", slug: "dn-cli/subcommands" },
+            { label: "Workflows", slug: "dn-cli/workflows" },
+            { label: "Repository setup", slug: "dn-cli/repository-setup" },
+            { label: "GitHub automation", slug: "dn-cli/github-automation" },
+            {
+              label: "Task list & sync",
+              slug: "dn-cli/task-list-and-sync",
+            },
             { label: "Authentication", slug: "dn-cli/authentication" },
+            {
+              label: "Output & environment",
+              slug: "dn-cli/output-and-environment",
+            },
             { label: "GitHub token setup", slug: "dn-cli/github-token-setup" },
-          ],
-        },
-        {
-          label: "Kickstart",
-          items: [
-            { label: "Overview", slug: "kickstart/overview" },
-            { label: "Usage", slug: "kickstart/usage" },
+            { label: "Kickstart details", slug: "kickstart/overview" },
             {
               label: "Plan files & continuation",
               slug: "kickstart/plan-files",
             },
-            { label: "Configuration", slug: "kickstart/configuration" },
-            { label: "Artifacts & Cursor", slug: "kickstart/artifacts-cursor" },
+            { label: "OpenCode configuration", slug: "kickstart/configuration" },
             { label: "GitHub Actions", slug: "kickstart/github-actions" },
             {
-              label: "dn workflow integration",
+              label: "GitHub workflow integration",
               slug: "kickstart/github-actions-integration",
             },
             {
               label: "OpenCode + DeepInfra Kimi K2.6",
               slug: "kickstart/opencode-deepinfra-kimi-k2-6",
             },
-            { label: "Troubleshooting", slug: "kickstart/troubleshooting" },
+            { label: "Kickstart troubleshooting", slug: "kickstart/troubleshooting" },
+          ],
+        },
+        {
+          label: "Denoise",
+          items: [
+            { label: "Getting started", slug: "denoise/getting-started" },
+            { label: "Authentication", slug: "denoise/authentication" },
+            { label: "Features", slug: "denoise/features" },
+            { label: "GitHub integration", slug: "denoise/github-integration" },
+            { label: "Deployment", slug: "denoise/deployment" },
+            {
+              label: "Tips & troubleshooting",
+              slug: "denoise/tips-troubleshooting",
+            },
           ],
         },
         {

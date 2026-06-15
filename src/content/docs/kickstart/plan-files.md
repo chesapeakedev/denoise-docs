@@ -3,88 +3,32 @@ title: Plan files & continuation
 description: Plan file locations, structure, completion detection, and continuation prompts.
 ---
 
-Kickstart manages plan files in a `plans/` directory in the workspace root. The
-directory is created automatically. Plan files track implementation progress and
-work with Cursor IDE.
+Kickstart manages plan files in a `plans/` directory in the workspace root. The directory is created automatically. Plan files track implementation progress and give later `dn loop` runs or human reviewers a durable handoff.
 
 ## Plan file locations
 
-- **Default mode** — Uses `plans/.last.plan.md` for iterative development (or
-  `plans/[name].plan.md` with `--save-plan` / `--saved-plan <name>`).
-- **AWP mode** — Always uses `plans/[name].plan.md` (prompts for name, suggests
-  branch name).
+- **Default mode** - Uses `plans/.last.plan.md` unless you provide `--saved-plan <name>` or name an incomplete plan during continuation.
+- **AWP mode** - Uses a named `plans/[name].plan.md`, usually matching the branch/bookmark name.
+- **Milestone mode** - Reads queue state from `plans/{owner}_{repo}_{milestone}.stack.md`; each task still produces a normal plan file.
 
 ## Plan file structure
 
-Plan files contain:
+Plan files contain the issue or markdown context, implementation plan, code pointers, notes, and checklist-style acceptance criteria. The acceptance criteria are the durable progress signal: completed items are marked with `[x]`, remaining items stay `[ ]`.
 
-- **Title** — Issue title (H1)
-- **Overview** — Brief description of the implementation goal
-- **Issue Context** — Issue number, description, labels
-- **Implementation Plan** — Detailed breakdown of changes
-- **Acceptance Criteria** — Checklist format (`- [ ]` / `- [x]`) for progress
-- **Code Pointers** — Files and locations to modify
-- **Notes** — Assumptions, questions, or considerations
+## Plan continuation
 
-## Plan continuation (default mode)
+If the selected plan file already exists, kickstart can continue from it. The planning phase reads the existing content so the agent can update, correct, or extend the plan while preserving progress.
 
-If `plans/.last.plan.md` exists, kickstart prompts: **Continue existing plan?**
-(y/n, default: n). If you continue, existing plan content is read and the
-planning agent can update, correct, or extend it; previous acceptance criteria
-are preserved.
+After implementation, kickstart parses acceptance criteria. If work remains, it generates `plans/[name].continuation.plan.md` with the plan path, progress summary, remaining items, and continuation instructions.
 
-## Completion detection
+## Plan naming
 
-After the implement phase, kickstart:
+Default mode can start with `.last.plan.md` for quick iteration. If incomplete work needs to continue later, kickstart prompts for a durable plan name and writes `plans/[name].plan.md` plus the continuation prompt. Use `--saved-plan <name>` when the plan name must be non-interactive.
 
-1. Parses the **Acceptance Criteria** section
-2. Counts how many items are `[x]` vs `[ ]`
-3. If incomplete, generates a **continuation prompt** file
-
-Example output:
-
-```
-Completion Status: 3/5 acceptance criteria completed
-Plan is incomplete. 2 item(s) remaining.
-```
-
-## Continuation prompt files
-
-For incomplete plans, kickstart creates `plans/[name].continuation.plan.md`
-with:
-
-- Issue context (number, title, URL)
-- Plan file path
-- Progress summary (completed/total)
-- List of remaining items
-- Instructions for continuing
-
-These can be used with Cursor (if `--cursor`), other AI agents, or manual
-continuation.
-
-## Plan naming for incomplete work
-
-**Default mode:** If work is incomplete and you're using `.last.plan.md`,
-kickstart asks: **Would you like to name this plan?** (y/n, default: y). If yes,
-it prompts for a name, saves `plans/[name].plan.md`, and generates
-`plans/[name].continuation.plan.md`.
-
-**AWP mode:** Plans are always named; continuation prompts are generated
-automatically for incomplete work.
+AWP mode and milestone-driven runs use named plans because the plan files are part of the branch/PR workflow.
 
 ## Plan merging
 
-For **named** plans (not `.last.plan.md`), if both a plan file and a
-continuation file exist on a later run:
+For named plans, a later run can merge a continuation file back into the main plan and remove the continuation file after a successful merge. This keeps one plan file with the full history and remaining work.
 
-1. Kickstart detects both files
-2. Merges them into a single plan file
-3. Deletes the continuation file after a successful merge
-
-This keeps one plan file with full context for future continuation.
-
-## Cursor IDE
-
-Plan files work with Cursor: checklist tracking, context for agents, progress
-visible in the plan file, and plan files can be committed for history. Plan
-files are never auto-deleted.
+Plan files are never auto-deleted. Keep them when they are useful for review or archive them after the work lands.

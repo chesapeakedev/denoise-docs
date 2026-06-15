@@ -10,7 +10,7 @@ Use [DeepInfra](https://deepinfra.com/moonshotai/Kimi-K2.6) to run
 OpenCode calls it via a custom provider block in your repo's `opencode*.json` files.
 
 General workflow installation and dispatch reference:
-[dn GitHub Actions integration](/kickstart/github-actions-integration/).
+[GitHub workflow integration](/kickstart/github-actions-integration/).
 
 ## Overview
 
@@ -217,7 +217,7 @@ Fix provider or auth errors locally before dispatching workflows.
 
 ```bash
 echo '{"schema_version":"1.0","dispatch_id":"'"$(uuidgen)"'","issue_url":"https://github.com/owner/repo/issues/42","awp":true}' \
-  | dn workflow run dn.kickstart_issue --repo owner/repo --json --wait
+  | dn workflows run dn.kickstart_issue --repo owner/repo --json --wait
 ```
 
 ### Dispatch from Denoise
@@ -279,6 +279,6 @@ the supported approach.
 
 ## Related
 
-- [dn GitHub Actions integration](/kickstart/github-actions-integration/) — templates, dispatch payloads, permissions
+- [GitHub workflow integration](/kickstart/github-actions-integration/) — templates, dispatch payloads, permissions
 - [Configuration](/kickstart/configuration/) — OpenCode plan/implement files
 - [Self-hosted runners](/operations/self-hosted-runners/) — longer-running kickstart jobs

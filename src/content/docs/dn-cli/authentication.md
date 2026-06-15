@@ -1,63 +1,94 @@
 ---
 title: Authentication
-description: GitHub authentication for dn — GitHub CLI, dn auth, or GITHUB_TOKEN.
+description: "GitHub authentication for dn: environment tokens, GitHub CLI, and browser device flow."
 ---
 
-`glance` and `kickstart` need a GitHub token to call the GitHub API. You can
-authenticate in three ways.
 
-## Preferred: GitHub CLI
+`dn` needs a GitHub token for subcommands that access the GitHub API
+(`kickstart`, `prep`, `glance`, `peek`, `fixup`, `issue`, `meld` with issue
+URLs).
 
-Install [GitHub CLI](https://cli.github.com/) and sign in once:
+## Token resolution order
+
+`dn` checks for a token in this order and uses the first one found:
+
+1. **`GITHUB_TOKEN` environment variable** (or legacy `DANGEROUS_GITHUB_TOKEN`)
+2. **GitHub CLI** — if `gh` is installed and authenticated, `dn` shells out to
+   `gh auth token`
+3. **Cached device-flow token** from `dn auth` (stored in `~/.config/dn/` on
+   Unix-like systems or `%APPDATA%\dn` on Windows)
+
+## Interactive: GitHub CLI (recommended)
+
+Install the [GitHub CLI](https://cli.github.com/) and authenticate:
 
 ```bash
 gh auth login
 ```
 
-After that, dn uses `gh`'s token automatically. No PAT or env var is required.
+No environment variable or configuration needed — `dn` detects `gh`
+automatically.
 
-- [Install GitHub CLI](https://cli.github.com/)
+## Interactive: Browser device flow
 
-## Alternative: Browser login
-
-Run:
+Run `dn auth` to sign in via the browser:
 
 ```bash
 dn auth
 ```
 
-Your browser opens; complete sign-in there. The token is stored (e.g.
-`~/.config/dn/github_token`) and reused by `dn kickstart`, `glance`, etc. You
-only need to run this once, or again when the cached token expires.
+The token is cached locally so subsequent commands work without re-prompting.
 
-**Note:** Device flow requires a GitHub OAuth App client ID. Set
-`DN_GITHUB_DEVICE_CLIENT_ID` (or `GITHUB_DEVICE_CLIENT_ID`) to your app's client
-ID. Create an OAuth App at
-[GitHub Developer Settings](https://github.com/settings/developers), enable
-**Device flow** in the app settings, and use the **Client ID** as the env value.
+**Prerequisite**: `DN_GITHUB_DEVICE_CLIENT_ID` (or `GITHUB_DEVICE_CLIENT_ID`)
+must be set to your GitHub OAuth App's client ID. Create an OAuth App at
+<https://github.com/settings/developers> and enable the Device flow.
 
-- [GitHub OAuth Device flow](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps#device-flow)
+## Non-interactive: environment variable
 
-## Advanced / CI: Personal Access Token
-
-For scripts and CI (e.g. GitHub Actions), set the `GITHUB_TOKEN` environment
-variable with a [Personal Access Token](https://github.com/settings/tokens).
-**Fine-grained PATs** are recommended: they are scoped to specific repositories
-and permissions.
+For CI, scripts, and automation, set `GITHUB_TOKEN`:
 
 ```bash
-export GITHUB_TOKEN="ghp_your_token_here"
+export GITHUB_TOKEN=ghp_...
 ```
 
-Prefer **GitHub CLI** or **browser auth** for normal use; use a PAT only when
-needed (CI, scripts, headless). See
-[GitHub token setup](/dn-cli/github-token-setup/) for detailed PAT instructions
-and security notes.
+A fine-grained Personal Access Token (PAT) is recommended. Grant only the scopes
+your workflows require:
 
-## Summary
+| Scope                                     | Needed for                                  |
+| ----------------------------------------- | ------------------------------------------- |
+| `repo` (or fine-grained `contents: read`) | Reading issues and repo metadata            |
+| `issues: write`                           | `dn issue create/edit/close/reopen/comment` |
+| `pull_requests: write`                    | AWP mode (creating branches and PRs)        |
 
-| Method                  | Use case          | Setup                                           |
-| ----------------------- | ----------------- | ----------------------------------------------- |
-| **GitHub CLI**          | Normal use        | `gh auth login`                                 |
-| **Browser (`dn auth`)** | No `gh` installed | `dn auth` (once) + client ID                    |
-| **GITHUB_TOKEN**        | CI / scripts      | Set env var with PAT (fine-grained recommended) |
+## GitHub Actions
+
+In GitHub Actions, `secrets.GITHUB_TOKEN` is automatically available. Pass it as
+an environment variable:
+
+```yaml
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
+Ensure the workflow has the permissions it needs:
+
+```yaml
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+```
+
+`dn auth` is not suitable for CI — always use environment variables or injected
+secrets.
+
+## Troubleshooting
+
+**"No GitHub token found"** — Run `gh auth login`, `dn auth`, or set
+`GITHUB_TOKEN`.
+
+**"Bad credentials" / 401** — The token may be expired or revoked. Re-run
+`gh auth login` or generate a new PAT.
+
+**"Resource not accessible by integration"** — The token lacks the required
+scope. Check the scope table above and update your PAT or workflow permissions.

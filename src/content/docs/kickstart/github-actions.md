@@ -1,14 +1,15 @@
 ---
-title: GitHub Actions
-description: Run kickstart in CI — canonical dn workflows, legacy triggers, and setup.
+title: GitHub Actions quickstart
+description: Install canonical dn workflows and run kickstart in CI.
 ---
 
-Kickstart can run in GitHub Actions to implement issues and open pull requests.
-There are two layers of documentation:
+`dn` can run in GitHub Actions to prepare plans, generate milestone stacks, or
+implement issues and open pull requests. Start with canonical workflows installed
+by `dn init workflows`; use legacy label workflows only for older repositories.
 
 | Guide | When to use it |
 | ----- | -------------- |
-| [dn GitHub Actions integration](/kickstart/github-actions-integration/) | Installed canonical workflows (`dn init workflows`), dispatch payloads, secrets, validation |
+| [GitHub workflow integration](/kickstart/github-actions-integration/) | Installed canonical workflows (`dn init workflows`), dispatch payloads, secrets, validation |
 | [OpenCode with DeepInfra Kimi K2.6](/kickstart/opencode-deepinfra-kimi-k2-6/) | OpenCode + DeepInfra Kimi K2.6 in those workflows |
 
 ## Quick setup (canonical workflows)
@@ -29,13 +30,13 @@ Trigger kickstart:
 
 ```bash
 echo '{"schema_version":"1.0","dispatch_id":"'"$(uuidgen)"'","issue_number":42}' \
-  | dn workflow run dn.kickstart_issue --repo owner/repo --json --wait
+  | dn workflows run dn.kickstart_issue --repo owner/repo --json --wait
 ```
 
-See [dn GitHub Actions integration](/kickstart/github-actions-integration/) for
+See [GitHub workflow integration](/kickstart/github-actions-integration/) for
 full payload schemas, permissions, and Denoise integration.
 
-## Legacy label and manual workflows
+## Legacy label workflows
 
 Some repositories still ship standalone workflows (for example
 `kickstart-opencode.yml` / `kickstart-cursor.yml`) that trigger on issue labels:

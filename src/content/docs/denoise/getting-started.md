@@ -16,15 +16,15 @@ The app supports authentication via GitHub or Google. To get started:
 integration features. For how sign-in works and how it interacts with the
 offline/online toggle, see [Authentication](/denoise/authentication/).
 
-**Billing and organizations:** Subscription status, Stripe checkout, the
-customer portal, and organization APIs (`/api/subscription/*`,
-`/api/organizations/*`) are provided by the **main denoise app** (the same
-origin as the product UI). This documentation site is static-only and does not
-expose those routes; integrate or test billing against the app deployment, not
-the docs host.
-
 ## Creating your first task
 
 1. Type your task in the input field at the top
 2. Press **Enter** or click the add button
 3. Your task appears in the list below
+
+## Next steps
+
+- Use [Features](/denoise/features/) to learn tasks, milestones, collaboration,
+  and GitHub sync.
+- Use [GitHub integration](/denoise/github-integration/) when you want to link
+  milestones to GitHub issues and dn workflows.

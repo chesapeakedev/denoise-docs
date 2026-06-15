@@ -1,102 +1,66 @@
 ---
-title: Overview
-description: How kickstart works — plan and implement phases, default vs AWP mode.
+title: Kickstart details
+description: How dn kickstart plans and implements GitHub issues or local markdown specs.
 ---
 
-Kickstart is a Deno application that completes GitHub issues using opencode
-directly on the host machine, without Docker or containerization. opencode and
-Deno provide sandboxing for both the agent and the orchestrator: you point an
-agent at a GitHub issue and have it implement the work on your machine with
-reasonable sandboxing.
+Kickstart is one `dn` workflow for turning a GitHub issue, issue number,
+milestone queue item, or local markdown spec into a plan and implementation.
+For the broader command map, start with [Command overview](/dn-cli/subcommands/)
+or [Workflows](/dn-cli/workflows/).
 
 ## CLI usage
 
-Kickstart is available as part of the `dn` CLI:
-
 ```bash
 # Full workflow
-dn kickstart <issue_url_or_number>
+dn kickstart https://github.com/owner/repo/issues/123
+dn kickstart 123
+
+# Local markdown context, with no GitHub fetch and no AWP mode
+dn kickstart docs/spec.md
 
 # Plan phase only
-dn prep <issue_url_or_number>
+dn prep 123
 
-# Loop phase only (requires plan file from prep)
+# Loop phase only; auto-discovers the latest plan if omitted
 dn loop --plan-file plans/<name>.plan.md
+
+# Select an agent harness
+dn --agent codex kickstart 123
+dn --agent claude prep 123
 ```
 
-You can pass a full GitHub issue URL or an issue number for the current
-repository (e.g. `123` or `#123`). If the issue URL points to a different
-repository than the current workspace, kickstart and prep exit with an error.
-See [dn CLI Subcommands](/dn-cli/subcommands/) for full CLI documentation.
+Issue arguments can be full GitHub issue URLs, issue numbers for the current repository, or local markdown files. Cross-repository issue URLs require `--allow-cross-repo`; AWP mode remains same-repository because branch, commit, and PR operations need the current workspace repository.
 
 ## Two modes
 
-- **Default mode** — Applies changes locally to your workspace. You handle
-  branches, commits, and PRs manually. Uses `plans/.last.plan.md` for iterative
-  development unless you use `--save-plan` or `--saved-plan`.
-- **AWP mode** — Full guided workflow: creates branches, commits changes, and
-  opens a PR automatically. Always uses named plan files
-  (`plans/[name].plan.md`).
+- **Default mode** - Applies changes locally. You handle commits and PRs manually. It uses `plans/.last.plan.md` unless a specific plan is selected with `--saved-plan <name>` or a plan name is requested during continuation.
+- **AWP mode** - Creates a branch/bookmark, commits changes, pushes, and opens a PR. It uses named plan files in `plans/[name].plan.md` and requires Git or Sapling.
 
 ## How it works
 
-Kickstart orchestrates a **two-phase workflow** (Plan → Implement) with:
+1. Resolve issue context from GitHub or load a local markdown file.
+2. Select the plan path and run the plan phase.
+3. Validate the plan file.
+4. Run the implement phase.
+5. Check acceptance-criteria completion.
+6. Generate continuation prompts if work remains.
+7. Run linting and generate agent artifacts where applicable.
+8. In AWP mode, commit, push, and create a PR.
 
-- **Completion detection** — Automatically checks acceptance criteria checklists
-  after implementation
-- **Continuation prompts** — Generates prompts for incomplete work (e.g.
-  `plans/[name].continuation.plan.md`)
-- **Plan merging** — For named plans, combines plan and continuation files into
-  one
-- **Artifact generation** — Updates AGENTS.md and can create Cursor rules (see
-  [Artifacts & Cursor](/kickstart/artifacts-cursor/))
+Kickstart can also work from milestone stack files created by `dn init stack`:
 
-Plan files live in the workspace `plans/` directory and can be continued across
-multiple runs.
+```bash
+dn init stack 42
+dn kickstart --milestone 42
+dn kickstart --milestone 42 --complete
+```
 
-### Default mode flow (summary)
-
-1. Resolve issue context (fetch from GitHub or load file)
-2. Ensure `plans/` exists; resolve plan path (`plans/.last.plan.md` or named)
-3. If a plan file exists, prompt: continue existing plan?
-4. **Plan phase** — Read-only analysis; creates/updates `plans/[name].plan.md`
-5. Validate plan file
-6. **Implement phase** — Apply code changes; update acceptance criteria
-7. Check completion (parse acceptance criteria)
-8. If incomplete: prompt to name plan (for continuation) and generate
-   continuation prompt; optionally merge plan + continuation
-9. Run linting (non-blocking)
-10. Generate artifacts (AGENTS.md, Cursor rules if `--cursor`)
-11. Validate changes — user handles Git/PR manually
-
-### AWP mode flow (summary)
-
-1. Resolve issue context
-2. Detect VCS (Git or Sapling); prompt: use current branch or create new?
-3. If new: prompt for branch name (suggested: `kickstart/issue_N_slug`); create
-   branch/bookmark
-4. Ensure `plans/`; prompt for plan name (suggest branch name)
-5. **Plan phase** — Creates `plans/[name].plan.md`
-6. Validate → **Implement phase** → Check completion
-7. If incomplete: generate continuation; optionally merge
-8. Lint → Artifacts → Validate changes
-9. **Commit and push** (message: `#N Title`)
-10. **Create PR** (title: `#N Title`, body: `Closes #N`)
-
-## Key differences
-
-**Default mode:** Uses `plans/.last.plan.md` unless you pass `--save-plan` or
-`--saved-plan`. Prompts to continue an existing plan if found. No VCS required.
-You handle git/PR manually.
-
-**AWP mode:** Always prompts for plan name (suggests branch name). Creates named
-plans; plan files are included in commits and PRs. Requires Git or Sapling.
-Automatically creates branch, commit, and PR.
+`--complete` runs remaining unchecked stack tasks without prompting between queue items. Plan naming and agent prompts can still occur unless separately configured.
 
 ## Dependencies
 
-- [Deno](https://deno.com/) and [opencode](https://opencode.dev/) in PATH
-- GitHub authentication: [GitHub CLI](https://cli.github.com/)
-  (`gh auth login`), or `dn auth`, or `GITHUB_TOKEN` (see
-  [Authentication](/dn-cli/authentication/))
-- Git or [Sapling](https://sapling-scm.com/) (for AWP mode)
+- [Deno](https://deno.com/) and an agent harness in `PATH`
+- GitHub authentication through `gh`, `dn auth`, or `GITHUB_TOKEN`
+- Git or Sapling for AWP mode
+
+See [Workflows](/dn-cli/workflows/) for the command-family reference.

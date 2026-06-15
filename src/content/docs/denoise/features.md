@@ -3,30 +3,30 @@ title: Features
 description: Tasks, milestones, and focus timer in denoise.
 ---
 
-## Value proposition
+## Overview
 
-- For knowledge workers (and busy normies)
-- Who are overwhelmed with life's small tasks and are paralyzed by it
-- denoise is an app to focus your effort
-- That provides a streamlined planning experience and encourages progress
-- Unlike GitHub, Jira, Asana
+denoise is an offline-first planning app for small tasks, project milestones,
+and GitHub-backed work. It keeps personal planning fast and local by default,
+then adds sync, collaboration, GitHub issue integration, and dn-powered
+automation when you sign in and connect a repository.
 
-## Features
+## Core features
 
-- **Minimal interface** — Offline-first todo management
-- **Focus timer** — Productivity and velocity scoring system
-- **SSO** — Sign in with GitHub or Google
-- **Multiplayer** — Collaborative interface for planning
-- **GitHub issue synchronization** — Link milestones and sync issues
+- **Offline-first tasks** - Create and edit tasks locally, even without signing in.
+- **Milestones** - Group tasks into projects or planning slices.
+- **Focus timer** - Track focused work sessions alongside task progress.
+- **Sign-in with GitHub or Google** - Enable cloud sync and identity-backed workflows.
+- **Collaboration** - Share published milestones with collaborators.
+- **GitHub issue sync** - Link milestones, import issues, and push task updates back to GitHub.
 
 ## Task management
 
-- **Complete/Incomplete** — Click the checkmark to toggle task completion
-- **Edit** — Click the edit icon to modify task text
-- **Delete** — Click the trash icon to remove a task
-- **Tags** — Add tags to organize tasks (tags sync to GitHub as labels)
-- **Due dates** — Set due dates for tasks
-- **Urgent flag** — Mark tasks as urgent for priority
+- **Complete or reopen** - Toggle task completion from the task row.
+- **Edit** - Update task title and description.
+- **Delete** - Remove tasks you no longer need.
+- **Tags** - Organize tasks; GitHub-linked tags sync as labels.
+- **Due dates** - Track deadlines.
+- **Urgent flag** - Mark tasks that need priority attention.
 
 ### Filtering and sorting tasks
 
@@ -65,9 +65,9 @@ helpful when you have many milestones and need to quickly find a specific one.
 
 ## Usage metrics (opt-in)
 
-denoise can collect anonymous usage metrics (e.g. upgrade clicks, milestone/task
-counts) to help improve the product. Metrics are **opt-in only**: in Settings,
-enable “Share anonymous usage data to help us improve the product.” When
-enabled, counts are stored in the same KV store as the rest of the app and are
-included in the existing daily B2 backup; no separate backup configuration is
-required.
+denoise can collect anonymous usage metrics, such as upgrade clicks and
+milestone/task counts, to help improve the product. Metrics are opt-in only. In
+Settings, enable **Share anonymous usage data to help us improve the product**.
+
+When enabled, counts are stored in the same KV store as the rest of the app and
+included in the existing daily B2 backup.

@@ -3,9 +3,9 @@ title: GitHub token setup
 description: Create and configure a GitHub Personal Access Token for dn.
 ---
 
-This guide explains how to create a GitHub Personal Access Token (PAT) for use
-with `glance` and `kickstart` when you're not using GitHub CLI or browser auth.
-Set the `GITHUB_TOKEN` environment variable with your token.
+This supplemental guide explains how to create a GitHub Personal Access Token
+(PAT) for `dn` when you cannot use GitHub CLI or browser auth. For the normal
+token resolution order, see [Authentication](/dn-cli/authentication/).
 
 **Recommendation:** Prefer **fine-grained PATs** over classic tokens: they are
 scoped to specific repositories and permissions, reducing risk if the token is
@@ -20,19 +20,15 @@ For **normal use**, prefer **GitHub CLI** (`gh auth login`) or **browser auth**
 - Running in scripts or headless environments
 - You cannot use `gh` or browser login
 
-When you do use a PAT, **fine-grained tokens** are recommended: they limit
-access to specific repositories and permissions.
-
 ## Why a GitHub token is needed
 
-The `glance` and `kickstart` tools interact with the GitHub API to:
+`dn` commands such as `kickstart`, `prep`, `glance`, `peek`, `fixup`, `issue`, and `meld` with issue URLs interact with the GitHub API to:
 
 - Fetch repository information
 - Retrieve issues and commits
-- Create pull requests
+- Create or update issues, comments, pull requests, releases, and workflow dispatches when requested
 
-These operations require authentication. Personal Access Tokens are supported as
-a fallback when GitHub CLI or browser auth are not available.
+These operations require authentication. Personal Access Tokens are supported for CI, scripts, and other headless environments where GitHub CLI or browser auth are not available.
 
 ## Creating a Personal Access Token
 
@@ -112,12 +108,20 @@ To make it persistent, add to your PowerShell profile:
 [System.Environment]::SetEnvironmentVariable("GITHUB_TOKEN", "ghp_your_token_here", "User")
 ```
 
-### Verify token is set
+### Verify the variable is set
 
 ```bash
-echo $GITHUB_TOKEN  # macOS/Linux
-echo $env:GITHUB_TOKEN  # Windows PowerShell
+test -n "$GITHUB_TOKEN" && echo "GITHUB_TOKEN is set"
 ```
+
+In PowerShell:
+
+```powershell
+if ($env:GITHUB_TOKEN) { "GITHUB_TOKEN is set" }
+```
+
+Do not print the token value in shared terminals, shell history, screenshots, or
+CI logs.
 
 ## Required scopes / permissions
 
@@ -153,8 +157,9 @@ echo $env:GITHUB_TOKEN  # Windows PowerShell
 
 ### "No GitHub token found" or token not used
 
-- Verify the token is set: `echo $GITHUB_TOKEN` (or `echo $env:GITHUB_TOKEN` on
-  Windows)
+- Verify the token variable is set without printing it:
+  `test -n "$GITHUB_TOKEN" && echo "GITHUB_TOKEN is set"` (or
+  `if ($env:GITHUB_TOKEN) { "GITHUB_TOKEN is set" }` in PowerShell)
 - Make sure you've reloaded your shell after setting the variable
 - dn accepts `GITHUB_TOKEN` (preferred) or the legacy `DANGEROUS_GITHUB_TOKEN`
 

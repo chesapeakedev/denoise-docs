@@ -1,71 +1,67 @@
 ---
 title: GitHub integration
-description: Link milestones to GitHub, sync issues, and convert tasks to issues.
+description: Link milestones to GitHub, sync issues, and trigger dn-backed workflows.
 ---
 
-The app provides powerful integration with GitHub milestones and issues,
-allowing you to manage your development workflow directly from denoise.
+Denoise connects the app experience to GitHub issues, milestones, and installed `dn` workflows. The app can sync task state with GitHub and, when a repository has canonical dn workflows installed, trigger planning and kickstart automation from the UI.
+
+## Prepare the repository
+
+Install the dn workflow templates in the target repository:
+
+```bash
+dn init workflows --agent opencode
+dn workflows validate --json
+```
+
+Commit `.github/dn/config.json`, `.github/dn/install-agent.sh`, and the generated `.github/workflows/dn-*.yml` files. Set the secret required by the configured agent, such as `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, or `CURSOR_API_KEY`.
+
+See [GitHub workflow integration](/kickstart/github-actions-integration/) for dispatch payloads, permissions, and troubleshooting.
 
 ## Linking a milestone to GitHub
 
 To connect a milestone in the app to a GitHub milestone:
 
-1. **Create or select a milestone** in the app
-2. When creating a new milestone, you'll be prompted: "Would you like to link a
-   GitHub milestone?"
-   - Click **OK** to link a GitHub milestone
-   - Click **Cancel** to create a regular (non-GitHub) milestone
-3. If you choose to link, the **GitHub Milestone Wizard** will open
-
-### GitHub Milestone Wizard
-
-**Step 1: Select Organization or User** — Choose from your GitHub organizations
-or your personal account.
-
-**Step 2: Select Repository** — Choose the repository that contains the
-milestone you want to link (repositories are sorted by most recently updated).
-
-**Step 3: Select Milestone** — Choose the specific GitHub milestone to link
-(only open milestones are shown by default).
-
+1. Create or select a milestone in the app.
+2. Choose to link a GitHub milestone when prompted.
+3. Select the organization or user, repository, and open milestone in the GitHub Milestone Wizard.
 4. Click **Link Milestone** to complete the connection.
 
-Once linked, you'll see a GitHub icon next to the milestone name, and the
-milestone will automatically sync issues from GitHub.
+Once linked, denoise shows a GitHub indicator next to the milestone and syncs issues from GitHub.
 
 ## Automatic issue sync
 
-When a milestone is linked to GitHub, the app automatically:
+When a milestone is linked to GitHub, the app can:
 
-- Fetches all issues from the linked GitHub milestone
-- Creates tasks in the app for each GitHub issue
-- Updates tasks when issues change on GitHub
-- Syncs completion status (closed issues appear as completed tasks)
+- Fetch issues from the linked GitHub milestone
+- Create app tasks for GitHub issues
+- Update tasks when issues change on GitHub
+- Reflect closed issues as completed tasks
 
-**Sync behavior:** Initial sync happens when you link; the app syncs from GitHub
-every 5 minutes and when you view a GitHub-linked milestone.
+GitHub issues appear in the app as `#123: Issue Title`. Sync is disabled while offline; local changes remain saved and sync again when connectivity returns.
 
-GitHub issues appear in the app as `#123: Issue Title`.
+## Triggering dn workflows
+
+For repositories with installed templates, denoise can dispatch the same workflow
+events exposed by `dn workflows run`:
+
+- `dn.init_stack` - Generate milestone stack markdown and JSON files.
+- `dn.prep_issue_plan` - Produce a plan for an issue.
+- `dn.kickstart_issue` - Run plan plus implementation, optionally with AWP.
+
+The repository chooses its agent in `.github/dn/config.json`; denoise dispatch payloads do not choose the agent.
 
 ## Converting tasks to GitHub issues
 
-1. Ensure your task is in a **GitHub-linked milestone** (GitHub icon next to the
-   milestone).
-2. Find the **"Create Issue"** button on tasks that are not already GitHub
-   issues.
-3. Click **Create Issue** — a dialog shows milestone info, title, description,
-   and labels (task tags become GitHub labels).
-4. Review and edit, then click **Create Issue**. The task becomes a GitHub issue
-   and syncs bidirectionally.
+1. Ensure the task is in a GitHub-linked milestone.
+2. Use **Create Issue** on a task that is not already a GitHub issue.
+3. Review the title, description, milestone, and labels.
+4. Create the issue; denoise links the task and syncs future changes.
 
 ## Bidirectional sync
 
-**App → GitHub:** Updating task text updates the issue title; description and
-tags sync to the issue body and labels; marking a task complete closes the
-issue.
+**App to GitHub:** task title, description, tags, and completion state can update the linked issue.
 
-**GitHub → App:** Issue updates appear in the app within about 5 minutes;
-closure/reopening and label changes sync to task completion and tags.
+**GitHub to app:** issue title, body, labels, closed/reopened state, and milestone changes sync back into denoise.
 
-**Notes:** GitHub sync is disabled offline. If sync fails, local changes are
-still saved. The most recent change wins.
+If sync conflicts occur, the most recent change wins.

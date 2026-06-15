@@ -1,5 +1,5 @@
 ---
-title: dn GitHub Actions integration
+title: GitHub workflow integration
 description: Install canonical dn workflows, configure agents, dispatch events, and validate repository readiness.
 ---
 
@@ -8,7 +8,7 @@ templates shipped in the [`dn`](https://github.com/chesapeakedev/dn) repository 
 installed into consumer repos under `.github/workflows/`. Denoise and other tools
 dispatch these workflows through stable `repository_dispatch` contracts.
 
-For a quick label-based kickstart setup, see [GitHub Actions](/kickstart/github-actions/).
+For the short setup path, see [GitHub Actions quickstart](/kickstart/github-actions/).
 For OpenCode with [DeepInfra Kimi K2.6](/kickstart/opencode-deepinfra-kimi-k2-6/), see
 that guide after installing workflows here.
 
@@ -99,7 +99,7 @@ Optional: `refresh` (defaults to `true`).
 
 ```bash
 echo '{"schema_version":"1.0","dispatch_id":"'"$(uuidgen)"'","milestone":"1"}' \
-  | dn workflow run dn.init_stack --repo owner/repo --json
+  | dn workflows run dn.init_stack --repo owner/repo --json
 ```
 
 Writes `plans/{owner}_{repo}_{milestone}.stack.md` and `.stack.json`.
@@ -113,7 +113,7 @@ Optional: `plan_name`.
 
 ```bash
 echo '{"schema_version":"1.0","dispatch_id":"'"$(uuidgen)"'","issue_number":42}' \
-  | dn workflow run dn.prep_issue_plan --repo owner/repo --json
+  | dn workflows run dn.prep_issue_plan --repo owner/repo --json
 ```
 
 ### `dn.kickstart_issue`
@@ -125,7 +125,7 @@ Optional: `awp` (defaults to `true`).
 
 ```bash
 echo '{"schema_version":"1.0","dispatch_id":"'"$(uuidgen)"'","issue_url":"https://github.com/owner/repo/issues/42","awp":true}' \
-  | dn workflow run dn.kickstart_issue --repo owner/repo --json --wait
+  | dn workflows run dn.kickstart_issue --repo owner/repo --json --wait
 ```
 
 `repository_dispatch` returns HTTP **204** with no run id. Poll for runs:
@@ -134,7 +134,7 @@ echo '{"schema_version":"1.0","dispatch_id":"'"$(uuidgen)"'","issue_url":"https:
 gh run list --repo owner/repo --event repository_dispatch
 ```
 
-Use `dn workflow run --wait` to block until a new run appears and print its URL.
+Use `dn workflows run --wait` to block until a new run appears and print its URL.
 
 ## Permissions
 
