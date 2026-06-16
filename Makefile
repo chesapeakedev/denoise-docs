@@ -112,6 +112,9 @@ check_deploy:
 deploy:
 	@./scripts/deploy.sh "${DEPLOY_HOST}" "${DEPLOY_DIR}"
 
+sync: ; dn sync
+publish: sync deploy
+
 # Deploy to Deno Deploy (cloud)
 deploy_deno:
 	npm run deno-deploy
