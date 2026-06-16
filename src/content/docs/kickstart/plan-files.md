@@ -1,5 +1,5 @@
 ---
-title: Plan files & continuation
+title: The plans/ Directory
 description: Plan file locations, structure, completion detection, and continuation prompts.
 ---
 

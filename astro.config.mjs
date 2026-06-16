@@ -40,25 +40,16 @@ export default defineConfig({
             },
             { label: "GitHub token setup", slug: "dn-cli/github-token-setup" },
             {
-              label: "Plan files & continuation",
+              label: "The plans/ Directory",
               slug: "kickstart/plan-files",
             },
             {
               label: "OpenCode configuration",
               slug: "kickstart/configuration",
             },
-            { label: "GitHub Actions", slug: "kickstart/github-actions" },
-            {
-              label: "GitHub workflow integration",
-              slug: "kickstart/github-actions-integration",
-            },
             {
               label: "OpenCode + DeepInfra Kimi K2.6",
               slug: "kickstart/opencode-deepinfra-kimi-k2-6",
-            },
-            {
-              label: "Kickstart troubleshooting",
-              slug: "kickstart/troubleshooting",
             },
           ],
         },

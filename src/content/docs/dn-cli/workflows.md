@@ -139,5 +139,5 @@ dn kickstart --milestone 42 --complete
 queue items. Plan naming and agent prompts can still occur unless separately
 configured.
 
-See [Plan files and continuation](/kickstart/plan-files/) for plan file
+See [The plans/ Directory](/kickstart/plan-files/) for plan file behavior,
 behavior, completion detection, and continuation prompts.

@@ -11,7 +11,7 @@ OpenCode calls it via a custom provider block in your repo's `opencode*.json`
 files.
 
 General workflow installation and dispatch reference:
-[GitHub workflow integration](/kickstart/github-actions-integration/).
+[Github Integration](/dn-cli/github-integration/).
 
 ## Overview
 
@@ -281,7 +281,7 @@ above is the supported approach.
 
 ## Related
 
-- [GitHub workflow integration](/kickstart/github-actions-integration/) —
+- [Github Integration](/dn-cli/github-integration/) —
   templates, dispatch payloads, permissions
 - [Configuration](/kickstart/configuration/) — OpenCode plan/implement files
 - [Self-hosted runners](/operations/self-hosted-runners/) — longer-running
