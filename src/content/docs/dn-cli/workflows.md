@@ -1,5 +1,5 @@
 ---
-title: Basic usage
+title: Orchestrate Agents
 description: Plan, implement, archive plans, and address PR feedback with dn
 ---
 
@@ -139,5 +139,5 @@ dn kickstart --milestone 42 --complete
 queue items. Plan naming and agent prompts can still occur unless separately
 configured.
 
-See [The plans/ Directory](/kickstart/plan-files/) for plan file behavior,
+See [Filesystem Context](/kickstart/filesystem-context/) for plan file behavior,
 completion detection, and continuation prompts.

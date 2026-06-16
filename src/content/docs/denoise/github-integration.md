@@ -23,7 +23,7 @@ configured agent, such as `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, or
 `CURSOR_API_KEY`.
 
 See
-[Repository setup — Dispatch payloads](/dn-cli/github-actions/#dispatch-payloads)
+[GitHub Actions Integration — Dispatch payloads](/dn-cli/github-actions/#dispatch-payloads)
 for dispatch payloads, permissions, and troubleshooting.
 
 ## Linking a milestone to GitHub

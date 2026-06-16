@@ -26,20 +26,20 @@ export default defineConfig({
               label: "Installation",
               slug: "dn-cli/installation",
             },
-            { label: "Command overview", slug: "dn-cli/subcommands" },
-            { label: "Basic usage", slug: "dn-cli/workflows" },
-            { label: "Kickstart usage", slug: "kickstart/overview" },
+            { label: "Subcommands", slug: "dn-cli/subcommands" },
+            { label: "Orchestrate Agents", slug: "dn-cli/workflows" },
+            { label: "Kickstart & Looping", slug: "kickstart/overview" },
             {
-              label: "The plans/ Directory",
-              slug: "kickstart/plan-files",
+              label: "Filesystem Context",
+              slug: "kickstart/filesystem-context",
             },
-            { label: "GitHub commands", slug: "dn-cli/github-commands" },
+            { label: "Working with Github", slug: "dn-cli/github-commands" },
             {
-              label: "Task list & sync",
+              label: "Experimental",
               slug: "dn-cli/task-list-and-sync",
             },
             {
-              label: "Output & environment",
+              label: "Non-interactive Use",
               slug: "dn-cli/output-and-environment",
             },
           ],
@@ -47,7 +47,10 @@ export default defineConfig({
         {
           label: "dn in github actions",
           items: [
-            { label: "Repository setup", slug: "dn-cli/github-actions" },
+            {
+              label: "GitHub Actions Integration",
+              slug: "dn-cli/github-actions",
+            },
             { label: "GitHub token setup", slug: "dn-cli/github-token-setup" },
             {
               label: "OpenCode configuration",

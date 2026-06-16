@@ -1,14 +1,14 @@
 ---
 title: Introduction
-description: Documentation for the denoise ecosystem — a set of tools for managing agentic workflows to create software factories.
+description: Documentation for denoise - a set of tools for managing agentic workflows to create software factories.
 ---
 
 Welcome to the denoise documentation! This website contains exhaustive
-documenation on denoise software & how to integrate them into your workflow.
+documenation on all denoise software & how to integrate into your workflow.
 Denoise is a set of tools for managing agentic workflows to create software
 factorires. The goal of the toolkit is to enable you as a developer to share a
 streamlined workflow with your agent(s) and teammates in async & real-time
-experiences.
+experiences, working one level above syntax.
 
 Denoise is isomorophic. A terminal & web experience share the same core
 capabilities — "ticket" workflows, agent-backed planning, automation of SWE,
@@ -32,10 +32,10 @@ available automations without forcing everyone into the same tool:
 
 | Need                                       | Start here                                                                                                                                                    |
 | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Install and use dn                         | [Installation](/dn-cli/installation/) -> [Command overview](/dn-cli/subcommands/)                                                                             |
-| Implement Github Issues with dn & an Agent | [Basic usage](/dn-cli/workflows/) -> [Kickstart usage](/kickstart/overview/)                                                                                  |
-| Automate in GitHub Actions                 | [Repository setup](/dn-cli/github-actions/) -> [OpenCode configuration](/kickstart/configuration/)                                                            |
-| Connect denoise to dn Workflows            | [denoise GitHub integration](/denoise/github-integration/) -> [Repository setup — Denoise integrators](/dn-cli/github-actions/#denoise-and-other-integrators) |
+| Install and use dn                         | [Installation](/dn-cli/installation/) -> [Subcommands](/dn-cli/subcommands/)                                                                                            |
+| Implement Github Issues with dn & an Agent | [Orchestrate Agents](/dn-cli/workflows/) -> [Kickstart & Looping](/kickstart/overview/)                                                                                 |
+| Automate in GitHub Actions                 | [GitHub Actions Integration](/dn-cli/github-actions/) -> [OpenCode configuration](/kickstart/configuration/)                                                            |
+| Connect denoise to dn Workflows            | [denoise GitHub integration](/denoise/github-integration/) -> [GitHub Actions Integration — Denoise integrators](/dn-cli/github-actions/#denoise-and-other-integrators) |
 
 ## Examples
 

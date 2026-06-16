@@ -1,10 +1,43 @@
 ---
-title: Task list & sync
-description: Maintain dn's local task queue and keep Sapling work synchronized.
+title: Experimental
+description: Experimental dn commands for context inspection, issue suggestions, task queues, and Sapling sync.
 ---
 
-These commands help decide what to work on next and keep local work aligned with
-the repository trunk.
+These commands are experimental. They may change or be removed in future `dn`
+releases.
+
+## `dn context`
+
+Inspects the inherited `AGENTS.md` chain for a file or directory:
+
+```bash
+dn context check cli/main.ts
+dn context check cli/main.ts --max-bytes 65536
+dn context check cli/main.ts --json
+dn context check cli/main.ts --claude-tokens
+```
+
+The command walks from global Codex context through the repository path,
+preferring `AGENTS.override.md` over `AGENTS.md` in each directory, then reports
+the full byte size and the subset that fits inside the configured byte budget.
+
+`--claude-tokens` requires `ANTHROPIC_API_KEY` and estimates token usage for the
+included context.
+
+## `dn peek`
+
+Suggests next open issues with a fixed heuristic scoring model. In conversation,
+this gives an agent a concrete way to propose what it should work on next:
+
+```bash
+dn peek
+dn peek --limit 5
+dn peek --fetch 200
+dn peek --verbose --no-urls
+```
+
+`peek` uses GitHub GraphQL issue paging only. It does not invoke the LLM-based
+kickstart readiness scorer.
 
 ## `dn todo`
 

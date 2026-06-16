@@ -3,9 +3,8 @@ title: Installation
 description: Install dn, authenticate with GitHub, and run your first commands.
 ---
 
-`dn` is the CLI technology behind denoise automation. Use it directly when
-setting up a repository, running kickstart locally, dispatching GitHub Actions
-workflows, or managing issues from the terminal.
+`dn` is the terminal experience for denoise. This page explains how to get
+started orchestrating agents.
 
 ## Install dn
 
@@ -20,8 +19,6 @@ To customize the install directory or pin a version:
 ```bash
 curl -fsSL https://raw.githubusercontent.com/chesapeakedev/dn/main/scripts/install.sh | sh -s -- --install-dir /usr/local/bin --version v0.1.0
 ```
-
-See `scripts/install.sh --help` for all options.
 
 ### Download a pre-built binary
 
@@ -55,7 +52,7 @@ Privacy & Security → Open Anyway**, or run
 
 Run `dn` with no arguments to see the current command list.
 
-## Build from source
+## Building from source
 
 ### Prerequisites
 
@@ -70,12 +67,6 @@ Clone, build, and install:
 git clone https://github.com/chesapeakedev/dn.git
 cd dn
 make install
-```
-
-You can also run the CLI directly from the repository while developing:
-
-```bash
-deno run --allow-all cli/main.ts <subcommand> [options]
 ```
 
 ## GitHub authentication
@@ -94,7 +85,7 @@ URLs).
 3. **Cached device-flow token** from `dn auth` (stored in `~/.config/dn/` on
    Unix-like systems or `%APPDATA%\dn` on Windows)
 
-### Interactive: GitHub CLI (recommended)
+### Interactive: GitHub CLI
 
 Install the [GitHub CLI](https://cli.github.com/) and authenticate:
 
@@ -104,20 +95,6 @@ gh auth login
 
 No environment variable or configuration needed — `dn` detects `gh`
 automatically.
-
-### Interactive: Browser device flow
-
-Run `dn auth` to sign in via the browser:
-
-```bash
-dn auth
-```
-
-The token is cached locally so subsequent commands work without re-prompting.
-
-**Prerequisite**: `DN_GITHUB_DEVICE_CLIENT_ID` (or `GITHUB_DEVICE_CLIENT_ID`)
-must be set to your GitHub OAuth App's client ID. Create an OAuth App at
-<https://github.com/settings/developers> and enable the Device flow.
 
 ### Non-interactive: environment variable
 
@@ -207,6 +184,6 @@ dn --agent codex prep 123
 dn --agent claude kickstart --awp 123
 ```
 
-For detailed command behavior, see [Command Overview](/dn-cli/subcommands/),
-[Basic Usage](/dn-cli/workflows/), and
-[Output & Environment](/dn-cli/output-and-environment/).
+For more on usage, see [Subcommands](/dn-cli/subcommands/),
+[Orchestrate Agents](/dn-cli/workflows/), and
+[Non-interactive Use](/dn-cli/output-and-environment/).

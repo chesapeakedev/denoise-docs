@@ -1,5 +1,5 @@
 ---
-title: Output & environment
+title: Non-interactive Use
 description: Control dn color, unattended output, agent harness selection, and exit-code behavior.
 ---
 

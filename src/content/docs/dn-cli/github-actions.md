@@ -1,5 +1,5 @@
 ---
-title: Repository setup
+title: GitHub Actions Integration
 description: Install dn workflow templates in a GitHub repository and run kickstart in GitHub Actions.
 ---
 
@@ -261,7 +261,7 @@ Dispatch events are the canonical integration path for automation. See also
 | Dispatch accepted but no run     | Poll `repository_dispatch` runs; confirm workflow files exist on the default branch      |
 
 See also
-[Kickstart usage — Troubleshooting](/kickstart/overview/#troubleshooting) and
+[Kickstart & Looping — Troubleshooting](/kickstart/overview/#troubleshooting)
 [Self-hosted runners](/operations/self-hosted-runners/).
 
 ## Legacy label workflows
