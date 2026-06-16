@@ -29,12 +29,20 @@ Start with dn when you want to:
 - Run **kickstart** to turn a GitHub issue or local markdown spec into a plan
   and implementation
 - Split work into **prep** and **loop** phases for reviewable planning
-- Install canonical GitHub Actions workflows with `dn init workflows`
-- Dispatch and validate automation with `dn workflows`
 - Manage agent harnesses with `dn --agent opencode`, `cursor`, `claude`, or
   `codex`
 
-**Next:** [dn — Installation](/dn-cli/installation/)
+**Next:** [Installation](/dn-cli/installation/)
+
+## dn in GitHub Actions
+
+Use dn in CI when you want to:
+
+- Install canonical workflow templates with `dn init workflows`
+- Dispatch kickstart, prep, and stack generation from the terminal or denoise
+- Run kickstart on issues and open pull requests in GitHub Actions
+
+**Next:** [Repository setup](/dn-cli/github-actions/)
 
 ## denoise (app)
 
@@ -49,9 +57,10 @@ Use denoise when you want the app experience around dn-powered work:
 
 ## Quick links
 
-| Need                          | Start here                                                                                                                  |
-| ----------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| Install and use dn            | [Installation](/dn-cli/installation/) -> [Command overview](/dn-cli/subcommands/)                                           |
+| Need                          | Start here                                                                                                                                                    |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Install and use dn            | [Installation](/dn-cli/installation/) -> [Command overview](/dn-cli/subcommands/)                                                                             |
 | Authenticate GitHub access    | [Installation](/dn-cli/installation/#github-authentication) -> [GitHub Token Setup](/dn-cli/github-token-setup/)                                              |
-| Run issue implementation      | [Basic usage](/dn-cli/workflows/) -> [Kickstart usage](/kickstart/overview/)                                                |
-| Connect denoise to automation | [denoise GitHub integration](/denoise/github-integration/) -> [Github Integration](/dn-cli/github-integration/#denoise-and-other-integrators) |
+| Run issue implementation      | [Basic usage](/dn-cli/workflows/) -> [Kickstart usage](/kickstart/overview/)                                                                                  |
+| Automate in GitHub Actions    | [Repository setup](/dn-cli/github-actions/) -> [OpenCode configuration](/kickstart/configuration/)                                                            |
+| Connect denoise to automation | [denoise GitHub integration](/denoise/github-integration/) -> [Repository setup — Denoise integrators](/dn-cli/github-actions/#denoise-and-other-integrators) |

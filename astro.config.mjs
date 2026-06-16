@@ -29,7 +29,11 @@ export default defineConfig({
             { label: "Command overview", slug: "dn-cli/subcommands" },
             { label: "Basic usage", slug: "dn-cli/workflows" },
             { label: "Kickstart usage", slug: "kickstart/overview" },
-            { label: "Github Integration", slug: "dn-cli/github-integration" },
+            {
+              label: "The plans/ Directory",
+              slug: "kickstart/plan-files",
+            },
+            { label: "GitHub commands", slug: "dn-cli/github-commands" },
             {
               label: "Task list & sync",
               slug: "dn-cli/task-list-and-sync",
@@ -38,11 +42,13 @@ export default defineConfig({
               label: "Output & environment",
               slug: "dn-cli/output-and-environment",
             },
+          ],
+        },
+        {
+          label: "dn in github actions",
+          items: [
+            { label: "Repository setup", slug: "dn-cli/github-actions" },
             { label: "GitHub token setup", slug: "dn-cli/github-token-setup" },
-            {
-              label: "The plans/ Directory",
-              slug: "kickstart/plan-files",
-            },
             {
               label: "OpenCode configuration",
               slug: "kickstart/configuration",
@@ -67,7 +73,7 @@ export default defineConfig({
           ],
         },
         {
-          label: "Operations",
+          label: "denoise Infra",
           items: [
             {
               label: "Self-hosted runners",

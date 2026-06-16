@@ -22,8 +22,9 @@ generated `.github/workflows/dn-*.yml` files. Set the secret required by the
 configured agent, such as `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, or
 `CURSOR_API_KEY`.
 
-See [Github Integration](/dn-cli/github-integration/#dispatch-payloads) for
-dispatch payloads, permissions, and troubleshooting.
+See
+[Repository setup — Dispatch payloads](/dn-cli/github-actions/#dispatch-payloads)
+for dispatch payloads, permissions, and troubleshooting.
 
 ## Linking a milestone to GitHub
 

@@ -140,4 +140,4 @@ queue items. Plan naming and agent prompts can still occur unless separately
 configured.
 
 See [The plans/ Directory](/kickstart/plan-files/) for plan file behavior,
-behavior, completion detection, and continuation prompts.
+completion detection, and continuation prompts.
