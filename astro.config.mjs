@@ -28,8 +28,7 @@ export default defineConfig({
             },
             { label: "Command overview", slug: "dn-cli/subcommands" },
             { label: "Basic usage", slug: "dn-cli/workflows" },
-            { label: "Repository setup", slug: "dn-cli/repository-setup" },
-            { label: "GitHub automation", slug: "dn-cli/github-automation" },
+            { label: "GitHub Automation", slug: "dn-cli/github-automation" },
             {
               label: "Task list & sync",
               slug: "dn-cli/task-list-and-sync",

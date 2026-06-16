@@ -1,10 +1,133 @@
 ---
-title: GitHub automation
-description: Dispatch workflows, manage issues, and inspect GitHub activity with dn.
+title: GitHub Automation
+description: Prepare a repository for dn workflows and manage GitHub issues, dispatch, and project activity from the terminal.
 ---
 
-These commands use the GitHub API. Authenticate with `gh auth login`, `dn auth`,
-or `GITHUB_TOKEN`.
+Use these commands to prepare a GitHub repository for `dn` workflows and to
+manage issues, dispatch automation, and inspect project activity from the
+terminal. Authenticate with `gh auth login`, `dn auth`, or `GITHUB_TOKEN`
+before running GitHub-backed commands — see
+[Authentication](/dn-cli/authentication/) and
+[GitHub Token Setup](/dn-cli/github-token-setup/) when you need token details.
+
+## First-time repository setup
+
+To wire a repository for local and CI-driven `dn` workflows:
+
+1. Install canonical workflow files and agent configuration:
+   `dn init workflows --agent opencode`
+2. Set the secret for your configured agent, for example
+   `gh secret set OPENAI_API_KEY`
+3. Validate the repository: `dn workflows validate --json`
+4. Commit `.github/workflows/dn-*.yml`, `.github/dn/config.json`, and
+   `.github/dn/install-agent.sh`
+
+For dispatch payloads, permissions, and denoise integration, continue with
+[GitHub Workflow Integration](/kickstart/github-actions-integration/) after the
+repository validates.
+
+## `dn init workflows`
+
+Installs canonical GitHub Actions workflows plus repository agent configuration:
+
+- `.github/workflows/dn-*.yml` — dispatch workflows
+- `.github/dn/config.json` — repo-wide agent preference
+- `.github/dn/install-agent.sh` — installs the configured agent on the runner
+
+```bash
+dn init workflows --agent opencode
+gh secret set OPENAI_API_KEY
+dn workflows validate --json
+```
+
+Supported agents are `opencode` (default), `cursor`, `claude`, and `codex`.
+
+```bash
+dn init workflows --agent opencode --dry-run
+dn init workflows --json
+dn workflows install --agent cursor
+dn workflows update
+dn workflows validate --json
+```
+
+`install` writes missing workflow files. `update` refreshes missing or outdated
+templates and the install script. Passing `--agent` creates or updates
+`.github/dn/config.json`.
+
+## `dn init agents`
+
+Updates `AGENTS.md` with dn workflow instructions:
+
+```bash
+dn init agents
+```
+
+Pass `--skill` to install native skill or rule files for a selected agent:
+
+```bash
+dn init agents --skill --agent codex
+dn init agents --skill --agent claude
+dn init agents --skill --agent opencode
+dn init agents --skill --agent cursor
+dn init agents --skill --agent codex --scope user
+dn init agents --skill --agent claude --dry-run --json
+```
+
+Repo-scope installs write:
+
+- `codex`, `opencode`: `.agents/skills/dn/SKILL.md` and
+  `.agents/skills/dn/agents/openai.yaml`
+- `claude`: `.claude/skills/dn/SKILL.md`
+- `cursor`: `.cursor/rules/dn.mdc`
+
+User-scope installs write:
+
+- `codex`, `opencode`: `~/.agents/skills/dn/SKILL.md` and
+  `~/.agents/skills/dn/agents/openai.yaml`
+- `claude`: `~/.claude/skills/dn/SKILL.md`
+
+Managed files are idempotent. Existing unmanaged files are left untouched unless
+`--force` is passed.
+
+## `dn init stack`
+
+Creates a prioritized task list from a GitHub milestone:
+
+1. Fetches the milestone and its open issues from GitHub.
+2. Scores each issue for kickstart readiness.
+3. Writes `plans/{owner}_{repo}_{milestone-number}.stack.md` and `.stack.json`.
+4. Prints instructions for committing the generated files.
+
+```bash
+dn init stack 42
+dn init stack https://github.com/owner/repo/milestone/3
+dn init stack 42 --refresh
+```
+
+The generated stack file includes prioritized tasks, disqualified issues, and
+instructions for agents. `dn kickstart --milestone 42` uses the first unchecked
+task as the next work item.
+
+For stable machine-readable stack artifacts and UI integration guidance, see
+[GitHub Workflow Integration](/kickstart/github-actions-integration/).
+
+## `dn context`
+
+Inspects the inherited `AGENTS.md` chain for a file or directory:
+
+```bash
+dn context check cli/main.ts
+dn context check cli/main.ts --max-bytes 65536
+dn context check cli/main.ts --json
+dn context check cli/main.ts --claude-tokens
+```
+
+The command walks from global Codex context through the repository path,
+preferring `AGENTS.override.md` over `AGENTS.md` in each directory, then reports
+the full byte size and the subset that fits inside the configured byte budget.
+
+`--claude-tokens` requires `ANTHROPIC_API_KEY` and estimates token usage for the
+included context.
 
 ## `dn workflows`
 
@@ -25,13 +148,13 @@ echo '{"schema_version":"1.0","dispatch_id":"'"$(uuidgen)"'","milestone":"1"}' \
 
 Common `run` options:
 
-- `--repo`, `-R` - Target `owner/repo`.
-- `--ref`, `-r` - Branch or tag containing the workflow file.
-- `--dispatch` - Force `repository` or `workflow` when both triggers exist.
-- `--wait` - Poll until a `repository_dispatch` run appears.
-- `-f`, `--raw-field` - String workflow input.
-- `-F`, `--field` - String input; `@path` reads file contents.
-- `--json` - JSON object from stdin.
+- `--repo`, `-R` — Target `owner/repo`.
+- `--ref`, `-r` — Branch or tag containing the workflow file.
+- `--dispatch` — Force `repository` or `workflow` when both triggers exist.
+- `--wait` — Poll until a `repository_dispatch` run appears.
+- `-f`, `--raw-field` — String workflow input.
+- `-F`, `--field` — String input; `@path` reads file contents.
+- `--json` — JSON object from stdin.
 
 Manage installed templates:
 
@@ -76,8 +199,7 @@ dn issue relationship mark-duplicate 123 456
 ```
 
 Issue references accept a number (`123`), `#123`, or a full URL.
-`--repo
-owner/repo` sets the repository used for numeric refs and commands
+`--repo owner/repo` sets the repository used for numeric refs and commands
 without an issue ref, such as `list` and `create`.
 
 ## `dn glance`
@@ -108,8 +230,3 @@ dn peek --verbose --no-urls
 
 `peek` uses GitHub GraphQL issue paging only. It does not invoke the LLM-based
 kickstart readiness scorer.
-
-## Canonical workflow contracts
-
-For installed `dn` workflow payloads, permissions, and denoise integration, see
-[GitHub workflow integration](/kickstart/github-actions-integration/).

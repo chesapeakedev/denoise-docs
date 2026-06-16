@@ -10,9 +10,8 @@ to the focused reference page for the workflow you need.
 
 | Need                               | Commands                                                 | Reference                                         |
 | ---------------------------------- | -------------------------------------------------------- | ------------------------------------------------- |
-| Plan or implement work             | `kickstart`, `prep`, `loop`, `meld`, `fixup`, `archive`  | [Workflows](/dn-cli/workflows/)                   |
-| Prepare a repository               | `init workflows`, `init agents`, `init stack`, `context` | [Repository setup](/dn-cli/repository-setup/)     |
-| Run GitHub automation              | `workflows`, `issue`, `glance`, `peek`                   | [GitHub automation](/dn-cli/github-automation/)   |
+| Plan or implement work             | `kickstart`, `prep`, `loop`, `meld`, `fixup`, `archive`           | [Basic Usage](/dn-cli/workflows/)                                                    |
+| Prepare and automate with GitHub   | `init workflows`, `init agents`, `init stack`, `context`, `workflows`, `issue`, `glance`, `peek` | [GitHub Automation](/dn-cli/github-automation/)   |
 | Maintain local queues and branches | `todo`, `tidy`, `sync`                                   | [Task list and sync](/dn-cli/task-list-and-sync/) |
 | Sign in                            | `auth`                                                   | [Authentication](/dn-cli/authentication/)         |
 
