@@ -83,8 +83,8 @@ export default defineConfig({
               slug: "operations/self-hosted-runners",
             },
             {
-              label: "Hung process triage",
-              slug: "operations/hung-process-triage",
+              label: "Coming Soon",
+              slug: "operations/coming-soon",
             },
           ],
         },
