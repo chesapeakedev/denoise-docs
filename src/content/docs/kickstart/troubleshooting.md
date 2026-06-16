@@ -41,7 +41,7 @@ Set `SAVE_CTX=1` to preserve these on success as well.
   recommended)
 - In GitHub Actions: use `${{ secrets.GITHUB_TOKEN }}`
 
-See [Authentication](/dn-cli/authentication/) for details.
+See [Installation — GitHub authentication](/dn-cli/installation/#github-authentication) for details.
 
 ### "Issue URL points to a different repository"
 

@@ -1,13 +1,14 @@
 ---
-title: GitHub Automation
+title: Github Integration
 description: Prepare a repository for dn workflows and manage GitHub issues, dispatch, and project activity from the terminal.
 ---
 
-Use these commands to prepare a GitHub repository for `dn` workflows and to
-manage issues, dispatch automation, and inspect project activity from the
-terminal. Authenticate with `gh auth login`, `dn auth`, or `GITHUB_TOKEN`
-before running GitHub-backed commands — see
-[Authentication](/dn-cli/authentication/) and
+`dn` can be deeply integrated into your github repo to bring kickstart and other
+`dn` automations. Use these commands to prepare a GitHub repository for `dn`
+workflows and to manage issues, dispatch automation, and inspect project
+activity from the terminal. Authenticate with `gh auth login`, `dn auth`, or
+`GITHUB_TOKEN` before running GitHub-backed commands — see
+[Installation — GitHub authentication](/dn-cli/installation/#github-authentication) and
 [GitHub Token Setup](/dn-cli/github-token-setup/) when you need token details.
 
 ## First-time repository setup

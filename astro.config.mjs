@@ -28,18 +28,17 @@ export default defineConfig({
             },
             { label: "Command overview", slug: "dn-cli/subcommands" },
             { label: "Basic usage", slug: "dn-cli/workflows" },
-            { label: "GitHub Automation", slug: "dn-cli/github-automation" },
+            { label: "Kickstart usage", slug: "kickstart/overview" },
+            { label: "Github Integration", slug: "dn-cli/github-integration" },
             {
               label: "Task list & sync",
               slug: "dn-cli/task-list-and-sync",
             },
-            { label: "Authentication", slug: "dn-cli/authentication" },
             {
               label: "Output & environment",
               slug: "dn-cli/output-and-environment",
             },
             { label: "GitHub token setup", slug: "dn-cli/github-token-setup" },
-            { label: "Kickstart usage", slug: "kickstart/overview" },
             {
               label: "Plan files & continuation",
               slug: "kickstart/plan-files",

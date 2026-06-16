@@ -1,6 +1,6 @@
 ---
 title: Installation
-description: Install dn with the installation script or build from source.
+description: Install dn, authenticate with GitHub, and run your first commands.
 ---
 
 `dn` is the CLI technology behind denoise automation. Use it directly when
@@ -78,12 +78,104 @@ You can also run the CLI directly from the repository while developing:
 deno run --allow-all cli/main.ts <subcommand> [options]
 ```
 
+## GitHub authentication
+
+`dn` needs a GitHub token for subcommands that access the GitHub API
+(`kickstart`, `prep`, `glance`, `peek`, `fixup`, `issue`, `meld` with issue
+URLs).
+
+### Token resolution order
+
+`dn` checks for a token in this order and uses the first one found:
+
+1. **`GITHUB_TOKEN` environment variable** (or legacy `DANGEROUS_GITHUB_TOKEN`)
+2. **GitHub CLI** — if `gh` is installed and authenticated, `dn` shells out to
+   `gh auth token`
+3. **Cached device-flow token** from `dn auth` (stored in `~/.config/dn/` on
+   Unix-like systems or `%APPDATA%\dn` on Windows)
+
+### Interactive: GitHub CLI (recommended)
+
+Install the [GitHub CLI](https://cli.github.com/) and authenticate:
+
+```bash
+gh auth login
+```
+
+No environment variable or configuration needed — `dn` detects `gh`
+automatically.
+
+### Interactive: Browser device flow
+
+Run `dn auth` to sign in via the browser:
+
+```bash
+dn auth
+```
+
+The token is cached locally so subsequent commands work without re-prompting.
+
+**Prerequisite**: `DN_GITHUB_DEVICE_CLIENT_ID` (or `GITHUB_DEVICE_CLIENT_ID`)
+must be set to your GitHub OAuth App's client ID. Create an OAuth App at
+<https://github.com/settings/developers> and enable the Device flow.
+
+### Non-interactive: environment variable
+
+For CI, scripts, and automation, set `GITHUB_TOKEN`:
+
+```bash
+export GITHUB_TOKEN=ghp_...
+```
+
+A fine-grained Personal Access Token (PAT) is recommended. Grant only the scopes
+your workflows require:
+
+| Scope                                     | Needed for                                  |
+| ----------------------------------------- | ------------------------------------------- |
+| `repo` (or fine-grained `contents: read`) | Reading issues and repo metadata            |
+| `issues: write`                           | `dn issue create/edit/close/reopen/comment` |
+| `pull_requests: write`                    | AWP mode (creating branches and PRs)        |
+
+For step-by-step PAT creation, see
+[GitHub Token Setup](/dn-cli/github-token-setup/).
+
+### GitHub Actions
+
+In GitHub Actions, `secrets.GITHUB_TOKEN` is automatically available. Pass it as
+an environment variable:
+
+```yaml
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
+Ensure the workflow has the permissions it needs:
+
+```yaml
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+```
+
+`dn auth` is not suitable for CI — always use environment variables or injected
+secrets.
+
+### Troubleshooting
+
+**"No GitHub token found"** — Run `gh auth login`, `dn auth`, or set
+`GITHUB_TOKEN`.
+
+**"Bad credentials" / 401** — The token may be expired or revoked. Re-run
+`gh auth login` or generate a new PAT.
+
+**"Resource not accessible by integration"** — The token lacks the required
+scope. Check the scope table above and update your PAT or workflow permissions.
+
 ## Before your first command
 
 Most workflows also need:
 
-- [GitHub CLI (`gh`)](https://cli.github.com/) or another supported auth path —
-  see [Authentication](/dn-cli/authentication/)
 - Git or [Sapling](https://sapling-scm.com/) for commands that create branches,
   commits, or PRs
 - An agent harness for agent-backed workflows: [opencode](https://opencode.dev/)
@@ -116,5 +208,5 @@ dn --agent claude kickstart --awp 123
 ```
 
 For detailed command behavior, see [Command Overview](/dn-cli/subcommands/),
-[Authentication](/dn-cli/authentication/), and
+[Basic Usage](/dn-cli/workflows/), and
 [Output & Environment](/dn-cli/output-and-environment/).

@@ -52,6 +52,6 @@ Use denoise when you want the app experience around dn-powered work:
 | Need                          | Start here                                                                                                                  |
 | ----------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
 | Install and use dn            | [Installation](/dn-cli/installation/) -> [Command overview](/dn-cli/subcommands/)                                           |
-| Authenticate GitHub access    | [Authentication](/dn-cli/authentication/) -> [GitHub token setup](/dn-cli/github-token-setup/)                              |
+| Authenticate GitHub access    | [Installation](/dn-cli/installation/#github-authentication) -> [GitHub Token Setup](/dn-cli/github-token-setup/)                                              |
 | Run issue implementation      | [Basic usage](/dn-cli/workflows/) -> [Kickstart usage](/kickstart/overview/)                                                |
 | Connect denoise to automation | [GitHub integration](/denoise/github-integration/) -> [GitHub workflow integration](/kickstart/github-actions-integration/) |
