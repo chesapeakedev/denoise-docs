@@ -262,7 +262,7 @@ Dispatch events are the canonical integration path for automation. See also
 
 See also
 [Kickstart & Looping — Troubleshooting](/kickstart/overview/#troubleshooting)
-[Self-hosted runners](/operations/self-hosted-runners/).
+and [Self-hosted runners](/operations/self-hosted-runners/).
 
 ## Legacy label workflows
 

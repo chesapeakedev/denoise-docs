@@ -95,4 +95,4 @@ dn kickstart --milestone 42 --complete
 | `OPENCODE_TIMEOUT_MS`, `CLAUDE_TIMEOUT_MS`, `CODEX_TIMEOUT_MS` | Agent phase timeouts.                                                                |
 
 See [Non-interactive Use](/dn-cli/output-and-environment/) for unattended mode
-mode and color flags.
+and color flags.

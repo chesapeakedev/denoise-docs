@@ -26,25 +26,26 @@ based on its file name. The sidebar is configured in `astro.config.mjs`.
 
 All commands are run from the `denoise-docs/` directory:
 
-| Command                   | Action                                                |
-| :------------------------ | :---------------------------------------------------- |
-| `npm install`             | Installs dependencies                                 |
-| `npm run dev`             | Starts local dev server at `localhost:4321`           |
-| `npm run build`           | Build your production site to `./dist/`               |
-| `npm run preview`         | Serve the built site locally (Deno server)            |
-| `make dev_hot_reload`     | Astro build watcher + Deno server (restart on change) |
-| `make sync`               | Lint, `sl pull --rebase`, restack if needed, push drafts |
-| `make check_deploy`       | Verify SSH to the Pi before deploying                 |
+| Command                   | Action                                                                    |
+| :------------------------ | :------------------------------------------------------------------------ |
+| `npm install`             | Installs dependencies                                                     |
+| `npm run dev`             | Starts local dev server at `localhost:4321`                               |
+| `npm run build`           | Build your production site to `./dist/`                                   |
+| `npm run preview`         | Serve the built site locally (Deno server)                                |
+| `make dev_hot_reload`     | Astro build watcher + Deno server (restart on change)                     |
+| `make sync`               | Lint, `sl pull --rebase`, restack if needed, push drafts                  |
+| `make check_deploy`       | Verify SSH to the Pi before deploying                                     |
 | `make deploy`             | Build and deploy the docs site to washington (see [DEPLOY.md](DEPLOY.md)) |
-| `npm run deno-deploy`     | Build and deploy to Deno Deploy (CLI)                 |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check`      |
-| `npm run astro -- --help` | Get help using the Astro CLI                          |
+| `npm run deno-deploy`     | Build and deploy to Deno Deploy (CLI)                                     |
+| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check`                          |
+| `npm run astro -- --help` | Get help using the Astro CLI                                              |
 
 ## Architecture
 
 The site is built as a **static** Astro/Starlight site. A small **Deno server**
 serves `dist/` for local preview and Deno Deploy (SPA fallback to `index.html`).
-Local preview: run `npm run build` then `npm run preview` (`deno run -A src/app/serve.ts`).
+Local preview: run `npm run build` then `npm run preview`
+(`deno run -A src/app/serve.ts`).
 
 ## Deploy to Deno Deploy
 

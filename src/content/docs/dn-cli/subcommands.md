@@ -25,7 +25,7 @@ You can pass global output flags after any subcommand:
 
 In CI, `dn` automatically enables unattended mode and sets `NO_COLOR` when it is
 not already set. See [Non-interactive Use](/dn-cli/output-and-environment/) for
-for the full behavior.
+the full behavior.
 
 ## Common argument formats
 

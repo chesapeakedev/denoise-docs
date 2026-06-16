@@ -282,7 +282,7 @@ above is the supported approach.
 ## Related
 
 - [GitHub Actions Integration](/dn-cli/github-actions/) — templates, dispatch
-  permissions
+  payloads, permissions
 - [Configuration](/kickstart/configuration/) — OpenCode plan/implement files
 - [Self-hosted runners](/operations/self-hosted-runners/) — longer-running
   kickstart jobs

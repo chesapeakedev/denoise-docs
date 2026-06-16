@@ -30,8 +30,8 @@ available automations without forcing everyone into the same tool:
 
 ## Quick links
 
-| Need                                       | Start here                                                                                                                                                    |
-| ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Need                                       | Start here                                                                                                                                                              |
+| ------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Install and use dn                         | [Installation](/dn-cli/installation/) -> [Subcommands](/dn-cli/subcommands/)                                                                                            |
 | Implement Github Issues with dn & an Agent | [Orchestrate Agents](/dn-cli/workflows/) -> [Kickstart & Looping](/kickstart/overview/)                                                                                 |
 | Automate in GitHub Actions                 | [GitHub Actions Integration](/dn-cli/github-actions/) -> [OpenCode configuration](/kickstart/configuration/)                                                            |

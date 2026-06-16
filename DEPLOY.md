@@ -27,12 +27,12 @@ docker compose up -d --force-recreate
 
 All developers deploy to the **same** stack:
 
-| Setting | Default |
-| ------- | ------- |
-| SSH host | `denoise-docs@washington` |
-| Deploy directory | `/opt/denoise-docs` |
-| Image | `denoise-docs:latest` |
-| Host port | `4321` |
+| Setting          | Default                   |
+| ---------------- | ------------------------- |
+| SSH host         | `denoise-docs@washington` |
+| Deploy directory | `/opt/denoise-docs`       |
+| Image            | `denoise-docs:latest`     |
+| Host port        | `4321`                    |
 
 Each developer uses their **personal SSH public key** (added to
 `denoise-docs@washington`), not a shared private key. The deploy script
@@ -125,8 +125,8 @@ sudo chown denoise-docs:denoise-docs /opt/denoise-docs/.env
 cd /home/nick/denoise-docs && docker compose down
 ```
 
-After migration, any authorized developer runs `make deploy` from their
-machine. Verify on the Pi:
+After migration, any authorized developer runs `make deploy` from their machine.
+Verify on the Pi:
 
 ```bash
 curl -s -o /dev/null -w '%{http_code}\n' http://127.0.0.1:4321
@@ -136,4 +136,5 @@ Then confirm the public Cloudflare URL still loads.
 
 ## Deno Deploy (cloud)
 
-For cloud hosting via Deno Deploy, see [README.md](README.md#deploy-to-deno-deploy).
+For cloud hosting via Deno Deploy, see
+[README.md](README.md#deploy-to-deno-deploy).
