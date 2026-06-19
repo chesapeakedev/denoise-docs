@@ -133,7 +133,7 @@ echo '{"schema_version":"1.0","dispatch_id":"'"$(uuidgen)"'","issue_number":42}'
 Each installed workflow reads `.github/dn/config.json`, installs only the
 configured agent harness, and runs `dn --agent <configured>`. Dispatch payloads
 do **not** include `agent`. For OpenCode with
-[DeepInfra Kimi K2.6](/kickstart/opencode-deepinfra-kimi-k2-6/), see that guide
+[DeepInfra Kimi K2.6](/dn-cli/opencode-deepinfra-kimi-k2-6/), see that guide
 after workflows validate.
 
 ## Workflow templates
@@ -224,7 +224,7 @@ requests** under **Settings → Actions → General → Workflow permissions**.
 ## OpenCode configuration in CI
 
 Kickstart reads OpenCode config from the **workspace root** (see
-[OpenCode configuration](/kickstart/configuration/)):
+[OpenCode configuration](/dn-cli/configuration/)):
 
 - `opencode.plan.json` — plan phase (read-only edits)
 - `opencode.implement.json` — implement phase (full edits)
@@ -261,7 +261,7 @@ Dispatch events are the canonical integration path for automation. See also
 | Dispatch accepted but no run     | Poll `repository_dispatch` runs; confirm workflow files exist on the default branch      |
 
 See also
-[Kickstart & Looping — Troubleshooting](/kickstart/overview/#troubleshooting)
+[Kickstart & Looping — Troubleshooting](/dn-cli/overview/#troubleshooting)
 and [Self-hosted runners](/operations/self-hosted-runners/).
 
 ## Legacy label workflows

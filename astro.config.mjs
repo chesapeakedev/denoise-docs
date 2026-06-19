@@ -28,10 +28,10 @@ export default defineConfig({
             },
             { label: "Subcommands", slug: "dn-cli/subcommands" },
             { label: "Orchestrate Agents", slug: "dn-cli/workflows" },
-            { label: "Kickstart & Looping", slug: "kickstart/overview" },
+            { label: "Kickstart & Looping", slug: "dn-cli/overview" },
             {
               label: "Filesystem Context",
-              slug: "kickstart/filesystem-context",
+              slug: "dn-cli/filesystem-context",
             },
             { label: "Working with Github", slug: "dn-cli/github-commands" },
             {
@@ -54,11 +54,11 @@ export default defineConfig({
             { label: "GitHub token setup", slug: "dn-cli/github-token-setup" },
             {
               label: "OpenCode configuration",
-              slug: "kickstart/configuration",
+              slug: "dn-cli/configuration",
             },
             {
               label: "OpenCode + DeepInfra Kimi K2.6",
-              slug: "kickstart/opencode-deepinfra-kimi-k2-6",
+              slug: "dn-cli/opencode-deepinfra-kimi-k2-6",
             },
           ],
         },

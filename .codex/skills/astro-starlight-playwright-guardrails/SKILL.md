@@ -22,7 +22,7 @@ Apply this skill when you:
 
 - Add or rename files under `src/content/docs/`
 - Edit `sidebar` in `astro.config.mjs`
-- Add internal links in `.md` / `.mdx` (e.g. `/kickstart/some-page/`)
+- Add internal links in `.md` / `.mdx` (e.g. `/dn-cli/some-page/`)
 - Scaffold Playwright or fix flaky doc-site tests
 - See errors like:
   `The slug "…" specified in the Starlight sidebar config does not exist`

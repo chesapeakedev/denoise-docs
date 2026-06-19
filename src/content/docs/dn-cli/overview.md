@@ -35,7 +35,7 @@ Use a checklist the agent can mark complete during implementation:
 
 Prep and kickstart carry these criteria into the plan file. `dn loop` uses the
 same checklist as the progress signal — completed items become `[x]`, remaining
-items stay `[ ]`. See [Filesystem Context](/kickstart/filesystem-context/) for
+items stay `[ ]`. See [Filesystem Context](/dn-cli/filesystem-context/) for
 how that handoff works.
 
 Concrete, observable criteria beat prose paragraphs. Prefer "returns 401" over
@@ -208,7 +208,7 @@ or run `dn prep` again.
 When acceptance criteria are not fully checked, loop (like kickstart) can write
 `plans/[name].continuation.plan.md` with remaining work. Re-run loop on the main
 plan or merge the continuation file per
-[Filesystem Context](/kickstart/filesystem-context/).
+[Filesystem Context](/dn-cli/filesystem-context/).
 
 If multiple plan files exist and you omit `--plan-file`, `dn loop` picks the
 latest plan in `plans/`. For non-interactive runs, always pass `--plan-file` or

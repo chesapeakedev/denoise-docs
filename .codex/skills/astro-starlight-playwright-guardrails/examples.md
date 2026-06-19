@@ -52,13 +52,13 @@ used by both validator and test codegen.
 The slug "kickstart/opencode-deepinfra-kimi-k2.6" specified in the Starlight sidebar config does not exist.
 ```
 
-`src/content/docs/kickstart/opencode-deepinfra-kimi-k2.6.md` may exist.
+`src/content/docs/dn-cli/opencode-deepinfra-kimi-k2.6.md` may exist.
 Slugifier maps it to `kickstart/opencode-deepinfra-kimi-k26`.
 
 ```bash
 node .cursor/skills/astro-starlight-playwright-guardrails/scripts/validate-sidebar-slugs.mjs
 #   - sidebar: kickstart/opencode-deepinfra-kimi-k2.6
-#     file on disk: src/content/docs/kickstart/opencode-deepinfra-kimi-k2.6.md
+#     file on disk: src/content/docs/dn-cli/opencode-deepinfra-kimi-k2.6.md
 #     use sidebar slug: kickstart/opencode-deepinfra-kimi-k26
 ```
 

@@ -84,7 +84,7 @@ dn init agents
 After a successful kickstart run, dn may also refresh `AGENTS.md` with detected
 project type, build commands, and lint/test commands while preserving custom
 sections you added manually. See
-[Artifacts & Cursor](/kickstart/artifacts-cursor/) for what kickstart writes at
+[Artifacts & Cursor](/dn-cli/artifacts-cursor/) for what kickstart writes at
 the end of a run.
 
 Use `dn meld` to merge notes or issue context into `AGENTS.md`:
@@ -139,4 +139,4 @@ This produces:
 Commit both files when you want the queue tracked in version control. Run
 `dn kickstart --milestone 42` to work through unchecked items; use `--complete`
 to drain the queue without prompts between tasks. See
-[Kickstart & Looping](/kickstart/overview/#milestone-queues).
+[Kickstart & Looping](/dn-cli/overview/#milestone-queues).

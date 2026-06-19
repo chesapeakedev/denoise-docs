@@ -56,7 +56,7 @@ you do not need to fork workflow YAML.
    workflow files. Confirm with `dn workflows validate --json`.
 
 3. **OpenCode phase configs** in the repository root (see
-   [Configuration](/kickstart/configuration/)). Both plan and implement configs
+   [Configuration](/dn-cli/configuration/)). Both plan and implement configs
    need the model and provider settings below.
 
 ## Step 1 — Configure OpenCode for DeepInfra
@@ -283,6 +283,6 @@ above is the supported approach.
 
 - [GitHub Actions Integration](/dn-cli/github-actions/) — templates, dispatch
   payloads, permissions
-- [Configuration](/kickstart/configuration/) — OpenCode plan/implement files
+- [Configuration](/dn-cli/configuration/) — OpenCode plan/implement files
 - [Self-hosted runners](/operations/self-hosted-runners/) — longer-running
   kickstart jobs

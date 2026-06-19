@@ -139,5 +139,5 @@ dn kickstart --milestone 42 --complete
 queue items. Plan naming and agent prompts can still occur unless separately
 configured.
 
-See [Filesystem Context](/kickstart/filesystem-context/) for plan file behavior,
+See [Filesystem Context](/dn-cli/filesystem-context/) for plan file behavior,
 completion detection, and continuation prompts.

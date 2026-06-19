@@ -44,7 +44,7 @@ workspace root according to [opencode](https://opencode.dev/) documentation.
 For GitHub Actions with DeepInfra
 [Kimi K2.6](https://deepinfra.com/moonshotai/Kimi-K2.6/api), add model and
 provider settings to **both** phase files. See
-[OpenCode with DeepInfra Kimi K2.6](/kickstart/opencode-deepinfra-kimi-k2-6/).
+[OpenCode with DeepInfra Kimi K2.6](/dn-cli/opencode-deepinfra-kimi-k2-6/).
 
 ## Config file location
 
