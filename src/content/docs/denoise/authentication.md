@@ -11,16 +11,33 @@ online.
 
 - **GitHub** — Sign in with your GitHub account. Required for
   [GitHub integration](/denoise/github-integration/) (linking milestones,
-  syncing issues, converting tasks to issues).
+  syncing issues, converting tasks to issues, and dn workflow dispatch).
 - **Google** — Sign in with your Google account. Gives you a stable identity and
   cloud sync; GitHub features still require GitHub auth.
 
 Sign-in uses OAuth: click **Sign In**, choose GitHub or Google, complete the
 flow in your browser, and you are redirected back to the app with a session.
-Your session is stored in a cookie and validated by the server. GitHub sign-in
-uses a **GitHub App** (user-to-server); you can choose which repositories to
-grant access to and manage installations at
+Your session is stored in a cookie and validated by the server.
+
+### GitHub App and repository access
+
+GitHub sign-in uses a **GitHub App** (user-to-server). On first sign-in you may
+see GitHub’s app installation or authorization screen, depending on how denoise
+is deployed. You choose which repositories and organizations denoise can access.
+
+After sign-in, manage access from **Settings**:
+
+| Action                  | When to use                                                                                                |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------- |
+| **Switch Accounts**     | Sign in with a different GitHub account (OAuth-only flow).                                                 |
+| **Update repos & orgs** | Change which repositories and organizations denoise can use for milestones, issues, and workflow dispatch. |
+
+You can also review installations at
 [github.com/settings/installations](https://github.com/settings/installations).
+
+Repository access must include any repo you link to a milestone. If linking or
+sync fails with a permissions error, use **Update repos & orgs** and confirm the
+target repository is granted access.
 
 ## Using the app without signing in
 

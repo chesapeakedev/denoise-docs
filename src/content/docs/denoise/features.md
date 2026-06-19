@@ -10,6 +10,10 @@ and GitHub-backed work. It keeps personal planning fast and local by default,
 then adds sync, collaboration, GitHub issue integration, and dn-powered
 automation when you sign in and connect a repository.
 
+[Denoise Pro](/denoise/subscription-and-pro/) adds task build mode, repository
+initialization, and workflow dispatch from the app UI on GitHub-linked
+milestones.
+
 ## Core features
 
 - **Offline-first tasks** - Create and edit tasks locally, even without signing
@@ -18,9 +22,12 @@ automation when you sign in and connect a repository.
 - **Focus timer** - Track focused work sessions alongside task progress.
 - **Sign-in with GitHub or Google** - Enable cloud sync and identity-backed
   workflows.
-- **Collaboration** - Share published milestones with collaborators.
+- **Collaboration** - Share milestones with collaborators; control task
+  visibility with publish/private settings.
 - **GitHub issue sync** - Link milestones, import issues, and push task updates
   back to GitHub.
+- **Task build mode (Pro)** - Plan and dispatch agent-backed work from a task in
+  a GitHub-linked milestone.
 
 ## Task management
 
@@ -43,6 +50,8 @@ order of tasks:
 - **Default order** — Tasks are shown in their original order
 - **Name A-Z** — Sort tasks alphabetically (ascending)
 - **Name Z-A** — Sort tasks alphabetically (descending)
+- **Kickstart priority (Pro)** — Order tasks by kickstart plan priority on
+  GitHub-linked milestones with repository context
 
 **Hide completed tasks** — Click the eye icon in the milestone header to toggle
 visibility of completed tasks. When enabled, only incomplete tasks are shown.
@@ -65,6 +74,20 @@ to navigate back to your working milestone.
 
 Use the search input in the sidebar to filter milestones by name. This is
 helpful when you have many milestones and need to quickly find a specific one.
+
+## Collaboration
+
+Share a milestone with teammates from the milestone header (**Share**). Shared
+milestones sync tasks in real time when you are **Online** and signed in.
+
+Task visibility:
+
+- Tasks in personal milestones default to **private** (visible only to you).
+- Tasks in shared milestones are visible to milestone participants.
+- Use **Publish** on a private task to make it visible to collaborators.
+
+Collaborators need sign-in and **Online** mode to see shared milestone updates.
+See [Authentication](/denoise/authentication/) for sync requirements.
 
 ## Usage metrics (opt-in)
 

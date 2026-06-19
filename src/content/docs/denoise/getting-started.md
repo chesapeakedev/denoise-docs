@@ -17,7 +17,7 @@ The app supports GitHub and Google sign-in:
 4. Return to the app after authentication completes.
 
 GitHub authentication is required for GitHub milestone and issue integration.
-For sign-in behavior and the offline/online toggle, see
+For sign-in behavior, repository access, and the offline/online toggle, see
 [Authentication](/denoise/authentication/).
 
 ## Creating your first task
@@ -32,3 +32,5 @@ For sign-in behavior and the offline/online toggle, see
   and GitHub sync.
 - Use [GitHub integration](/denoise/github-integration/) when you want to link
   milestones to GitHub issues and dn workflows.
+- Use [Subscription & Pro](/denoise/subscription-and-pro/) when you want task
+  build mode, repository initialization, and workflow dispatch from the app.

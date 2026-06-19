@@ -68,6 +68,10 @@ export default defineConfig({
             { label: "Getting started", slug: "denoise/getting-started" },
             { label: "Authentication", slug: "denoise/authentication" },
             { label: "Features", slug: "denoise/features" },
+            {
+              label: "Subscription & Pro",
+              slug: "denoise/subscription-and-pro",
+            },
             { label: "GitHub integration", slug: "denoise/github-integration" },
             {
               label: "Tips & troubleshooting",
