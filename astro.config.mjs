@@ -60,6 +60,10 @@ export default defineConfig({
               label: "OpenCode + DeepInfra Kimi K2.7 Code",
               slug: "dn-cli/opencode-deepinfra-kimi-k2-7-code",
             },
+            {
+              label: "Cursor",
+              slug: "dn-cli/cursor-github-actions",
+            },
           ],
         },
         {

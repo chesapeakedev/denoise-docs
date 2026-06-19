@@ -136,8 +136,9 @@ Each installed workflow uses one `chesapeakedev/dn-action` step. The action
 reads `.github/dn/config.json`, validates the event, installs only the
 configured agent harness, runs `dn --agent <configured>`, and writes a workflow
 summary. Dispatch payloads do **not** include `agent`. For OpenCode with
-[DeepInfra Kimi K2.7 Code](/dn-cli/opencode-deepinfra-kimi-k2-7-code/), see that
-guide after workflows validate.
+[DeepInfra Kimi K2.7 Code](/dn-cli/opencode-deepinfra-kimi-k2-7-code/) or Cursor
+with a [Cursor API key](/dn-cli/cursor-github-actions/), see those guides after
+workflows validate.
 
 ## Workflow templates
 

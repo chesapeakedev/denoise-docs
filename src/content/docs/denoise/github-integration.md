@@ -24,7 +24,8 @@ dn workflows validate --json
 
 Commit `.github/dn/config.json` and the generated `.github/workflows/dn-*.yml`
 files. Set the secret required by the configured agent, such as
-`OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, or `CURSOR_API_KEY`.
+`OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, or `CURSOR_API_KEY`. For Cursor, see
+[Cursor API key for dn GitHub Actions](/dn-cli/cursor-github-actions/).
 
 See
 [GitHub Actions Integration — Dispatch payloads](/dn-cli/github-actions/#dispatch-payloads)
