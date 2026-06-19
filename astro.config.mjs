@@ -57,8 +57,8 @@ export default defineConfig({
               slug: "dn-cli/configuration",
             },
             {
-              label: "OpenCode + DeepInfra Kimi K2.6",
-              slug: "dn-cli/opencode-deepinfra-kimi-k2-6",
+              label: "OpenCode + DeepInfra Kimi K2.7 Code",
+              slug: "dn-cli/opencode-deepinfra-kimi-k2-7-code",
             },
           ],
         },

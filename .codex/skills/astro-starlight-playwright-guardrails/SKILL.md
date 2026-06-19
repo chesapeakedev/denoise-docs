@@ -49,18 +49,18 @@ permanently.
 ### Typical build failure (sidebar slug)
 
 ```
-[AstroUserError] The slug "kickstart/opencode-deepinfra-kimi-k2.6" specified in the Starlight sidebar config does not exist.
+[AstroUserError] The slug "kickstart/opencode-deepinfra-model-v1.0" specified in the Starlight sidebar config does not exist.
 ```
 
 **Common cause:** A markdown file exists but its **collection id** differs from
 the sidebar `slug`. Default `docsLoader()` slugifies each path segment
-(`github-slugger`). Example: `kimi-k2.6.md` → id
-`kickstart/opencode-deepinfra-kimi-k26`, not `…-kimi-k2.6`.
+(`github-slugger`). Example: `model-v1.0.md` → id
+`kickstart/opencode-deepinfra-model-v10`, not `…-model-v1.0`.
 
 **Fix (pick one):**
 
 1. Set sidebar `slug` to the real collection id (validator prints it).
-2. Rename the file to avoid dots (e.g. `kimi-k2-6.md`).
+2. Rename the file to avoid dots (e.g. `model-v1.md` instead of `model-v1.0.md`).
 3. Customize `generateId` in `content.config.ts` to preserve dots
    ([Starlight 0.35](https://starlight.astro.build/reference/configuration/#configure-content-collections)).
 

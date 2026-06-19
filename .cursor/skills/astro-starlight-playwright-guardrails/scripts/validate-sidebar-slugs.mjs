@@ -71,7 +71,7 @@ if (missing.length) {
     console.error("");
   }
   console.error(
-    "Tip: dots in filenames are slugified (e.g. kimi-k2.6.md → …-kimi-k26). Use generateId in content.config.ts or rename the file.\n",
+    "Tip: dots in filenames are slugified (e.g. model-v1.0.md → …-model-v10). Use generateId in content.config.ts or rename the file.\n",
   );
   process.exit(1);
 }

@@ -1,12 +1,13 @@
 ---
-title: OpenCode with DeepInfra Kimi K2.6
-description: Configure Kimi K2.6 via DeepInfra for opencode in installed dn GitHub Actions workflows.
+title: OpenCode with DeepInfra Kimi K2.7 Code
+description: Configure Kimi K2.7 Code via DeepInfra for opencode in installed dn GitHub Actions workflows.
 ---
 
-Use [DeepInfra](https://deepinfra.com/moonshotai/Kimi-K2.6) to run
-[moonshotai/Kimi-K2.6](https://deepinfra.com/moonshotai/Kimi-K2.6/api) through
-OpenCode in **installed dn GitHub Actions workflows**. DeepInfra exposes an
-[OpenAI-compatible Chat Completions API](https://deepinfra.com/moonshotai/Kimi-K2.6/api);
+Use [DeepInfra](https://deepinfra.com/moonshotai/Kimi-K2.7-Code) to run
+[moonshotai/Kimi-K2.7-Code](https://deepinfra.com/moonshotai/Kimi-K2.7-Code/api)
+through OpenCode in **installed dn GitHub Actions workflows**. DeepInfra exposes
+an
+[OpenAI-compatible Chat Completions API](https://deepinfra.com/moonshotai/Kimi-K2.7-Code/api);
 OpenCode calls it via a custom provider block in your repo's `opencode*.json`
 files.
 
@@ -21,13 +22,12 @@ repository_dispatch / denoise UI
         ▼
 dn-kickstart-issue.yml (or prep / init-stack)
         │
-        ├── chesapeakedev/dn-action  →  dn CLI
-        ├── install-agent.sh         →  OpenCode CLI
+        ├── chesapeakedev/dn-action  →  dn CLI + OpenCode CLI
         └── OPENAI_API_KEY secret    →  DeepInfra API token (via opencode config)
                 │
                 ▼
         opencode.plan.json / opencode.implement.json
-        (model: deepinfra/moonshotai/Kimi-K2.6)
+        (model: deepinfra/moonshotai/Kimi-K2.7-Code)
                 │
                 ▼
         https://api.deepinfra.com/v1/openai/chat/completions
@@ -43,7 +43,7 @@ you do not need to fork workflow YAML.
    - Create an account at the [DeepInfra dashboard](https://deepinfra.com/dash).
    - Generate an API token (used as `Authorization: Bearer …` on API requests).
    - Model page and API reference:
-     [moonshotai/Kimi-K2.6](https://deepinfra.com/moonshotai/Kimi-K2.6/api).
+     [moonshotai/Kimi-K2.7-Code](https://deepinfra.com/moonshotai/Kimi-K2.7-Code/api).
 
 2. **Installed dn workflows** with `opencode` as the agent:
 
@@ -52,8 +52,8 @@ you do not need to fork workflow YAML.
    gh secret set OPENAI_API_KEY   # paste your DeepInfra token when prompted
    ```
 
-   Commit `.github/dn/config.json`, `.github/dn/install-agent.sh`, and the three
-   workflow files. Confirm with `dn workflows validate --json`.
+   Commit `.github/dn/config.json` and the generated workflow files. Confirm
+   with `dn workflows validate --json`.
 
 3. **OpenCode phase configs** in the repository root (see
    [Configuration](/dn-cli/configuration/)). Both plan and implement configs
@@ -61,8 +61,8 @@ you do not need to fork workflow YAML.
 
 ## Step 1 — Configure OpenCode for DeepInfra
 
-Add a DeepInfra provider and select Kimi K2.6 in **`opencode.plan.json`** and
-**`opencode.implement.json`**. Kickstart copies the active phase file to
+Add a DeepInfra provider and select Kimi K2.7 Code in **`opencode.plan.json`**
+and **`opencode.implement.json`**. Kickstart copies the active phase file to
 `opencode.json` during each phase, so settings must live in both files.
 
 Shared provider block (merge with your existing `permission` sections):
@@ -70,7 +70,7 @@ Shared provider block (merge with your existing `permission` sections):
 ```json
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "deepinfra/moonshotai/Kimi-K2.6",
+  "model": "deepinfra/moonshotai/Kimi-K2.7-Code",
   "provider": {
     "deepinfra": {
       "npm": "@ai-sdk/openai-compatible",
@@ -80,8 +80,8 @@ Shared provider block (merge with your existing `permission` sections):
         "apiKey": "{env:OPENAI_API_KEY}"
       },
       "models": {
-        "moonshotai/Kimi-K2.6": {
-          "name": "Kimi K2.6",
+        "moonshotai/Kimi-K2.7-Code": {
+          "name": "Kimi K2.7 Code",
           "limit": {
             "context": 262144,
             "output": 32768
@@ -98,7 +98,7 @@ Example **`opencode.plan.json`** (plan phase — restricted edits):
 ```json
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "deepinfra/moonshotai/Kimi-K2.6",
+  "model": "deepinfra/moonshotai/Kimi-K2.7-Code",
   "provider": {
     "deepinfra": {
       "npm": "@ai-sdk/openai-compatible",
@@ -108,8 +108,8 @@ Example **`opencode.plan.json`** (plan phase — restricted edits):
         "apiKey": "{env:OPENAI_API_KEY}"
       },
       "models": {
-        "moonshotai/Kimi-K2.6": {
-          "name": "Kimi K2.6",
+        "moonshotai/Kimi-K2.7-Code": {
+          "name": "Kimi K2.7 Code",
           "limit": {
             "context": 262144,
             "output": 32768
@@ -137,7 +137,7 @@ Example **`opencode.implement.json`** (implement phase — allow workspace edits
 ```json
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "deepinfra/moonshotai/Kimi-K2.6",
+  "model": "deepinfra/moonshotai/Kimi-K2.7-Code",
   "provider": {
     "deepinfra": {
       "npm": "@ai-sdk/openai-compatible",
@@ -147,8 +147,8 @@ Example **`opencode.implement.json`** (implement phase — allow workspace edits
         "apiKey": "{env:OPENAI_API_KEY}"
       },
       "models": {
-        "moonshotai/Kimi-K2.6": {
-          "name": "Kimi K2.6",
+        "moonshotai/Kimi-K2.7-Code": {
+          "name": "Kimi K2.7 Code",
           "limit": {
             "context": 262144,
             "output": 32768
@@ -219,7 +219,7 @@ Fix provider or auth errors locally before dispatching workflows.
 
 ```bash
 echo '{"schema_version":"1.0","dispatch_id":"'"$(uuidgen)"'","issue_url":"https://github.com/owner/repo/issues/42","awp":true}' \
-  | dn workflows run dn.kickstart_issue --repo owner/repo --json --wait
+  | dn workflows dispatch dn.kickstart_issue --repo owner/repo --json --wait
 ```
 
 ### Dispatch from denoise
@@ -230,7 +230,8 @@ backend sends the same `dn.kickstart_issue` payload shape.
 ### What the workflow does
 
 1. Checks out the repo (including your `opencode*.json` configs).
-2. Installs `dn` and OpenCode (`.github/dn/install-agent.sh`).
+2. Uses `chesapeakedev/dn-action` to install `dn`, validate the event, and
+   install OpenCode.
 3. Runs `dn --agent opencode kickstart --awp <issue>` with `OPENAI_API_KEY` set.
 4. OpenCode plan phase uses `opencode.plan.json`; implement phase uses
    `opencode.implement.json`.
@@ -244,13 +245,13 @@ gh run view <run-id> --log
 
 ## API reference (DeepInfra)
 
-| Item        | Value                                                                        |
-| ----------- | ---------------------------------------------------------------------------- |
-| Model ID    | `moonshotai/Kimi-K2.6`                                                       |
-| Endpoint    | `POST https://api.deepinfra.com/v1/openai/chat/completions`                  |
-| Auth header | `Authorization: Bearer <token>`                                              |
-| Context     | 262,144 tokens (per DeepInfra model page)                                    |
-| Pricing     | Listed on [DeepInfra model page](https://deepinfra.com/moonshotai/Kimi-K2.6) |
+| Item        | Value                                                                             |
+| ----------- | --------------------------------------------------------------------------------- |
+| Model ID    | `moonshotai/Kimi-K2.7-Code`                                                       |
+| Endpoint    | `POST https://api.deepinfra.com/v1/openai/chat/completions`                       |
+| Auth header | `Authorization: Bearer <token>`                                                   |
+| Context     | 262,144 tokens (per DeepInfra model page)                                         |
+| Pricing     | Listed on [DeepInfra model page](https://deepinfra.com/moonshotai/Kimi-K2.7-Code) |
 
 Minimal curl check:
 
@@ -259,20 +260,20 @@ curl "https://api.deepinfra.com/v1/openai/chat/completions" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $OPENAI_API_KEY" \
   -d '{
-    "model": "moonshotai/Kimi-K2.6",
+    "model": "moonshotai/Kimi-K2.7-Code",
     "messages": [{"role": "user", "content": "Hello!"}]
   }'
 ```
 
 ## Troubleshooting
 
-| Symptom                            | Likely cause                   | Fix                                                                                      |
-| ---------------------------------- | ------------------------------ | ---------------------------------------------------------------------------------------- |
-| `401` / unauthorized from OpenCode | Missing or wrong token         | Re-set `OPENAI_API_KEY` with the DeepInfra dashboard token                               |
-| Model not found                    | Wrong model string             | Use `deepinfra/moonshotai/Kimi-K2.6` in config and `moonshotai/Kimi-K2.6` under `models` |
-| Works locally, fails in CI         | Phase config missing provider  | Add provider block to **both** `opencode.plan.json` and `opencode.implement.json`        |
-| OpenCode uses wrong model          | Stale root `opencode.json`     | Align `model` across all opencode config files                                           |
-| Timeouts on long issues            | Large context / slow inference | Check run logs; consider self-hosted runners for long jobs                               |
+| Symptom                            | Likely cause                   | Fix                                                                                                |
+| ---------------------------------- | ------------------------------ | -------------------------------------------------------------------------------------------------- |
+| `401` / unauthorized from OpenCode | Missing or wrong token         | Re-set `OPENAI_API_KEY` with the DeepInfra dashboard token                                         |
+| Model not found                    | Wrong model string             | Use `deepinfra/moonshotai/Kimi-K2.7-Code` in config and `moonshotai/Kimi-K2.7-Code` under `models` |
+| Works locally, fails in CI         | Phase config missing provider  | Add provider block to **both** `opencode.plan.json` and `opencode.implement.json`                  |
+| OpenCode uses wrong model          | Stale root `opencode.json`     | Align `model` across all opencode config files                                                     |
+| Timeouts on long issues            | Large context / slow inference | Check run logs; consider self-hosted runners for long jobs                                         |
 
 OpenCode also lists Deep Infra as a built-in provider (`/connect` in the TUI).
 That path stores credentials interactively and is suited to local development.

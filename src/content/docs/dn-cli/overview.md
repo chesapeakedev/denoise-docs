@@ -35,8 +35,8 @@ Use a checklist the agent can mark complete during implementation:
 
 Prep and kickstart carry these criteria into the plan file. `dn loop` uses the
 same checklist as the progress signal — completed items become `[x]`, remaining
-items stay `[ ]`. See [Filesystem Context](/dn-cli/filesystem-context/) for
-how that handoff works.
+items stay `[ ]`. See [Filesystem Context](/dn-cli/filesystem-context/) for how
+that handoff works.
 
 Concrete, observable criteria beat prose paragraphs. Prefer "returns 401" over
 "handles errors correctly."

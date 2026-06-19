@@ -49,17 +49,17 @@ used by both validator and test codegen.
 ## Failure: file exists but build still fails
 
 ```
-The slug "kickstart/opencode-deepinfra-kimi-k2.6" specified in the Starlight sidebar config does not exist.
+The slug "kickstart/opencode-deepinfra-kimi-model-v1.0" specified in the Starlight sidebar config does not exist.
 ```
 
-`src/content/docs/dn-cli/opencode-deepinfra-kimi-k2.6.md` may exist.
-Slugifier maps it to `kickstart/opencode-deepinfra-kimi-k26`.
+`src/content/docs/dn-cli/opencode-deepinfra-kimi-model-v1.0.md` may exist.
+Slugifier maps it to `kickstart/opencode-deepinfra-kimi-model-v10`.
 
 ```bash
 node .cursor/skills/astro-starlight-playwright-guardrails/scripts/validate-sidebar-slugs.mjs
-#   - sidebar: kickstart/opencode-deepinfra-kimi-k2.6
-#     file on disk: src/content/docs/dn-cli/opencode-deepinfra-kimi-k2.6.md
-#     use sidebar slug: kickstart/opencode-deepinfra-kimi-k26
+#   - sidebar: kickstart/opencode-deepinfra-kimi-model-v1.0
+#     file on disk: src/content/docs/dn-cli/opencode-deepinfra-kimi-model-v1.0.md
+#     use sidebar slug: kickstart/opencode-deepinfra-kimi-model-v10
 ```
 
 Playwright never runs until sidebar slugs and collection ids align. The validate

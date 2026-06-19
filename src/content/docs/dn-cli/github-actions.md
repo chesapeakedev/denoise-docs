@@ -21,8 +21,7 @@ To wire a repository for CI-driven `dn` workflows:
 2. Set the secret for your configured agent, for example
    `gh secret set OPENAI_API_KEY`
 3. Validate the repository: `dn workflows validate --json`
-4. Commit `.github/workflows/dn-*.yml`, `.github/dn/config.json`, and
-   `.github/dn/install-agent.sh`
+4. Commit `.github/workflows/dn-*.yml` and `.github/dn/config.json`.
 
 Prefer canonical workflows installed by `dn init workflows`; use legacy label
 workflows only for older repositories.
@@ -34,7 +33,6 @@ Installs canonical GitHub Actions workflows plus repository agent configuration:
 | Path                                       | Purpose                                                                 |
 | ------------------------------------------ | ----------------------------------------------------------------------- |
 | `.github/dn/config.json`                   | Repo-wide agent preference (`opencode`, `cursor`, `claude`, or `codex`) |
-| `.github/dn/install-agent.sh`              | Installs only the configured agent harness on the runner                |
 | `.github/workflows/dn-init-stack.yml`      | Milestone stack generation                                              |
 | `.github/workflows/dn-prep-issue-plan.yml` | Plan-only phase for an issue                                            |
 | `.github/workflows/dn-kickstart-issue.yml` | Full kickstart (plan + implement, optional AWP)                         |
@@ -61,7 +59,7 @@ Set the agent once in `.github/dn/config.json`:
 | `opencode` | `dn init workflows` (default) | `OPENAI_API_KEY`    | OpenCode install script; key may point at OpenAI, DeepInfra, or another OpenAI-compatible API when configured in `opencode*.json` |
 | `claude`   | `--agent claude`              | `ANTHROPIC_API_KEY` | Workflow sets `CLAUDE_CODE_BARE=1`                                                                                                |
 | `cursor`   | `--agent cursor`              | `CURSOR_API_KEY`    | Cursor CLI install script                                                                                                         |
-| `codex`    | `--agent codex`               | `OPENAI_API_KEY`    | Requires Node.js 22 on the runner                                                                                                 |
+| `codex`    | `--agent codex`               | `OPENAI_API_KEY`    | Official Codex CLI install script                                                                                                 |
 
 Workflows pass `GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}` automatically. You do
 **not** create a `GITHUB_TOKEN` repository secret — GitHub Actions injects it.
@@ -77,27 +75,26 @@ dn workflows validate --json
 ```
 
 `install` writes missing workflow files. `update` refreshes missing or outdated
-templates and the install script. Passing `--agent` creates or updates
-`.github/dn/config.json`.
+templates. Passing `--agent` creates or updates `.github/dn/config.json`.
 
 ## `dn workflows`
 
-Runs `workflow_dispatch` and `repository_dispatch` workflows and manages
-canonical dn workflow templates.
+Dispatches `workflow_dispatch` and `repository_dispatch` events, executes
+canonical workflows inside Actions, and manages installed templates.
 
 ```bash
-dn workflows run release.yml
-dn workflows run triage.yml --ref my-branch
-dn workflows run triage.yml -f name=scully -f greeting=hello
-echo '{"name":"scully"}' | dn workflows run triage.yml --json
-dn workflows run smoke.yml --repo owner/repo
+dn workflows dispatch release.yml
+dn workflows dispatch triage.yml --ref my-branch
+dn workflows dispatch triage.yml -f name=scully -f greeting=hello
+echo '{"name":"scully"}' | dn workflows dispatch triage.yml --json
+dn workflows dispatch smoke.yml --repo owner/repo
 
 # repository_dispatch for canonical dn templates
 echo '{"schema_version":"1.0","dispatch_id":"'"$(uuidgen)"'","milestone":"1"}' \
-  | dn workflows run dn.init_stack --repo owner/repo --json
+  | dn workflows dispatch dn.init_stack --repo owner/repo --json
 ```
 
-Common `run` options:
+Common `dispatch` options:
 
 - `--repo`, `-R` — Target `owner/repo`.
 - `--ref`, `-r` — Branch or tag containing the workflow file.
@@ -120,6 +117,11 @@ dn workflows validate --json
 All template-management subcommands support `--json`; `install` and `update`
 also support `--dry-run`.
 
+`dn workflows exec <template-id>` is the runner-side command used by
+`chesapeakedev/dn-action`. It validates the event and repository configuration,
+installs the configured agent, and runs the mapped dn command. Users normally do
+not call `exec` directly.
+
 ### Trigger kickstart from the CLI
 
 After [first-time repository setup](#first-time-repository-setup), dispatch an
@@ -127,14 +129,15 @@ installed workflow:
 
 ```bash
 echo '{"schema_version":"1.0","dispatch_id":"'"$(uuidgen)"'","issue_number":42}' \
-  | dn workflows run dn.kickstart_issue --repo owner/repo --json --wait
+  | dn workflows dispatch dn.kickstart_issue --repo owner/repo --json --wait
 ```
 
-Each installed workflow reads `.github/dn/config.json`, installs only the
-configured agent harness, and runs `dn --agent <configured>`. Dispatch payloads
-do **not** include `agent`. For OpenCode with
-[DeepInfra Kimi K2.6](/dn-cli/opencode-deepinfra-kimi-k2-6/), see that guide
-after workflows validate.
+Each installed workflow uses one `chesapeakedev/dn-action` step. The action
+reads `.github/dn/config.json`, validates the event, installs only the
+configured agent harness, runs `dn --agent <configured>`, and writes a workflow
+summary. Dispatch payloads do **not** include `agent`. For OpenCode with
+[DeepInfra Kimi K2.7 Code](/dn-cli/opencode-deepinfra-kimi-k2-7-code/), see that
+guide after workflows validate.
 
 ## Workflow templates
 
@@ -144,17 +147,10 @@ after workflows validate.
 | `dn.prep_issue_plan` | `dn-prep-issue-plan.yml` | `dn.prep_issue_plan`       | `dn prep`            |
 | `dn.kickstart_issue` | `dn-kickstart-issue.yml` | `dn.kickstart_issue`       | `dn kickstart`       |
 
-Each job:
-
-1. Validates the dispatch payload (`schema_version`, `dispatch_id`, and
-   workflow-specific fields).
-2. Reads `.github/dn/config.json` for the agent — **dispatch payloads do not
-   carry `agent`**.
-3. Installs `dn` via
-   [`chesapeakedev/dn-action@v1`](https://github.com/chesapeakedev/dn-action).
-4. Runs `.github/dn/install-agent.sh` for the configured harness.
-5. Invokes `dn --agent <configured> …` with CI-friendly env vars (`NO_COLOR`,
-   `IS_OPEN_SOURCE`, etc.).
+Each job delegates checkout, validation, dn installation, agent installation,
+and command execution to
+[`chesapeakedev/dn-action@v1`](https://github.com/chesapeakedev/dn-action). The
+workflow file still owns its trigger, permissions, runner, and secrets.
 
 Machine-readable contract: `templates/workflows/manifest.json` in the `dn`
 repository.
@@ -172,7 +168,7 @@ Optional: `refresh` (defaults to `true`).
 
 ```bash
 echo '{"schema_version":"1.0","dispatch_id":"'"$(uuidgen)"'","milestone":"1"}' \
-  | dn workflows run dn.init_stack --repo owner/repo --json
+  | dn workflows dispatch dn.init_stack --repo owner/repo --json
 ```
 
 Writes `plans/{owner}_{repo}_{milestone}.stack.md` and `.stack.json`.
@@ -186,7 +182,7 @@ Optional: `plan_name`.
 
 ```bash
 echo '{"schema_version":"1.0","dispatch_id":"'"$(uuidgen)"'","issue_number":42}' \
-  | dn workflows run dn.prep_issue_plan --repo owner/repo --json
+  | dn workflows dispatch dn.prep_issue_plan --repo owner/repo --json
 ```
 
 ### `dn.kickstart_issue`
@@ -198,7 +194,7 @@ Optional: `awp` (defaults to `true`).
 
 ```bash
 echo '{"schema_version":"1.0","dispatch_id":"'"$(uuidgen)"'","issue_url":"https://github.com/owner/repo/issues/42","awp":true}' \
-  | dn workflows run dn.kickstart_issue --repo owner/repo --json --wait
+  | dn workflows dispatch dn.kickstart_issue --repo owner/repo --json --wait
 ```
 
 `repository_dispatch` returns HTTP **204** with no run id. Poll for runs:
@@ -207,8 +203,50 @@ echo '{"schema_version":"1.0","dispatch_id":"'"$(uuidgen)"'","issue_url":"https:
 gh run list --repo owner/repo --event repository_dispatch
 ```
 
-Use `dn workflows run --wait` to block until a new run appears and print its
-URL.
+Use `dn workflows dispatch --wait` to block until a new run appears and print
+its URL.
+
+## Verify the installation
+
+Verify the repository in three stages so configuration errors are separated from
+agent or command failures.
+
+### 1. Check installed files
+
+From the repository root, run:
+
+```bash
+dn workflows validate --json
+```
+
+The command exits successfully when `.github/dn/config.json` is valid, the
+canonical workflow files are installed, their permissions are present, and the
+templates match the current dn release. Resolve every reported warning before
+testing a run.
+
+### 2. Validate inside GitHub Actions
+
+Dispatch a validation-only event with otherwise valid workflow inputs:
+
+```bash
+echo '{"schema_version":"1.0","dispatch_id":"verify-'"$(uuidgen)"'","issue_number":1,"validate_only":true}' \
+  | dn workflows dispatch dn.kickstart_issue --repo owner/repo --json --wait
+```
+
+The validation-only path checks the issue number's shape but does not fetch the
+issue. It checks the event, agent configuration, and required credential without
+installing the agent or running kickstart. Open the resulting Actions run and
+confirm its summary reports `validated` with passed checks for the environment,
+workflow, event file, agent config, payload, and credential.
+
+### 3. Run an end-to-end workflow
+
+Remove `validate_only` and dispatch the workflow with a real issue or milestone.
+The run summary should report `passed`, identify the selected agent, and show
+the dn command that ran. A failed summary includes the failing phase, a stable
+error code, and the next corrective action. The action still exits nonzero, so
+failed validation or execution remains visible in branch protection and CI
+status.
 
 ## Permissions
 
@@ -261,8 +299,8 @@ Dispatch events are the canonical integration path for automation. See also
 | Dispatch accepted but no run     | Poll `repository_dispatch` runs; confirm workflow files exist on the default branch      |
 
 See also
-[Kickstart & Looping — Troubleshooting](/dn-cli/overview/#troubleshooting)
-and [Self-hosted runners](/operations/self-hosted-runners/).
+[Kickstart & Looping — Troubleshooting](/dn-cli/overview/#troubleshooting) and
+[Self-hosted runners](/operations/self-hosted-runners/).
 
 ## Legacy label workflows
 
@@ -289,44 +327,10 @@ Required setup:
 4. **PR creation** — Enable **Allow GitHub Actions to create and approve pull
    requests** under **Settings → Actions → General**
 
-Prefer canonical templates when possible. If you write a workflow from scratch:
-
-```yaml
-name: Kickstart with dn
-
-on:
-  issues:
-    types: [labeled]
-
-permissions:
-  contents: write
-  pull-requests: write
-  issues: write
-
-jobs:
-  kickstart:
-    if: github.event.label.name == 'opencode awp'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Install dn
-        uses: chesapeakedev/dn-action@v1
-
-      - name: Install OpenCode
-        run: bash .github/dn/install-agent.sh
-
-      - name: Run dn kickstart
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          IS_OPEN_SOURCE: "true"
-          NO_COLOR: "1"
-        run: |
-          dn --agent opencode kickstart --awp "${{ github.event.issue.html_url }}"
-```
+Prefer canonical templates when possible. The action's `workflow` input expects
+the canonical event declared for that workflow. Custom label workflows can use
+the action without `workflow` to install dn, but must validate their own event,
+install their agent harness, and invoke the desired dn command.
 
 Pin the action version when you need reproducibility:
 

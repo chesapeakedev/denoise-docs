@@ -17,10 +17,9 @@ dn init workflows --agent opencode
 dn workflows validate --json
 ```
 
-Commit `.github/dn/config.json`, `.github/dn/install-agent.sh`, and the
-generated `.github/workflows/dn-*.yml` files. Set the secret required by the
-configured agent, such as `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, or
-`CURSOR_API_KEY`.
+Commit `.github/dn/config.json` and the generated `.github/workflows/dn-*.yml`
+files. Set the secret required by the configured agent, such as
+`OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, or `CURSOR_API_KEY`.
 
 See
 [GitHub Actions Integration — Dispatch payloads](/dn-cli/github-actions/#dispatch-payloads)
@@ -54,7 +53,7 @@ offline; local changes remain saved and sync again when connectivity returns.
 ## Triggering dn workflows
 
 For repositories with installed templates, denoise can dispatch the same
-workflow events exposed by `dn workflows run`:
+workflow events exposed by `dn workflows dispatch`:
 
 - `dn.init_stack` - Generate milestone stack markdown and JSON files.
 - `dn.prep_issue_plan` - Produce a plan for an issue.

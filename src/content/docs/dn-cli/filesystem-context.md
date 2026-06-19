@@ -83,9 +83,8 @@ dn init agents
 
 After a successful kickstart run, dn may also refresh `AGENTS.md` with detected
 project type, build commands, and lint/test commands while preserving custom
-sections you added manually. See
-[Artifacts & Cursor](/dn-cli/artifacts-cursor/) for what kickstart writes at
-the end of a run.
+sections you added manually. See [Artifacts & Cursor](/dn-cli/artifacts-cursor/)
+for what kickstart writes at the end of a run.
 
 Use `dn meld` to merge notes or issue context into `AGENTS.md`:
 
