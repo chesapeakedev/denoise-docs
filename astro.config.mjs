@@ -73,6 +73,10 @@ export default defineConfig({
             { label: "Authentication", slug: "denoise/authentication" },
             { label: "Features", slug: "denoise/features" },
             {
+              label: "Milestone details",
+              slug: "denoise/milestone-details",
+            },
+            {
               label: "Subscription & Pro",
               slug: "denoise/subscription-and-pro",
             },

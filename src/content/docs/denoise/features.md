@@ -10,9 +10,10 @@ and GitHub-backed work. It keeps personal planning fast and local by default,
 then adds sync, collaboration, GitHub issue integration, and dn-powered
 automation when you sign in and connect a repository.
 
-[Denoise Pro](/denoise/subscription-and-pro/) adds task build mode, repository
+[Denoise Pro](/denoise/subscription-and-pro/) adds task kickstart, repository
 initialization, and workflow dispatch from the app UI on GitHub-linked
-milestones.
+milestones. See [Milestone details](/denoise/milestone-details/) for the full
+milestone view workflow.
 
 ## Core features
 
@@ -26,8 +27,8 @@ milestones.
   visibility with publish/private settings.
 - **GitHub issue sync** - Link milestones, import issues, and push task updates
   back to GitHub.
-- **Task build mode (Pro)** - Plan and dispatch agent-backed work from a task in
-  a GitHub-linked milestone.
+- **Task kickstart (Pro)** - Dispatch agent-backed kickstart from a task in a
+  GitHub-linked milestone via **Kickstart!** in the task detail dialog.
 
 ## Task management
 
@@ -52,6 +53,10 @@ order of tasks:
 - **Name Z-A** — Sort tasks alphabetically (descending)
 - **Kickstart priority (Pro)** — Order tasks by kickstart plan priority on
   GitHub-linked milestones with repository context
+
+**Kickstart order** — On the milestone details page, click the **Kickstart
+order** chip in the task filter row to toggle kickstart priority sorting (Pro).
+Free users see a locked chip with Pro upgrade details.
 
 **Hide completed tasks** — Click the eye icon in the milestone header to toggle
 visibility of completed tasks. When enabled, only incomplete tasks are shown.

@@ -5,26 +5,27 @@ description: Denoise Pro features, billing, and organization seats.
 
 Denoise is free for core planning: offline-first tasks, milestones, focus timer,
 and basic cloud sync. **Denoise Pro** unlocks agent-backed automation from the
-app UI — task build mode, repository initialization, and dn workflow dispatch on
+app UI — task kickstart, repository initialization, and dn workflow dispatch on
 GitHub-linked milestones.
 
 ## What Pro includes
 
 Pro turns denoise into a command center for shipping work:
 
-- **Task build mode** — Plan implementation in one place, align with your team,
-  and kick off builds without leaving the task.
+- **Task kickstart** — Dispatch `dn.kickstart_issue` from a task with
+  **Kickstart!** in the task detail dialog; follow progress and pull requests
+  from the milestone view.
 - **Richer collaboration** — Shared context around milestones and tasks so
   everyone sees the same picture.
 - **Automation and integrations** — Included in your subscription as new
-  productivity features ship (for example milestone Initialize panel actions and
-  per-task kickstart dispatch).
+  productivity features ship (for example DN setup actions on the milestone view
+  and per-task kickstart dispatch).
 - **Priority consideration** — Feedback and early access to new productivity
   features.
 
 Pro is required for GitHub-backed automation from the app: installing workflow
-templates, running `dn.init_stack`, and starting build mode on tasks. See
-[GitHub integration](/denoise/github-integration/) for setup steps.
+templates, running `dn.init_stack`, kickstart ordering, and **Kickstart!** on
+tasks. See [Milestone details](/denoise/milestone-details/) for setup steps.
 
 ## Manage your plan
 
@@ -49,7 +50,9 @@ see [GitHub integration](/denoise/github-integration/) and
 ## Related pages
 
 - [Features](/denoise/features/) — Tasks, milestones, collaboration
-- [GitHub integration](/denoise/github-integration/) — Link milestones,
-  Initialize panel, build mode
+- [Milestone details](/denoise/milestone-details/) — DN setup, init_stack,
+  kickstart order, and per-task kickstart
+- [GitHub integration](/denoise/github-integration/) — Link milestones and sync
+  issues
 - [Tips & troubleshooting](/denoise/tips-troubleshooting/) — When Pro-gated
   actions are disabled

@@ -32,5 +32,7 @@ For sign-in behavior, repository access, and the offline/online toggle, see
   and GitHub sync.
 - Use [GitHub integration](/denoise/github-integration/) when you want to link
   milestones to GitHub issues and dn workflows.
+- Use [Milestone details](/denoise/milestone-details/) for DN setup, init_stack,
+  and per-task kickstart on GitHub-linked milestones.
 - Use [Subscription & Pro](/denoise/subscription-and-pro/) when you want task
-  build mode, repository initialization, and workflow dispatch from the app.
+  kickstart, repository initialization, and workflow dispatch from the app.
