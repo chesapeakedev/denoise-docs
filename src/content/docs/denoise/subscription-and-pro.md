@@ -30,8 +30,10 @@ tasks. See [Milestone details](/denoise/milestone-details/) for setup steps.
 ## Manage your plan
 
 1. Sign in with GitHub or Google.
-2. Open **Settings** (profile menu).
+2. Open **Profile** from the avatar menu.
 3. Under **Plan & billing**, view your current plan or upgrade.
+
+![Profile page with Display Settings; Plan & billing appears above this section](../../../assets/screenshots/account-display-settings.png)
 
 After Stripe Checkout, the app polls until billing status updates (webhooks can
 lag briefly). A success toast confirms when Pro is active.
@@ -40,8 +42,10 @@ lag briefly). A success toast confirms when Pro is active.
 
 If your account belongs to an organization with managed seats, Pro access may
 come from an assigned seat rather than a personal subscription. Organization
-admins see an **Organization** section in Settings to manage members and seat
+admins see an **Organization** section in Profile to manage members and seat
 assignments.
+
+![Organization member and seat management in Profile](../../../assets/screenshots/account-org-management.png)
 
 For repository automation prerequisites (workflows, secrets, milestone linking),
 see [GitHub integration](/denoise/github-integration/) and

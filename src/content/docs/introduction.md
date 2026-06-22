@@ -28,6 +28,8 @@ available automations without forcing everyone into the same tool:
 - **denoise** - A collaborative planning app that gives users the ability to
   orchestrate agent automation alongside developers working from the terminal
 
+![denoise Roadmap — milestones and project progress](../../assets/screenshots/roadmap.png)
+
 ## Quick links
 
 | Need                                       | Start here                                                                                                                                                                                                          |

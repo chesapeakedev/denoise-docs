@@ -44,14 +44,23 @@ for dispatch payloads, permissions, and troubleshooting.
 
 To connect a milestone in the app to a GitHub milestone:
 
-1. Create or select a milestone in the app.
-2. Choose to link a GitHub milestone when prompted.
+1. Create or select a milestone on the **Roadmap**, or use **Import from
+   GitHub** on the Roadmap to pull existing GitHub milestones.
+2. Edit the milestone and choose to link a GitHub milestone when prompted.
 3. Select the organization or user, repository, and open milestone in the GitHub
    Milestone Wizard.
 4. Click **Link Milestone** to complete the connection.
 
-Once linked, denoise shows a GitHub indicator next to the milestone and syncs
+![GitHub Milestone Wizard — select organization or user](../../../assets/screenshots/link-gh-milestone-select-org.png)
+
+![GitHub Milestone Wizard — select repository](../../../assets/screenshots/link-gh-milestone-select-repo.png)
+
+![GitHub Milestone Wizard — select milestone and link](../../../assets/screenshots/link-gh-milestone-select-milestone.png)
+
+Once linked, denoise shows a GitHub indicator on the roadmap card and syncs
 issues from GitHub.
+
+![Linked milestone card on the Roadmap with repository path](../../../assets/screenshots/roadmap-milestone-list.png)
 
 ## Automatic issue sync
 
@@ -66,8 +75,12 @@ GitHub issues appear in the app as `#123: Issue Title`. Linked tasks show the
 issue title and markdown description in the task card. Sync is disabled while
 offline; local changes remain saved and sync again when connectivity returns.
 
-Use the GitHub refresh control on the milestone details page to pull the latest
-issues for a linked milestone.
+![GitHub-linked tasks in the milestone task list](../../../assets/screenshots/milestone-view-task-list.png)
+
+Use the GitHub refresh control on the milestone view to pull the latest issues
+for a linked milestone.
+
+![Milestone filter row with GitHub refresh control](../../../assets/screenshots/milestone-view-filter-controls.png)
 
 ## DN automation from the milestone view
 
@@ -77,6 +90,8 @@ On a GitHub-linked milestone, Pro users can:
 - Dispatch `dn.init_stack` for milestone stack context
 - Sort tasks by kickstart plan priority
 - Dispatch `dn.kickstart_issue` per task from the task detail dialog
+
+![DN setup action row on the milestone view](../../../assets/screenshots/milestone-view-second-btn-row.png)
 
 Denoise dispatches the same workflow events exposed by `dn workflows dispatch`:
 
