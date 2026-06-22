@@ -26,7 +26,6 @@ export default defineConfig({
               label: "Installation",
               slug: "dn-cli/installation",
             },
-            { label: "Subcommands", slug: "dn-cli/subcommands" },
             { label: "Orchestrate Agents", slug: "dn-cli/workflows" },
             { label: "Kickstart & Looping", slug: "dn-cli/overview" },
             {

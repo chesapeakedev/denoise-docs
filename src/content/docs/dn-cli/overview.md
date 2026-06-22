@@ -6,7 +6,8 @@ description: In-depth usage of dn kickstart, prep, and loop for planning and imp
 `dn kickstart` runs planning and implementation in one command. `dn prep` and
 `dn loop` split that workflow: prep writes a plan for review, loop implements
 from an existing plan. Use this page for in-depth usage of all three. For the
-broader command map, see [Subcommands](/dn-cli/subcommands/) or
+broader command map, see
+[Installation — Command map](/dn-cli/installation/#command-map) or
 [Orchestrate Agents](/dn-cli/workflows/).
 
 ## Writing good GitHub issues

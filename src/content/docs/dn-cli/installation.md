@@ -1,10 +1,11 @@
 ---
 title: Installation
-description: Install dn, authenticate with GitHub, and run your first commands.
+description: Install dn, authenticate with GitHub, run your first commands, and find the right reference for each command family.
 ---
 
-`dn` is the terminal experience for denoise. This page explains how to get
-started orchestrating agents.
+This page explains how to install the CLI, authenticate with GitHub, and get
+started orchestrating agents. It also maps `dn` commands to the focused
+reference pages for each workflow.
 
 ## Install dn
 
@@ -174,6 +175,9 @@ dn loop --plan-file plans/my-feature.plan.md
 # Install canonical workflows for denoise and other integrators
 dn init workflows --agent opencode
 dn workflows validate --json
+
+# Refresh the local prioritized task list
+dn tidy
 ```
 
 Agent-backed commands default to OpenCode. Select another harness with the
@@ -184,6 +188,39 @@ dn --agent codex prep 123
 dn --agent claude kickstart --awp 123
 ```
 
-For more on usage, see [Subcommands](/dn-cli/subcommands/),
-[Orchestrate Agents](/dn-cli/workflows/), and
+Run `dn <command> --help` for command-specific options.
+
+## Command map
+
+| Need                       | Commands                                                | Reference                                             |
+| -------------------------- | ------------------------------------------------------- | ----------------------------------------------------- |
+| Orchestrate Agents         | `kickstart`, `prep`, `loop`, `meld`, `fixup`, `archive` | [Orchestrate Agents](/dn-cli/workflows/)              |
+| Working with Github        | `init agents`, `init stack`, `issue`, `glance`          | [Working with Github](/dn-cli/github-commands/)       |
+| GitHub Actions Integration | `init workflows`, `workflows`                           | [GitHub Actions Integration](/dn-cli/github-actions/) |
+| Experimental               | `context`, `peek`, `todo`, `tidy`, `sync`               | [Experimental](/dn-cli/task-list-and-sync/)           |
+
+## Global flags
+
+You can pass global output flags after any subcommand:
+
+- `--unattended` or `--ci` - Force non-interactive, CI-friendly output.
+- `--no-color` - Disable ANSI colors.
+- `--color` - Enable colors even when stdout is not a TTY.
+
+In CI, `dn` automatically enables unattended mode and sets `NO_COLOR` when it is
+not already set. See [Non-interactive Use](/dn-cli/output-and-environment/) for
+the full behavior.
+
+## Common argument formats
+
+Several workflow commands accept flexible issue or source arguments:
+
+- Full GitHub issue URL: `https://github.com/owner/repo/issues/123`
+- Issue number in the current repository: `123`
+- Local markdown file path: `docs/spec.md` or `plans/feature.md`
+
+When a markdown path is given, `dn` uses the file as local context and does not
+fetch an issue from GitHub.
+
+For workflow details, see [Orchestrate Agents](/dn-cli/workflows/) and
 [Non-interactive Use](/dn-cli/output-and-environment/).
