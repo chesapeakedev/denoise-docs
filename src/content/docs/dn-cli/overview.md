@@ -179,10 +179,10 @@ looks right.
 
 # dn loop
 
-`dn loop` runs only the implementation phase (kickstart steps 4–7). It does
-**not** fetch GitHub issues, resolve milestone queues, or publish changes. You
-need an existing plan file — typically from `dn prep`, a prior `dn kickstart`
-run, or a hand-written spec in `plans/`.
+`dn loop` runs only the implementation phase (kickstart steps 4–7). It does not
+resolve milestone queues or publish changes. You need an existing plan —
+typically from `dn prep`, a prior `dn kickstart` run, or a hand-written spec in
+`plans/`.
 
 ## When to use loop
 
@@ -196,7 +196,11 @@ run, or a hand-written spec in `plans/`.
 
 ```bash
 # Implement from a specific plan
-dn loop --plan-file plans/my-feature.plan.md
+dn loop plans/my-feature.plan.md
+
+# Find the existing plan for a GitHub issue
+dn loop https://github.com/owner/repo/issues/123
+dn loop 123
 
 # Or set PLAN for scripts
 PLAN=plans/my-feature.plan.md dn loop
@@ -205,20 +209,25 @@ PLAN=plans/my-feature.plan.md dn loop
 dn loop
 
 # Select an agent harness
-dn --agent claude loop --plan-file plans/my-feature.plan.md
+dn --agent claude loop plans/my-feature.plan.md
 ```
 
 ## How loop works
 
-1. Load the plan file (`--plan-file`, `PLAN`, or auto-discovery).
+1. Resolve the target:
+   - A local path loads that plan file.
+   - A GitHub issue URL or issue number searches `plans/` for a matching
+     existing plan.
+   - No target auto-discovers the latest plan in `plans/`.
 2. Validate the plan structure and acceptance criteria.
 3. Run the implement phase with the selected agent harness.
 4. Update acceptance criteria in the plan as items complete.
 5. Write a continuation prompt if work remains.
 
-Loop reuses the plan's issue context and code pointers — it does not re-fetch
-the GitHub issue. If the issue changed on GitHub after planning, edit the plan
-or run `dn prep` again.
+Loop reuses the plan's issue context and code pointers. When you pass a GitHub
+issue URL or issue number, loop uses that issue to find the matching plan and
+refreshes issue context for the implement prompt. If no matching plan exists,
+run `dn prep <issue>` first.
 
 ## Continuation and re-runs
 
@@ -227,9 +236,9 @@ When acceptance criteria are not fully checked, loop (like kickstart) can write
 plan or merge the continuation file per
 [Filesystem Context](/dn-cli/filesystem-context/).
 
-If multiple plan files exist and you omit `--plan-file`, `dn loop` picks the
-latest plan in `plans/`. For non-interactive runs, always pass `--plan-file` or
-`PLAN`.
+If multiple plan files exist and you omit the target, `dn loop` picks the latest
+plan in `plans/`. For non-interactive runs, pass a plan path, issue URL, issue
+number, or `PLAN`.
 
 ## Troubleshooting
 
