@@ -1,24 +1,26 @@
 ---
 title: Filesystem Context
-description: Repo files dn creates or maintains for planning, implementation, and agent handoff — plans/, AGENTS.md, skills, and milestone stacks.
+description: Repo files dn creates or maintains for planning, implementation, and agent handoff — plans/, AGENTS.md, and milestone stacks.
 ---
 
 `dn` writes durable files in your repository so agents and humans can plan,
-implement, and resume work without starting from scratch each run. Most of this
-context lives at the workspace root or in standard agent config paths.
+implement, and resume work. Most of this context lives at the workspace root or
+in standard agent config paths.
 
-| Path                                                               | Typical source                         | Role                                        |
-| ------------------------------------------------------------------ | -------------------------------------- | ------------------------------------------- |
-| `plans/*.plan.md`                                                  | `kickstart`, `prep`, `loop`, `meld`    | Issue context, plan, acceptance criteria    |
-| `plans/*.continuation.plan.md`                                     | `kickstart`, `loop`                    | Remaining work after a partial run          |
-| `plans/*.stack.md`, `plans/*.stack.json`                           | `dn init stack`                        | Prioritized milestone task queue            |
-| `AGENTS.md`                                                        | `dn init agents`; kickstart may update | Project conventions and commands for agents |
-| `.agents/skills/dn/`, `.claude/skills/dn/`, `.cursor/rules/dn.mdc` | `dn init agents --skill`               | Agent-native dn workflow instructions       |
+| Path                                                               | Typical source                         | Role                                                                                                                                          |
+| ------------------------------------------------------------------ | -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `plans/*.plan.md`                                                  | `kickstart`, `prep`, `loop`, `meld`    | Issue context, plan, acceptance criteria                                                                                                      |
+| `plans/*.continuation.plan.md`                                     | `kickstart`, `loop`                    | Remaining work after a partial run                                                                                                            |
+| `plans/*.stack.md`, `plans/*.stack.json`                           | `dn init stack`                        | Prioritized milestone task queue                                                                                                              |
+| `AGENTS.md`                                                        | `dn init agents`; kickstart may update | Project conventions and commands for agents                                                                                                   |
+| `.agents/skills/dn/`, `.claude/skills/dn/`, `.cursor/rules/dn.mdc` | `dn init agents --skill`               | Agent-native dn workflow instructions — see [Installation — Install dn as an agent skill](/dn-cli/installation/#install-dn-as-an-agent-skill) |
 
-For command-level detail on `init agents` and `init stack`, see
-[Working with Github](/dn-cli/github-commands/).
+For `dn init stack` command detail, see
+[Working with Github](/dn-cli/github-commands/). For `dn init agents` and agent
+skill setup, see
+[Installation — Install dn as an agent skill](/dn-cli/installation/#install-dn-as-an-agent-skill).
 
-## The plans/ directory
+# The plans/ directory
 
 Kickstart, prep, and loop manage plan files in a `plans/` directory at the
 workspace root. The directory is created automatically. Plan files track
@@ -27,10 +29,14 @@ durable handoff.
 
 ### Plan file locations
 
-- **Default mode** — Uses `plans/.last.plan.md` unless you provide
-  `--saved-plan <name>` or name an incomplete plan during continuation.
-- **AWP mode** — Uses a named `plans/[name].plan.md`, usually matching the
-  branch/bookmark name.
+All kickstart and prep runs write named `plans/[name].plan.md` files:
+
+- **Kickstart and prep** — `dn` prompts for a plan name before the plan phase.
+  In `--publish pr` or `--publish direct` mode, it suggests the branch or
+  bookmark name. Pass `--saved-plan <name>` on kickstart or `--plan-name <name>`
+  on prep to skip the prompt.
+- **Loop** — Implements an existing plan. Pass `--plan-file` or `PLAN`, or let
+  `dn loop` pick the most recently modified `*.plan.md` in `plans/`.
 - **Milestone mode** — Reads queue state from
   `plans/{owner}_{repo}_{milestone}.stack.md`; each task still produces a normal
   plan file.
@@ -44,9 +50,11 @@ remaining items stay `[ ]`.
 
 ### Plan continuation
 
-If the selected plan file already exists, kickstart can continue from it. The
-planning phase reads the existing content so the agent can update, correct, or
-extend the plan while preserving progress.
+If the selected plan file already exists, kickstart can continue from it when
+`--publish none` (the default). The planning phase reads the existing content so
+the agent can update, correct, or extend the plan while preserving progress.
+Publish modes (`--publish pr` or `--publish direct`) always start from a fresh
+named plan tied to the branch workflow.
 
 After implementation, kickstart or loop parses acceptance criteria. If work
 remains, they generate `plans/[name].continuation.plan.md` with the plan path,
@@ -54,13 +62,15 @@ progress summary, remaining items, and continuation instructions.
 
 ### Plan naming
 
-Default mode can start with `.last.plan.md` for local iteration. If incomplete
-work needs to continue later, kickstart prompts for a durable plan name and
-writes `plans/[name].plan.md` plus the continuation prompt. Use
-`--saved-plan <name>` when the plan name must be non-interactive.
+Every plan file is `plans/[name].plan.md`. There is no default `.last.plan.md`
+path — `dn` always resolves a name through a prompt or an explicit flag:
 
-AWP mode and milestone-driven runs use named plans because the plan files are
-part of the branch/PR workflow.
+- `dn kickstart --saved-plan <name>` — non-interactive kickstart
+- `dn prep --plan-name <name>` — non-interactive prep
+- `dn loop` — uses `--plan-file`, `PLAN`, or the newest `*.plan.md` in `plans/`
+
+In publish modes, the suggested name usually matches the generated branch or
+bookmark name.
 
 ### Plan merging
 
@@ -68,8 +78,10 @@ For named plans, a later run can merge a continuation file back into the main
 plan and remove the continuation file after a successful merge. This keeps one
 plan file with the full history and remaining work.
 
-Plan files are never auto-deleted. Keep them when they are useful for review or
-archive them after the work lands with `dn archive`.
+Plan files are kept after local (`--publish none`) runs for review and handoff.
+In `--publish pr` or `--publish direct` mode, `dn` deletes the plan file when
+all acceptance criteria are complete. Archive landed work with `dn archive` when
+you no longer need the plan in the tree.
 
 ## AGENTS.md
 
@@ -93,32 +105,9 @@ dn meld research.md ops-notes.md --target AGENTS.md
 ```
 
 Use `dn context` to inspect which `AGENTS.md` (or `AGENTS.override.md`) files
-apply to a path — see [Experimental](/dn-cli/task-list-and-sync/).
-
-## Agent skills and rules
-
-Pass `--skill` to `dn init agents` to install native skill or rule files for a
-selected agent harness:
-
-```bash
-dn init agents --skill --agent codex
-dn init agents --skill --agent claude
-dn init agents --skill --agent cursor
-```
-
-Repo-scope installs write:
-
-- `codex`, `opencode`: `.agents/skills/dn/SKILL.md` and
-  `.agents/skills/dn/agents/openai.yaml`
-- `claude`: `.claude/skills/dn/SKILL.md`
-- `cursor`: `.cursor/rules/dn.mdc`
-
-User-scope installs write the same content under your home directory
-(`~/.agents/`, `~/.claude/`). Managed files are idempotent; existing unmanaged
-files are left untouched unless you pass `--force`.
-
-These files teach the agent how to invoke `dn` without copying instructions into
-every prompt.
+apply to a path — see [Experimental](/dn-cli/task-list-and-sync/). To install
+native skill or rule files for your agent harness, see
+[Installation — Install dn as an agent skill](/dn-cli/installation/#install-dn-as-an-agent-skill).
 
 ## Milestone stack files
 

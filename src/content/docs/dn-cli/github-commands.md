@@ -9,41 +9,6 @@ These commands use the GitHub API from your local machine. Authenticate with
 and [GitHub Token Setup](/dn-cli/github-token-setup/) when you need token
 details.
 
-## `dn init agents`
-
-Updates `AGENTS.md` with dn workflow instructions:
-
-```bash
-dn init agents
-```
-
-Pass `--skill` to install native skill or rule files for a selected agent:
-
-```bash
-dn init agents --skill --agent codex
-dn init agents --skill --agent claude
-dn init agents --skill --agent opencode
-dn init agents --skill --agent cursor
-dn init agents --skill --agent codex --scope user
-dn init agents --skill --agent claude --dry-run --json
-```
-
-Repo-scope installs write:
-
-- `codex`, `opencode`: `.agents/skills/dn/SKILL.md` and
-  `.agents/skills/dn/agents/openai.yaml`
-- `claude`: `.claude/skills/dn/SKILL.md`
-- `cursor`: `.cursor/rules/dn.mdc`
-
-User-scope installs write:
-
-- `codex`, `opencode`: `~/.agents/skills/dn/SKILL.md` and
-  `~/.agents/skills/dn/agents/openai.yaml`
-- `claude`: `~/.claude/skills/dn/SKILL.md`
-
-Managed files are idempotent. Existing unmanaged files are left untouched unless
-`--force` is passed.
-
 ## `dn init stack`
 
 Creates a prioritized task list from a GitHub milestone:
@@ -101,7 +66,19 @@ without an issue ref, such as `list` and `create`.
 
 ## `dn glance`
 
-Summarizes project activity over a recent time window:
+Prints a velocity report for the **current GitHub repository** — issues opened,
+issues closed, and commits on the default branch — over a rolling time window.
+
+`dn glance` does **not** read your local git history. It resolves `owner/repo`
+from the checkout's `origin` remote (Git or Sapling) or from `GITHUB_REPOSITORY`
+in CI, then fetches all metrics through the **GitHub API**. You need GitHub
+authentication (`gh auth login`, `dn auth`, or `GITHUB_TOKEN`) with permission
+to read the repository. See
+[Installation — GitHub authentication](/dn-cli/installation/#github-authentication).
+
+Run it from a repository checkout whose default remote points at
+`github.com/owner/repo`. A bare clone with no remote, or a non-GitHub host, will
+not work.
 
 ```bash
 dn glance
@@ -109,6 +86,23 @@ dn glance --days 14
 dn glance --compact --no-urls
 ```
 
-`glance` compares issues and commits against the prior window of equal length
-and reports rates, trends, net issue flow, label grouping, and contributor
-share.
+For each run, `dn` compares the last **N** days (default 7) against the **prior
+N** days of equal length and prints:
+
+- **Summary** — open, close, and commit counts with per-day rates, trend
+  direction vs the prior window, and net issue flow (backlog grew or burned
+  down)
+- **Issues opened** — grouped by primary label; recent items are highlighted
+- **Issues closed** — same grouping
+- **Commits** — up to ten recent commits with SHA, subject, and link
+- **Activity by user** — share of opens, closes, and commits in the window
+
+| Flag             | Effect                                            |
+| ---------------- | ------------------------------------------------- |
+| `-d`, `--days N` | Window length in days (default `7`)               |
+| `--compact`      | Fewer blank lines between sections                |
+| `--no-urls`      | Omit issue and commit URLs (titles and SHAs only) |
+
+Use `dn peek` when you want ranked suggestions for what to work on next; use
+`dn glance` when you want a trend snapshot of recent project activity. See
+[Experimental — `dn peek`](/dn-cli/task-list-and-sync/#dn-peek).

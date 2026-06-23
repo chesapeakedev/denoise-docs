@@ -158,6 +158,9 @@ Most workflows also need:
 # Authenticate for GitHub-backed commands
 gh auth login
 
+# Teach your agent how to use dn
+dn init agents --skill --agent opencode
+
 # Plan and implement an issue locally
 dn kickstart https://github.com/owner/repo/issues/123
 
@@ -206,12 +209,40 @@ dn --agent claude kickstart --awp 123
 
 Run `dn <command> --help` for command-specific options.
 
+### Install dn as an agent skill
+
+After you pick an agent harness, install the `dn` skill so your agent can
+discover and run `dn` workflows without you pasting instructions into every
+prompt:
+
+```bash
+dn init agents --skill --agent codex
+dn init agents --skill --agent claude
+dn init agents --skill --agent cursor
+dn init agents --skill --agent opencode
+```
+
+Pass `--scope user` to install under your home directory instead of the current
+repository. Use `--force` to overwrite managed files `dn` already installed.
+
+Repo-scope installs write:
+
+- `codex`, `opencode`: `.agents/skills/dn/SKILL.md` and
+  `.agents/skills/dn/agents/openai.yaml`
+- `claude`: `.claude/skills/dn/SKILL.md`
+- `cursor`: `.cursor/rules/dn.mdc`
+
+User-scope installs write the same content under `~/.agents/` or `~/.claude/`.
+For per-repo `AGENTS.md` updates without the skill files, run `dn init agents`
+without `--skill` — see
+[Filesystem Context](/dn-cli/filesystem-context/#agentsmd).
+
 ## Command map
 
 | Need                       | Commands                                                | Reference                                             |
 | -------------------------- | ------------------------------------------------------- | ----------------------------------------------------- |
 | Orchestrate Agents         | `kickstart`, `prep`, `loop`, `meld`, `fixup`, `archive` | [Orchestrate Agents](/dn-cli/workflows/)              |
-| Working with Github        | `init agents`, `init stack`, `issue`, `glance`          | [Working with Github](/dn-cli/github-commands/)       |
+| Working with Github        | `init stack`, `issue`, `glance`                         | [Working with Github](/dn-cli/github-commands/)       |
 | GitHub Actions Integration | `init workflows`, `workflows`                           | [GitHub Actions Integration](/dn-cli/github-actions/) |
 | Experimental               | `context`, `peek`, `todo`, `tidy`, `sync`               | [Experimental](/dn-cli/task-list-and-sync/)           |
 

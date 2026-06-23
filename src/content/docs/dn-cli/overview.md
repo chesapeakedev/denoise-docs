@@ -119,11 +119,11 @@ repository.
 the agent implements them. `--awp` is an alias for `--publish pr`. These modes
 apply to **`dn kickstart` only** — `dn loop` does not commit, push, or open PRs.
 
-| Mode     | Flag                      | Behavior                                                                                                                                                  |
-| -------- | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `none`   | (default)                 | Apply changes locally. You handle commits and PRs. Uses `plans/.last.plan.md` unless you select a plan with `--saved-plan <name>` or during continuation. |
-| `pr`     | `--publish pr` or `--awp` | Create a branch or bookmark, commit, push, and open a pull request. Uses named plan files in `plans/[name].plan.md`. Requires Git or Sapling.             |
-| `direct` | `--publish direct`        | Check out the default branch, commit, and push without opening a PR. Requires Git or Sapling.                                                             |
+| Mode     | Flag                      | Behavior                                                                                                                                      |
+| -------- | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `none`   | (default)                 | Apply changes locally. You handle commits and PRs. Prompts for a named `plans/[name].plan.md` (or use `--saved-plan`).                        |
+| `pr`     | `--publish pr` or `--awp` | Create a branch or bookmark, commit, push, and open a pull request. Uses named plan files in `plans/[name].plan.md`. Requires Git or Sapling. |
+| `direct` | `--publish direct`        | Check out the default branch, commit, and push without opening a PR. Requires Git or Sapling.                                                 |
 
 Publish modes require a same-repository GitHub issue. They do not apply when
 kickstart context comes from a local markdown file.
