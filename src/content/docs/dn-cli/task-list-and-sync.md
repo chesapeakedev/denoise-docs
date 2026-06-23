@@ -1,10 +1,29 @@
 ---
 title: Experimental
-description: Experimental dn commands for context inspection, issue suggestions, task queues, and Sapling sync.
+description: Try early dn commands that streamline triage, agent context, task queues, and repo sync across the SDLC.
 ---
 
-These commands are experimental. They may change or be removed in future `dn`
-releases.
+`dn` targets the parts of the software development lifecycle that still slow
+teams down after you adopt agents: choosing the next issue, loading the right
+context, keeping GitHub and a local queue aligned, and landing work without
+extra ceremony. The commands here are **experiments** toward that goal — smaller
+workflows you can use today alongside [kickstart](/dn-cli/overview/) and
+[Orchestrate Agents](/dn-cli/workflows/).
+
+| Focus            | Commands               | What it changes                                                              |
+| ---------------- | ---------------------- | ---------------------------------------------------------------------------- |
+| **Triage**       | `peek`, `tidy`, `todo` | Surfaces ranked next work and keeps a personal task list in sync with GitHub |
+| **Context**      | `context`              | Shows which `AGENTS.md` files apply before an agent edits a path             |
+| **Agent intake** | no-ticket `kickstart`  | Lets an agent pick from your queue when you run `dn kickstart` with no issue |
+| **Repo hygiene** | `sync`                 | Rebases onto remote `main` and publishes local commits — Git or Sapling      |
+
+Together they explore how agents can own more of the loop between "what should
+we work on?" and "the change is on the branch" — without replacing the durable
+plans, PRs, and handoffs documented elsewhere.
+
+These commands are experimental. Behavior and flags may change or be removed in
+future `dn` releases. Try them on real work and share what sticks; that feedback
+decides what graduates into stable `dn` commands.
 
 ## `dn context`
 
@@ -83,21 +102,51 @@ one.
 
 ## `dn sync`
 
-Runs the Sapling-aligned sync-with-trunk flow from the repository workflow
-notes:
+Rebases your checkout onto remote `main` and publishes local commits when you
+are ahead. `dn` auto-detects **Sapling** or **Git** from the workspace:
 
-1. Runs `make lint` at the Sapling repo root.
-2. Runs `sl pull --rebase -d main`.
-3. Runs `sl restack` when stranded draft descendants exist.
-4. Runs `sl push --to main` when drafts exist on the main-line stack.
+- **Sapling** — when the repo root contains `.sl` metadata (plain Git checkouts
+  with `sl` installed are not treated as Sapling)
+- **Git** — otherwise, when `git rev-parse --show-toplevel` succeeds
 
-Prerequisites are Sapling (`sl`), `make`, and Deno. We are working on reducing
-these dependencies and adding Git support.
+Sapling takes precedence in dual-compatible repositories.
+
+### What each run does
+
+1. **`make lint`** at the repository root (skip with `--skip-lint`)
+2. **Rebase onto remote `main`**
+3. **Publish** only when local commits remain after the rebase
+
+**Sapling** (`sl`):
+
+1. `sl pull --rebase -d main`
+2. `sl restack` when obsolete children need restacking
+3. `sl push --to main` when draft commits exist on the main-line stack
+
+**Git** (`git`):
+
+1. Resolve the remote from `branch.main.remote`, or `origin` when that is not
+   set
+2. `git fetch <remote> main`
+3. `git rebase FETCH_HEAD`
+4. `git push <remote> HEAD:main` when `HEAD` is ahead of the fetched `main`
+
+When there is nothing to push, `dn sync` skips the push step and prints why.
+
+### Prerequisites
+
+- **`make`** and a `lint` target in the repository `Makefile` (unless you pass
+  `--skip-lint`)
+- **Git** and/or **Sapling** on `PATH`, depending on the checkout type
+- A configured remote that can fetch and push `main` (Git uses the tracked
+  remote or `origin`; Sapling uses your existing `sl` remote config)
+
+`dn auth` configures GitHub API access for other commands. **VCS push and fetch
+use the credentials configured for your Git or Sapling remotes** — HTTPS
+credential helper, `gh auth` HTTPS, or SSH.
 
 ```bash
 dn sync
 dn sync --workspace-root /path/to/checkout
+dn sync --skip-lint   # skip make lint (used by make sync)
 ```
-
-`dn auth` configures GitHub API access, but Sapling push still uses the
-repository remote credentials: HTTPS credential helper, `gh auth` HTTPS, or SSH.
