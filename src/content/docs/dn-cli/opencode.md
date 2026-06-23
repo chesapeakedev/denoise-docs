@@ -13,7 +13,7 @@ dispatch, start there first.
 
 ## How dn uses OpenCode configs
 
-Kickstart and prep run two phases. Each phase uses a separate config file in the
+kickstart and prep run two phases. Each phase uses a separate config file in the
 **workspace root** (`WORKSPACE_ROOT` or the current working directory):
 
 | File                      | Phase                 | Role                                                  |
@@ -67,7 +67,7 @@ If `opencode.plan.json` is missing, kickstart creates a template like:
 
 ## Default implement config template
 
-Create `opencode.implement.json` before the implement phase. Kickstart does not
+Create `opencode.implement.json` before the implement phase. kickstart does not
 auto-create this file:
 
 ```json
@@ -328,7 +328,7 @@ gh run list --repo owner/repo --event repository_dispatch
 gh run view <run-id> --log
 ```
 
-Denoise and other integrators dispatch the same payload shapes from the UI.
+denoise and other integrators dispatch the same payload shapes from the UI.
 
 ## Troubleshooting
 

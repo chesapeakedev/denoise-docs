@@ -242,7 +242,7 @@ without `--skill` — see
 | Need                | Commands                                                | Reference                                       |
 | ------------------- | ------------------------------------------------------- | ----------------------------------------------- |
 | Orchestrate Agents  | `kickstart`, `prep`, `loop`, `meld`, `fixup`, `archive` | [Orchestrate Agents](/dn-cli/workflows/)        |
-| Working with Github | `init stack`, `issue`, `glance`                         | [Working with Github](/dn-cli/github-commands/) |
+| Working with GitHub | `init stack`, `issue`, `glance`                         | [Working with GitHub](/dn-cli/github-commands/) |
 | Headless Use        | `init workflows`, `workflows`                           | [Headless Use](/dn-cli/headless-use/)           |
 | Experimental        | `context`, `peek`, `todo`, `tidy`, `sync`               | [Experimental](/dn-cli/task-list-and-sync/)     |
 

@@ -135,7 +135,7 @@ gh workflow run dn-daily-kickstart.yml --repo owner/repo
 | Runs per invocation | One (`--once`)                         | One issue per dispatch                   |
 | Typical use         | Daily backlog drain                    | On-demand or integrator-driven kickstart |
 
-Denoise and other tools dispatch `dn.kickstart_issue` for per-task automation.
+denoise and other tools dispatch `dn.kickstart_issue` for per-task automation.
 Scheduled kickstart is for repositories that maintain a committed milestone
 queue and want one PR per day without external dispatch.
 

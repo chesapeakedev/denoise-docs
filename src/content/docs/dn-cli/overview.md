@@ -12,7 +12,7 @@ broader command advice, see
 
 # Writing good GitHub issues
 
-Kickstart and prep read the issue title, body, labels, and comments, then turn
+kickstart and prep read the issue title, body, labels, and comments, then turn
 that context into a plan. If you can write focused, descriptive context, agent
 solution quality will be high.
 
@@ -149,7 +149,7 @@ Steps 4–7 are the same work `dn loop` performs when you already have a plan.
 
 ## Milestone queues
 
-Kickstart can consume milestone stack files created by `dn init stack`:
+`dn kickstart` can consume milestone stack files created by `dn init stack`:
 
 ```bash
 dn init stack 42
@@ -245,16 +245,50 @@ On failure (or when `SAVE_CTX=1`), debug files are kept in
 
 Set `SAVE_CTX=1` to preserve these on success as well.
 
+# Flags and environment variables
+
+## Common kickstart flags
+
+- `--publish <none|pr|direct>` — Controls how changes persist after
+  implementation; `--awp` is an alias for `--publish pr`. See
+  [Publish modes](#publish-modes).
+- `--allow-cross-repo` — Plan or implement from an issue in another repo
+  (requires `--publish none`).
+- `--saved-plan <name>` — Use `plans/<name>.plan.md` without prompting for a
+  name.
+- `--milestone <url-or-number>` — Use
+  `plans/{owner}_{repo}_{milestone}.stack.md` as the task queue.
+- `--complete` — With `--milestone`, run all unchecked stack tasks without queue
+  prompts.
+- `--workspace-root <path>` — Run against a specific workspace root.
+- `--agent <name>` — Select `opencode`, `cursor`, `claude`, or `codex`. Legacy
+  aliases such as `--cursor`, `--claude`, and `--codex` are still supported.
+
+## Environment variables
+
+| Variable                                                       | Description                                                                          |
+| -------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| `GITHUB_TOKEN`                                                 | GitHub API token for CI/scripts. Prefer `gh auth login` or `dn auth` for normal use. |
+| `WORKSPACE_ROOT`                                               | Workspace root. Defaults to the current working directory.                           |
+| `ISSUE`                                                        | Issue URL, issue number, or markdown path when no positional argument is provided.   |
+| `PLAN`                                                         | Plan file path for `dn loop`.                                                        |
+| `SAVE_CTX`                                                     | Set to `1` to keep debug files on success.                                           |
+| `CURSOR_ENABLED`, `CLAUDE_ENABLED`, `CODEX_ENABLED`            | Legacy environment toggles for agent selection.                                      |
+| `OPENCODE_TIMEOUT_MS`, `CLAUDE_TIMEOUT_MS`, `CODEX_TIMEOUT_MS` | Agent phase timeouts.                                                                |
+
+See [Headless Use — Unattended output](/dn-cli/headless-use/#unattended-output)
+for unattended mode and color flags.
+
 # Common issues
 
 ## "Issue URL points to a different repository"
 
-**Symptom:** Kickstart or prep exits with an error like: _Issue URL points to a
+**Symptom:** kickstart or prep exits with an error like: _Issue URL points to a
 different repository (owner/repo) than the current workspace
 (currentOwner/currentRepo)._
 
 **Cause:** The issue URL you passed refers to a repository that is not the one
-in your current workspace. Kickstart only implements issues from the repository
+in your current workspace. kickstart only implements issues from the repository
 you are working in.
 
 **Solutions:**
@@ -306,7 +340,7 @@ current branch is behind its remote counterpart`.
 **Cause:** A previous workflow run created the branch but failed before
 completing (e.g., PR creation failed).
 
-**Solution:** Kickstart uses `--force-with-lease` to handle this automatically.
+**Solution:** kickstart uses `--force-with-lease` to handle this automatically.
 If you still see this error, the remote branch may have been modified by someone
 else since the last fetch. Delete the remote branch manually and retry:
 

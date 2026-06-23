@@ -183,7 +183,7 @@ gh run list --repo owner/repo --event repository_dispatch
 gh run view <run-id> --log
 ```
 
-Denoise and other integrators dispatch the same payload shapes from the UI.
+denoise and other integrators dispatch the same payload shapes from the UI.
 
 ## Optional repository context
 

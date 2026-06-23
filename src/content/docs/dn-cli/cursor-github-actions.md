@@ -1,6 +1,6 @@
 ---
-title: Cursor API key for dn GitHub Actions
-description: Configure Cursor CLI with CURSOR_API_KEY for kickstart, prep, and stack workflows in installed dn GitHub Actions templates.
+title: Cursor
+description: Configure Cursor CLI for dn locally and in GitHub Actions — API key, headless mode, and workspace trust.
 ---
 
 Use the [Cursor CLI](https://cursor.com/docs/cli/installation) headless `agent`
@@ -240,7 +240,7 @@ approach.
 - [OpenCode](/dn-cli/opencode/) — alternative agent harness
 - [Claude](/dn-cli/claude/) — alternative agent harness
 - [Codex](/dn-cli/codex/) — alternative agent harness
-- [Kickstart usage](/dn-cli/usage/) — agent selection and flags
+- [Kickstart & Looping — Flags and environment variables](/dn-cli/overview/#flags-and-environment-variables)
 - [Self-hosted runners](/operations/self-hosted-runners/) — longer-running
   kickstart jobs
 - [Cursor CLI installation](https://cursor.com/docs/cli/installation)

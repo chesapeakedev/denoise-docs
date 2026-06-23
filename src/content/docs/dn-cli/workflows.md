@@ -36,7 +36,8 @@ dn kickstart 123
 # Use a local markdown spec as context
 dn kickstart docs/spec.md
 
-# Create a branch/bookmark, commit, push, and open a PR
+# Create a branch/bookmark, commit, push, and open a PR (--awp is an alias)
+dn kickstart --publish pr 123
 dn kickstart --awp 123
 
 # Implement an issue from another repo in the current workspace
@@ -47,9 +48,11 @@ dn --agent codex kickstart 123
 dn --agent claude kickstart --awp 123
 ```
 
-Default mode applies changes locally and leaves commits and PRs to you. AWP mode
-handles branch/bookmark creation, commits, push, and PR creation, and therefore
-requires the issue to belong to the current workspace repository.
+With `--publish none` (the default), kickstart applies changes locally and
+leaves commits and PRs to you. With `--publish pr` (or `--awp`), it handles
+branch/bookmark creation, commits, push, and PR creation, and therefore requires
+the issue to belong to the current workspace repository. See
+[Kickstart & Looping — Publish modes](/dn-cli/overview/#publish-modes).
 
 ## `dn prep`
 

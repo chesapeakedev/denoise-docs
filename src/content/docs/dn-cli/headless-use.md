@@ -146,10 +146,10 @@ reproducibility:
 
 ## Publish modes in CI
 
-Kickstart and init stack must persist changes in CI. With `--publish none`,
+kickstart and init stack must persist changes in CI. With `--publish none`,
 workspace changes are discarded when the runner exits.
 
-| Mode           | Kickstart behavior                       | Typical CI use                             |
+| Mode           | kickstart behavior                       | Typical CI use                             |
 | -------------- | ---------------------------------------- | ------------------------------------------ |
 | `pr` (default) | Branch, commit, push, open PR            | `dn.kickstart_issue`, `dn.daily_kickstart` |
 | `direct`       | Commit and push to default branch, no PR | `dn.init_stack` (always uses `direct`)     |
@@ -281,9 +281,9 @@ For kickstart with `publish: pr`, also enable **Allow GitHub Actions to create
 and approve pull requests** under **Settings → Actions → General → Workflow
 permissions**.
 
-## Denoise and other integrators
+## denoise and other integrators
 
-Denoise dispatches the same payload shapes through its backend GitHub App. The
+denoise dispatches the same payload shapes through its backend GitHub App. The
 milestone dashboard can trigger `dn.init_stack`, `dn.prep_issue_plan`, and
 `dn.kickstart_issue` on linked repositories that have installed templates.
 

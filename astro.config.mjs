@@ -5,6 +5,9 @@ import starlight from "@astrojs/starlight";
 // https://astro.build/config
 export default defineConfig({
   output: "static",
+  redirects: {
+    "/dn-cli/usage": "/dn-cli/overview/",
+  },
   image: {
     service: passthroughImageService(),
   },
@@ -32,7 +35,7 @@ export default defineConfig({
               label: "Filesystem Context",
               slug: "dn-cli/filesystem-context",
             },
-            { label: "Working with Github", slug: "dn-cli/github-commands" },
+            { label: "Working with GitHub", slug: "dn-cli/github-commands" },
             {
               label: "Experimental",
               slug: "dn-cli/task-list-and-sync",

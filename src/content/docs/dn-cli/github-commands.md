@@ -1,5 +1,5 @@
 ---
-title: Working with Github
+title: Working with GitHub
 description: Manage GitHub issues, milestones, and project activity from the dn CLI.
 ---
 

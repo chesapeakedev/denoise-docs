@@ -15,7 +15,7 @@ continuation prompts are generated (see
 
 ## 2. Linting (non-blocking)
 
-Kickstart runs project linting when possible:
+kickstart runs project linting when possible:
 
 - **Deno** — `deno task check` or `deno fmt && deno lint`
 - **Node.js** — `npm run lint`
@@ -25,7 +25,7 @@ Lint errors are reported as warnings only.
 
 ## 3. AGENTS.md generation
 
-Kickstart generates or updates `AGENTS.md` with:
+kickstart generates or updates `AGENTS.md` with:
 
 - **Project type** — Detects Deno, Node.js, Python, Rust, Go
 - **Build commands** — From `deno.json`, `package.json`, etc.
@@ -38,7 +38,7 @@ This helps agents follow project conventions and improves promptability.
 
 If you use **`--cursor`** or set **`CURSOR_ENABLED=1`**:
 
-- Kickstart creates **`.cursor/rules/kickstart.mdc`** with `alwaysApply: true`
+- kickstart creates **`.cursor/rules/kickstart.mdc`** with `alwaysApply: true`
 - The rule documents how to use kickstart as a subagent in Cursor
 - Includes usage examples and workflow information
 - Enables Cursor agents to use kickstart for implementing GitHub issues

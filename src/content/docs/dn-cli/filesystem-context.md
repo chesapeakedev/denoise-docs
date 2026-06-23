@@ -16,13 +16,13 @@ in standard agent config paths.
 | `.agents/skills/dn/`, `.claude/skills/dn/`, `.cursor/rules/dn.mdc` | `dn init agents --skill`               | Agent-native dn workflow instructions — see [Installation — Install dn as an agent skill](/dn-cli/installation/#install-dn-as-an-agent-skill) |
 
 For `dn init stack` command detail, see
-[Working with Github](/dn-cli/github-commands/). For `dn init agents` and agent
+[Working with GitHub](/dn-cli/github-commands/). For `dn init agents` and agent
 skill setup, see
 [Installation — Install dn as an agent skill](/dn-cli/installation/#install-dn-as-an-agent-skill).
 
 # The plans/ directory
 
-Kickstart, prep, and loop manage plan files in a `plans/` directory at the
+kickstart, prep, and loop manage plan files in a `plans/` directory at the
 workspace root. The directory is created automatically. Plan files track
 implementation progress and give later `dn loop` runs or human reviewers a
 durable handoff.
@@ -31,7 +31,7 @@ durable handoff.
 
 All kickstart and prep runs write named `plans/[name].plan.md` files:
 
-- **Kickstart and prep** — `dn` prompts for a plan name before the plan phase.
+- **kickstart and prep** — `dn` prompts for a plan name before the plan phase.
   In `--publish pr` or `--publish direct` mode, it suggests the branch or
   bookmark name. Pass `--saved-plan <name>` on kickstart or `--plan-name <name>`
   on prep to skip the prompt.
