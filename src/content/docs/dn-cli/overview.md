@@ -6,25 +6,27 @@ description: In-depth usage of dn kickstart, prep, and loop for planning and imp
 `dn kickstart` runs planning and implementation in one command. `dn prep` and
 `dn loop` split that workflow: prep writes a plan for review, loop implements
 from an existing plan. Use this page for in-depth usage of all three. For the
-broader command map, see
+broader command advice, see
 [Installation — Command map](/dn-cli/installation/#command-map) or
 [Orchestrate Agents](/dn-cli/workflows/).
 
-## Writing good GitHub issues
+# Writing good GitHub issues
 
 Kickstart and prep read the issue title, body, labels, and comments, then turn
-that context into a plan. `dn loop` does not fetch issues — it reads a plan file
-you (or prep/kickstart) already created. Issue quality still matters when you
-use prep + loop, because the plan is built from the same context.
+that context into a plan. If you can write focused, descriptive context, agent
+solution quality will be high.
 
-### State the outcome, not just the task
+## State the outcome, not just the task
 
-Open with what should be true when the work is done. A bug report should
-describe expected behavior, actual behavior, and how to reproduce. A feature
-request should describe the user-visible change and why it matters. Vague titles
-like "Fix login" or "Improve performance" force the agent to guess intent.
+Open with what should be true when the work is done (sometimes referred to as
+the definition of done). A bug report should describe expected behavior, actual
+behavior, and how to reproduce. A feature request should describe the
+user-visible change and why it matters. Vague titles like "Fix login" or
+"Improve performance" force the agent to guess intent. When the agent guesses
+intent, it implements something you may not expect or want, but you used the
+tokens either way.
 
-### Write testable acceptance criteria
+## Write testable acceptance criteria
 
 Use a checklist the agent can mark complete during implementation:
 
@@ -39,10 +41,10 @@ same checklist as the progress signal — completed items become `[x]`, remainin
 items stay `[ ]`. See [Filesystem Context](/dn-cli/filesystem-context/) for how
 that handoff works.
 
-Concrete, observable criteria beat prose paragraphs. Prefer "returns 401" over
-"handles errors correctly."
+Concrete, observable criteria beat prose paragraphs. Prefer "returns 401
+when..." over "handles errors correctly."
 
-### Point to the code
+## Point to the code
 
 Name files, modules, or directories when you know them:
 
@@ -53,7 +55,7 @@ Name files, modules, or directories when you know them:
 The agent still explores the repo, but starting pointers reduce wrong-file edits
 and speed up the plan phase.
 
-### Define scope and non-goals
+## Define scope and non-goals
 
 Say what is out of scope explicitly:
 
@@ -61,10 +63,10 @@ Say what is out of scope explicitly:
 - "No database migration in this issue"
 - "Defer mobile layout to #456"
 
-Without boundaries, agents tend to expand scope — especially in AWP mode where
-changes land as a PR.
+Without boundaries, agents tend to expand scope — especially in publish modes
+where changes land as a PR or commit.
 
-### Keep one issue to one deliverable
+## Keep one issue to one deliverable
 
 Large issues produce large plans and harder-to-review diffs. Split work when you
 can:
@@ -75,13 +77,13 @@ can:
 For milestone-sized work, use `dn init stack` to queue issues in priority order
 instead of cramming everything into one ticket.
 
-### Link related context
+## Link related context
 
 Reference prior issues, PRs, design docs, or failing CI runs in the body.
 Comments on the issue are fetched too — use them for clarifications that came up
 in discussion rather than rewriting the whole description.
 
-## dn kickstart
+# dn kickstart
 
 `dn kickstart` resolves issue context (or loads a local markdown file), plans,
 implements, and checks acceptance criteria in one run.
@@ -91,11 +93,15 @@ implements, and checks acceptance criteria in one run.
 dn kickstart https://github.com/owner/repo/issues/123
 dn kickstart 123
 
-# Local markdown context, with no GitHub fetch and no AWP mode
+# Local markdown context — no GitHub fetch; publish modes do not apply
 dn kickstart docs/spec.md
 
-# AWP: branch/bookmark, commit, push, and PR
+# Publish via branch and PR (--awp is an alias for --publish pr)
+dn kickstart --publish pr 123
 dn kickstart --awp 123
+
+# Commit directly to the default branch (no PR)
+dn kickstart --publish direct 123
 
 # Select an agent harness
 dn --agent codex kickstart 123
@@ -103,48 +109,60 @@ dn --agent codex kickstart 123
 
 Issue arguments can be full GitHub issue URLs, issue numbers for the current
 repository, or local markdown files. Cross-repository issue URLs require
-`--allow-cross-repo`; AWP mode remains same-repository because branch, commit,
-and PR operations need the current workspace repository.
+`--allow-cross-repo` and work only with `--publish none`, because branch,
+commit, and push operations require the issue and workspace to be in the same
+repository.
 
-### Kickstart modes
+## Publish modes
 
-These modes apply to **`dn kickstart` only**. `dn loop` does not create branches
-or PRs and does not use AWP.
+`--publish <none|pr|direct>` controls how `dn kickstart` persists changes after
+the agent implements them. `--awp` is an alias for `--publish pr`. These modes
+apply to **`dn kickstart` only** — `dn loop` does not commit, push, or open PRs.
 
-- **Default mode** — Applies changes locally. You handle commits and PRs
-  manually. Uses `plans/.last.plan.md` unless a specific plan is selected with
-  `--saved-plan <name>` or a plan name is requested during continuation.
-- **AWP mode** (`--awp`) — Creates a branch/bookmark, commits changes, pushes,
-  and opens a PR. Uses named plan files in `plans/[name].plan.md` and requires
-  Git or Sapling.
+| Mode     | Flag                      | Behavior                                                                                                                                                  |
+| -------- | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `none`   | (default)                 | Apply changes locally. You handle commits and PRs. Uses `plans/.last.plan.md` unless you select a plan with `--saved-plan <name>` or during continuation. |
+| `pr`     | `--publish pr` or `--awp` | Create a branch or bookmark, commit, push, and open a pull request. Uses named plan files in `plans/[name].plan.md`. Requires Git or Sapling.             |
+| `direct` | `--publish direct`        | Check out the default branch, commit, and push without opening a PR. Requires Git or Sapling.                                                             |
 
-### How kickstart works
+Publish modes require a same-repository GitHub issue. They do not apply when
+kickstart context comes from a local markdown file.
+
+In GitHub Actions and other CI environments, `dn` requires `--publish pr`,
+`--publish direct`, or `--awp`. With `--publish none`, workspace changes are
+discarded when the runner exits.
+
+## How kickstart works
 
 1. Resolve issue context from GitHub or load a local markdown file.
-2. Select the plan path and run the plan phase.
-3. Validate the plan file.
-4. Run the implement phase.
-5. Check acceptance-criteria completion.
-6. Generate continuation prompts if work remains.
-7. Run linting and generate agent artifacts where applicable.
-8. In AWP mode, commit, push, and create a PR.
+2. When publishing, prepare VCS state (branch for `pr`, default branch for
+   `direct`).
+3. Select the plan path and run the plan phase.
+4. Validate the plan file.
+5. Run the implement phase.
+6. Check acceptance-criteria completion.
+7. Generate continuation prompts if work remains.
+8. Run linting and generate agent artifacts where applicable.
+9. In `pr` or `direct` mode, commit and push; in `pr` mode, also create a PR.
 
-Steps 3–6 are the same work `dn loop` performs when you already have a plan.
+Steps 4–7 are the same work `dn loop` performs when you already have a plan.
 
-### Milestone queues
+## Milestone queues
 
 Kickstart can consume milestone stack files created by `dn init stack`:
 
 ```bash
 dn init stack 42
 dn kickstart --milestone 42
+dn kickstart --publish pr --milestone 42 --once   # one stack item for CI
 dn kickstart --milestone 42 --complete
 ```
 
 `--complete` runs remaining unchecked stack tasks without prompting between
-queue items.
+queue items. When publish mode is not `none` (or in CI), completed stack items
+are committed to the default branch automatically.
 
-## dn prep
+# dn prep
 
 `dn prep` runs only the planning phase (kickstart steps 1–3). Use it when you
 want to review or edit the plan before any code changes land.
@@ -159,14 +177,14 @@ dn prep --plan-name my-feature 123
 The command prints the plan file path. Continue with `dn loop` when the plan
 looks right.
 
-## dn loop
+# dn loop
 
-`dn loop` runs only the implementation phase (kickstart steps 3–6). It does
-**not** fetch GitHub issues, resolve milestone queues, or run AWP. You need an
-existing plan file — typically from `dn prep`, a prior `dn kickstart` run, or a
-hand-written spec in `plans/`.
+`dn loop` runs only the implementation phase (kickstart steps 4–7). It does
+**not** fetch GitHub issues, resolve milestone queues, or publish changes. You
+need an existing plan file — typically from `dn prep`, a prior `dn kickstart`
+run, or a hand-written spec in `plans/`.
 
-### When to use loop
+## When to use loop
 
 - After `dn prep` — review the plan, edit acceptance criteria, then implement.
 - After a partial kickstart — work stopped with remaining checklist items; run
@@ -175,8 +193,6 @@ hand-written spec in `plans/`.
   implements from the saved plan.
 - Iteration without re-planning — adjust the plan file manually, then re-run
   loop.
-
-### CLI usage
 
 ```bash
 # Implement from a specific plan
@@ -192,7 +208,7 @@ dn loop
 dn --agent claude loop --plan-file plans/my-feature.plan.md
 ```
 
-### How loop works
+## How loop works
 
 1. Load the plan file (`--plan-file`, `PLAN`, or auto-discovery).
 2. Validate the plan structure and acceptance criteria.
@@ -204,7 +220,7 @@ Loop reuses the plan's issue context and code pointers — it does not re-fetch
 the GitHub issue. If the issue changed on GitHub after planning, edit the plan
 or run `dn prep` again.
 
-### Continuation and re-runs
+## Continuation and re-runs
 
 When acceptance criteria are not fully checked, loop (like kickstart) can write
 `plans/[name].continuation.plan.md` with remaining work. Re-run loop on the main
@@ -214,14 +230,6 @@ plan or merge the continuation file per
 If multiple plan files exist and you omit `--plan-file`, `dn loop` picks the
 latest plan in `plans/`. For non-interactive runs, always pass `--plan-file` or
 `PLAN`.
-
-## Dependencies
-
-- [Deno](https://deno.com/) and an agent harness in `PATH`
-- GitHub authentication through `gh`, `dn auth`, or `GITHUB_TOKEN`
-- Git or Sapling for kickstart AWP mode only (not required for `dn loop`)
-
-See [Orchestrate Agents](/dn-cli/workflows/) for the command-family reference.
 
 ## Troubleshooting
 
@@ -237,37 +245,9 @@ On failure (or when `SAVE_CTX=1`), debug files are kept in
 
 Set `SAVE_CTX=1` to preserve these on success as well.
 
-### Common issues
+# Common issues
 
-#### "opencode not found"
-
-**Symptom:** Script exits because opencode is not in PATH.
-
-**Solutions:**
-
-- Install opencode: [opencode.dev](https://opencode.dev/)
-- Verify: `opencode --version`
-- Ensure the directory containing `opencode` is in your `PATH`
-
-#### "No GitHub token found"
-
-**Symptom:** Error when fetching issues or creating PRs.
-
-**Solutions:**
-
-- **Preferred:** Install [GitHub CLI](https://cli.github.com/) and run
-  `gh auth login`; dn uses it automatically
-- **Alternative:** Run `dn auth` to sign in in the browser; token is cached
-- **CI/scripts:** Set `GITHUB_TOKEN` with a
-  [Personal Access Token](https://github.com/settings/tokens) (fine-grained PAT
-  recommended)
-- In GitHub Actions: use `${{ secrets.GITHUB_TOKEN }}`
-
-See
-[Installation — GitHub authentication](/dn-cli/installation/#github-authentication)
-for details.
-
-#### "Issue URL points to a different repository"
+## "Issue URL points to a different repository"
 
 **Symptom:** Kickstart or prep exits with an error like: _Issue URL points to a
 different repository (owner/repo) than the current workspace
@@ -284,7 +264,7 @@ you are working in.
 - Or pass only the issue number (e.g. `dn kickstart 123`) when you are inside
   the repo; kickstart infers the full URL from the workspace remote.
 
-#### Workspace root detection
+## Workspace root detection
 
 **Symptom:** Script uses the wrong directory or can't find files.
 
@@ -297,7 +277,7 @@ you are working in.
 - Or run from the workspace root: `cd /path/to/workspace` then run kickstart
 - Check console output for the workspace root kickstart is using
 
-#### Binary not executable
+## Binary not executable
 
 **Symptom:** Permission denied when running a compiled binary.
 
@@ -306,7 +286,7 @@ you are working in.
 - `chmod +x dn`
 - Check permissions: `ls -l dn`
 
-#### "GitHub Actions is not permitted to create or approve pull requests"
+## "GitHub Actions is not permitted to create or approve pull requests"
 
 **Symptom:** Workflow fails when trying to create a PR in CI.
 
@@ -317,7 +297,7 @@ you are working in.
 3. Enable **Allow GitHub Actions to create and approve pull requests**
 4. Click **Save**
 
-#### "non-fast-forward" push rejected
+## "non-fast-forward" push rejected
 
 **Symptom:** Push fails with
 `Updates were rejected because the tip of your
@@ -334,12 +314,12 @@ else since the last fetch. Delete the remote branch manually and retry:
 git push origin --delete kickstart/issue_123_feature-name
 ```
 
-### Getting help
+## Getting help
 
 If issues aren't covered here:
 
 1. **Inspect debug files** — Set `SAVE_CTX=1` and look in
    `/tmp/geo-opencode-{pid}/`
-2. **Check prerequisites** — Deno, opencode, GitHub auth, and (for AWP) Git or
-   Sapling
+2. **Check prerequisites** — Deno, opencode, GitHub auth, and (for publish
+   modes) Git or Sapling
 3. **Read error messages** — They often include paths and next steps

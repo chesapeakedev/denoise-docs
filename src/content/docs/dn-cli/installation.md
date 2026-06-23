@@ -4,10 +4,9 @@ description: Install dn, authenticate with GitHub, run your first commands, and 
 ---
 
 This page explains how to install the CLI, authenticate with GitHub, and get
-started orchestrating agents. It also maps `dn` commands to the focused
-reference pages for each workflow.
+started running `dn` commands.
 
-## Install dn
+# Install dn
 
 Install using the installation script:
 
@@ -21,9 +20,9 @@ To customize the install directory or pin a version:
 curl -fsSL https://raw.githubusercontent.com/chesapeakedev/dn/main/scripts/install.sh | sh -s -- --install-dir /usr/local/bin --version v0.1.0
 ```
 
-### Download a pre-built binary
+## Download a pre-built binary
 
-Pre-built binaries are on the
+If you prefer to avoid installation scripts, pre-built binaries are on the
 [latest `dn` release](https://github.com/chesapeakedev/dn/releases/latest).
 Download the binary for your platform and place it in your `PATH`:
 
@@ -53,9 +52,7 @@ Privacy & Security → Open Anyway**, or run
 
 Run `dn` with no arguments to see the current command list.
 
-## Building from source
-
-### Prerequisites
+## Build from source
 
 Building from a repository clone requires:
 
@@ -70,21 +67,18 @@ cd dn
 make install
 ```
 
-## GitHub authentication
+# GitHub authentication
 
-`dn` needs a GitHub token for subcommands that access the GitHub API
-(`kickstart`, `prep`, `glance`, `peek`, `fixup`, `issue`, `meld` with issue
-URLs).
+`dn` needs a GitHub token for commands that access the GitHub API (`kickstart`,
+`prep`, `glance`, `peek`, `fixup`, `issue`, `meld` with issue URLs).
 
-### Token resolution order
+## Token resolution order
 
 `dn` checks for a token in this order and uses the first one found:
 
 1. **`GITHUB_TOKEN` environment variable** (or legacy `DANGEROUS_GITHUB_TOKEN`)
 2. **GitHub CLI** — if `gh` is installed and authenticated, `dn` shells out to
    `gh auth token`
-3. **Cached device-flow token** from `dn auth` (stored in `~/.config/dn/` on
-   Unix-like systems or `%APPDATA%\dn` on Windows)
 
 ### Interactive: GitHub CLI
 
@@ -141,8 +135,7 @@ secrets.
 
 ### Troubleshooting
 
-**"No GitHub token found"** — Run `gh auth login`, `dn auth`, or set
-`GITHUB_TOKEN`.
+**"No GitHub token found"** — Run `gh auth login` or set `GITHUB_TOKEN`.
 
 **"Bad credentials" / 401** — The token may be expired or revoked. Re-run
 `gh auth login` or generate a new PAT.
@@ -150,7 +143,7 @@ secrets.
 **"Resource not accessible by integration"** — The token lacks the required
 scope. Check the scope table above and update your PAT or workflow permissions.
 
-## Before your first command
+# Run your first command
 
 Most workflows also need:
 
@@ -159,7 +152,7 @@ Most workflows also need:
 - An agent harness for agent-backed workflows: [opencode](https://opencode.dev/)
   by default, or Cursor, Claude Code, or Codex CLI
 
-## First commands
+## Basic setup commands
 
 ```bash
 # Authenticate for GitHub-backed commands
@@ -180,8 +173,31 @@ dn workflows validate --json
 dn tidy
 ```
 
-Agent-backed commands default to OpenCode. Select another harness with the
-global flag:
+### Choose an agent
+
+Agent-backed commands (`kickstart`, `prep`, `loop`, and others in the
+[command map](#command-map)) run through an agent harness. OpenCode is the
+default when nothing else is configured.
+
+**Repository default.** The `dn init workflows --agent <name>` command above
+writes `.github/dn/config.json` with the preferred agent for the repository:
+
+```json
+{
+  "schema_version": "1.0",
+  "agent": "opencode"
+}
+```
+
+Supported values are `opencode`, `cursor`, `claude`, and `codex`. GitHub Actions
+workflows and denoise integrators read this file so automated runs use the same
+agent without passing `--agent` on every dispatch. Re-run
+`dn init workflows --agent <name>` or edit the file directly to change the
+default. See [GitHub Actions Integration](/dn-cli/github-actions/) for the
+matching repository secrets.
+
+**Single-run override.** Pass the global `--agent` flag when you want a
+different harness for one local command:
 
 ```bash
 dn --agent codex prep 123

@@ -6,22 +6,23 @@ description: Plan, implement, archive plans, and address PR feedback with dn
 Workflow commands turn issues, pull requests, or local markdown into durable
 plans and code changes.
 
-## Working above syntax
+# Work above syntax
 
 The commands on this page are for **orchestration** — working one level above
-syntax. Instead of writing every line yourself, you define inputs (issues,
-specs, PR feedback), choose how far automation should run, and hand off durable
-artifacts — plans, branches, commits — at each boundary.
+syntax. Instead of building with the agent one prompt at a time, source context
+(issues, specs, PR feedback), choose how far automation should run, and hand off
+durable artifacts — plans, branches, commits — at each boundary.
 
-The goal is a **shared workflow** between you and an agent. Each step in the
-flow — plan, implement, review, fix up, archive — can be picked up by either
-side. Run `prep` yourself and let an agent `loop`. Kick off `kickstart` and step
-in when the plan needs a human judgment call. Resume from a plan file after
-someone else left off.
+This creates a **shared workflow** between you, your agent, your team, and their
+agents. Each step in the flow — plan, implement, review, fix up, archive — can
+be picked up by contributor or agent. Run `prep` to flesh out a plan and let
+another contributor `loop`, review, and land the implementation. Kick off
+`kickstart` and step in when the plan has unfinished work that needs a human
+judgment call.
 
-That split is deliberate. You dive deep exactly when you need to — editing a
-plan, rejecting a direction, landing the final commit — and stay at 10,000 feet
-when you can so you move fast across more work.
+Create a nightly job tasking an agent to find and complete work in the
+repository, creating plans, commits, pull requests, and comments. These commands
+form the primitives for building an autonomous software development lifecycle.
 
 ## `dn kickstart`
 
