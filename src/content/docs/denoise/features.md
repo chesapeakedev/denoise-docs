@@ -135,14 +135,14 @@ Task visibility:
 Collaborators need sign-in and **Online** mode to see shared milestone updates.
 See [Authentication](/denoise/authentication/) for sync requirements.
 
-## Workbench fallback
+## Workbench
 
-If you disable **Milestones** in **Profile** → **Display Settings**, the app
-home becomes the workbench at `/todo` — a single task list without the Roadmap.
-This mode suits quick personal todos; most planning and GitHub workflows use the
-Roadmap and milestone view instead.
+The [Workbench](/denoise/workbench/) is a fast task-list view for **My Tasks**
+and for the full app experience when milestones are disabled. It uses an inline
+**Add a task...** input rather than the milestone view's **Add task** dialog.
 
-![Milestones toggle in Profile Display Settings](../../../assets/screenshots/account-display-settings.png)
+See the dedicated page for layout, filtering, task actions, and how the
+workbench relates to the Roadmap when milestones are on or off.
 
 ## Usage metrics (opt-in)
 

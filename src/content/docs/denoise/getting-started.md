@@ -17,6 +17,7 @@ milestone from the roadmap to manage its tasks on the **milestone view**.
 | ------------------ | ---------------- | ---------------------------------------------- |
 | **Roadmap**        | `/`              | Default home when Milestones is enabled        |
 | **Milestone view** | `/milestone/:id` | Open a milestone from the roadmap              |
+| **Workbench**      | `/todo`, `/plan` | Task list; default home when Milestones is off |
 | **Profile**        | `/profile`       | Sign-in, GitHub access, plan, display settings |
 
 ![Roadmap view with milestone summary cards, workspace selector, and status filters](../../../assets/screenshots/roadmap.png)
@@ -27,8 +28,8 @@ The primary workflow is **New milestone** on the Roadmap → open the milestone
 card → **Add task** on the milestone view.
 
 To turn milestones off, open **Profile** → **Display Settings** and uncheck
-**Milestones**. The app then uses the workbench at `/todo` (a single task list
-with an optional sidebar) instead of the Roadmap.
+**Milestones**. The app then uses the [Workbench](/denoise/workbench/) at
+`/todo` instead of the Roadmap.
 
 The header shows a sync badge (**Offline**, **Online**, or **Syncing…**). Click
 it to enable cloud sync when you are ready. Open **Profile** from the avatar
@@ -85,6 +86,7 @@ guided tour for your current screen.
 
 - Use [Features](/denoise/features/) to learn tasks, milestones, collaboration,
   and GitHub sync.
+- Use [Workbench](/denoise/workbench/) for the task-list view and My Tasks.
 - Use [GitHub integration](/denoise/github-integration/) when you want to link
   milestones to GitHub issues and dn workflows.
 - Use [Milestone details](/denoise/milestone-details/) for DN setup, init_stack,

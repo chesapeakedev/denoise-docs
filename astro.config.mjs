@@ -71,6 +71,7 @@ export default defineConfig({
             { label: "Getting started", slug: "denoise/getting-started" },
             { label: "Authentication", slug: "denoise/authentication" },
             { label: "Features", slug: "denoise/features" },
+            { label: "Workbench", slug: "denoise/workbench" },
             {
               label: "Milestone details",
               slug: "denoise/milestone-details",
