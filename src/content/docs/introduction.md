@@ -32,13 +32,13 @@ available automations without forcing everyone into the same tool:
 
 ## Quick links
 
-| Need                                       | Start here                                                                                                                                                                                                          |
-| ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Install and use dn                         | [Installation](/dn-cli/installation/) -> [Subcommands](/dn-cli/subcommands/)                                                                                                                                        |
-| Implement Github Issues with dn & an Agent | [Orchestrate Agents](/dn-cli/workflows/) -> [Kickstart & Looping](/dn-cli/overview/)                                                                                                                                |
-| Automate in GitHub Actions                 | [GitHub Actions Integration](/dn-cli/github-actions/) -> [OpenCode configuration](/dn-cli/configuration/) or [Cursor API key](/dn-cli/cursor-github-actions/)                                                       |
-| Connect denoise to dn Workflows            | [Milestone details](/denoise/milestone-details/) -> [GitHub integration](/denoise/github-integration/) -> [GitHub Actions Integration — Denoise integrators](/dn-cli/github-actions/#denoise-and-other-integrators) |
-| Denoise Pro and task kickstart             | [Subscription & Pro](/denoise/subscription-and-pro/) -> [Milestone details](/denoise/milestone-details/)                                                                                                            |
+| Need                                       | Start here                                                                                                                                                                                          |
+| ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Install and use dn                         | [Installation](/dn-cli/installation/)                                                                                                                                                               |
+| Implement Github Issues with dn & an Agent | [Orchestrate Agents](/dn-cli/workflows/) -> [Kickstart & Looping](/dn-cli/overview/)                                                                                                                |
+| Automate in GitHub Actions                 | [Headless Use](/dn-cli/headless-use/) -> [OpenCode](/dn-cli/opencode/), [Claude](/dn-cli/claude/), [Codex](/dn-cli/codex/), or [Cursor](/dn-cli/cursor-github-actions/)                             |
+| Connect denoise to dn Workflows            | [Milestone details](/denoise/milestone-details/) -> [GitHub integration](/denoise/github-integration/) -> [Headless Use — Denoise integrators](/dn-cli/headless-use/#denoise-and-other-integrators) |
+| Denoise Pro and task kickstart             | [Subscription & Pro](/denoise/subscription-and-pro/) -> [Milestone details](/denoise/milestone-details/)                                                                                            |
 
 ## Examples
 

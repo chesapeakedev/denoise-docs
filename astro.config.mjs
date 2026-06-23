@@ -37,31 +37,28 @@ export default defineConfig({
               label: "Experimental",
               slug: "dn-cli/task-list-and-sync",
             },
-            {
-              label: "Non-interactive Use",
-              slug: "dn-cli/output-and-environment",
-            },
           ],
         },
         {
-          label: "dn in github actions",
+          label: "Headless Use",
           items: [
             {
-              label: "GitHub Actions Integration",
-              slug: "dn-cli/github-actions",
+              label: "Headless Use",
+              slug: "dn-cli/headless-use",
+            },
+            {
+              label: "Scheduled Workflows",
+              slug: "dn-cli/scheduled-workflows",
             },
             { label: "GitHub token setup", slug: "dn-cli/github-token-setup" },
             {
-              label: "OpenCode configuration",
-              slug: "dn-cli/configuration",
-            },
-            {
-              label: "OpenCode + DeepInfra Kimi K2.7 Code",
-              slug: "dn-cli/opencode-deepinfra-kimi-k2-7-code",
-            },
-            {
-              label: "Cursor",
-              slug: "dn-cli/cursor-github-actions",
+              label: "Agent Configuration",
+              items: [
+                { label: "OpenCode", slug: "dn-cli/opencode" },
+                { label: "Claude", slug: "dn-cli/claude" },
+                { label: "Codex", slug: "dn-cli/codex" },
+                { label: "Cursor", slug: "dn-cli/cursor-github-actions" },
+              ],
             },
           ],
         },

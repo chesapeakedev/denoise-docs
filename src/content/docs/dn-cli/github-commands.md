@@ -29,7 +29,7 @@ instructions for agents. `dn kickstart --milestone 42` uses the first unchecked
 task as the next work item.
 
 To run stack generation in CI, see
-[GitHub Actions Integration — Dispatch payloads](/dn-cli/github-actions/#dispatch-payloads).
+[Headless Use — Dispatch payloads](/dn-cli/headless-use/#dispatch-payloads).
 
 ## `dn issue`
 

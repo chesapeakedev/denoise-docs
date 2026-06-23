@@ -102,11 +102,11 @@ export GITHUB_TOKEN=ghp_...
 A fine-grained Personal Access Token (PAT) is recommended. Grant only the scopes
 your workflows require:
 
-| Scope                                     | Needed for                                  |
-| ----------------------------------------- | ------------------------------------------- |
-| `repo` (or fine-grained `contents: read`) | Reading issues and repo metadata            |
-| `issues: write`                           | `dn issue create/edit/close/reopen/comment` |
-| `pull_requests: write`                    | AWP mode (creating branches and PRs)        |
+| Scope                                     | Needed for                                           |
+| ----------------------------------------- | ---------------------------------------------------- |
+| `repo` (or fine-grained `contents: read`) | Reading issues and repo metadata                     |
+| `issues: write`                           | `dn issue create/edit/close/reopen/comment`          |
+| `pull_requests: write`                    | `--publish pr` kickstart (creating branches and PRs) |
 
 For step-by-step PAT creation, see
 [GitHub Token Setup](/dn-cli/github-token-setup/).
@@ -196,8 +196,8 @@ Supported values are `opencode`, `cursor`, `claude`, and `codex`. GitHub Actions
 workflows and denoise integrators read this file so automated runs use the same
 agent without passing `--agent` on every dispatch. Re-run
 `dn init workflows --agent <name>` or edit the file directly to change the
-default. See [GitHub Actions Integration](/dn-cli/github-actions/) for the
-matching repository secrets.
+default. See [Headless Use](/dn-cli/headless-use/) for the matching repository
+secrets.
 
 **Single-run override.** Pass the global `--agent` flag when you want a
 different harness for one local command:
@@ -239,12 +239,12 @@ without `--skill` — see
 
 ## Command map
 
-| Need                       | Commands                                                | Reference                                             |
-| -------------------------- | ------------------------------------------------------- | ----------------------------------------------------- |
-| Orchestrate Agents         | `kickstart`, `prep`, `loop`, `meld`, `fixup`, `archive` | [Orchestrate Agents](/dn-cli/workflows/)              |
-| Working with Github        | `init stack`, `issue`, `glance`                         | [Working with Github](/dn-cli/github-commands/)       |
-| GitHub Actions Integration | `init workflows`, `workflows`                           | [GitHub Actions Integration](/dn-cli/github-actions/) |
-| Experimental               | `context`, `peek`, `todo`, `tidy`, `sync`               | [Experimental](/dn-cli/task-list-and-sync/)           |
+| Need                | Commands                                                | Reference                                       |
+| ------------------- | ------------------------------------------------------- | ----------------------------------------------- |
+| Orchestrate Agents  | `kickstart`, `prep`, `loop`, `meld`, `fixup`, `archive` | [Orchestrate Agents](/dn-cli/workflows/)        |
+| Working with Github | `init stack`, `issue`, `glance`                         | [Working with Github](/dn-cli/github-commands/) |
+| Headless Use        | `init workflows`, `workflows`                           | [Headless Use](/dn-cli/headless-use/)           |
+| Experimental        | `context`, `peek`, `todo`, `tidy`, `sync`               | [Experimental](/dn-cli/task-list-and-sync/)     |
 
 ## Global flags
 
@@ -255,7 +255,8 @@ You can pass global output flags after any subcommand:
 - `--color` - Enable colors even when stdout is not a TTY.
 
 In CI, `dn` automatically enables unattended mode and sets `NO_COLOR` when it is
-not already set. See [Non-interactive Use](/dn-cli/output-and-environment/) for
+not already set. See
+[Headless Use — Unattended output](/dn-cli/headless-use/#unattended-output) for
 the full behavior.
 
 ## Common argument formats
@@ -270,4 +271,4 @@ When a markdown path is given, `dn` uses the file as local context and does not
 fetch an issue from GitHub.
 
 For workflow details, see [Orchestrate Agents](/dn-cli/workflows/) and
-[Non-interactive Use](/dn-cli/output-and-environment/).
+[Headless Use](/dn-cli/headless-use/).

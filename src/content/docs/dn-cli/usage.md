@@ -94,5 +94,5 @@ dn kickstart --milestone 42 --complete
 | `CURSOR_ENABLED`, `CLAUDE_ENABLED`, `CODEX_ENABLED`            | Legacy environment toggles for agent selection.                                      |
 | `OPENCODE_TIMEOUT_MS`, `CLAUDE_TIMEOUT_MS`, `CODEX_TIMEOUT_MS` | Agent phase timeouts.                                                                |
 
-See [Non-interactive Use](/dn-cli/output-and-environment/) for unattended mode
-and color flags.
+See [Headless Use — Unattended output](/dn-cli/headless-use/#unattended-output)
+for unattended mode and color flags.

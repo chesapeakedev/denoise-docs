@@ -137,7 +137,7 @@ see kickstart complexity badges, **Kickstart order** sorting, and suggested
 kickstart targets in **Repository & dn setup**.
 
 For payload details and CLI parity, see
-[GitHub Actions Integration — Dispatch payloads](/dn-cli/github-actions/#dispatch-payloads).
+[Headless Use — Dispatch payloads](/dn-cli/headless-use/#dispatch-payloads).
 
 ## Stack order staleness
 

@@ -11,7 +11,7 @@ in the repository — dn installs the CLI and passes the secret through the job
 environment.
 
 General workflow installation and dispatch reference:
-[GitHub Actions Integration](/dn-cli/github-actions/).
+[Headless Use](/dn-cli/headless-use/).
 
 ## Overview
 
@@ -235,8 +235,11 @@ approach.
 
 ## Related
 
-- [GitHub Actions Integration](/dn-cli/github-actions/) — templates, dispatch
-  payloads, permissions
+- [Headless Use](/dn-cli/headless-use/) — templates, dispatch payloads,
+  permissions
+- [OpenCode](/dn-cli/opencode/) — alternative agent harness
+- [Claude](/dn-cli/claude/) — alternative agent harness
+- [Codex](/dn-cli/codex/) — alternative agent harness
 - [Kickstart usage](/dn-cli/usage/) — agent selection and flags
 - [Self-hosted runners](/operations/self-hosted-runners/) — longer-running
   kickstart jobs
