@@ -4,7 +4,7 @@ description: Configure OpenCode for dn locally and in GitHub Actions — phase c
 ---
 
 OpenCode is the **default agent** for `dn`. Agent-backed commands (`kickstart`,
-`prep`, `loop`, `fixup`, `meld`, and scoring in `tidy`) invoke the OpenCode CLI
+`prep`, `loop`, `fixup`, `meld`, `land`, and scoring in `tidy`) invoke the OpenCode CLI
 unless you pass `--agent` or set another harness in `.github/dn/config.json`.
 
 This page covers OpenCode configuration for local development and for installed

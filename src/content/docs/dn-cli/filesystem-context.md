@@ -80,8 +80,9 @@ plan file with the full history and remaining work.
 
 Plan files are kept after local (`--publish none`) runs for review and handoff.
 In `--publish pr` or `--publish direct` mode, `dn` deletes the plan file when
-all acceptance criteria are complete. Archive landed work with `dn archive` when
-you no longer need the plan in the tree.
+all acceptance criteria are complete. Land completed work with `dn land` (or
+`dn land --single` for one deterministic commit) when you no longer need the plan
+in the tree.
 
 ## AGENTS.md
 

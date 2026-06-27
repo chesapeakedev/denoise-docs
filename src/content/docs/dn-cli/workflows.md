@@ -1,6 +1,6 @@
 ---
 title: Orchestrate Agents
-description: Plan, implement, archive plans, and address PR feedback with dn
+description: Plan, implement, land changes, and address PR feedback with dn
 ---
 
 Workflow commands turn issues, pull requests, or local markdown into durable
@@ -14,7 +14,7 @@ syntax. Instead of building with the agent one prompt at a time, source context
 durable artifacts — plans, branches, commits — at each boundary.
 
 This creates a **shared workflow** between you, your agent, your team, and their
-agents. Each step in the flow — plan, implement, review, fix up, archive — can
+agents. Each step in the flow — plan, implement, review, fix up, land — can
 be picked up by contributor or agent. Run `prep` to flesh out a plan and let
 another contributor `loop`, review, and land the implementation. Kick off
 `kickstart` and step in when the plan has unfinished work that needs a human
@@ -118,16 +118,29 @@ dn --agent codex fixup https://github.com/owner/repo/pull/123
 The PR URL can also be provided with `PR_URL`. If you are already on the right
 branch, no VCS checkout command is run.
 
-## `dn archive`
+## `dn land`
 
-Derives a commit message from a plan file:
+Commits completed implementation work using plan context. Default mode discovers
+the plan file, uses an agent to group workspace changes into logical commits with
+conventional-commit messages, and deletes the plan file on success.
 
 ```bash
-dn archive plans/issue-123.plan.md
-
-# Commit staged files with the derived message, then delete the plan file
-dn archive plans/issue-123.plan.md --yolo
+dn land
+dn land plans/issue-123.plan.md
+dn land plans/issue-123.plan.md --dry-run
 ```
+
+Use `--single` for one deterministic commit (no agent): derives a message from
+the plan title and overview, stages the workspace, commits, and deletes the plan
+file. This replaces the former `dn archive` command.
+
+```bash
+dn land --single plans/issue-123.plan.md
+dn land --single plans/issue-123.plan.md --dry-run
+```
+
+After a local (`--publish none`) kickstart or loop run, review the diff and run
+`dn land` to create commits before `dn sync` or opening a pull request.
 
 ## Milestone queues
 
