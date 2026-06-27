@@ -175,11 +175,13 @@ this is usually sufficient.
 
 To run kickstart or loop inside Docker or exe.dev, set `schema_version: "1.1"`
 and a `sandbox` block in `.github/dn/config.json`. Docker sandbox in CI requires
-a Docker socket on the runner. exe.dev requires an `EXE_TOKEN` repository secret.
+a Docker socket on the runner. exe.dev requires an `EXE_TOKEN` repository secret
+and GitHub integration setup on exe.dev — see
+[Sandbox providers — Set up exe.dev](/dn-cli/sandbox/#set-up-exedev).
 
 VCS publish (branch, commit, PR) still runs on the host after workspace
 sync-out. See [Sandbox providers](/dn-cli/sandbox/) for configuration, sync
-modes, and the `dn-kickstart` image contract.
+modes, Docker image notes, and exe.dev troubleshooting.
 
 ## Workflow templates
 
