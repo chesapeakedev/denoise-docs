@@ -31,6 +31,7 @@ export default defineConfig({
             },
             { label: "Orchestrate Agents", slug: "dn-cli/workflows" },
             { label: "Kickstart & Looping", slug: "dn-cli/overview" },
+            { label: "Sandbox providers", slug: "dn-cli/sandbox" },
             {
               label: "Filesystem Context",
               slug: "dn-cli/filesystem-context",
