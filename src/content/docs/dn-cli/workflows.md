@@ -54,6 +54,9 @@ branch/bookmark creation, commits, push, and PR creation, and therefore requires
 the issue to belong to the current workspace repository. See
 [Kickstart & Looping — Publish modes](/dn-cli/overview/#publish-modes).
 
+Run agent phases inside Docker or exe.dev with `--sandbox`; see
+[Sandbox providers](/dn-cli/sandbox/) for config, sync behavior, and CI notes.
+
 ## `dn prep`
 
 Runs only the planning phase:
@@ -83,7 +86,9 @@ dn loop
 ```
 
 `dn loop` validates the plan, runs the selected agent, checks acceptance
-criteria, and writes continuation prompts when work remains.
+criteria, and writes continuation prompts when work remains. Use
+`--sandbox docker` or `--sandbox exe.dev` to run the implement phase inside an
+isolated environment; see [Sandbox providers](/dn-cli/sandbox/).
 
 For a goal-shaped loop with an independent script or prompt gate (no plan
 file), see [`dn until`](/dn-cli/until/).

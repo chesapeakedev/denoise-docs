@@ -167,6 +167,20 @@ echo '{"schema_version":"1.0","dispatch_id":"'"$(uuidgen)"'","issue_number":42,"
 For local publish-mode details, see
 [Kickstart & Looping — Publish modes](/dn-cli/overview/#publish-modes).
 
+## Sandbox providers in CI
+
+Canonical workflows run agent phases on the runner host by default
+(`sandbox.provider: none`). GitHub Actions runners are already ephemeral VMs, so
+this is usually sufficient.
+
+To run kickstart or loop inside Docker or exe.dev, set `schema_version: "1.1"`
+and a `sandbox` block in `.github/dn/config.json`. Docker sandbox in CI requires
+a Docker socket on the runner. exe.dev requires an `EXE_TOKEN` repository secret.
+
+VCS publish (branch, commit, PR) still runs on the host after workspace
+sync-out. See [Sandbox providers](/dn-cli/sandbox/) for configuration, sync
+modes, and the `dn-kickstart` image contract.
+
 ## Workflow templates
 
 | Template ID          | Installed file           | Trigger                                      | Primary `dn` command                               |
