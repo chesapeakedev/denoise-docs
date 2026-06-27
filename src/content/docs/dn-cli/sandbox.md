@@ -74,7 +74,7 @@ variables:
 | Provider | Credential |
 | -------- | ---------- |
 | Docker | Local Docker socket (no token) |
-| exe.dev | `EXE_TOKEN` from `ssh exe.dev ssh-key generate-api-key` |
+| exe.dev | `EXE_TOKEN` — see [Set up exe.dev](#set-up-exedev) below |
 
 ## CLI overrides
 
@@ -157,15 +157,194 @@ is not running.
 
 ## exe.dev
 
-- Control plane: `POST https://exe.dev/exec` with `Authorization: Bearer $EXE_TOKEN`.
-- HTTPS API timeout is 30s; long-running commands use SSH exec via the API.
-- Workspace sync: the host pushes the current branch to a temporary branch on
-  `origin`, the VM clones that branch, and after agent phases the VM pushes back.
-  Requires a configured `origin` remote and the `github` integration on the VM.
-- `sandbox.sync.exclude` applies git pathspec excludes during sync.
-- Optional LLM gateway inside VMs: `http://169.254.169.254/gateway/`.
+[exe.dev](https://exe.dev/) provides ephemeral Linux VMs over SSH. `dn` uses the
+[HTTPS API](https://exe.dev/docs/https-api) to provision a VM, run agent phases
+via SSH exec, sync your repo with git, and destroy the VM when the workflow
+finishes (including on failure).
 
-Teardown runs in a `finally` block so VMs are destroyed even when a phase fails.
+Use exe.dev when you want isolation without running Docker locally, or when you
+want VM integrations (GitHub clone/push without tokens on the VM, optional
+[LLM gateway](https://exe.dev/docs/integrations-llm)) instead of forwarding
+API keys from your laptop.
+
+### Set up exe.dev
+
+Work through these steps once per machine (or once per CI environment). The
+[exe.dev CLI reference](https://exe.dev/docs/all) lists every command mentioned
+here.
+
+#### 1. Connect over SSH
+
+`dn` talks to exe.dev the same way you would from a terminal: SSH for account
+setup, then HTTPS `POST https://exe.dev/exec` for automation.
+
+Verify SSH access:
+
+```bash
+ssh exe.dev whoami
+```
+
+If this is your first time, follow exe.dev’s SSH onboarding when prompted. Add a
+dedicated key if you prefer not to use your default `~/.ssh/id_ed25519` — see
+[ssh-key](https://exe.dev/docs/cli-ssh-key):
+
+```bash
+ssh-keygen -t ed25519 -C "dn-sandbox" -f ~/.ssh/id_exe
+cat ~/.ssh/id_exe.pub | ssh exe.dev ssh-key add
+```
+
+#### 2. Link GitHub (required for private repos)
+
+exe.dev workspace sync clones and pushes through git. The VM needs permission to
+read and write your repository on `origin`.
+
+For private repositories, connect GitHub to exe.dev and attach a repo
+integration to kickstart VMs:
+
+1. Link your GitHub account from the exe.dev Integrations page — see
+   [GitHub integration](https://exe.dev/docs/integrations-github).
+2. Create a per-repo integration (replace names with yours):
+
+   ```bash
+   ssh exe.dev integrations setup github --verify
+   ssh exe.dev integrations add github \
+     --name myrepo \
+     --repository owner/repo \
+     --attach auto:all
+   ```
+
+   See [integrations CLI](https://exe.dev/docs/cli-integrations) and
+   [What are Integrations?](https://exe.dev/docs/integrations) for attachment
+   options (`vm:`, `tag:`, `auto:all`).
+
+3. In `.github/dn/config.json`, list integration names under
+   `sandbox.exe_dev.integrations` (for example `["github"]` when you rely on a
+   GitHub integration named `github`, or `["myrepo"]` for the name above). `dn`
+   passes these to the [`new`](https://exe.dev/docs/cli-new) command when
+   provisioning the VM.
+
+Public repos may work without a GitHub integration if the VM can reach a public
+`origin` URL, but private repos and reliable `git push` from the VM require the
+integration.
+
+#### 3. Create `EXE_TOKEN` for `dn`
+
+`dn` authenticates to the exe.dev control plane with a bearer token in the
+`EXE_TOKEN` environment variable (never commit this token).
+
+Generate one with exe.dev (recommended):
+
+```bash
+ssh exe.dev ssh-key generate-api-key --label=dn-sandbox --exp=90d
+export EXE_TOKEN='exe1....'   # paste the token from the command output
+```
+
+Details, permissions, and local signing alternatives:
+[HTTPS API](https://exe.dev/docs/https-api),
+[ssh-key generate-api-key](https://exe.dev/docs/cli-ssh-key#ssh-key-generate-api-key).
+
+For GitHub Actions, store the token as a repository secret:
+
+```bash
+gh secret set EXE_TOKEN
+```
+
+#### 4. Configure `dn` for exe.dev
+
+Set `sandbox.provider` to `exe.dev` and `sandbox.sync.mode` to `git_clone` (exe.dev
+does not bind-mount the host filesystem). Example:
+
+```json
+{
+  "schema_version": "1.1",
+  "agent": "opencode",
+  "sandbox": {
+    "provider": "exe.dev",
+    "workspace": "/home/exedev/workspace",
+    "sync": {
+      "mode": "git_clone",
+      "exclude": [".git", "node_modules", ".sl"]
+    },
+    "exe_dev": {
+      "image": "exeuntu",
+      "vm_name_prefix": "dn-kickstart",
+      "ttl": "4h",
+      "integrations": ["github"]
+    }
+  }
+}
+```
+
+| `exe_dev` field | Meaning |
+| --------------- | ------- |
+| `image` | VM image passed to [`new --image`](https://exe.dev/docs/cli-new) (`exeuntu` is the default exe.dev dev image) |
+| `vm_name_prefix` | Prefix for auto-generated VM names (`dn-kickstart-<suffix>`) |
+| `ttl` | VM lifetime safety net (exe.dev duration string, e.g. `4h`) |
+| `integrations` | Integration names to attach at provision time |
+
+On the **host**, your checkout must have a configured `origin` remote and you
+must be able to push a temporary branch — `dn` uses host credentials for the
+initial push, then the VM clones that branch.
+
+Validate before running:
+
+```bash
+dn workflows validate
+```
+
+Warns when `sandbox.provider` is `exe.dev` but `EXE_TOKEN` is unset.
+
+#### 5. Run kickstart or loop inside the VM
+
+```bash
+dn kickstart --sandbox exe.dev https://github.com/owner/repo/issues/42
+dn loop --sandbox exe.dev plans/my-feature.plan.md
+```
+
+Or set `"provider": "exe.dev"` in config and use `--sandbox` with no value.
+
+### What happens during a run
+
+1. **Provision** — `dn` calls `POST https://exe.dev/exec` with
+   `Authorization: Bearer $EXE_TOKEN` and a [`new`](https://exe.dev/docs/cli-new)
+   command (image, TTL, integrations).
+2. **Sync in** — On the host, `dn` commits/stages the workspace (respecting
+   `sandbox.sync.exclude`), pushes a temporary branch to `origin`, and has the VM
+   `git clone` that branch into `sandbox.workspace`.
+3. **Agent phases** — Plan, implement, and merge run **inside** the VM via SSH
+   exec. Inner runs set `DN_IN_SANDBOX=1` so sandbox provisioning does not
+   recurse.
+4. **Sync out** — The VM commits and pushes to the same temporary branch; the
+   host fetches, merges, and deletes the branch.
+5. **Teardown** — `dn` destroys the VM even when a phase fails.
+6. **Publish on host** — Branch creation, commits, and PR opening still run on
+   the host after sync-out (your local git credentials).
+
+The HTTPS API has a **30 second timeout** for control-plane calls; long agent
+runs use SSH exec through the API body, not a single long POST.
+
+### Optional: LLM access inside the VM
+
+New exe.dev accounts include a default [`llm`](https://exe.dev/docs/integrations-llm)
+integration attached to all VMs (`auto:all`), exposing provider models without
+storing API keys on the VM. Agent harnesses can target
+`https://llm.int.exe.xyz/v1` (or the metadata gateway at
+`http://169.254.169.254/gateway/`).
+
+Configure provider sources in the exe.dev Integrations UI or via
+[`integrations add llm`](https://exe.dev/docs/integrations-llm#configure-over-ssh).
+
+### exe.dev troubleshooting
+
+| Symptom | Likely cause |
+| ------- | ------------ |
+| `EXE_TOKEN is required` | Export `EXE_TOKEN` or set the GitHub Actions secret |
+| `git push` / clone fails on VM | GitHub integration missing or not attached — see [GitHub integration](https://exe.dev/docs/integrations-github) |
+| Host sync fails | No `origin` remote, or host cannot push to GitHub |
+| Control-plane timeout | Rare for normal kickstart; see [HTTPS API](https://exe.dev/docs/https-api) |
+
+Use `DN_SANDBOX_DRY_RUN=1` to log planned `new` / `destroy` / sync commands
+without creating infrastructure.
 
 ## CI behavior
 
