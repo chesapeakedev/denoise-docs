@@ -79,7 +79,9 @@ see a locked chip with Pro upgrade details.
 toggle visibility of completed tasks. When enabled, only incomplete tasks are
 shown.
 
-![Milestone filter row with status chips, Kickstart order, and hide-completed control](../../../assets/screenshots/milestone-view-filter-controls.png)
+<video autoplay loop muted playsinline class="demo-video" aria-label="Kickstart order — toggle to sort tasks by kickstart plan priority">
+  <source src="/demos/kickstart-order.mp4" type="video/mp4" />
+</video>
 
 ## Focus timer
 

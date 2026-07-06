@@ -50,7 +50,9 @@ shows **Tasks without a milestone** with a count.
 2. Type the task title.
 3. Press **Enter** or click **+**.
 
-![Workbench with tasks and text in the input field](../../../assets/screenshots/workbench-tasklist-populated.png)
+<video autoplay loop muted playsinline class="demo-video" aria-label="Workbench — type a task and press Enter to add it to the list">
+  <source src="/demos/workbench-task-create.mp4" type="video/mp4" />
+</video>
 
 New tasks are **private** by default. They are stored locally in IndexedDB and
 sync to the cloud when you are signed in and **Online**.

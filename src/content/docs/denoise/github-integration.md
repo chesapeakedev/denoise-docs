@@ -50,11 +50,9 @@ To connect a milestone in the app to a GitHub milestone:
    Milestone Wizard.
 4. Click **Link Milestone** to complete the connection.
 
-![GitHub Milestone Wizard — select organization or user](../../../assets/screenshots/link-gh-milestone-select-org.png)
-
-![GitHub Milestone Wizard — select repository](../../../assets/screenshots/link-gh-milestone-select-repo.png)
-
-![GitHub Milestone Wizard — select milestone and link](../../../assets/screenshots/link-gh-milestone-select-milestone.png)
+<video autoplay loop muted playsinline class="demo-video" aria-label="GitHub Milestone Wizard — select org, repository, and milestone, then link">
+  <source src="/demos/milestone-wizard.mp4" type="video/mp4" />
+</video>
 
 Once linked, denoise shows a GitHub indicator on the roadmap card and syncs
 issues from GitHub.
@@ -79,7 +77,9 @@ offline; local changes remain saved and sync again when connectivity returns.
 Use the GitHub refresh control on the milestone view to pull the latest issues
 for a linked milestone.
 
-![Milestone filter row with GitHub refresh control](../../../assets/screenshots/milestone-view-filter-controls.png)
+<video autoplay loop muted playsinline class="demo-video" aria-label="GitHub refresh on the milestone view — pull latest issues into the task list">
+  <source src="/demos/task-list-refresh.mp4" type="video/mp4" />
+</video>
 
 ## DN automation from the milestone view
 

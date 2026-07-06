@@ -132,6 +132,10 @@ When you click **Run dn.init_stack**:
 2. Denoise polls GitHub Actions until the workflow is accepted or fails.
 3. A success toast offers **Watch on GitHub** to open the Actions run.
 
+<video autoplay loop muted playsinline class="demo-video" aria-label="Run dn.init_stack — dispatch progress and Watch on GitHub">
+  <source src="/demos/dn-init-stack.mp4" type="video/mp4" />
+</video>
+
 After a successful run, denoise loads stack scores for the milestone. You may
 see kickstart complexity badges, **Kickstart order** sorting, and suggested
 kickstart targets in **Repository & dn setup**.
@@ -165,9 +169,9 @@ sync), Pro users can sort tasks by kickstart plan priority:
 - You can also choose **Kickstart priority (Pro)** from the sort dropdown in the
   milestone header.
 
-![Task filter row with status chips and Kickstart order](../../../assets/screenshots/milestone-view-filter-controls.png)
-
-![Task list with kickstart complexity badges](../../../assets/screenshots/milestone-view-task-list.png)
+<video autoplay loop muted playsinline class="demo-video" aria-label="Kickstart order — toggle to sort tasks by kickstart plan priority">
+  <source src="/demos/kickstart-order.mp4" type="video/mp4" />
+</video>
 
 Task rows may show:
 
@@ -193,11 +197,9 @@ plans and implements the issue and opens a pull request.
 4. Follow progress via the success toast **Watch on GitHub**, the **Watch on
    GitHub** button in the dialog, or kickstart status chips on the task.
 
-![Task detail dialog with description and metadata](../../../assets/screenshots/milestone-view-task-view.png)
-
-![Task detail dialog in edit mode](../../../assets/screenshots/milestone-view-task-edit.png)
-
-![Kickstart confirmation in the task detail dialog](../../../assets/screenshots/milestone-view-task-kickstart.png)
+<video autoplay loop muted playsinline class="demo-video" aria-label="Kickstart a task — confirm dispatch, track progress, and open the pull request">
+  <source src="/demos/kickstart-task.mp4" type="video/mp4" />
+</video>
 
 **Kickstart!** is available when:
 
