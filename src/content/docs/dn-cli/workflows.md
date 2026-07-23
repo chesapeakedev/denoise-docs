@@ -85,6 +85,23 @@ dn loop
 `dn loop` validates the plan, runs the selected agent, checks acceptance
 criteria, and writes continuation prompts when work remains.
 
+For a goal-shaped loop with an independent script or prompt gate (no plan
+file), see [`dn until`](/dn-cli/until/).
+
+## `dn until`
+
+Runs bounded generator/verifier gambits until an independent gate says done:
+
+```bash
+dn until validate .github/dn/gambit.json
+dn until run .github/dn/gambit.json
+dn until run .github/dn/gambit.json --once
+```
+
+Prefer a script verifier (exit code 0) when a merge bar or test command can
+decide done. See [Until (generator / verifier)](/dn-cli/until/) for recipes,
+prompt verdict files, and gambit chains.
+
 ## `dn meld`
 
 Merges local markdown files and/or GitHub issue URLs into a single planning

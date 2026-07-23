@@ -194,6 +194,9 @@ typically from `dn prep`, a prior `dn kickstart` run, or a hand-written spec in
 - Iteration without re-planning — adjust the plan file manually, then re-run
   loop.
 
+For a goal without a plan file — iterate until a script or verdict gate passes —
+use [`dn until`](/dn-cli/until/) instead.
+
 ```bash
 # Implement from a specific plan
 dn loop plans/my-feature.plan.md

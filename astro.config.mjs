@@ -32,6 +32,10 @@ export default defineConfig({
             { label: "Orchestrate Agents", slug: "dn-cli/workflows" },
             { label: "Kickstart & Looping", slug: "dn-cli/overview" },
             {
+              label: "Until (generator / verifier)",
+              slug: "dn-cli/until",
+            },
+            {
               label: "Filesystem Context",
               slug: "dn-cli/filesystem-context",
             },
