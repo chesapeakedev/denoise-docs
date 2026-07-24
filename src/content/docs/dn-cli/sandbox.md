@@ -81,7 +81,8 @@ Docker requires the CLI and a running daemon. The default network is `none`;
 choose `bridge` only when the harness needs outbound agent or GitHub APIs.
 Prefer a read-only root with a writable workspace, avoid mounting the Docker
 socket or all of `~/.ssh`, and pin images by source tag or digest. See
-[Project base images](/dn-cli/base-images/) for the image contract.
+[Filesystem context — Project base images](/dn-cli/filesystem-context/#project-base-images)
+for the image contract.
 
 ### exe.dev
 

@@ -38,7 +38,6 @@ export default defineConfig({
             },
             { label: "Land completed work", slug: "dn-cli/land" },
             { label: "Sandbox execution", slug: "dn-cli/sandbox" },
-            { label: "Project base images", slug: "dn-cli/base-images" },
             {
               label: "Filesystem Context",
               slug: "dn-cli/filesystem-context",
