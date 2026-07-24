@@ -9,7 +9,7 @@ context, keeping GitHub and a local queue aligned, and landing work without
 extra ceremony. The commands here are **experiments** toward that goal — smaller
 workflows you can use today alongside
 [kickstart](/dn-cli/completing-github-issues/) and
-[Command overview](/dn-cli/workflows/).
+[Command reference](/dn-cli/workflows/).
 
 | Focus            | Commands               | What it changes                                                              |
 | ---------------- | ---------------------- | ---------------------------------------------------------------------------- |

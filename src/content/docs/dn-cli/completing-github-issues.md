@@ -10,13 +10,13 @@ implementation begins.
 
 ## Choose a path to a pull request
 
-| Use this path                                             | Workflow                                     | When it is useful                                                              |
-| --------------------------------------------------------- | -------------------------------------------- | ------------------------------------------------------------------------------ |
-| Publish a pull request end to end                         | `dn kickstart --publish pr <issue>`          | The issue is ready for implementation and the pull request is the review point |
-| Review the implementation locally before publishing       | `dn kickstart <issue>` → `dn land` → open PR | You want to inspect or test the changes before commits leave the workspace     |
-| Review the plan and implementation separately             | `dn meld` → `dn loop` → `dn land` → open PR  | The work is ambiguous, high-risk, or needs agreement on the approach           |
-| Run remotely or in CI                                     | Remote `dn kickstart --publish pr <issue>`   | The workspace is temporary or no developer is supervising the run              |
-| Work through a milestone queue one pull request at a time | `dn init stack` → published milestone run    | A prioritized set of issues is ready for unattended or scheduled execution     |
+| Use this path                                             | Workflow                                                  | When it is useful                                                              |
+| --------------------------------------------------------- | --------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| Publish a pull request end to end                         | `dn kickstart --publish pr <issue>`                       | The issue is ready for implementation and the pull request is the review point |
+| Complete and verify the implementation locally            | `dn kickstart <issue>` → `dn until` → `dn land` → open PR | You want the merge gate to pass before commits leave the workspace             |
+| Review the plan and implementation separately             | `dn meld` → `dn loop` → `dn until` → `dn land` → open PR  | The work is ambiguous, high-risk, or needs agreement on the approach           |
+| Run remotely or in CI                                     | Remote `dn kickstart --publish pr <issue>`                | The workspace is temporary or no developer is supervising the run              |
+| Work through a milestone queue one pull request at a time | `dn init stack` → published milestone run                 | A prioritized set of issues is ready for unattended or scheduled execution     |
 
 The first path is the shortest. The local paths create review boundaries by
 leaving artifacts in the workspace. They require you to push the resulting
@@ -74,35 +74,60 @@ In pull-request mode, `kickstart`:
 This path has the fewest manual steps. It is useful for well-scoped issues when
 the branch and pull request provide enough isolation for review.
 
-## Review the implementation before publishing
+## Complete and verify work locally
 
 Run `kickstart` without a publish mode to keep the plan and changes in the
 current workspace:
 
 ```bash
 dn kickstart 123
-dn land
-```
-
-Review and test the implementation before running `dn land`. `land` validates
-the completed plan, groups the workspace changes into commits, and removes the
-plan. Add `--issue-testplan` to upsert a concise `## Test Plan` checklist on the
-linked issue:
-
-```bash
+dn until validate .github/dn/gambit.json
+dn until run .github/dn/gambit.json
 dn land --issue-testplan
 ```
 
-`land` does not push or open a pull request. Push the resulting feature branch
-or bookmark with your usual VCS workflow, then open the pull request:
+Configure the gambit so its generator resolves problems in the current issue
+implementation and its script verifier runs the repository's full merge gate.
+For example:
+
+```json
+{
+  "gambits": [
+    {
+      "name": "issue-ready",
+      "metadata": { "issue": "123" },
+      "generator": {
+        "prompt": "Finish the local implementation for issue {{issue}}. Resolve failures reported by the verifier without expanding the issue scope."
+      },
+      "verifier": { "script": "make precommit" }
+    }
+  ],
+  "iterations": 5,
+  "timeout_ms": 3600000
+}
+```
+
+Replace `make precommit` with the repository's merge gate. `until` repeats the
+generator and verifier within the configured budget, leaving all work local.
+Review the resulting diff before running `land`.
+
+`land` validates the completed plan, groups the workspace changes into local
+commits, and removes the plan. `--issue-testplan` also upserts a concise
+`## Test Plan` checklist on the linked issue. It does not push or open a pull
+request.
+
+Push the resulting feature branch or bookmark with your usual VCS workflow, then
+open the pull request:
 
 ```bash
 gh pr create
 ```
 
-Use this path when you trust the agent to plan and implement in one run but want
-local tests, code review, or commit review before publication. See
-[Land completed work](/dn-cli/land/) for dry runs and recovery behavior.
+Use this path when you want automated retries against an objective local gate,
+followed by local code and commit review before publication. See the
+[`dn until`](/dn-cli/workflows/#dn-until) and
+[`dn land`](/dn-cli/workflows/#dn-land) command reference sections for gambit
+options, dry runs, and recovery behavior.
 
 ## Review the plan before implementation
 
@@ -142,9 +167,11 @@ the checked items are the restart point.
 
 ### Land and open the pull request
 
-After the checklist and implementation are complete:
+After the checklist and implementation are complete, run the repository gambit
+to resolve remaining merge-gate failures, then land the plan:
 
 ```bash
+dn until run .github/dn/gambit.json
 dn land --issue-testplan plans/issue-123.plan.md
 gh pr create
 ```

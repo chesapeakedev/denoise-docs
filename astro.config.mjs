@@ -9,6 +9,8 @@ export default defineConfig({
     "/dn-cli/usage": "/dn-cli/completing-github-issues/",
     "/dn-cli/overview": "/dn-cli/completing-github-issues/",
     "/dn-cli/plan-lifecycle": "/dn-cli/completing-github-issues/",
+    "/dn-cli/until": "/dn-cli/workflows/#dn-until",
+    "/dn-cli/land": "/dn-cli/workflows/#dn-land",
   },
   image: {
     service: passthroughImageService(),
@@ -35,12 +37,7 @@ export default defineConfig({
               label: "Completing GitHub Issues",
               slug: "dn-cli/completing-github-issues",
             },
-            { label: "Command overview", slug: "dn-cli/workflows" },
-            {
-              label: "Until (generator / verifier)",
-              slug: "dn-cli/until",
-            },
-            { label: "Land completed work", slug: "dn-cli/land" },
+            { label: "Command reference", slug: "dn-cli/workflows" },
             { label: "Sandbox execution", slug: "dn-cli/sandbox" },
             {
               label: "Filesystem Context",
