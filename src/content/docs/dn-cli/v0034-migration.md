@@ -6,7 +6,7 @@ description: Update planning, execution, sandbox, verification, and close-out wo
 `dn` v0.0.34 makes plans durable across explicit lifecycle boundaries and adds
 structured execution controls.
 
-- Planning is now [`dn meld`](/dn-cli/plan-lifecycle/).
+- Planning is now [`dn meld`](/dn-cli/completing-github-issues/#plan-with-meld).
 - The canonical lifecycle is `meld → loop → land`.
 - [`dn until`](/dn-cli/until/) replaces health-check loops with bounded
   generator/verifier gambits.

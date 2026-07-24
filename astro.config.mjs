@@ -6,7 +6,9 @@ import starlight from "@astrojs/starlight";
 export default defineConfig({
   output: "static",
   redirects: {
-    "/dn-cli/usage": "/dn-cli/overview/",
+    "/dn-cli/usage": "/dn-cli/completing-github-issues/",
+    "/dn-cli/overview": "/dn-cli/completing-github-issues/",
+    "/dn-cli/plan-lifecycle": "/dn-cli/completing-github-issues/",
   },
   image: {
     service: passthroughImageService(),
@@ -29,9 +31,11 @@ export default defineConfig({
               label: "Installation",
               slug: "dn-cli/installation",
             },
-            { label: "Plan lifecycle", slug: "dn-cli/plan-lifecycle" },
+            {
+              label: "Completing GitHub Issues",
+              slug: "dn-cli/completing-github-issues",
+            },
             { label: "Command overview", slug: "dn-cli/workflows" },
-            { label: "Kickstart & looping", slug: "dn-cli/overview" },
             {
               label: "Until (generator / verifier)",
               slug: "dn-cli/until",

@@ -349,4 +349,4 @@ denoise and other integrators dispatch the same payload shapes from the UI.
 - [Codex](/dn-cli/codex/) — alternative agent harness (same `OPENAI_API_KEY`
   secret)
 - [Cursor](/dn-cli/cursor-github-actions/) — alternative agent harness
-- [Kickstart and looping — Publish modes](/dn-cli/overview/#publish-modes)
+- [Completing GitHub Issues — Publish modes](/dn-cli/completing-github-issues/#publish-modes)

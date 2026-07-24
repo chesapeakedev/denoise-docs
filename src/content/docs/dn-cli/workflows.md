@@ -5,7 +5,8 @@ description: Choose the dn command that matches your planning, implementation, v
 
 `dn` turns GitHub issues and local specifications into durable plans, code
 changes, commits, and pull requests. Start with the
-[plan lifecycle](/dn-cli/plan-lifecycle/) when choosing a workflow.
+[Completing GitHub Issues](/dn-cli/completing-github-issues/) when choosing a
+workflow.
 
 ## Workflow commands
 
@@ -32,8 +33,8 @@ dn kickstart --sandbox docker 123
 `--publish none` leaves changes in the current workspace. `--publish pr` creates
 a branch or bookmark, commits, pushes, and opens a PR. `--publish direct`
 commits and pushes the default branch. See
-[Kickstart and looping](/dn-cli/overview/) for milestone queues and execution
-details.
+[Completing GitHub Issues](/dn-cli/completing-github-issues/) for review
+boundaries, milestone queues, and publication details.
 
 ## Meld, loop, and land
 

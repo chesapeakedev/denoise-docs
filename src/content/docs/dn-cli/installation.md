@@ -248,12 +248,12 @@ without `--skill` — see
 
 ## Command map
 
-| Need                | Commands                                                      | Reference                                       |
-| ------------------- | ------------------------------------------------------------- | ----------------------------------------------- |
-| Orchestrate agents  | `kickstart`, `meld`, `loop`, `land`, `until`, `fixup`, `sync` | [Plan lifecycle](/dn-cli/plan-lifecycle/)       |
-| Working with GitHub | `init stack`, `issue`, `glance`                               | [Working with GitHub](/dn-cli/github-commands/) |
-| Headless Use        | `init workflows`, `workflows`                                 | [Headless Use](/dn-cli/headless-use/)           |
-| Experimental        | `context`, `peek`, `todo`, `tidy`, `sync`                     | [Experimental](/dn-cli/task-list-and-sync/)     |
+| Need                | Commands                                                      | Reference                                                     |
+| ------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- |
+| Orchestrate agents  | `kickstart`, `meld`, `loop`, `land`, `until`, `fixup`, `sync` | [Completing GitHub Issues](/dn-cli/completing-github-issues/) |
+| Working with GitHub | `init stack`, `issue`, `glance`                               | [Working with GitHub](/dn-cli/github-commands/)               |
+| Headless Use        | `init workflows`, `workflows`                                 | [Headless Use](/dn-cli/headless-use/)                         |
+| Experimental        | `context`, `peek`, `todo`, `tidy`, `sync`                     | [Experimental](/dn-cli/task-list-and-sync/)                   |
 
 ## Global flags
 
@@ -279,5 +279,6 @@ Several workflow commands accept flexible issue or source arguments:
 When a markdown path is given, `dn` uses the file as local context and does not
 fetch an issue from GitHub.
 
-For workflow details, see [Plan lifecycle](/dn-cli/plan-lifecycle/) and
+For workflow details, see
+[Completing GitHub Issues](/dn-cli/completing-github-issues/) and
 [Headless Use](/dn-cli/headless-use/).

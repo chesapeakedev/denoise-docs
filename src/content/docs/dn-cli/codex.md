@@ -209,4 +209,4 @@ Optional for CI — kickstart works once `OPENAI_API_KEY` is set.
   permissions
 - [OpenCode](/dn-cli/opencode/) — alternative harness using the same
   `OPENAI_API_KEY` secret name
-- [Kickstart and looping — Publish modes](/dn-cli/overview/#publish-modes)
+- [Completing GitHub Issues — Publish modes](/dn-cli/completing-github-issues/#publish-modes)

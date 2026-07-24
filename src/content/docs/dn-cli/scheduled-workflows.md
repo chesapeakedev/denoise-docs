@@ -150,6 +150,6 @@ queue and want one PR per day without external dispatch.
 | Schedule never runs                 | Default branch must contain the workflow file; GitHub disables schedules on inactive repos                                   |
 
 For milestone stack format and local `dn kickstart --milestone` usage, see
-[Kickstart and looping — Milestone queues](/dn-cli/overview/#milestone-queues)
+[Completing GitHub Issues — Milestone queues](/dn-cli/completing-github-issues/#milestone-queues)
 and
 [Filesystem Context — Milestone stack files](/dn-cli/filesystem-context/#milestone-stack-files).

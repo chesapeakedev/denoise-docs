@@ -129,7 +129,7 @@ This produces:
 Commit both files when you want the queue tracked in version control. Run
 `dn kickstart --milestone 42` to work through unchecked items; use `--complete`
 to drain the queue without prompts between tasks. See
-[Kickstart and looping](/dn-cli/overview/#milestone-queues).
+[Completing GitHub Issues](/dn-cli/completing-github-issues/#milestone-queues).
 
 ## Project base images
 

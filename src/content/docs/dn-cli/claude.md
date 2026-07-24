@@ -216,5 +216,5 @@ For Anthropic's managed GitHub app and action, see
 
 - [Headless Use](/dn-cli/headless-use/) — templates, dispatch payloads,
   permissions
-- [Kickstart and looping — Publish modes](/dn-cli/overview/#publish-modes)
+- [Completing GitHub Issues — Publish modes](/dn-cli/completing-github-issues/#publish-modes)
 - [Claude Code headless mode](https://docs.anthropic.com/en/docs/claude-code/headless)

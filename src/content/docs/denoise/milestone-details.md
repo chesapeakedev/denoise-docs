@@ -218,8 +218,7 @@ When kickstart is disabled, the dialog shows a short reason (for example
 incomplete repository setup, disqualified issue, or closed task).
 
 For CLI-oriented planning and implementation depth, see
-[Kickstart and looping](/dn-cli/overview/) and the
-[plan lifecycle](/dn-cli/plan-lifecycle/).
+[Completing GitHub Issues](/dn-cli/completing-github-issues/).
 
 ## Next steps
 

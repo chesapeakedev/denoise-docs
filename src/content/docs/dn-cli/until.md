@@ -6,7 +6,7 @@ description: Keep an agent working a goal until an independent gate says stop, w
 `dn until` runs a bounded **generator / verifier** loop from a JSON config
 (gambit). Use it when you have a goal and an independent done check — not when
 you already have a GitHub issue or plan file. For issue → plan → implement, use
-[kickstart and loop](/dn-cli/overview/) instead.
+[kickstart and loop](/dn-cli/completing-github-issues/) instead.
 
 # When to use until
 
@@ -199,7 +199,7 @@ or unparseable verdicts continue the loop unless you pass `--strict-verdict`.
 
 ## Related
 
-- [Plan lifecycle](/dn-cli/plan-lifecycle/) — choose a review boundary
-- [Kickstart and looping](/dn-cli/overview/) — issue and plan shaped work
+- [Completing GitHub Issues](/dn-cli/completing-github-issues/) — choose a
+  review boundary for issue- and plan-shaped work
 - [Filesystem Context](/dn-cli/filesystem-context/) — plans and continuation
   files

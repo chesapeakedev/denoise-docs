@@ -240,7 +240,8 @@ approach.
 - [OpenCode](/dn-cli/opencode/) — alternative agent harness
 - [Claude](/dn-cli/claude/) — alternative agent harness
 - [Codex](/dn-cli/codex/) — alternative agent harness
-- [Kickstart and looping](/dn-cli/overview/) — local and Cursor Cloud execution
+- [Completing GitHub Issues](/dn-cli/completing-github-issues/) — local and
+  Cursor Cloud execution
 - [Self-hosted runners](/operations/self-hosted-runners/) — longer-running
   kickstart jobs
 - [Cursor CLI installation](https://cursor.com/docs/cli/installation)

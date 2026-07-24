@@ -169,7 +169,7 @@ echo '{"schema_version":"1.0","dispatch_id":"'"$(uuidgen)"'","issue_number":42,"
 ```
 
 For local publish-mode details, see
-[Kickstart and looping — Publish modes](/dn-cli/overview/#publish-modes).
+[Completing GitHub Issues — Publish modes](/dn-cli/completing-github-issues/#publish-modes).
 
 ## Sandbox providers in CI
 
@@ -379,7 +379,7 @@ Agent-backed workflows in CI also use harness-specific variables such as
 | Dispatch accepted but no run                   | Poll `repository_dispatch` runs; confirm workflow files exist on the default branch |
 | Changes not persisted after init stack         | Confirm `publish` is `direct` (default in CI for `dn.init_stack`)                   |
 
-See also [Kickstart and looping](/dn-cli/overview/) and
+See also [Completing GitHub Issues](/dn-cli/completing-github-issues/) and
 [Self-hosted runners](/operations/self-hosted-runners/).
 
 ## Legacy label workflows
