@@ -5,7 +5,7 @@ description: Configure Claude Code for dn locally and in GitHub Actions — API 
 
 Use [Claude Code](https://docs.anthropic.com/en/docs/claude-code/quickstart) as
 the agent harness in **installed dn GitHub Actions workflows** and for local
-`kickstart`, `prep`, `loop`, and `fixup` runs. `dn` invokes the Claude Code CLI
+`kickstart`, `meld`, `loop`, and `fixup` runs. `dn` invokes the Claude Code CLI
 in print mode (`claude -p`) with a combined prompt file for each plan and
 implement phase. Unlike OpenCode, Claude does not require provider or model JSON
 config in the repository.
@@ -19,13 +19,13 @@ General workflow installation and dispatch reference:
 repository_dispatch / denoise UI
         │
         ▼
-dn-kickstart-issue.yml (or prep / init-stack / daily kickstart)
+dn-kickstart-issue.yml (or meld / init-stack / daily kickstart)
         │
         ├── chesapeakedev/dn-action  →  dn CLI + Claude Code CLI
         └── ANTHROPIC_API_KEY secret →  Claude API authentication
                 │
                 ▼
-        dn --agent claude kickstart / prep / init stack
+        dn --agent claude kickstart / meld / init stack
                 │
                 ▼
         claude -p (print mode, headless in CI)
@@ -82,8 +82,8 @@ headless mode. You do not need to add that variable to workflow YAML yourself.
 
 ## How dn invokes Claude
 
-`dn` runs two phases during kickstart and prep. For each phase it builds a
-combined prompt file and calls:
+`dn kickstart` runs plan and implementation phases; `dn meld` runs only the plan
+phase. For each phase, `dn` builds a combined prompt file and calls:
 
 ```text
 claude -p "Read and execute the instructions in this file: <path>"
@@ -136,7 +136,7 @@ dn workflows validate --json
 
 ```bash
 export GITHUB_TOKEN="$(gh auth token)"
-dn --agent claude prep https://github.com/owner/repo/issues/42
+dn --agent claude meld https://github.com/owner/repo/issues/42
 ```
 
 **Headless / API key.** Match CI behavior:
@@ -153,7 +153,7 @@ Then run kickstart through `dn`:
 export ANTHROPIC_API_KEY="your-anthropic-api-key"
 export CLAUDE_CODE_BARE=1
 export GITHUB_TOKEN="$(gh auth token)"
-dn --agent claude prep https://github.com/owner/repo/issues/42
+dn --agent claude meld https://github.com/owner/repo/issues/42
 ```
 
 Fix auth and permission errors locally before dispatching workflows.
@@ -216,5 +216,5 @@ For Anthropic's managed GitHub app and action, see
 
 - [Headless Use](/dn-cli/headless-use/) — templates, dispatch payloads,
   permissions
-- [Kickstart & Looping — Publish modes](/dn-cli/overview/#publish-modes)
+- [Kickstart and looping — Publish modes](/dn-cli/overview/#publish-modes)
 - [Claude Code headless mode](https://docs.anthropic.com/en/docs/claude-code/headless)

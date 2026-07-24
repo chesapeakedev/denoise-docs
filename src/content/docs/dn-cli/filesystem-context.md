@@ -9,8 +9,9 @@ in standard agent config paths.
 
 | Path                                                               | Typical source                         | Role                                                                                                                                          |
 | ------------------------------------------------------------------ | -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| `plans/*.plan.md`                                                  | `kickstart`, `prep`, `loop`, `meld`    | Issue context, plan, acceptance criteria                                                                                                      |
+| `plans/*.plan.md`                                                  | `kickstart`, `meld`, `loop`            | Issue context, plan, acceptance criteria                                                                                                      |
 | `plans/*.continuation.plan.md`                                     | `kickstart`, `loop`                    | Remaining work after a partial run                                                                                                            |
+| `plans/*.description.md`                                           | `dn meld --milestone`                  | User-value synthesis of a milestone                                                                                                           |
 | `plans/*.stack.md`, `plans/*.stack.json`                           | `dn init stack`                        | Prioritized milestone task queue                                                                                                              |
 | `AGENTS.md`                                                        | `dn init agents`; kickstart may update | Project conventions and commands for agents                                                                                                   |
 | `.agents/skills/dn/`, `.claude/skills/dn/`, `.cursor/rules/dn.mdc` | `dn init agents --skill`               | Agent-native dn workflow instructions — see [Installation — Install dn as an agent skill](/dn-cli/installation/#install-dn-as-an-agent-skill) |
@@ -22,19 +23,19 @@ skill setup, see
 
 # The plans/ directory
 
-kickstart, prep, and loop manage plan files in a `plans/` directory at the
+kickstart, meld, and loop manage plan files in a `plans/` directory at the
 workspace root. The directory is created automatically. Plan files track
 implementation progress and give later `dn loop` runs or human reviewers a
 durable handoff.
 
 ### Plan file locations
 
-All kickstart and prep runs write named `plans/[name].plan.md` files:
+All kickstart and meld runs write named `plans/[name].plan.md` files:
 
-- **kickstart and prep** — `dn` prompts for a plan name before the plan phase.
+- **kickstart and meld** — `dn` prompts for a plan name before the plan phase.
   In `--publish pr` or `--publish direct` mode, it suggests the branch or
   bookmark name. Pass `--saved-plan <name>` on kickstart or `--plan-name <name>`
-  on prep to skip the prompt.
+  on meld to skip the prompt.
 - **Loop** — Implements an existing plan. Pass `--plan-file` or `PLAN`, or let
   `dn loop` pick the most recently modified `*.plan.md` in `plans/`.
 - **Milestone mode** — Reads queue state from
@@ -66,7 +67,7 @@ Every plan file is `plans/[name].plan.md`. There is no default `.last.plan.md`
 path — `dn` always resolves a name through a prompt or an explicit flag:
 
 - `dn kickstart --saved-plan <name>` — non-interactive kickstart
-- `dn prep --plan-name <name>` — non-interactive prep
+- `dn meld --plan-name <name>` — non-interactive planning
 - `dn loop` — uses `--plan-file`, `PLAN`, or the newest `*.plan.md` in `plans/`
 
 In publish modes, the suggested name usually matches the generated branch or
@@ -80,13 +81,13 @@ plan file with the full history and remaining work.
 
 Plan files are kept after local (`--publish none`) runs for review and handoff.
 In `--publish pr` or `--publish direct` mode, `dn` deletes the plan file when
-all acceptance criteria are complete. Archive landed work with `dn archive` when
-you no longer need the plan in the tree.
+all acceptance criteria are complete. Close local work into commits with
+`dn land`; it removes the completed plan on success.
 
 ## AGENTS.md
 
 `dn init agents` adds or updates `AGENTS.md` at the repository root with dn
-workflow instructions — how to run prep, loop, kickstart, and related commands
+workflow instructions — how to run meld, loop, kickstart, and related commands
 in this repo.
 
 ```bash
@@ -127,4 +128,4 @@ This produces:
 Commit both files when you want the queue tracked in version control. Run
 `dn kickstart --milestone 42` to work through unchecked items; use `--complete`
 to drain the queue without prompts between tasks. See
-[Kickstart & Looping](/dn-cli/overview/#milestone-queues).
+[Kickstart and looping](/dn-cli/overview/#milestone-queues).

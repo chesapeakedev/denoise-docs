@@ -35,7 +35,7 @@ This writes:
 | ------------------------------------------ | ------------------------------------------------------------------------------------------ |
 | `.github/dn/config.json`                   | Repo-wide agent (`opencode`, `cursor`, `claude`, or `codex`)                               |
 | `.github/workflows/dn-init-stack.yml`      | Milestone stack generation                                                                 |
-| `.github/workflows/dn-prep-issue-plan.yml` | Plan-only phase for an issue                                                               |
+| `.github/workflows/dn-prep-issue-plan.yml` | Meld plan phase; filename retained temporarily for compatibility                           |
 | `.github/workflows/dn-kickstart-issue.yml` | Full kickstart (plan + implement)                                                          |
 | `.github/workflows/dn-daily-kickstart.yml` | Scheduled milestone queue runner — see [Scheduled Workflows](/dn-cli/scheduled-workflows/) |
 
@@ -47,6 +47,10 @@ Set the agent once in `.github/dn/config.json`:
   "agent": "opencode"
 }
 ```
+
+Use schema `1.1` when the repository also configures a sandbox. See
+[Sandbox execution](/dn-cli/sandbox/) for the provider, workspace, sync, and
+provider-specific fields.
 
 Re-run `dn init workflows --agent <name>` or edit this file to change agents
 later.
@@ -165,7 +169,7 @@ echo '{"schema_version":"1.0","dispatch_id":"'"$(uuidgen)"'","issue_number":42,"
 ```
 
 For local publish-mode details, see
-[Kickstart & Looping — Publish modes](/dn-cli/overview/#publish-modes).
+[Kickstart and looping — Publish modes](/dn-cli/overview/#publish-modes).
 
 ## Sandbox providers in CI
 
@@ -188,9 +192,10 @@ modes, Docker image notes, and exe.dev troubleshooting.
 | Template ID          | Installed file           | Trigger                                      | Primary `dn` command                               |
 | -------------------- | ------------------------ | -------------------------------------------- | -------------------------------------------------- |
 | `dn.init_stack`      | `dn-init-stack.yml`      | `repository_dispatch` → `dn.init_stack`      | `dn init stack`                                    |
-| `dn.prep_issue_plan` | `dn-prep-issue-plan.yml` | `repository_dispatch` → `dn.prep_issue_plan` | `dn prep`                                          |
+| `dn.meld_issue_plan` | `dn-prep-issue-plan.yml` | `repository_dispatch` → `dn.meld_issue_plan` | `dn meld`                                          |
 | `dn.kickstart_issue` | `dn-kickstart-issue.yml` | `repository_dispatch` → `dn.kickstart_issue` | `dn kickstart`                                     |
 | `dn.daily_kickstart` | `dn-daily-kickstart.yml` | `schedule`, `workflow_dispatch`              | `dn kickstart --publish pr --milestone <n> --once` |
+| `dn.todo_loop`       | `dn-todo-loop.yml`       | `schedule`, `workflow_dispatch`              | Run the repository todo loop                       |
 
 See [Scheduled Workflows](/dn-cli/scheduled-workflows/) for setup, the
 `DN_DAILY_KICKSTART_MILESTONE` variable, and manual runs.
@@ -221,7 +226,7 @@ echo '{"schema_version":"1.0","dispatch_id":"'"$(uuidgen)"'","milestone":"42"}' 
 
 Writes `plans/{owner}_{repo}_{milestone}.stack.md` and `.stack.json`.
 
-### `dn.prep_issue_plan`
+### `dn.meld_issue_plan`
 
 Required: `schema_version`, `dispatch_id`, and **exactly one of** `issue_url` or
 `issue_number`.
@@ -230,8 +235,12 @@ Optional: `plan_name`, `validate_only`.
 
 ```bash
 echo '{"schema_version":"1.0","dispatch_id":"'"$(uuidgen)"'","issue_number":42}' \
-  | dn workflows dispatch dn.prep_issue_plan --repo owner/repo --json
+  | dn workflows dispatch dn.meld_issue_plan --repo owner/repo --json
 ```
+
+The installed workflow also accepts the legacy `dn.prep_issue_plan` event and
+routes it to `dn meld`. New callers should use `dn.meld_issue_plan`; the
+`dn-prep-issue-plan.yml` filename is not the public command name.
 
 ### `dn.kickstart_issue`
 
@@ -289,7 +298,7 @@ dn workflows install --agent cursor
 | Workflow             | `permissions`                                              |
 | -------------------- | ---------------------------------------------------------- |
 | `dn.init_stack`      | `contents: write`, `issues: write`                         |
-| `dn.prep_issue_plan` | `contents: write`, `issues: write`                         |
+| `dn.meld_issue_plan` | `contents: write`, `issues: write`                         |
 | `dn.kickstart_issue` | `contents: write`, `pull-requests: write`, `issues: write` |
 | `dn.daily_kickstart` | `contents: write`, `pull-requests: write`, `issues: write` |
 
@@ -300,8 +309,14 @@ permissions**.
 ## denoise and other integrators
 
 denoise dispatches the same payload shapes through its backend GitHub App. The
-milestone dashboard can trigger `dn.init_stack`, `dn.prep_issue_plan`, and
+milestone dashboard can trigger `dn.init_stack`, `dn.meld_issue_plan`, and
 `dn.kickstart_issue` on linked repositories that have installed templates.
+
+Every dispatch ID is copied into `DN_DISPATCH_ID` and the correlated workflow
+run name. Use `--wait` or match that run name exactly; do not associate
+overlapping runs by creation time. See
+[Progress reporting](/dn-cli/progress-reporting/) for NDJSON, HTTP delivery,
+redaction, and PR URL fields.
 
 Compatibility paths (still supported, separate from dispatch):
 
@@ -364,8 +379,7 @@ Agent-backed workflows in CI also use harness-specific variables such as
 | Dispatch accepted but no run                   | Poll `repository_dispatch` runs; confirm workflow files exist on the default branch |
 | Changes not persisted after init stack         | Confirm `publish` is `direct` (default in CI for `dn.init_stack`)                   |
 
-See also
-[Kickstart & Looping — Troubleshooting](/dn-cli/overview/#troubleshooting) and
+See also [Kickstart and looping](/dn-cli/overview/) and
 [Self-hosted runners](/operations/self-hosted-runners/).
 
 ## Legacy label workflows

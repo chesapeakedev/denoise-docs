@@ -89,7 +89,7 @@ repository preparation. Complete these steps in order:
    repository Actions secrets in GitHub directly.
 
 4. **Run dn.init_stack** — Optional but recommended. Dispatches stack
-   initialization for the linked GitHub milestone so kickstart ordering and prep
+   initialization for the linked GitHub milestone so kickstart ordering and meld
    suggestions improve. See [Run dn.init_stack](#run-dninit_stack) below.
 
 ### Setup states
@@ -100,7 +100,7 @@ Denoise tracks repository readiness as setup progresses:
 | ------------------------------- | -------------------------------------------------------------------- |
 | Not configured                  | Workflows or agent config are missing. Follow the setup steps above. |
 | Partially configured            | Some templates or secrets are still missing or outdated.             |
-| Ready for dn kickstart and prep | Workflows, agent config, and required secrets are in place.          |
+| Ready for dn kickstart and meld | Workflows, agent config, and required secrets are in place.          |
 
 The setup status strip shows a short summary (for example **Setup: Checking…**
 while loading, or blocker text when setup is incomplete).
@@ -188,14 +188,18 @@ requirement.
 
 ## Kickstart a task
 
-Per-task kickstart dispatches `dn.kickstart_issue` with AWP enabled so the agent
-plans and implements the issue and opens a pull request.
+Per-task kickstart plans and implements the issue. Choose an available runtime
+in the confirmation dialog: GitHub Actions, Cursor Cloud, a managed cloud VM,
+local managed execution, or a paired developer device. Availability depends on
+repository setup and the account. A device job never falls back silently to
+hosted compute.
 
 1. Open a task in a GitHub-linked milestone (click the task row).
 2. In the task detail dialog, click **Kickstart!**
 3. Confirm **Run kickstart for this task?** in the dialog.
-4. Follow progress via the success toast **Watch on GitHub**, the **Watch on
-   GitHub** button in the dialog, or kickstart status chips on the task.
+4. Follow queued, running, failed, and completed states in the dialog or task
+   status chips. GitHub Actions runs also provide **Watch on GitHub**. Completed
+   published runs show a PR link when one was reported.
 
 <video autoplay loop muted playsinline class="demo-video" aria-label="Kickstart a task — confirm dispatch, track progress, and open the pull request">
   <source src="/demos/kickstart-task.mp4" type="video/mp4" />
@@ -205,7 +209,7 @@ plans and implements the issue and opens a pull request.
 
 - You have Pro (or an organization Pro seat).
 - The task is in a GitHub-linked milestone with a linked issue.
-- Repository setup is complete (**Ready for dn kickstart and prep.**).
+- Repository setup is complete (**Ready for dn kickstart and meld.**).
 - The issue is open and not disqualified during stack planning.
 - You are the task owner or a collaborator on a shared task. Private tasks
   restrict kickstart to the owner and collaborators.
@@ -214,8 +218,8 @@ When kickstart is disabled, the dialog shows a short reason (for example
 incomplete repository setup, disqualified issue, or closed task).
 
 For CLI-oriented planning and implementation depth, see
-[Kickstart & Looping](/dn-cli/overview/) and
-[Orchestrate Agents](/dn-cli/workflows/).
+[Kickstart and looping](/dn-cli/overview/) and the
+[plan lifecycle](/dn-cli/plan-lifecycle/).
 
 ## Next steps
 

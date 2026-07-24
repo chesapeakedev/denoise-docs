@@ -31,15 +31,16 @@ dn --agent claude until run .github/dn/gambit.json --sandbox docker
 ```
 
 `validate` parses the config and prints the gambit count. `run` executes gambits
-in order under one sandbox lifecycle. `--once` forces a single
-generator → verifier tick (same as `one_shot: true` on a gambit).
+in order under one sandbox lifecycle. `--once` forces a single generator →
+verifier tick (same as `one_shot: true` on a gambit).
 
 ## Gambit shape
 
-Each gambit needs a `generator` and a `verifier`. Each action has exactly one of
-`prompt` or `script`. Optional fields: `name`, `metadata`, `secrets` (env var
-**names** only), `max_iterations` (default 10, minimum 1), `timeout_ms`,
-interval delays, and `one_shot`.
+The config has a shared top-level `iterations` bound (default `10`) and optional
+`timeout_ms`. Gambit zero is the **primary** and runs every iteration. Later
+gambits are interval reviews or one-shot tails. Each action has exactly one of
+`prompt` or `script`; `secrets` contains environment variable names, never
+values.
 
 `metadata` values are substituted into prompts as `{{key}}` and prepended as a
 Context block so the field is never ignored.
@@ -60,11 +61,11 @@ loop stops when the change is actually landable.
       "generator": {
         "prompt": "Implement {{goal}}. Prefer small, reviewable edits. Stop when make precommit would pass."
       },
-      "verifier": { "script": "make precommit" },
-      "max_iterations": 5,
-      "timeout_ms": 3600000
+      "verifier": { "script": "make precommit" }
     }
-  ]
+  ],
+  "iterations": 5,
+  "timeout_ms": 3600000
 }
 ```
 
@@ -72,8 +73,8 @@ loop stops when the change is actually landable.
 dn until run .github/dn/gambit.json
 ```
 
-Replace `make precommit` with whatever your repo uses as the merge bar (`deno
-task check`, `npm test && npm run lint`, and so on).
+Replace `make precommit` with the repository's merge bar, such as
+`deno task check` or `npm test && npm run lint`.
 
 ## Recipe: feature loop then one-shot CI fixer
 
@@ -93,8 +94,7 @@ cleanup pass should run once:
       },
       "verifier": {
         "script": "deno test cli/test_until.ts --allow-all"
-      },
-      "max_iterations": 8
+      }
     },
     {
       "name": "ci-tail",
@@ -107,9 +107,61 @@ cleanup pass should run once:
       },
       "verifier": { "script": "make precommit" }
     }
+  ],
+  "iterations": 8
+}
+```
+
+## Recipe: raise test coverage with interval review
+
+One `dn loop` run is one implementation tick against a plan. `dn until` repeats
+a primary generator/verifier tick within an iteration budget and can schedule
+satellite reviews:
+
+```json
+{
+  "iterations": 8,
+  "timeout_ms": 3600000,
+  "gambits": [
+    {
+      "name": "raise-coverage",
+      "metadata": { "threshold": "80" },
+      "generator": {
+        "prompt": "Add focused tests that raise line coverage toward {{threshold}}%. Do not weaken assertions or exclude code."
+      },
+      "verifier": {
+        "script": "npm test -- --coverage && ./scripts/check-coverage 80"
+      }
+    },
+    {
+      "name": "review-tests",
+      "interval": 0.25,
+      "align": "spread",
+      "phase": "after",
+      "generator": {
+        "prompt": "Review the new tests for gaps, flakiness, duplication, and weak assertions. Fix clear problems."
+      },
+      "verifier": { "script": "npm test" }
+    },
+    {
+      "name": "final-review",
+      "one_shot": true,
+      "generator": {
+        "prompt": "Review the completed coverage change and fix any remaining integration problems."
+      },
+      "verifier": { "script": "make precommit" }
+    }
   ]
 }
 ```
+
+An interval fires `floor(iterations * interval)` times, capped at the iteration
+count. `align` places those fires at the `start`, `end`, or spread across the
+run; use explicit 1-based `at` indices when exact iterations matter. `phase`
+chooses whether a satellite runs before or after the primary tick.
+
+Interval verifier failures are soft: they are recorded and the primary loop
+continues. Primary and one-shot tail failures are hard gates.
 
 ## Prompt verifiers (when you need them)
 
@@ -139,15 +191,15 @@ or unparseable verdicts continue the loop unless you pass `--strict-verdict`.
 ## Anti-patterns
 
 - Using a generator that is only `fmt` or another non-goal command
-- Relying on a prompt verifier to print *only* JSON on stdout without a verdict
+- Relying on a prompt verifier to print _only_ JSON on stdout without a verdict
   file
-- Omitting `max_iterations` / `timeout_ms` on long-running agent loops
+- Omitting `iterations` / `timeout_ms` on long-running agent loops
 - Putting secret **values** in the gambit JSON — list env var names in `secrets`
   instead
 
 ## Related
 
-- [Orchestrate Agents](/dn-cli/workflows/) — catalog of workflow commands
-- [Kickstart & Looping](/dn-cli/overview/) — issue and plan shaped work
+- [Plan lifecycle](/dn-cli/plan-lifecycle/) — choose a review boundary
+- [Kickstart and looping](/dn-cli/overview/) — issue and plan shaped work
 - [Filesystem Context](/dn-cli/filesystem-context/) — plans and continuation
   files

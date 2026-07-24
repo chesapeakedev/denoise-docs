@@ -29,13 +29,16 @@ export default defineConfig({
               label: "Installation",
               slug: "dn-cli/installation",
             },
-            { label: "Orchestrate Agents", slug: "dn-cli/workflows" },
-            { label: "Kickstart & Looping", slug: "dn-cli/overview" },
-            { label: "Sandbox providers", slug: "dn-cli/sandbox" },
+            { label: "Plan lifecycle", slug: "dn-cli/plan-lifecycle" },
+            { label: "Command overview", slug: "dn-cli/workflows" },
+            { label: "Kickstart & looping", slug: "dn-cli/overview" },
             {
               label: "Until (generator / verifier)",
               slug: "dn-cli/until",
             },
+            { label: "Land completed work", slug: "dn-cli/land" },
+            { label: "Sandbox execution", slug: "dn-cli/sandbox" },
+            { label: "Project base images", slug: "dn-cli/base-images" },
             {
               label: "Filesystem Context",
               slug: "dn-cli/filesystem-context",
@@ -59,6 +62,10 @@ export default defineConfig({
               slug: "dn-cli/scheduled-workflows",
             },
             { label: "GitHub token setup", slug: "dn-cli/github-token-setup" },
+            {
+              label: "Progress reporting",
+              slug: "dn-cli/progress-reporting",
+            },
             {
               label: "Agent Configuration",
               items: [
@@ -87,6 +94,10 @@ export default defineConfig({
             },
             { label: "GitHub integration", slug: "denoise/github-integration" },
             {
+              label: "Developer device runners",
+              slug: "denoise/device-runners",
+            },
+            {
               label: "Tips & troubleshooting",
               slug: "denoise/tips-troubleshooting",
             },
@@ -103,6 +114,7 @@ export default defineConfig({
               label: "Coming Soon",
               slug: "operations/coming-soon",
             },
+            { label: "v0.0.34 migration", slug: "dn-cli/v0034-migration" },
           ],
         },
       ],

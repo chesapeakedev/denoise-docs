@@ -6,7 +6,7 @@ description: Create and configure a GitHub personal access token for dn.
 This supplemental guide explains how to create a GitHub personal access token
 (PAT) for `dn` when you cannot use GitHub CLI or browser auth. For the normal
 token resolution order, see
-[Installation — GitHub authentication](/dn-cli/installation/#github-authentication/).
+[Installation — GitHub authentication](/dn-cli/installation/#github-authentication).
 
 **Recommendation:** Prefer **fine-grained PATs** over classic tokens: they are
 scoped to specific repositories and permissions, reducing risk if the token is
@@ -23,7 +23,7 @@ For **normal use**, prefer **GitHub CLI** (`gh auth login`) or **browser auth**
 
 ## Why a GitHub token is needed
 
-`dn` commands such as `kickstart`, `prep`, `glance`, `peek`, `fixup`, `issue`,
+`dn` commands such as `kickstart`, `meld`, `glance`, `peek`, `fixup`, `issue`,
 and `meld` with issue URLs interact with the GitHub API to:
 
 - Fetch repository information

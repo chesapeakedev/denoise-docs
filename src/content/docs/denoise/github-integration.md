@@ -95,13 +95,16 @@ On a GitHub-linked milestone, Pro users can:
 Denoise dispatches the same workflow events exposed by `dn workflows dispatch`:
 
 - `dn.init_stack` — Generate milestone stack markdown and JSON files.
-- `dn.prep_issue_plan` — Produce a plan for an issue (CLI and Actions; not
+- `dn.meld_issue_plan` — Produce a plan for an issue (CLI and Actions; not
   exposed as a separate milestone-page button today).
 - `dn.kickstart_issue` — Run plan plus implementation with AWP from
   **Kickstart!** in the task detail dialog.
 
 See [Milestone details](/denoise/milestone-details/) for the full UI workflow,
 setup states, dispatch feedback, and kickstart blockers.
+
+The legacy `dn.prep_issue_plan` event remains compatible with the installed
+workflow, but new integrations use `dn.meld_issue_plan`.
 
 ## Converting tasks to GitHub issues
 

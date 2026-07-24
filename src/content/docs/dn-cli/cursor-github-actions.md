@@ -19,13 +19,13 @@ General workflow installation and dispatch reference:
 repository_dispatch / denoise UI
         │
         ▼
-dn-kickstart-issue.yml (or prep / init-stack)
+dn-kickstart-issue.yml (or meld / init-stack)
         │
         ├── chesapeakedev/dn-action  →  dn CLI + Cursor CLI
         └── CURSOR_API_KEY secret    →  Cursor API authentication
                 │
                 ▼
-        dn --agent cursor kickstart / prep / init stack
+        dn --agent cursor kickstart / meld / init stack
                 │
                 ▼
         Cursor agent CLI (headless)
@@ -150,12 +150,12 @@ export CURSOR_API_KEY="your-cursor-api-key"
 agent -p --trust --force "Reply with exactly: ok"
 ```
 
-Run a plan-only kickstart through dn:
+Run the plan phase through `dn`:
 
 ```bash
 export CURSOR_API_KEY="your-cursor-api-key"
 export GITHUB_TOKEN="$(gh auth token)"
-dn --agent cursor prep https://github.com/owner/repo/issues/42
+dn --agent cursor meld https://github.com/owner/repo/issues/42
 ```
 
 Fix auth errors locally before dispatching workflows.
@@ -240,7 +240,7 @@ approach.
 - [OpenCode](/dn-cli/opencode/) — alternative agent harness
 - [Claude](/dn-cli/claude/) — alternative agent harness
 - [Codex](/dn-cli/codex/) — alternative agent harness
-- [Kickstart & Looping — Flags and environment variables](/dn-cli/overview/#flags-and-environment-variables)
+- [Kickstart and looping](/dn-cli/overview/) — local and Cursor Cloud execution
 - [Self-hosted runners](/operations/self-hosted-runners/) — longer-running
   kickstart jobs
 - [Cursor CLI installation](https://cursor.com/docs/cli/installation)

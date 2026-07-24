@@ -5,7 +5,7 @@ description: Configure OpenAI Codex CLI for dn locally and in GitHub Actions —
 
 Use the [OpenAI Codex CLI](https://developers.openai.com/codex) as the agent
 harness in **installed dn GitHub Actions workflows** and for local `kickstart`,
-`prep`, `loop`, and `fixup` runs. `dn` invokes Codex non-interactively with
+`meld`, `loop`, and `fixup` runs. `dn` invokes Codex non-interactively with
 `codex exec` and a combined prompt file for each plan and implement phase.
 Unlike OpenCode, Codex does not require provider or model JSON config in the
 repository.
@@ -19,13 +19,13 @@ General workflow installation and dispatch reference:
 repository_dispatch / denoise UI
         │
         ▼
-dn-kickstart-issue.yml (or prep / init-stack / daily kickstart)
+dn-kickstart-issue.yml (or meld / init-stack / daily kickstart)
         │
         ├── chesapeakedev/dn-action  →  dn CLI + Codex CLI
         └── OPENAI_API_KEY secret    →  OpenAI API authentication
                 │
                 ▼
-        dn --agent codex kickstart / prep / init stack
+        dn --agent codex kickstart / meld / init stack
                 │
                 ▼
         codex exec --sandbox workspace-write …
@@ -81,8 +81,8 @@ install script from `https://chatgpt.com/codex/install.sh` and adds the CLI to
 
 ## How dn invokes Codex
 
-`dn` runs two phases during kickstart and prep. For each phase it builds a
-combined prompt file and calls:
+`dn kickstart` runs plan and implementation phases; `dn meld` runs only the plan
+phase. For each phase, `dn` builds a combined prompt file and calls:
 
 ```text
 codex exec --sandbox workspace-write --skip-git-repo-check -C <workspaceRoot> \
@@ -136,12 +136,12 @@ export OPENAI_API_KEY="your-openai-api-key"
 codex exec --sandbox workspace-write --skip-git-repo-check -C . "Reply with exactly: ok"
 ```
 
-Run a plan-only kickstart through `dn`:
+Run the plan phase through `dn`:
 
 ```bash
 export OPENAI_API_KEY="your-openai-api-key"
 export GITHUB_TOKEN="$(gh auth token)"
-dn --agent codex prep https://github.com/owner/repo/issues/42
+dn --agent codex meld https://github.com/owner/repo/issues/42
 ```
 
 Fix auth errors locally before dispatching workflows.
@@ -209,4 +209,4 @@ Optional for CI — kickstart works once `OPENAI_API_KEY` is set.
   permissions
 - [OpenCode](/dn-cli/opencode/) — alternative harness using the same
   `OPENAI_API_KEY` secret name
-- [Kickstart & Looping — Publish modes](/dn-cli/overview/#publish-modes)
+- [Kickstart and looping — Publish modes](/dn-cli/overview/#publish-modes)

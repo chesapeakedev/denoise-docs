@@ -14,7 +14,9 @@ Pro turns denoise into a command center for shipping work:
 
 - **Task kickstart** — Dispatch `dn.kickstart_issue` from a task with
   **Kickstart!** in the task detail dialog; follow progress and pull requests
-  from the milestone view.
+  from the milestone view. Depending on setup, execution can use GitHub Actions,
+  Cursor Cloud, a managed VM, managed local execution, or a paired developer
+  device.
 - **Richer collaboration** — Shared context around milestones and tasks so
   everyone sees the same picture.
 - **Automation and integrations** — Included in your subscription as new

@@ -93,3 +93,5 @@ guided tour for your current screen.
   and per-task kickstart on GitHub-linked milestones.
 - Use [Subscription & Pro](/denoise/subscription-and-pro/) when you want task
   kickstart, repository initialization, and workflow dispatch from the app.
+- Use [Developer device runners](/denoise/device-runners/) when you want
+  kickstart to use a trusted local checkout and local credentials.

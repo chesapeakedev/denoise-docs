@@ -4,7 +4,7 @@ description: Configure OpenCode for dn locally and in GitHub Actions — phase c
 ---
 
 OpenCode is the **default agent** for `dn`. Agent-backed commands (`kickstart`,
-`prep`, `loop`, `fixup`, `meld`, and scoring in `tidy`) invoke the OpenCode CLI
+`meld`, `loop`, `fixup`, `meld`, and scoring in `tidy`) invoke the OpenCode CLI
 unless you pass `--agent` or set another harness in `.github/dn/config.json`.
 
 This page covers OpenCode configuration for local development and for installed
@@ -13,8 +13,9 @@ dispatch, start there first.
 
 ## How dn uses OpenCode configs
 
-kickstart and prep run two phases. Each phase uses a separate config file in the
-**workspace root** (`WORKSPACE_ROOT` or the current working directory):
+`kickstart` runs plan and implementation phases; `meld` runs only the plan
+phase. Each phase uses a separate config file in the **workspace root**
+(`WORKSPACE_ROOT` or the current working directory):
 
 | File                      | Phase                 | Role                                                  |
 | ------------------------- | --------------------- | ----------------------------------------------------- |
@@ -133,7 +134,7 @@ OpenCode calls it via a custom provider block in your `opencode*.json` files.
 repository_dispatch / denoise UI
         │
         ▼
-dn-kickstart-issue.yml (or prep / init-stack / daily kickstart)
+dn-kickstart-issue.yml (or meld / init-stack / daily kickstart)
         │
         ├── chesapeakedev/dn-action  →  dn CLI + OpenCode CLI
         └── OPENAI_API_KEY secret    →  DeepInfra API token (via opencode config)
@@ -292,12 +293,12 @@ export OPENAI_API_KEY="your-api-token"
 opencode run "Reply with exactly: ok"
 ```
 
-Or run a plan-only kickstart:
+Or run the plan phase:
 
 ```bash
 export OPENAI_API_KEY="your-api-token"
 export GITHUB_TOKEN="$(gh auth token)"
-dn prep https://github.com/owner/repo/issues/42
+dn meld https://github.com/owner/repo/issues/42
 ```
 
 Fix provider or auth errors locally before dispatching workflows.
@@ -348,4 +349,4 @@ denoise and other integrators dispatch the same payload shapes from the UI.
 - [Codex](/dn-cli/codex/) — alternative agent harness (same `OPENAI_API_KEY`
   secret)
 - [Cursor](/dn-cli/cursor-github-actions/) — alternative agent harness
-- [Kickstart & Looping — Publish modes](/dn-cli/overview/#publish-modes)
+- [Kickstart and looping — Publish modes](/dn-cli/overview/#publish-modes)

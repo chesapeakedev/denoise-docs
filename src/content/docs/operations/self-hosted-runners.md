@@ -180,13 +180,13 @@ ls ~/actions-runner/_diag/Runner_*.log
 
 ## Troubleshooting
 
-| Symptom                      | Check                                                                                         |
-| ---------------------------- | --------------------------------------------------------------------------------------------- |
-| Runner offline in GitHub     | `sudo ./svc.sh status`; outbound HTTPS to `github.com`; registration token not expired        |
-| Job queued but never starts  | Workflow `runs-on` labels match runner labels; runner not busy on another job                 |
-| `dn` or agent missing in job | Workflow uses `chesapeakedev/dn-action`; see job logs for install phase failures              |
-| Out of disk                  | Clean `_work`; increase volume size; shorten workspace retention                              |
-| Slow or timed-out kickstart  | More RAM/CPU; compare with [agent timeout variables](/dn-cli/overview/#environment-variables) |
+| Symptom                      | Check                                                                                    |
+| ---------------------------- | ---------------------------------------------------------------------------------------- |
+| Runner offline in GitHub     | `sudo ./svc.sh status`; outbound HTTPS to `github.com`; registration token not expired   |
+| Job queued but never starts  | Workflow `runs-on` labels match runner labels; runner not busy on another job            |
+| `dn` or agent missing in job | Workflow uses `chesapeakedev/dn-action`; see job logs for install phase failures         |
+| Out of disk                  | Clean `_work`; increase volume size; shorten workspace retention                         |
+| Slow or timed-out kickstart  | More RAM/CPU; compare with the timeout variable on the selected agent configuration page |
 
 For workflow configuration errors, start with `dn workflows validate --json` on
 your workstation and

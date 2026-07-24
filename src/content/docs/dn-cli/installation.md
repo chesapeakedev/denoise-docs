@@ -50,7 +50,15 @@ Privacy & Security → Open Anyway**, or run
 `xattr -d com.apple.quarantine $(which dn)`. Binaries built from source with
 `make install` are not blocked.
 
-Run `dn` with no arguments to see the current command list.
+Confirm the installed version and command list:
+
+```bash
+dn --version
+dn
+```
+
+`dn --version` prints only the version, so scripts and CI can compare it with a
+required release.
 
 ## Build from source
 
@@ -70,7 +78,7 @@ make install
 # GitHub authentication
 
 `dn` needs a GitHub token for commands that access the GitHub API (`kickstart`,
-`prep`, `glance`, `peek`, `fixup`, `issue`, `meld` with issue URLs).
+`meld`, `glance`, `peek`, `fixup`, and `issue` with issue URLs).
 
 ## Token resolution order
 
@@ -164,9 +172,10 @@ dn init agents --skill --agent opencode
 # Plan and implement an issue locally
 dn kickstart https://github.com/owner/repo/issues/123
 
-# Plan first, then implement after review
-dn prep 123
+# Plan first, then implement and close out after review
+dn meld 123 --plan-name my-feature
 dn loop --plan-file plans/my-feature.plan.md
+dn land plans/my-feature.plan.md
 
 # Install canonical workflows for denoise and other integrators
 dn init workflows --agent opencode
@@ -178,7 +187,7 @@ dn tidy
 
 ### Choose an agent
 
-Agent-backed commands (`kickstart`, `prep`, `loop`, and others in the
+Agent-backed commands (`kickstart`, `meld`, `loop`, `land`, and others in the
 [command map](#command-map)) run through an agent harness. OpenCode is the
 default when nothing else is configured.
 
@@ -203,7 +212,7 @@ secrets.
 different harness for one local command:
 
 ```bash
-dn --agent codex prep 123
+dn --agent codex meld 123
 dn --agent claude kickstart --awp 123
 ```
 
@@ -239,12 +248,12 @@ without `--skill` — see
 
 ## Command map
 
-| Need                | Commands                                                | Reference                                       |
-| ------------------- | ------------------------------------------------------- | ----------------------------------------------- |
-| Orchestrate Agents  | `kickstart`, `prep`, `loop`, `until`, `meld`, `fixup`, `archive` | [Orchestrate Agents](/dn-cli/workflows/)        |
-| Working with GitHub | `init stack`, `issue`, `glance`                         | [Working with GitHub](/dn-cli/github-commands/) |
-| Headless Use        | `init workflows`, `workflows`                           | [Headless Use](/dn-cli/headless-use/)           |
-| Experimental        | `context`, `peek`, `todo`, `tidy`, `sync`               | [Experimental](/dn-cli/task-list-and-sync/)     |
+| Need                | Commands                                                      | Reference                                       |
+| ------------------- | ------------------------------------------------------------- | ----------------------------------------------- |
+| Orchestrate agents  | `kickstart`, `meld`, `loop`, `land`, `until`, `fixup`, `sync` | [Plan lifecycle](/dn-cli/plan-lifecycle/)       |
+| Working with GitHub | `init stack`, `issue`, `glance`                               | [Working with GitHub](/dn-cli/github-commands/) |
+| Headless Use        | `init workflows`, `workflows`                                 | [Headless Use](/dn-cli/headless-use/)           |
+| Experimental        | `context`, `peek`, `todo`, `tidy`, `sync`                     | [Experimental](/dn-cli/task-list-and-sync/)     |
 
 ## Global flags
 
@@ -270,5 +279,5 @@ Several workflow commands accept flexible issue or source arguments:
 When a markdown path is given, `dn` uses the file as local context and does not
 fetch an issue from GitHub.
 
-For workflow details, see [Orchestrate Agents](/dn-cli/workflows/) and
+For workflow details, see [Plan lifecycle](/dn-cli/plan-lifecycle/) and
 [Headless Use](/dn-cli/headless-use/).
