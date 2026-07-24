@@ -78,6 +78,25 @@ export default defineConfig({
           ],
         },
         {
+          label: "Cookbooks",
+          items: [
+            { label: "Overview", slug: "cookbooks/overview" },
+            { label: "OpenCode", slug: "cookbooks/opencode" },
+            { label: "Claude Code", slug: "cookbooks/claude-code" },
+            { label: "Codex", slug: "cookbooks/codex" },
+            { label: "Cursor", slug: "cookbooks/cursor" },
+            { label: "GitHub Copilot", slug: "cookbooks/github-copilot" },
+            {
+              label: "Linear main with Sapling",
+              slug: "cookbooks/linear-main-sapling",
+            },
+            {
+              label: "Raspberry Pi runner",
+              slug: "cookbooks/raspberry-pi-runner",
+            },
+          ],
+        },
+        {
           label: "denoise",
           items: [
             { label: "Getting started", slug: "denoise/getting-started" },

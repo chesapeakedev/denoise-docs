@@ -68,10 +68,6 @@ fix: fmt
 # Public-repo quality gate for local use and CI.
 check: lint validate_skills build
 
-# Sapling: lint, pull --rebase main, restack if needed, push drafts (see scripts/repo_sync.sh)
-sync:
-	@$(SHELL) ./scripts/repo_sync.sh
-
 # Stop dev background processes
 clean_dev:
 	@echo "Stopping any existing dev processes..."
