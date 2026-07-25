@@ -11,6 +11,10 @@ export default defineConfig({
     "/dn-cli/plan-lifecycle": "/dn-cli/completing-github-issues/",
     "/dn-cli/until": "/dn-cli/workflows/#dn-until",
     "/dn-cli/land": "/dn-cli/workflows/#dn-land",
+    "/dn-cli/opencode": "/cookbooks/opencode/",
+    "/dn-cli/claude": "/cookbooks/claude-code/",
+    "/dn-cli/codex": "/cookbooks/codex/",
+    "/dn-cli/cursor-github-actions": "/cookbooks/cursor/",
   },
   image: {
     service: passthroughImageService(),
@@ -65,15 +69,6 @@ export default defineConfig({
             {
               label: "Progress reporting",
               slug: "dn-cli/progress-reporting",
-            },
-            {
-              label: "Agent Configuration",
-              items: [
-                { label: "OpenCode", slug: "dn-cli/opencode" },
-                { label: "Claude", slug: "dn-cli/claude" },
-                { label: "Codex", slug: "dn-cli/codex" },
-                { label: "Cursor", slug: "dn-cli/cursor-github-actions" },
-              ],
             },
           ],
         },

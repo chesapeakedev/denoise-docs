@@ -29,7 +29,7 @@ dn workflows validate --json
 Commit `.github/dn/config.json` and the generated `.github/workflows/dn-*.yml`
 files. Set the secret required by the configured agent, such as
 `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, or `CURSOR_API_KEY`. For Cursor, see
-[Cursor API key for dn GitHub Actions](/dn-cli/cursor-github-actions/).
+[Use dn with Cursor](/cookbooks/cursor/).
 
 When you use the app, **Install/Update workflows** writes the selected agent to
 `.github/dn/config.json`. Workflow dispatch uses that repository configuration;

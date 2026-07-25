@@ -77,8 +77,7 @@ repository preparation. Complete these steps in order:
    | Claude Code | `ANTHROPIC_API_KEY`     |
    | Codex       | `OPENAI_API_KEY`        |
 
-   For Cursor-specific setup, see
-   [Cursor API key for dn GitHub Actions](/dn-cli/cursor-github-actions/).
+   For Cursor-specific setup, see [Use dn with Cursor](/cookbooks/cursor/).
 
 2. **Install/Update workflows** — Installs or refreshes
    `.github/workflows/dn-*.yml` templates, `.github/dn/config.json`, and the

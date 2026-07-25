@@ -75,9 +75,9 @@ gh secret set OPENAI_API_KEY
 
 Workflows pass all agent API key secrets; unset secrets are ignored.
 
-Agent-specific setup lives under Agent Configuration:
-[OpenCode](/dn-cli/opencode/), [Claude](/dn-cli/claude/),
-[Codex](/dn-cli/codex/), or [Cursor](/dn-cli/cursor-github-actions/).
+Agent-specific setup lives in the harness cookbooks:
+[OpenCode](/cookbooks/opencode/), [Claude Code](/cookbooks/claude-code/),
+[Codex](/cookbooks/codex/), or [Cursor](/cookbooks/cursor/).
 
 ### 3. Validate locally
 
