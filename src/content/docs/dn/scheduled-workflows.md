@@ -1,21 +1,23 @@
 ---
 title: Scheduled Workflows
-description: Run dn kickstart daily against a milestone queue with dn-daily-kickstart.yml.
+description: Run dn kickstart daily against a milestone queue, and schedule or dispatch the todo loop.
 ---
 
-`dn init workflows` installs four canonical workflow files. The fourth,
-**`dn-daily-kickstart.yml`**, runs kickstart on a schedule against a committed
-milestone stack — one unchecked queue item per run, opening a PR for each.
+`dn init workflows` installs the canonical workflow files, including
+**`dn-daily-kickstart.yml`** and **`dn-todo-loop.yml`**. Daily kickstart runs
+against a committed milestone stack — one unchecked queue item per run, opening
+a PR for each. The todo loop can run on a schedule or via
+`repository_dispatch` from denoise.
 
-Use this when you want steady, automated progress through a prioritized backlog
-without dispatching `dn.kickstart_issue` by hand every day.
+Use daily kickstart when you want steady, automated progress through a
+prioritized backlog without dispatching `dn.kickstart_issue` by hand every day.
 
 Complete
 [Headless Use — Configure a repository](/dn/headless-use/#configure-a-repository)
-first. Scheduled kickstart reuses the same `.github/dn/config.json`, agent
+first. Scheduled workflows reuse the same `.github/dn/config.json`, agent
 secret, and OpenCode config as the other canonical workflows.
 
-## What each run does
+## What each daily kickstart run does
 
 On schedule (or manual trigger), `chesapeakedev/dn-action` runs:
 
@@ -67,7 +69,7 @@ Set this in **Settings → Secrets and variables → Actions → Variables**, or
 
 ## Schedule and triggers
 
-The installed template defines:
+The installed daily kickstart template defines:
 
 | Trigger             | Behavior                                |
 | ------------------- | --------------------------------------- |
@@ -97,7 +99,7 @@ gh workflow run dn-daily-kickstart.yml --repo owner/repo -f validate_only=true
 ## Setup checklist
 
 ```bash
-# 1. Install all four workflows (if not already done)
+# 1. Install canonical workflows (if not already done)
 dn init workflows --agent opencode
 gh secret set OPENAI_API_KEY
 
@@ -138,6 +140,17 @@ gh workflow run dn-daily-kickstart.yml --repo owner/repo
 denoise and other tools dispatch `dn.kickstart_issue` for per-task automation.
 Scheduled kickstart is for repositories that maintain a committed milestone
 queue and want one PR per day without external dispatch.
+
+## Todo loop (`dn.todo_loop`)
+
+`dn-todo-loop.yml` supports `schedule`, `workflow_dispatch`, and
+`repository_dispatch` (`dn.todo_loop`). Denoise can start a todo loop from the
+web using the same event shape as other tracked dispatches, including optional
+nested `progress` for live phase/step reporting when the progress base URL is
+configured.
+
+See [Headless Use — `dn.todo_loop`](/dn/headless-use/#dntodo_loop) and
+[Progress reporting](/dn/progress-reporting/).
 
 ## Troubleshooting
 

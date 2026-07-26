@@ -217,7 +217,10 @@ dn kickstart --cursor-cloud --publish pr --ref main 123
 Cursor Cloud uses a remote clone on a Cursor-managed VM and does not modify the
 local workspace. Without progress configuration, the run is durable
 fire-and-forget. With `DN_DISPATCH_ID` and `DN_PROGRESS` set, `dn` waits,
-reports progress, and returns the pull request URL or terminal failure. See
+reports progress, and returns the pull request URL or terminal failure. In
+denoise, that bootstrap is issued per invocation — see
+[Progress reporting](/dn/progress-reporting/) and
+[Kickstart runtimes](/denoise/kickstart-runtimes/). Also see
 [Headless Use](/dn/headless-use/) for CI dispatch and
 [Sandbox execution](/dn/sandbox/) for Docker and exe.dev.
 

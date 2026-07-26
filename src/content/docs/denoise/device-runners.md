@@ -48,6 +48,11 @@ one job at a time. An offline device can retain a queued job for up to 24 hours
 and claim it after reconnecting. Denoise never silently moves a device job to
 hosted compute.
 
+Device runners report progress with **NDJSON** over the device job API (not the
+shared HTTP bootstrap used by GitHub Actions, Cursor Cloud, and exe.dev). See
+[Kickstart runtimes](/denoise/kickstart-runtimes/) and
+[Progress reporting](/dn/progress-reporting/).
+
 From the device, scripts can also queue work:
 
 ```bash

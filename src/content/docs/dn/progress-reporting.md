@@ -1,22 +1,49 @@
 ---
 title: Progress reporting
-description: Correlate workflow dispatches and consume versioned dn progress events safely.
+description: Shared HTTP progress bootstrap for denoise kickstart runners, plus NDJSON for device runners.
 ---
 
-`dn` can report structured kickstart progress to an orchestrator. Callers must
-generate a unique dispatch ID before dispatch so events and the resulting GitHub
-Actions run can be correlated exactly.
+`dn` reports structured kickstart progress to denoise (and other
+orchestrators) when correlation and a delivery mode are configured. Denoise
+issues a **per-invocation** progress token and delivers the same HTTP bootstrap
+to GitHub Actions, Cursor Cloud, and exe.dev (`cloud_vm`). Device runners use
+NDJSON over the device job API instead.
 
-## Configure reporting
+Do **not** mint a shared `DN_PROGRESS_TOKEN` repository secret for every target
+repo. Tokens are short-lived and scoped to one invocation.
 
-| Variable                | Purpose                                 |
-| ----------------------- | --------------------------------------- |
-| `DN_DISPATCH_ID`        | Invocation correlation ID               |
-| `DN_PROGRESS=ndjson`    | Write one JSON event per line to stderr |
-| `DN_PROGRESS=http`      | POST events to the configured URL       |
-| `DN_PROGRESS_URL`       | HTTP ingest endpoint                    |
-| `DN_PROGRESS_TOKEN`     | Bearer token for HTTP delivery          |
-| `DN_PROGRESS_VERBOSE=1` | Include redacted `agent.line` events    |
+## Shared HTTP bootstrap
+
+When denoise has `KICKSTART_PROGRESS_BASE_URL` configured, primary web runners
+receive:
+
+| Field / env             | Meaning                                              |
+| ----------------------- | ---------------------------------------------------- |
+| `DN_DISPATCH_ID`        | Invocation correlation ID                            |
+| `DN_PROGRESS=http`      | POST events to the ingest URL                        |
+| `DN_PROGRESS_URL`       | Denoise `/api/kickstart/invocations/<id>/events` URL |
+| `DN_PROGRESS_TOKEN`     | Bearer token for that invocation only                |
+| `DN_PROGRESS_VERBOSE=1` | Include redacted `agent.line` events (optional)      |
+
+**GitHub Actions** receive the same values nested under
+`client_payload.progress` (`mode`, `url`, `token`). `dn workflows exec` exports
+them into the job environment so kickstart reports phases and steps without a
+repo-wide progress secret.
+
+**Cursor Cloud** and **exe.dev** managed runners get the same variables in the
+child `dn` environment when denoise starts the managed launch.
+
+Without `KICKSTART_PROGRESS_BASE_URL`, GitHub Actions remains available but the
+denoise panel uses **coarse** status (queued / running / terminal) instead of
+the phase timeline. Cursor Cloud and exe.dev require the public base URL for
+detailed progress and are unavailable in the picker until it is set.
+
+## Delivery modes
+
+| Variable             | Purpose                                              |
+| -------------------- | ---------------------------------------------------- |
+| `DN_PROGRESS=http`   | POST events to `DN_PROGRESS_URL` with the bearer token |
+| `DN_PROGRESS=ndjson` | Write one JSON event per line to stderr (device runners) |
 
 Events use schema version `1.0` and include `invocation_id`, increasing `seq`,
 ISO-8601 `ts`, `type`, and `message`. Phase events can identify `plan`,
@@ -52,10 +79,15 @@ creation-time window. Overlapping runs make time-based matching unsafe.
 
 ## Render progress in denoise
 
-Render queued and running events as active states, `invocation.failed` as a
-failure with its safe message, and `invocation.succeeded` as complete. Prefer
-`publish.completed.data.pr_url` for the PR action. A successful run without that
-field may have used local or direct publication; do not invent a PR link.
+With **detailed** fidelity, render queued and running events as active states,
+`invocation.failed` as a failure with its safe message, and
+`invocation.succeeded` as complete. Prefer `publish.completed.data.pr_url` for
+the PR action. A successful run without that field may have used direct
+publication; do not invent a PR link.
+
+With **coarse** fidelity (typically GitHub Actions without a public progress
+base URL), show only queued / running / terminal status — not a fake phase
+timeline.
 
 If events are missing, confirm both `DN_DISPATCH_ID` and a reporting mode are
 set. For HTTP, check the URL and token without logging the token. Reject or
@@ -65,3 +97,8 @@ by `invocation_id`.
 Cursor Cloud normally dispatches and exits. When both correlation and progress
 reporting are configured, `dn` waits for completion, reports the PR URL when
 available, and emits failure or timeout as terminal events.
+
+## Where each runtime reports
+
+See [Kickstart runtimes](/denoise/kickstart-runtimes/) for the supported matrix.
+Denoise does **not** run kickstart on the application host.

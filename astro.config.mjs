@@ -108,6 +108,10 @@ export default defineConfig({
               slug: "denoise/milestone-details",
             },
             {
+              label: "Kickstart runtimes",
+              slug: "denoise/kickstart-runtimes",
+            },
+            {
               label: "Subscription & Pro",
               slug: "denoise/subscription-and-pro",
             },

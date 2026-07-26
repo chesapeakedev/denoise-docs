@@ -88,7 +88,9 @@ On a GitHub-linked milestone, Pro users can:
 - Install or update dn workflow templates and configure the agent harness
 - Dispatch `dn.init_stack` for milestone stack context
 - Sort tasks by kickstart plan priority
-- Dispatch `dn.kickstart_issue` per task from the task detail dialog
+- Dispatch `dn.kickstart_issue` per task from the task detail dialog (pick a
+  runtime — see [Kickstart runtimes](/denoise/kickstart-runtimes/))
+- Start `dn.todo_loop` when that workflow is installed
 
 ![DN setup action row on the milestone view](../../../assets/screenshots/milestone-view-second-btn-row.png)
 
@@ -97,11 +99,15 @@ Denoise dispatches the same workflow events exposed by `dn workflows dispatch`:
 - `dn.init_stack` — Generate milestone stack markdown and JSON files.
 - `dn.meld_issue_plan` — Produce a plan for an issue (CLI and Actions; not
   exposed as a separate milestone-page button today).
-- `dn.kickstart_issue` — Run plan plus implementation with AWP from
-  **Kickstart!** in the task detail dialog.
+- `dn.kickstart_issue` — Run plan plus implementation from **Kickstart!** in the
+  task detail dialog.
+- `dn.todo_loop` — Advance the repository todo plan on a stable automation
+  branch (GitHub Actions).
 
 See [Milestone details](/denoise/milestone-details/) for the full UI workflow,
-setup states, dispatch feedback, and kickstart blockers.
+setup states, dispatch feedback, and kickstart blockers. Live progress uses the
+shared HTTP bootstrap described in
+[Progress reporting](/dn/progress-reporting/).
 
 The legacy `dn.prep_issue_plan` event remains compatible with the installed
 workflow, but new integrations use `dn.meld_issue_plan`.
