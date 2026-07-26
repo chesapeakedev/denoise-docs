@@ -8,6 +8,10 @@ the default; Docker provides a reproducible local container and exe.dev provides
 a remote VM. Cursor Cloud and GitHub Actions are separate execution runtimes,
 not `dn` sandbox providers.
 
+On **hosted denoise**, kickstart runtimes are GitHub Actions, Cursor Cloud,
+exe.dev, and paired device runners — not Docker and not the denoise application
+host. See [Kickstart runtimes](/denoise/kickstart-runtimes/).
+
 ## Choose a runtime
 
 | Runtime        | Best for                                          | Workspace behavior                   |

@@ -38,6 +38,7 @@ This writes:
 | `.github/workflows/dn-prep-issue-plan.yml` | Meld plan phase; filename retained temporarily for compatibility                           |
 | `.github/workflows/dn-kickstart-issue.yml` | Full kickstart (plan + implement)                                                          |
 | `.github/workflows/dn-daily-kickstart.yml` | Scheduled milestone queue runner — see [Scheduled Workflows](/dn/scheduled-workflows/) |
+| `.github/workflows/dn-todo-loop.yml`       | Todo plan loop (`schedule`, `workflow_dispatch`, `repository_dispatch`)                    |
 
 Set the agent once in `.github/dn/config.json`:
 
@@ -195,7 +196,7 @@ modes, Docker image notes, and exe.dev troubleshooting.
 | `dn.meld_issue_plan` | `dn-prep-issue-plan.yml` | `repository_dispatch` → `dn.meld_issue_plan` | `dn meld`                                          |
 | `dn.kickstart_issue` | `dn-kickstart-issue.yml` | `repository_dispatch` → `dn.kickstart_issue` | `dn kickstart`                                     |
 | `dn.daily_kickstart` | `dn-daily-kickstart.yml` | `schedule`, `workflow_dispatch`              | `dn kickstart --publish pr --milestone <n> --once` |
-| `dn.todo_loop`       | `dn-todo-loop.yml`       | `schedule`, `workflow_dispatch`              | Run the repository todo loop                       |
+| `dn.todo_loop`       | `dn-todo-loop.yml`       | `schedule`, `workflow_dispatch`, `repository_dispatch` → `dn.todo_loop` | `dn loop` on the repo todo plan |
 
 See [Scheduled Workflows](/dn/scheduled-workflows/) for setup, the
 `DN_DAILY_KICKSTART_MILESTONE` variable, and manual runs.
@@ -259,6 +260,26 @@ echo '{"schema_version":"1.0","dispatch_id":"'"$(uuidgen)"'","issue_url":"https:
 `gh run list --repo owner/repo --event repository_dispatch` or use
 `dn workflows dispatch --wait`.
 
+### `dn.todo_loop`
+
+Required: `schema_version`, `dispatch_id`.
+
+Optional: nested `progress` (`mode`, `url`, `token`) for live phase/step ingest
+when denoise (or another orchestrator) supplies a per-invocation bootstrap;
+`validate_only`.
+
+```bash
+echo '{"schema_version":"1.0","dispatch_id":"'"$(uuidgen)"'}' \
+  | dn workflows dispatch dn.todo_loop --repo owner/repo --json --wait
+```
+
+The workflow runs the repository todo loop on a stable automation branch and
+opens or advances one recurring pull request for that plan. Requires
+`plans/todo.plan.md` (or the path configured for the repo). Denoise can start
+todo loop from the web with the same `repository_dispatch` event. Progress
+bootstrap details:
+[Progress reporting](/dn/progress-reporting/).
+
 ## Dispatch and manage workflows from the CLI
 
 ```bash
@@ -301,6 +322,7 @@ dn workflows install --agent cursor
 | `dn.meld_issue_plan` | `contents: write`, `issues: write`                         |
 | `dn.kickstart_issue` | `contents: write`, `pull-requests: write`, `issues: write` |
 | `dn.daily_kickstart` | `contents: write`, `pull-requests: write`, `issues: write` |
+| `dn.todo_loop`       | `contents: write`, `pull-requests: write`, `issues: write` |
 
 For kickstart with `publish: pr`, also enable **Allow GitHub Actions to create
 and approve pull requests** under **Settings → Actions → General → Workflow
@@ -309,14 +331,16 @@ permissions**.
 ## denoise and other integrators
 
 denoise dispatches the same payload shapes through its backend GitHub App. The
-milestone dashboard can trigger `dn.init_stack`, `dn.meld_issue_plan`, and
-`dn.kickstart_issue` on linked repositories that have installed templates.
+milestone dashboard can trigger `dn.init_stack`, `dn.meld_issue_plan`,
+`dn.kickstart_issue`, and `dn.todo_loop` on linked repositories that have
+installed templates. Choose a kickstart runtime in the task dialog — see
+[Kickstart runtimes](/denoise/kickstart-runtimes/).
 
 Every dispatch ID is copied into `DN_DISPATCH_ID` and the correlated workflow
 run name. Use `--wait` or match that run name exactly; do not associate
 overlapping runs by creation time. See
-[Progress reporting](/dn/progress-reporting/) for NDJSON, HTTP delivery,
-redaction, and PR URL fields.
+[Progress reporting](/dn/progress-reporting/) for the shared HTTP bootstrap,
+NDJSON on device runners, redaction, and PR URL fields.
 
 Compatibility paths (still supported, separate from dispatch):
 

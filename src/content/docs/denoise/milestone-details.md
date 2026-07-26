@@ -188,14 +188,23 @@ requirement.
 ## Kickstart a task
 
 Per-task kickstart plans and implements the issue. Choose an available runtime
-in the confirmation dialog: GitHub Actions, Cursor Cloud, a managed cloud VM,
-local managed execution, or a paired developer device. Availability depends on
-repository setup and the account. A device job never falls back silently to
-hosted compute.
+in the confirmation dialog: **GitHub Actions**, **Cursor Cloud**, **exe.dev**
+(`cloud_vm`), or a **paired device runner**. Availability depends on repository
+setup and the account. A device job never falls back silently to hosted compute.
+Docker sandbox is CLI-only on hosted denoise. See
+[Kickstart runtimes](/denoise/kickstart-runtimes/).
+
+The progress panel shows **detailed** phase/step events when the chosen runtime
+streams HTTP progress (or NDJSON on a device). Without a public progress base
+URL, GitHub Actions stays available with **coarse** queued/running/terminal
+status only. See [Progress reporting](/dn/progress-reporting/).
+
+From the milestone view you can also start a **Todo loop** (`dn.todo_loop`) when
+the repository has that workflow installed; it uses GitHub Actions today.
 
 1. Open a task in a GitHub-linked milestone (click the task row).
 2. In the task detail dialog, click **Kickstart!**
-3. Confirm **Run kickstart for this task?** in the dialog.
+3. Confirm **Run kickstart for this task?** and pick a runtime in the dialog.
 4. Follow queued, running, failed, and completed states in the dialog or task
    status chips. GitHub Actions runs also provide **Watch on GitHub**. Completed
    published runs show a PR link when one was reported.
@@ -221,6 +230,8 @@ For CLI-oriented planning and implementation depth, see
 
 ## Next steps
 
+- [Kickstart runtimes](/denoise/kickstart-runtimes/) — Where kickstart runs and
+  how progress fidelity works
 - [GitHub integration](/denoise/github-integration/) — Link milestones, sync
   issues, convert tasks to GitHub issues
 - [Tips & troubleshooting](/denoise/tips-troubleshooting/) — When DN setup or
