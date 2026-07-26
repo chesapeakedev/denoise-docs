@@ -9,7 +9,7 @@ than GitHub-hosted runners provide, or when jobs must reach private network
 resources.
 
 Complete
-[Headless Use — Configure a repository](/dn-cli/headless-use/#configure-a-repository)
+[Headless Use — Configure a repository](/dn/headless-use/#configure-a-repository)
 first. This page covers the runner host only — workflow templates, secrets, and
 harness setup stay the same as on GitHub-hosted runners.
 
@@ -125,7 +125,7 @@ Use the same label set on `dn-prep-issue-plan.yml`, `dn-init-stack.yml`, and
 `dn-daily-kickstart.yml` when those jobs should use this host.
 
 Repository secrets (`GITHUB_TOKEN` injection, agent API keys) and dispatch
-payloads are unchanged. See [Headless Use](/dn-cli/headless-use/) for setup and
+payloads are unchanged. See [Headless Use](/dn/headless-use/) for setup and
 validation.
 
 ## Environment and PATH
@@ -190,13 +190,13 @@ ls ~/actions-runner/_diag/Runner_*.log
 
 For workflow configuration errors, start with `dn workflows validate --json` on
 your workstation and
-[Headless Use — Troubleshooting](/dn-cli/headless-use/#troubleshooting).
+[Headless Use — Troubleshooting](/dn/headless-use/#troubleshooting).
 
 ## References
 
 - [GitHub Actions: About self-hosted runners](https://docs.github.com/en/actions/hosting-your-own-runners/about-self-hosted-runners)
 - [GitHub Actions: Adding self-hosted runners](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/adding-self-hosted-runners)
-- [Headless Use](/dn-cli/headless-use/) — `dn` workflow installation and
+- [Headless Use](/dn/headless-use/) — `dn` workflow installation and
   dispatch
-- [Scheduled Workflows](/dn-cli/scheduled-workflows/) — daily milestone
+- [Scheduled Workflows](/dn/scheduled-workflows/) — daily milestone
   kickstart

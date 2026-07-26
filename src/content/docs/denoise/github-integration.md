@@ -36,7 +36,7 @@ When you use the app, **Install/Update workflows** writes the selected agent to
 changing the agent picker alone does not update the repo until you re-run
 Install workflows.
 
-See [Headless Use — Dispatch payloads](/dn-cli/headless-use/#dispatch-payloads)
+See [Headless Use — Dispatch payloads](/dn/headless-use/#dispatch-payloads)
 for dispatch payloads, permissions, and troubleshooting.
 
 ## Linking a milestone to GitHub

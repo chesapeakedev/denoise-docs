@@ -59,7 +59,7 @@ gh pr view --web
 ```
 
 The remaining sections cover API-key use, workspace trust, and unattended
-[Headless Use](/dn-cli/headless-use/) workflows.
+[Headless Use](/dn/headless-use/) workflows.
 
 ## Overview
 
@@ -270,12 +270,12 @@ approach.
 
 ## Related
 
-- [Headless Use](/dn-cli/headless-use/) — templates, dispatch payloads,
+- [Headless Use](/dn/headless-use/) — templates, dispatch payloads,
   permissions
 - [OpenCode](/cookbooks/opencode/) — alternative agent harness
 - [Claude Code](/cookbooks/claude-code/) — alternative agent harness
 - [Codex](/cookbooks/codex/) — alternative agent harness
-- [Completing GitHub Issues](/dn-cli/completing-github-issues/) — local and
+- [Completing GitHub Issues](/dn/completing-github-issues/) — local and
   Cursor Cloud execution
 - [Self-hosted runners](/operations/self-hosted-runners/) — longer-running
   kickstart jobs

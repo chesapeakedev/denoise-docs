@@ -15,12 +15,12 @@ sandbox runs.
 | `plans/*.description.md`                                           | `dn meld --milestone`                  | User-value synthesis of a milestone                                                                                                           |
 | `plans/*.stack.md`, `plans/*.stack.json`                           | `dn init stack`                        | Prioritized milestone task queue                                                                                                              |
 | `AGENTS.md`                                                        | `dn init agents`; kickstart may update | Project conventions and commands for agents                                                                                                   |
-| `.agents/skills/dn/`, `.claude/skills/dn/`, `.cursor/rules/dn.mdc` | `dn init agents --skill`               | Agent-native dn workflow instructions — see [Installation — Install dn as an agent skill](/dn-cli/installation/#install-dn-as-an-agent-skill) |
+| `.agents/skills/dn/`, `.claude/skills/dn/`, `.cursor/rules/dn.mdc` | `dn init agents --skill`               | Agent-native dn workflow instructions — see [Installation — Install dn as an agent skill](/dn/installation/#install-dn-as-an-agent-skill) |
 
 For `dn init stack` command detail, see
-[Working with GitHub](/dn-cli/github-commands/). For `dn init agents` and agent
+[Working with GitHub](/dn/github-commands/). For `dn init agents` and agent
 skill setup, see
-[Installation — Install dn as an agent skill](/dn-cli/installation/#install-dn-as-an-agent-skill).
+[Installation — Install dn as an agent skill](/dn/installation/#install-dn-as-an-agent-skill).
 
 # The plans/ directory
 
@@ -97,7 +97,7 @@ dn init agents
 
 After a successful kickstart run, dn may also refresh `AGENTS.md` with detected
 project type, build commands, and lint/test commands while preserving custom
-sections you added manually. See [Artifacts & Cursor](/dn-cli/artifacts-cursor/)
+sections you added manually. See [Artifacts & Cursor](/dn/artifacts-cursor/)
 for what kickstart writes at the end of a run.
 
 Use `dn meld` to merge notes or issue context into `AGENTS.md`:
@@ -107,9 +107,9 @@ dn meld research.md ops-notes.md --target AGENTS.md
 ```
 
 Use `dn context` to inspect which `AGENTS.md` (or `AGENTS.override.md`) files
-apply to a path — see [Experimental](/dn-cli/task-list-and-sync/). To install
+apply to a path — see [Experimental](/dn/task-list-and-sync/). To install
 native skill or rule files for your agent harness, see
-[Installation — Install dn as an agent skill](/dn-cli/installation/#install-dn-as-an-agent-skill).
+[Installation — Install dn as an agent skill](/dn/installation/#install-dn-as-an-agent-skill).
 
 ## Milestone stack files
 
@@ -129,7 +129,7 @@ This produces:
 Commit both files when you want the queue tracked in version control. Run
 `dn kickstart --milestone 42` to work through unchecked items; use `--complete`
 to drain the queue without prompts between tasks. See
-[Completing GitHub Issues](/dn-cli/completing-github-issues/#milestone-queues).
+[Completing GitHub Issues](/dn/completing-github-issues/#milestone-queues).
 
 ## Project base images
 

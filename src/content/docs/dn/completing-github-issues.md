@@ -23,7 +23,7 @@ leaving artifacts in the workspace. They require you to push the resulting
 feature branch or bookmark and open the pull request yourself.
 
 Before starting, authenticate to GitHub as described in
-[Installation — GitHub authentication](/dn-cli/installation/#github-authentication).
+[Installation — GitHub authentication](/dn/installation/#github-authentication).
 Use a feature branch or bookmark for a local workflow that will become a pull
 request.
 
@@ -125,8 +125,8 @@ gh pr create
 
 Use this path when you want automated retries against an objective local gate,
 followed by local code and commit review before publication. See the
-[`dn until`](/dn-cli/workflows/#dn-until) and
-[`dn land`](/dn-cli/workflows/#dn-land) command reference sections for gambit
+[`dn until`](/dn/workflows/#dn-until) and
+[`dn land`](/dn/workflows/#dn-land) command reference sections for gambit
 options, dry runs, and recovery behavior.
 
 ## Review the plan before implementation
@@ -218,8 +218,8 @@ Cursor Cloud uses a remote clone on a Cursor-managed VM and does not modify the
 local workspace. Without progress configuration, the run is durable
 fire-and-forget. With `DN_DISPATCH_ID` and `DN_PROGRESS` set, `dn` waits,
 reports progress, and returns the pull request URL or terminal failure. See
-[Headless Use](/dn-cli/headless-use/) for CI dispatch and
-[Sandbox execution](/dn-cli/sandbox/) for Docker and exe.dev.
+[Headless Use](/dn/headless-use/) for CI dispatch and
+[Sandbox execution](/dn/sandbox/) for Docker and exe.dev.
 
 ## Milestone queues
 

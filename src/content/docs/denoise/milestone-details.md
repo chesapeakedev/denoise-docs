@@ -140,7 +140,7 @@ see kickstart complexity badges, **Kickstart order** sorting, and suggested
 kickstart targets in **Repository & dn setup**.
 
 For payload details and CLI parity, see
-[Headless Use — Dispatch payloads](/dn-cli/headless-use/#dispatch-payloads).
+[Headless Use — Dispatch payloads](/dn/headless-use/#dispatch-payloads).
 
 ## Stack order staleness
 
@@ -217,7 +217,7 @@ When kickstart is disabled, the dialog shows a short reason (for example
 incomplete repository setup, disqualified issue, or closed task).
 
 For CLI-oriented planning and implementation depth, see
-[Completing GitHub Issues](/dn-cli/completing-github-issues/).
+[Completing GitHub Issues](/dn/completing-github-issues/).
 
 ## Next steps
 

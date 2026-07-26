@@ -5,8 +5,8 @@ description: Manage GitHub issues, milestones, and project activity from the dn 
 
 These commands use the GitHub API from your local machine. Authenticate with
 `gh auth login`, `dn auth`, or `GITHUB_TOKEN` before running them — see
-[Installation — GitHub authentication](/dn-cli/installation/#github-authentication)
-and [GitHub Token Setup](/dn-cli/github-token-setup/) when you need token
+[Installation — GitHub authentication](/dn/installation/#github-authentication)
+and [GitHub Token Setup](/dn/github-token-setup/) when you need token
 details.
 
 ## `dn init stack`
@@ -29,7 +29,7 @@ instructions for agents. `dn kickstart --milestone 42` uses the first unchecked
 task as the next work item.
 
 To run stack generation in CI, see
-[Headless Use — Dispatch payloads](/dn-cli/headless-use/#dispatch-payloads).
+[Headless Use — Dispatch payloads](/dn/headless-use/#dispatch-payloads).
 
 ## `dn issue`
 
@@ -74,7 +74,7 @@ from the checkout's `origin` remote (Git or Sapling) or from `GITHUB_REPOSITORY`
 in CI, then fetches all metrics through the **GitHub API**. You need GitHub
 authentication (`gh auth login`, `dn auth`, or `GITHUB_TOKEN`) with permission
 to read the repository. See
-[Installation — GitHub authentication](/dn-cli/installation/#github-authentication).
+[Installation — GitHub authentication](/dn/installation/#github-authentication).
 
 Run it from a repository checkout whose default remote points at
 `github.com/owner/repo`. A bare clone with no remote, or a non-GitHub host, will
@@ -105,4 +105,4 @@ N** days of equal length and prints:
 
 Use `dn peek` when you want ranked suggestions for what to work on next; use
 `dn glance` when you want a trend snapshot of recent project activity. See
-[Experimental — `dn peek`](/dn-cli/task-list-and-sync/#dn-peek).
+[Experimental — `dn peek`](/dn/task-list-and-sync/#dn-peek).

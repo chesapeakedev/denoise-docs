@@ -5,7 +5,7 @@ description: Look up dn commands for planning, implementation, verification, clo
 
 Use this reference when you know which stage of the work you need to run. For an
 issue-to-pull-request walkthrough, start with
-[Completing GitHub Issues](/dn-cli/completing-github-issues/).
+[Completing GitHub Issues](/dn/completing-github-issues/).
 
 | Command        | Purpose                                                |
 | -------------- | ------------------------------------------------------ |
@@ -37,7 +37,7 @@ Its publish mode controls where the workflow stops:
 | Direct       | `--publish direct`         | Commit and push to the default branch  |
 
 Use a feature branch or bookmark for local work that will become a pull request.
-See [Completing GitHub Issues](/dn-cli/completing-github-issues/) for review
+See [Completing GitHub Issues](/dn/completing-github-issues/) for review
 boundaries, milestone queues, and publication details.
 
 ## `dn meld`
@@ -336,5 +336,5 @@ dn sync --skip-lint
 `sync` rebases the checkout onto remote `main` and publishes local commits that
 remain afterward. It is an explicit trunk-publication command, not the final
 step of an issue-to-pull-request workflow. See
-[Experimental — `dn sync`](/dn-cli/task-list-and-sync/#dn-sync) for VCS
+[Experimental — `dn sync`](/dn/task-list-and-sync/#dn-sync) for VCS
 detection, prerequisites, and the exact Git and Sapling operations.

@@ -15,7 +15,7 @@ scripts, cron jobs, and other automation. In these environments `dn`:
   workflows — you do not pass `--agent` on each dispatch
 
 Authenticate on your machine before running setup commands — see
-[Installation — GitHub authentication](/dn-cli/installation/#github-authentication).
+[Installation — GitHub authentication](/dn/installation/#github-authentication).
 
 ## Configure a repository
 
@@ -37,7 +37,7 @@ This writes:
 | `.github/workflows/dn-init-stack.yml`      | Milestone stack generation                                                                 |
 | `.github/workflows/dn-prep-issue-plan.yml` | Meld plan phase; filename retained temporarily for compatibility                           |
 | `.github/workflows/dn-kickstart-issue.yml` | Full kickstart (plan + implement)                                                          |
-| `.github/workflows/dn-daily-kickstart.yml` | Scheduled milestone queue runner — see [Scheduled Workflows](/dn-cli/scheduled-workflows/) |
+| `.github/workflows/dn-daily-kickstart.yml` | Scheduled milestone queue runner — see [Scheduled Workflows](/dn/scheduled-workflows/) |
 
 Set the agent once in `.github/dn/config.json`:
 
@@ -49,7 +49,7 @@ Set the agent once in `.github/dn/config.json`:
 ```
 
 Use schema `1.1` when the repository also configures a sandbox. See
-[Sandbox execution](/dn-cli/sandbox/) for the provider, workspace, sync, and
+[Sandbox execution](/dn/sandbox/) for the provider, workspace, sync, and
 provider-specific fields.
 
 Re-run `dn init workflows --agent <name>` or edit this file to change agents
@@ -169,7 +169,7 @@ echo '{"schema_version":"1.0","dispatch_id":"'"$(uuidgen)"'","issue_number":42,"
 ```
 
 For local publish-mode details, see
-[Completing GitHub Issues — Publish modes](/dn-cli/completing-github-issues/#publish-modes).
+[Completing GitHub Issues — Publish modes](/dn/completing-github-issues/#publish-modes).
 
 ## Sandbox providers in CI
 
@@ -181,10 +181,10 @@ To run kickstart or loop inside Docker or exe.dev, set `schema_version: "1.1"`
 and a `sandbox` block in `.github/dn/config.json`. Docker sandbox in CI requires
 a Docker socket on the runner. exe.dev requires an `EXE_TOKEN` repository secret
 and GitHub integration setup on exe.dev — see
-[Sandbox providers — Set up exe.dev](/dn-cli/sandbox/#set-up-exedev).
+[Sandbox providers — Set up exe.dev](/dn/sandbox/#set-up-exedev).
 
 VCS publish (branch, commit, PR) still runs on the host after workspace
-sync-out. See [Sandbox providers](/dn-cli/sandbox/) for configuration, sync
+sync-out. See [Sandbox providers](/dn/sandbox/) for configuration, sync
 modes, Docker image notes, and exe.dev troubleshooting.
 
 ## Workflow templates
@@ -197,7 +197,7 @@ modes, Docker image notes, and exe.dev troubleshooting.
 | `dn.daily_kickstart` | `dn-daily-kickstart.yml` | `schedule`, `workflow_dispatch`              | `dn kickstart --publish pr --milestone <n> --once` |
 | `dn.todo_loop`       | `dn-todo-loop.yml`       | `schedule`, `workflow_dispatch`              | Run the repository todo loop                       |
 
-See [Scheduled Workflows](/dn-cli/scheduled-workflows/) for setup, the
+See [Scheduled Workflows](/dn/scheduled-workflows/) for setup, the
 `DN_DAILY_KICKSTART_MILESTONE` variable, and manual runs.
 
 Machine-readable contract: `templates/workflows/manifest.json` in the
@@ -315,7 +315,7 @@ milestone dashboard can trigger `dn.init_stack`, `dn.meld_issue_plan`, and
 Every dispatch ID is copied into `DN_DISPATCH_ID` and the correlated workflow
 run name. Use `--wait` or match that run name exactly; do not associate
 overlapping runs by creation time. See
-[Progress reporting](/dn-cli/progress-reporting/) for NDJSON, HTTP delivery,
+[Progress reporting](/dn/progress-reporting/) for NDJSON, HTTP delivery,
 redaction, and PR URL fields.
 
 Compatibility paths (still supported, separate from dispatch):
@@ -358,7 +358,7 @@ Agent-backed workflows in CI also use harness-specific variables such as
 `ANTHROPIC_API_KEY`, `CLAUDE_CODE_BARE=1` (set by workflows for Claude), and
 `CODEX_TIMEOUT_MS`. Agent selection in workflows comes from
 `.github/dn/config.json`; see
-[Installation — Choose an agent](/dn-cli/installation/#choose-an-agent).
+[Installation — Choose an agent](/dn/installation/#choose-an-agent).
 
 ## Exit codes
 
@@ -379,7 +379,7 @@ Agent-backed workflows in CI also use harness-specific variables such as
 | Dispatch accepted but no run                   | Poll `repository_dispatch` runs; confirm workflow files exist on the default branch |
 | Changes not persisted after init stack         | Confirm `publish` is `direct` (default in CI for `dn.init_stack`)                   |
 
-See also [Completing GitHub Issues](/dn-cli/completing-github-issues/) and
+See also [Completing GitHub Issues](/dn/completing-github-issues/) and
 [Self-hosted runners](/operations/self-hosted-runners/).
 
 ## Legacy label workflows

@@ -117,7 +117,7 @@ your workflows require:
 | `pull_requests: write`                    | `--publish pr` kickstart (creating branches and PRs) |
 
 For step-by-step PAT creation, see
-[GitHub Token Setup](/dn-cli/github-token-setup/).
+[GitHub Token Setup](/dn/github-token-setup/).
 
 ### GitHub Actions
 
@@ -205,7 +205,7 @@ Supported values are `opencode`, `cursor`, `claude`, and `codex`. GitHub Actions
 workflows and denoise integrators read this file so automated runs use the same
 agent without passing `--agent` on every dispatch. Re-run
 `dn init workflows --agent <name>` or edit the file directly to change the
-default. See [Headless Use](/dn-cli/headless-use/) for the matching repository
+default. See [Headless Use](/dn/headless-use/) for the matching repository
 secrets.
 
 **Single-run override.** Pass the global `--agent` flag when you want a
@@ -244,16 +244,16 @@ Repo-scope installs write:
 User-scope installs write the same content under `~/.agents/` or `~/.claude/`.
 For per-repo `AGENTS.md` updates without the skill files, run `dn init agents`
 without `--skill` — see
-[Filesystem Context](/dn-cli/filesystem-context/#agentsmd).
+[Filesystem Context](/dn/filesystem-context/#agentsmd).
 
 ## Command map
 
 | Need                | Commands                                                      | Reference                                                     |
 | ------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- |
-| Orchestrate agents  | `kickstart`, `meld`, `loop`, `land`, `until`, `fixup`, `sync` | [Completing GitHub Issues](/dn-cli/completing-github-issues/) |
-| Working with GitHub | `init stack`, `issue`, `glance`                               | [Working with GitHub](/dn-cli/github-commands/)               |
-| Headless Use        | `init workflows`, `workflows`                                 | [Headless Use](/dn-cli/headless-use/)                         |
-| Experimental        | `context`, `peek`, `todo`, `tidy`, `sync`                     | [Experimental](/dn-cli/task-list-and-sync/)                   |
+| Orchestrate agents  | `kickstart`, `meld`, `loop`, `land`, `until`, `fixup`, `sync` | [Completing GitHub Issues](/dn/completing-github-issues/) |
+| Working with GitHub | `init stack`, `issue`, `glance`                               | [Working with GitHub](/dn/github-commands/)               |
+| Headless Use        | `init workflows`, `workflows`                                 | [Headless Use](/dn/headless-use/)                         |
+| Experimental        | `context`, `peek`, `todo`, `tidy`, `sync`                     | [Experimental](/dn/task-list-and-sync/)                   |
 
 ## Global flags
 
@@ -265,7 +265,7 @@ You can pass global output flags after any subcommand:
 
 In CI, `dn` automatically enables unattended mode and sets `NO_COLOR` when it is
 not already set. See
-[Headless Use — Unattended output](/dn-cli/headless-use/#unattended-output) for
+[Headless Use — Unattended output](/dn/headless-use/#unattended-output) for
 the full behavior.
 
 ## Common argument formats
@@ -280,5 +280,5 @@ When a markdown path is given, `dn` uses the file as local context and does not
 fetch an issue from GitHub.
 
 For workflow details, see
-[Completing GitHub Issues](/dn-cli/completing-github-issues/) and
-[Headless Use](/dn-cli/headless-use/).
+[Completing GitHub Issues](/dn/completing-github-issues/) and
+[Headless Use](/dn/headless-use/).

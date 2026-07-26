@@ -48,7 +48,7 @@ selected publish mode. You stay in the harness conversation to review tool
 calls, answer questions, and inspect the result.
 
 For command-level details and alternate publish modes, see
-[Completing GitHub issues](/dn-cli/completing-github-issues/).
+[Completing GitHub issues](/dn/completing-github-issues/).
 
 ## Operations cookbook
 

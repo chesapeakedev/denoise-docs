@@ -11,7 +11,7 @@ Use this when you want steady, automated progress through a prioritized backlog
 without dispatching `dn.kickstart_issue` by hand every day.
 
 Complete
-[Headless Use — Configure a repository](/dn-cli/headless-use/#configure-a-repository)
+[Headless Use — Configure a repository](/dn/headless-use/#configure-a-repository)
 first. Scheduled kickstart reuses the same `.github/dn/config.json`, agent
 secret, and OpenCode config as the other canonical workflows.
 
@@ -48,7 +48,7 @@ git push
 ```
 
 You can also refresh the stack from CI with
-[`dn.init_stack`](/dn-cli/headless-use/#dninit_stack) dispatch events. The daily
+[`dn.init_stack`](/dn/headless-use/#dninit_stack) dispatch events. The daily
 workflow expects the stack file to exist on the default branch.
 
 3. **Repository variable** — scheduled runs read the milestone from
@@ -145,11 +145,11 @@ queue and want one PR per day without external dispatch.
 | ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | Workflow skips or fails immediately | `DN_DAILY_KICKSTART_MILESTONE` is set; stack file exists on default branch                                                   |
 | No unchecked items left             | Queue is complete — refresh with `dn init stack 42 --refresh` or dispatch `dn.init_stack`                                    |
-| No PR created                       | Workflow permissions and `pull-requests: write`; see [Headless Use — Troubleshooting](/dn-cli/headless-use/#troubleshooting) |
+| No PR created                       | Workflow permissions and `pull-requests: write`; see [Headless Use — Troubleshooting](/dn/headless-use/#troubleshooting) |
 | Wrong milestone                     | Update the repository variable or pass `milestone` on `workflow_dispatch`                                                    |
 | Schedule never runs                 | Default branch must contain the workflow file; GitHub disables schedules on inactive repos                                   |
 
 For milestone stack format and local `dn kickstart --milestone` usage, see
-[Completing GitHub Issues — Milestone queues](/dn-cli/completing-github-issues/#milestone-queues)
+[Completing GitHub Issues — Milestone queues](/dn/completing-github-issues/#milestone-queues)
 and
-[Filesystem Context — Milestone stack files](/dn-cli/filesystem-context/#milestone-stack-files).
+[Filesystem Context — Milestone stack files](/dn/filesystem-context/#milestone-stack-files).

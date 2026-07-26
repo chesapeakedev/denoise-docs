@@ -11,7 +11,7 @@ Failures in these steps are logged as warnings and do not stop the workflow.
 The implement phase updates the **Acceptance Criteria** checklist in the plan
 file. The plan file stays in `plans/` for reference. For incomplete plans,
 continuation prompts are generated (see
-[Filesystem Context](/dn-cli/filesystem-context/)).
+[Filesystem Context](/dn/filesystem-context/)).
 
 ## 2. Linting (non-blocking)
 

@@ -71,7 +71,7 @@ gh pr view --web
 ```
 
 The remaining sections configure how `dn` invokes OpenCode directly, including
-unattended [Headless Use](/dn-cli/headless-use/) workflows.
+unattended [Headless Use](/dn/headless-use/) workflows.
 
 ## How dn uses OpenCode configs
 
@@ -406,9 +406,9 @@ denoise and other integrators dispatch the same payload shapes from the UI.
 
 ## Related
 
-- [Headless Use](/dn-cli/headless-use/) — workflow installation and dispatch
+- [Headless Use](/dn/headless-use/) — workflow installation and dispatch
 - [Claude Code](/cookbooks/claude-code/) — alternative agent harness
 - [Codex](/cookbooks/codex/) — alternative agent harness (same `OPENAI_API_KEY`
   secret)
 - [Cursor](/cookbooks/cursor/) — alternative agent harness
-- [Completing GitHub Issues — Publish modes](/dn-cli/completing-github-issues/#publish-modes)
+- [Completing GitHub Issues — Publish modes](/dn/completing-github-issues/#publish-modes)

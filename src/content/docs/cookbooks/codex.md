@@ -37,7 +37,7 @@ new skill, and commit the files if the whole team should use them.
 
 `dn context check` also reads inherited guidance from `CODEX_HOME` (or
 `~/.codex`) `AGENTS.md` when estimating context size. See
-[Experimental — Context check](/dn-cli/task-list-and-sync/).
+[Experimental — Context check](/dn/task-list-and-sync/).
 
 Start Codex from the repository root and mention the skill explicitly:
 
@@ -61,7 +61,7 @@ gh pr view --web
 ```
 
 The remaining sections cover API-key use, sandbox behavior, and unattended
-[Headless Use](/dn-cli/headless-use/) workflows.
+[Headless Use](/dn/headless-use/) workflows.
 
 ## Overview
 
@@ -237,8 +237,8 @@ denoise and other integrators dispatch the same payload shapes from the UI.
 
 ## Related
 
-- [Headless Use](/dn-cli/headless-use/) — templates, dispatch payloads,
+- [Headless Use](/dn/headless-use/) — templates, dispatch payloads,
   permissions
 - [OpenCode](/cookbooks/opencode/) — alternative harness using the same
   `OPENAI_API_KEY` secret name
-- [Completing GitHub Issues — Publish modes](/dn-cli/completing-github-issues/#publish-modes)
+- [Completing GitHub Issues — Publish modes](/dn/completing-github-issues/#publish-modes)

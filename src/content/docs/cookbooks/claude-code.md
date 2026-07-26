@@ -59,7 +59,7 @@ gh pr view --web
 ```
 
 The remaining sections cover API-key use, permission controls, and unattended
-[Headless Use](/dn-cli/headless-use/) workflows.
+[Headless Use](/dn/headless-use/) workflows.
 
 ## Overview
 
@@ -249,7 +249,7 @@ For Anthropic's managed GitHub app and action, see
 
 ## Related
 
-- [Headless Use](/dn-cli/headless-use/) — templates, dispatch payloads,
+- [Headless Use](/dn/headless-use/) — templates, dispatch payloads,
   permissions
-- [Completing GitHub Issues — Publish modes](/dn-cli/completing-github-issues/#publish-modes)
+- [Completing GitHub Issues — Publish modes](/dn/completing-github-issues/#publish-modes)
 - [Claude Code headless mode](https://docs.anthropic.com/en/docs/claude-code/headless)

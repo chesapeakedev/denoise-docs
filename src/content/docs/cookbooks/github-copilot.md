@@ -99,4 +99,4 @@ gh pr view --web
 ```
 
 For `dn` workflow and publish-mode details, see
-[Completing GitHub issues](/dn-cli/completing-github-issues/).
+[Completing GitHub issues](/dn/completing-github-issues/).
