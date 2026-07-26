@@ -1,26 +1,30 @@
 ---
 title: Completing GitHub Issues
-description: Choose a dn workflow that turns a GitHub issue into a reviewed pull request.
+description: Understand the different flows to complete work in GitHub with dn
 ---
 
-`dn` can take a GitHub issue from planning through implementation and pull
-request publication. Choose a path based on where you want to review the work:
-after the pull request opens, before anything is published, or before
-implementation begins.
+The `dn` CLI gives you a non-conversational assistant interface to the harnesses
+you already use. Use the CLI to orient your worfklow around durable plans,
+lining up targets for `dn kickstart`. Use `dn meld` and manual review to create
+GitHub issues and markdown plan files that lean towards specification. Treat
+these as a contract between the team and your agents.
 
-## Choose a path to a pull request
+## Choose the right handoff
 
-| Use this path                                             | Workflow                                                  | When it is useful                                                              |
-| --------------------------------------------------------- | --------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| Publish a pull request end to end                         | `dn kickstart --publish pr <issue>`                       | The issue is ready for implementation and the pull request is the review point |
-| Complete and verify the implementation locally            | `dn kickstart <issue>` → `dn until` → `dn land` → open PR | You want the merge gate to pass before commits leave the workspace             |
-| Review the plan and implementation separately             | `dn meld` → `dn loop` → `dn until` → `dn land` → open PR  | The work is ambiguous, high-risk, or needs agreement on the approach           |
-| Run remotely or in CI                                     | Remote `dn kickstart --publish pr <issue>`                | The workspace is temporary or no developer is supervising the run              |
-| Work through a milestone queue one pull request at a time | `dn init stack` → published milestone run                 | A prioritized set of issues is ready for unattended or scheduled execution     |
+`dn` is useful at multiple parts of the GitHub issue lifecycle. If you focus on
+refining issues into well scoped & sized chunks of work, you can line up issues
+and land them through your team's CI/CD process very quickly. Alternatively, you
+can use the CLI to refine plans locally in git (from the repo top level `plans/`
+directory) or refine GitHub issues directly. Your team still owns the planning
+process, but agents can save quite a bit of time reducing ambiguity in issues &
+double checking requests against the current codebase.
 
-The first path is the shortest. The local paths create review boundaries by
-leaving artifacts in the workspace. They require you to push the resulting
-feature branch or bookmark and open the pull request yourself.
+| Use this path                                 | Workflow                                    | When it is useful                                                                                         |
+| --------------------------------------------- | ------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| One-shot complete a GitHub Issue end to end   | `dn kickstart --publish pr <issue>`         | Create & refine the issue in Github, implement with `dn` locally or headlessly on a server                |
+| Review the plan and implementation separately | `dn meld` → `dn loop` → `dn land` → open PR | The work is ambiguous, high-risk, or needs consensus on approach; use agents to help plan collaboratively |
+| Respond to team & agent feedback              | `dn fixup`                                  | Work in GitHub pull request comments to build consensus on reviewed code; use agents to update the pr     |
+| Work towards a goal                           | `dn until`, `dn loop`                       | Created bounded loops locally or create a daily cadence with your agent in GitHub                         |
 
 Before starting, authenticate to GitHub as described in
 [Installation — GitHub authentication](/dn/installation/#github-authentication).
@@ -125,9 +129,8 @@ gh pr create
 
 Use this path when you want automated retries against an objective local gate,
 followed by local code and commit review before publication. See the
-[`dn until`](/dn/workflows/#dn-until) and
-[`dn land`](/dn/workflows/#dn-land) command reference sections for gambit
-options, dry runs, and recovery behavior.
+[`dn until`](/dn/workflows/#dn-until) and [`dn land`](/dn/workflows/#dn-land)
+command reference sections for gambit options, dry runs, and recovery behavior.
 
 ## Review the plan before implementation
 
