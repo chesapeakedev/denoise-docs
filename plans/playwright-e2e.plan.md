@@ -67,7 +67,7 @@ via Deno.
 
 | Area                   | Tests                                                                                                                                                                 |
 | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Home / splash**      | `/` loads; hero tagline visible; primary CTA links resolve (`/introduction/`)                                                                                         |
+| **Home / splash**      | `/` loads; hero value blurb visible; primary CTA → `/dn-cli/installation/`; secondary → `/denoise/getting-started/`; segment deep links resolve                                                                                         |
 | **Sidebar navigation** | Open a page from each sidebar group (Introduction, Denoise, dn CLI, Kickstart, Operations) — assert `h1` or unique heading                                            |
 | **Theme switcher**     | Custom `ThemeSelect`: click light/dark; assert `document.documentElement.dataset.theme` and `aria-pressed` on buttons; optional reload persistence via `localStorage` |
 | **Footer**             | Chesapeake footer bar visible; external Website/About links have `target="_blank"` and `rel="noopener noreferrer"`                                                    |

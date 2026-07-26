@@ -1,0 +1,212 @@
+---
+import Default from "@astrojs/starlight/components/Hero.astro";
+import { Icon } from "@astrojs/starlight/components";
+import denoiseLogo from "../assets/denoise-logo.svg";
+
+const PAGE_TITLE_ID = "_top";
+const isHomepage = Astro.locals.starlightRoute.id === "";
+const { data } = Astro.locals.starlightRoute.entry;
+const { title = data.title, tagline, actions = [] } = data.hero || {};
+---
+
+{
+  isHomepage ? (
+    <div class="home-hero">
+      <div class="home-hero__copy">
+        <div class="home-hero__brand">
+          <img
+            class="home-hero__logo"
+            src={denoiseLogo.src}
+            width="88"
+            height="88"
+            alt=""
+            decoding="async"
+          />
+          <h1 id={PAGE_TITLE_ID} data-page-title set:html={title} />
+        </div>
+        {tagline && <div class="home-hero__blurb" set:html={tagline} />}
+        {actions.length > 0 && (
+          <div class="home-hero__actions">
+            {actions.map(
+              ({
+                attrs: { class: className, ...attrs } = {},
+                icon,
+                link: href,
+                text,
+                variant = "primary",
+              }) => (
+                <a
+                  href={href}
+                  class:list={[
+                    "sl-link-button",
+                    "not-content",
+                    variant,
+                    className,
+                  ]}
+                  {...attrs}
+                >
+                  {text}
+                  {icon?.name && <Icon name={icon.name} size="1.5rem" />}
+                  {icon?.html && <Fragment set:html={icon.html} />}
+                </a>
+              ),
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  ) : (
+    <Default />
+  )
+}
+
+<style>
+  @layer starlight.core {
+    .home-hero {
+      position: relative;
+      padding-block: clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 3vw, 2.5rem);
+      animation: home-hero-enter 0.45s ease-out both;
+    }
+
+    .home-hero__copy {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.25rem;
+      max-width: 42rem;
+    }
+
+    .home-hero__brand {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem 1rem;
+      flex-wrap: wrap;
+    }
+
+    .home-hero__logo {
+      width: clamp(3.25rem, 8vw, 5.5rem);
+      height: auto;
+      flex-shrink: 0;
+    }
+
+    .home-hero h1 {
+      margin: 0;
+      font-size: clamp(
+        var(--sl-text-3xl),
+        calc(0.4rem + 4vw),
+        var(--sl-text-5xl)
+      );
+      line-height: var(--sl-line-height-headings);
+      font-weight: 600;
+      color: var(--sl-color-white);
+      letter-spacing: -0.02em;
+    }
+
+    .home-hero__blurb {
+      font-size: clamp(
+        var(--sl-text-base),
+        calc(0.05rem + 1.2vw),
+        var(--sl-text-lg)
+      );
+      line-height: 1.55;
+      color: var(--sl-color-gray-2);
+    }
+
+    .home-hero__blurb :global(p) {
+      margin: 0;
+    }
+
+    .home-hero__blurb :global(p + p) {
+      margin-top: 0.75rem;
+    }
+
+    .home-hero__blurb :global(strong),
+    .home-hero__blurb :global(code) {
+      color: var(--sl-color-white);
+      font-weight: 600;
+    }
+
+    .home-hero__blurb :global(code) {
+      font-size: 0.92em;
+      font-weight: 500;
+    }
+
+    .home-hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem 1.25rem;
+      margin-top: 0.25rem;
+    }
+
+    .home-hero__actions :global(.sl-link-button) {
+      align-items: center;
+      border: 1px solid transparent;
+      border-radius: 999rem;
+      display: inline-flex;
+      font-size: var(--sl-text-sm);
+      gap: 0.5em;
+      line-height: 1.1875;
+      outline-offset: 0.25rem;
+      padding: 0.4375rem 1.125rem;
+      text-decoration: none;
+    }
+
+    .home-hero__actions :global(.sl-link-button.primary) {
+      background: var(--sl-color-text-accent);
+      border-color: var(--sl-color-text-accent);
+      color: var(--sl-color-black);
+    }
+
+    .home-hero__actions :global(.sl-link-button.secondary) {
+      border-color: var(--sl-color-gray-4);
+      color: var(--sl-color-white);
+    }
+
+    .home-hero__actions :global(.sl-link-button.secondary:hover) {
+      border-color: var(--sl-color-accent);
+      color: var(--sl-color-accent-high);
+    }
+
+    .home-hero__actions :global(.sl-link-button.minimal) {
+      color: var(--sl-color-gray-2);
+      padding-inline: 0;
+    }
+
+    .home-hero__actions :global(.sl-link-button.minimal:hover) {
+      color: var(--sl-color-white);
+    }
+
+    .home-hero__actions :global(.sl-link-button svg) {
+      flex-shrink: 0;
+    }
+
+    @media (min-width: 50rem) {
+      .home-hero__actions :global(.sl-link-button) {
+        font-size: var(--sl-text-base);
+        padding: 0.75rem 1.25rem;
+      }
+
+      .home-hero__actions :global(.sl-link-button.minimal) {
+        padding-inline: 0;
+      }
+    }
+  }
+
+  @keyframes home-hero-enter {
+    from {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .home-hero {
+      animation: none;
+    }
+  }
+</style>

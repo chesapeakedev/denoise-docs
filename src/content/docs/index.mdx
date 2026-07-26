@@ -1,32 +1,35 @@
 ---
-title: Denoise Documenation
-description: orchestrate agentic workflows
+title: denoise
+description: Toolkit for agentic development workflows across the terminal and web.
 template: splash
 hero:
-  tagline: Orchestrate, one layer above syntax
+  title: denoise
+  tagline: >-
+    <p>denoise is a toolkit for agentic development workflows. Use <code>dn</code> in the terminal and agent harnesses to plan and implement from GitHub issues, or use the <strong>denoise</strong> web app so the rest of the team can orchestrate the same work without living in the CLI.</p>
   actions:
     - text: Install the CLI
       link: /dn-cli/installation/
       icon: right-arrow
-    - text: Introduction
-      link: /introduction/
-      icon: document
-      variant: minimal
     - text: denoise web
       link: /denoise/getting-started/
       icon: document
-      variant: minimal
+      variant: secondary
     - text: Watch the demo
       link: /#see-the-workflow
       icon: down-arrow
       variant: minimal
 ---
 
+import HomeSegments from "../../components/HomeSegments.astro";
+
+<HomeSegments />
+
 ## See the workflow
 
-This walkthrough shows how a task can be Kickstarted from the Denoise web UI, 
-dispatching a Github Action that generates a PR for developer review:
+Kickstart a task from the denoise web UI, dispatch a GitHub Action, and open a PR for review:
 
-<video controls preload="metadata" class="demo-video" aria-label="Denoise main workflow demo">
-  <source src="/demos/denoise-demo.mp4" type="video/mp4" />
-</video>
+<div class="demo-panel">
+  <video controls preload="metadata" class="demo-video" aria-label="Denoise main workflow demo">
+    <source src="/demos/denoise-demo.mp4" type="video/mp4" />
+  </video>
+</div>

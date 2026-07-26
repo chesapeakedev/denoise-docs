@@ -133,13 +133,88 @@
   border: 1px solid var(--sl-color-gray-5);
 }
 
-/* Splash home: demo panel below the hero */
+/* Site title logo (nav) */
+.site-title img {
+  width: 1.75rem;
+  height: 1.75rem;
+  object-fit: contain;
+}
+
+/* Splash home: Cloudflare-style docs hub composition */
+[data-has-hero] .main-pane {
+  position: relative;
+}
+
+[data-has-hero] .main-pane::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0 0 auto;
+  height: min(28rem, 70vh);
+  background:
+    radial-gradient(
+      80% 60% at 12% 0%,
+      color-mix(in srgb, var(--sl-color-accent-low) 55%, transparent),
+      transparent 70%
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--sl-color-accent-low) 18%, transparent),
+      transparent 65%
+    );
+  z-index: 0;
+}
+
+[data-has-hero] .main-pane > * {
+  position: relative;
+  z-index: 1;
+}
+
+[data-has-hero] .sl-container {
+  max-width: 64rem;
+}
+
 [data-has-hero] .sl-markdown-content {
-  max-width: 48rem;
+  max-width: 64rem;
   margin-inline: auto;
-  padding-block: 2rem 3rem;
+  padding-block: 0.5rem 3.5rem;
+}
+
+[data-has-hero] .sl-markdown-content > h2:first-of-type {
+  margin-top: 0.5rem;
+  font-size: var(--sl-text-2xl);
+  font-weight: 600;
+}
+
+[data-has-hero] .demo-panel {
+  margin-block: 1rem 0;
+  padding: 0.75rem;
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 0.5rem;
+  background: color-mix(in srgb, var(--sl-color-gray-6) 55%, transparent);
+  animation: home-demo-enter 0.55s ease-out 0.12s both;
 }
 
 [data-has-hero] .sl-markdown-content .demo-video {
-  margin-inline: auto;
+  max-width: none;
+  margin: 0;
+  border-radius: 0.375rem;
+  border-color: var(--sl-color-gray-5);
+}
+
+@keyframes home-demo-enter {
+  from {
+    opacity: 0;
+    transform: translateY(0.4rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-has-hero] .demo-panel {
+    animation: none;
+  }
 }

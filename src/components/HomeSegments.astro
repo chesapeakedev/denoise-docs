@@ -1,0 +1,231 @@
+---
+const segments = [
+  {
+    title: "Work from the terminal",
+    description:
+      "Plan and implement GitHub issues with dn and your agent harness.",
+    links: [
+      { title: "Installation", href: "/dn-cli/installation/" },
+      {
+        title: "Completing GitHub Issues",
+        href: "/dn-cli/completing-github-issues/",
+      },
+      { title: "Command reference", href: "/dn-cli/workflows/" },
+    ],
+  },
+  {
+    title: "Plan in the web app",
+    description:
+      "Shared planning and kickstart for PMs, designers, and teammates.",
+    links: [
+      { title: "Getting started", href: "/denoise/getting-started/" },
+      { title: "Workbench", href: "/denoise/workbench/" },
+      { title: "Milestone details", href: "/denoise/milestone-details/" },
+      { title: "GitHub integration", href: "/denoise/github-integration/" },
+    ],
+  },
+  {
+    title: "Automate headlessly",
+    description: "Run the same workflows in CI and on a schedule.",
+    links: [
+      { title: "Headless Use", href: "/dn-cli/headless-use/" },
+      {
+        title: "Scheduled Workflows",
+        href: "/dn-cli/scheduled-workflows/",
+      },
+      { title: "GitHub token setup", href: "/dn-cli/github-token-setup/" },
+    ],
+  },
+  {
+    title: "Agent harnesses",
+    description:
+      "Wire dn into Cursor, Claude Code, Codex, OpenCode, and more.",
+    links: [
+      { title: "Cookbooks overview", href: "/cookbooks/overview/" },
+      { title: "Cursor", href: "/cookbooks/cursor/" },
+      { title: "Claude Code", href: "/cookbooks/claude-code/" },
+      { title: "Codex", href: "/cookbooks/codex/" },
+      { title: "OpenCode", href: "/cookbooks/opencode/" },
+    ],
+  },
+];
+
+const moreLinks = [
+  { title: "Introduction", href: "/introduction/" },
+  {
+    title: "Self-hosted runners",
+    href: "/operations/self-hosted-runners/",
+  },
+];
+---
+
+<section class="home-segments" aria-labelledby="home-segments-heading">
+  <div class="home-segments__intro">
+    <h2 id="home-segments-heading">Start with what you need</h2>
+    <p>
+      Jump to high-value pages for the terminal, the web app, automation, or
+      agent harnesses.
+    </p>
+  </div>
+
+  <div class="home-segments__grid">
+    {
+      segments.map((segment) => (
+        <article class="home-segment">
+          <h3 class="home-segment__title">{segment.title}</h3>
+          <p class="home-segment__desc">{segment.description}</p>
+          <ul class="home-segment__links">
+            {segment.links.map((link) => (
+              <li>
+                <a href={link.href}>{link.title}</a>
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))
+    }
+  </div>
+
+  <p class="home-segments__more">
+    Also useful:{" "}
+    {
+      moreLinks.map((link, i) => (
+        <>
+          {i > 0 && <span aria-hidden="true"> · </span>}
+          <a href={link.href}>{link.title}</a>
+        </>
+      ))
+    }
+  </p>
+</section>
+
+<style>
+  .home-segments {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-block: 0.5rem 2.5rem;
+    animation: home-segment-enter 0.5s ease-out 0.08s both;
+  }
+
+  .home-segments__intro h2 {
+    margin: 0 0 0.5rem;
+    font-size: var(--sl-text-2xl);
+    font-weight: 600;
+    color: var(--sl-color-white);
+  }
+
+  .home-segments__intro p {
+    margin: 0;
+    max-width: 40rem;
+    color: var(--sl-color-gray-2);
+    font-size: var(--sl-text-base);
+  }
+
+  .home-segments__grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 50rem) {
+    .home-segments__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .home-segment {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.25rem 1.35rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.5rem;
+    background: color-mix(in srgb, var(--sl-color-gray-6) 55%, transparent);
+    transition:
+      border-color 0.2s ease,
+      background-color 0.2s ease;
+  }
+
+  .home-segment:hover {
+    border-color: color-mix(in srgb, var(--sl-color-accent) 45%, var(--sl-color-gray-5));
+    background: color-mix(in srgb, var(--sl-color-gray-6) 80%, transparent);
+  }
+
+  .home-segment__title {
+    margin: 0;
+    font-size: var(--sl-text-lg);
+    font-weight: 600;
+    color: var(--sl-color-white);
+  }
+
+  .home-segment__desc {
+    margin: 0;
+    color: var(--sl-color-gray-2);
+    font-size: var(--sl-text-sm);
+    line-height: 1.5;
+  }
+
+  .home-segment__links {
+    list-style: none;
+    margin: 0.25rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .home-segment__links a {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.3rem 0.7rem;
+    border-radius: 999rem;
+    border: 1px solid var(--sl-color-gray-5);
+    background: color-mix(in srgb, var(--sl-color-black) 35%, transparent);
+    color: var(--sl-color-gray-1);
+    font-size: var(--sl-text-sm);
+    text-decoration: none;
+    transition:
+      border-color 0.15s ease,
+      color 0.15s ease,
+      background-color 0.15s ease;
+  }
+
+  .home-segment__links a:hover {
+    border-color: var(--sl-color-accent);
+    color: var(--sl-color-accent-high);
+    background: color-mix(in srgb, var(--sl-color-accent-low) 35%, transparent);
+  }
+
+  .home-segments__more {
+    margin: 0;
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-3);
+  }
+
+  .home-segments__more a {
+    color: var(--sl-color-gray-1);
+    text-decoration: none;
+  }
+
+  .home-segments__more a:hover {
+    color: var(--sl-color-accent-high);
+  }
+
+  @keyframes home-segment-enter {
+    from {
+      opacity: 0;
+      transform: translateY(0.4rem);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .home-segments {
+      animation: none;
+    }
+  }
+</style>

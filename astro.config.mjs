@@ -22,11 +22,16 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "denoise",
+      logo: {
+        src: "./src/assets/denoise-logo.svg",
+        alt: "denoise",
+      },
       customCss: ["./src/styles/theme.css"],
       components: {
         ThemeProvider: "./src/components/ThemeProvider.astro",
         ThemeSelect: "./src/components/ThemeSelect.astro",
         Footer: "./src/components/Footer.astro",
+        Hero: "./src/components/Hero.astro",
       },
       sidebar: [
         { label: "Introduction", slug: "introduction" },
