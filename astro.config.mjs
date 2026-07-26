@@ -6,15 +6,15 @@ import starlight from "@astrojs/starlight";
 export default defineConfig({
   output: "static",
   redirects: {
-    "/dn-cli/usage": "/dn-cli/completing-github-issues/",
-    "/dn-cli/overview": "/dn-cli/completing-github-issues/",
-    "/dn-cli/plan-lifecycle": "/dn-cli/completing-github-issues/",
-    "/dn-cli/until": "/dn-cli/workflows/#dn-until",
-    "/dn-cli/land": "/dn-cli/workflows/#dn-land",
-    "/dn-cli/opencode": "/cookbooks/opencode/",
-    "/dn-cli/claude": "/cookbooks/claude-code/",
-    "/dn-cli/codex": "/cookbooks/codex/",
-    "/dn-cli/cursor-github-actions": "/cookbooks/cursor/",
+    "/dn/usage": "/dn/completing-github-issues/",
+    "/dn/overview": "/dn/completing-github-issues/",
+    "/dn/plan-lifecycle": "/dn/completing-github-issues/",
+    "/dn/until": "/dn/workflows/#dn-until",
+    "/dn/land": "/dn/workflows/#dn-land",
+    "/dn/opencode": "/cookbooks/opencode/",
+    "/dn/claude": "/cookbooks/claude-code/",
+    "/dn/codex": "/cookbooks/codex/",
+    "/dn/cursor-github-actions": "/cookbooks/cursor/",
   },
   image: {
     service: passthroughImageService(),
@@ -23,7 +23,7 @@ export default defineConfig({
     starlight({
       title: "denoise",
       logo: {
-        src: "./src/assets/denoise-logo.svg",
+        src: "./src/assets/denoise-logo.png",
         alt: "denoise",
       },
       customCss: ["./src/styles/theme.css"],
@@ -40,22 +40,22 @@ export default defineConfig({
           items: [
             {
               label: "Installation",
-              slug: "dn-cli/installation",
+              slug: "dn/installation",
             },
             {
               label: "Completing GitHub Issues",
-              slug: "dn-cli/completing-github-issues",
+              slug: "dn/completing-github-issues",
             },
-            { label: "Command reference", slug: "dn-cli/workflows" },
-            { label: "Sandbox execution", slug: "dn-cli/sandbox" },
+            { label: "Command reference", slug: "dn/workflows" },
+            { label: "Sandbox execution", slug: "dn/sandbox" },
             {
               label: "Filesystem Context",
-              slug: "dn-cli/filesystem-context",
+              slug: "dn/filesystem-context",
             },
-            { label: "Working with GitHub", slug: "dn-cli/github-commands" },
+            { label: "Working with GitHub", slug: "dn/github-commands" },
             {
               label: "Experimental",
-              slug: "dn-cli/task-list-and-sync",
+              slug: "dn/task-list-and-sync",
             },
           ],
         },
@@ -64,16 +64,16 @@ export default defineConfig({
           items: [
             {
               label: "Headless Use",
-              slug: "dn-cli/headless-use",
+              slug: "dn/headless-use",
             },
             {
               label: "Scheduled Workflows",
-              slug: "dn-cli/scheduled-workflows",
+              slug: "dn/scheduled-workflows",
             },
-            { label: "GitHub token setup", slug: "dn-cli/github-token-setup" },
+            { label: "GitHub token setup", slug: "dn/github-token-setup" },
             {
               label: "Progress reporting",
-              slug: "dn-cli/progress-reporting",
+              slug: "dn/progress-reporting",
             },
           ],
         },
@@ -133,7 +133,7 @@ export default defineConfig({
               label: "Coming Soon",
               slug: "operations/coming-soon",
             },
-            { label: "v0.0.34 migration", slug: "dn-cli/v0034-migration" },
+            { label: "v0.0.34 migration", slug: "dn/v0034-migration" },
           ],
         },
       ],

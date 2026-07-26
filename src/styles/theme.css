@@ -133,10 +133,20 @@
   border: 1px solid var(--sl-color-gray-5);
 }
 
-/* Site title logo (nav) */
+/* Site title logo (nav) — 2× prior size for legibility */
+:root {
+  --sl-nav-height: 4.5rem;
+}
+
+@media (min-width: 50em) {
+  :root {
+    --sl-nav-height: 4.75rem;
+  }
+}
+
 .site-title img {
-  width: 1.75rem;
-  height: 1.75rem;
+  width: 3.5rem;
+  height: 3.5rem;
   object-fit: contain;
 }
 

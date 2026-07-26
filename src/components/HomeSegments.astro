@@ -1,9 +1,9 @@
 ---
 const segments = [
   {
-    title: "Work from the terminal",
+    title: "Software Engineer",
     description:
-      "Plan and implement GitHub issues with dn and your agent harness.",
+      "Streamline your GitHub use and ship faster in the terminal or your favorite agent harness",
     links: [
       { title: "Installation", href: "/dn/installation/" },
       {
@@ -11,60 +11,52 @@ const segments = [
         href: "/dn/completing-github-issues/",
       },
       { title: "Command reference", href: "/dn/workflows/" },
+      { title: "Cookbooks", href: "/cookbooks/overview/" },
+      { title: "Headless Use", href: "/dn/headless-use/" },
     ],
   },
   {
-    title: "Plan in the web app",
+    title: "Product Manager",
     description:
-      "Shared planning and kickstart for PMs, designers, and teammates.",
+      "Plan your project, build from the browser, and keep the team in sync from Github",
     links: [
       { title: "Getting started", href: "/denoise/getting-started/" },
       { title: "Workbench", href: "/denoise/workbench/" },
       { title: "Milestone details", href: "/denoise/milestone-details/" },
       { title: "GitHub integration", href: "/denoise/github-integration/" },
+      {
+        title: "Subscription & Pro",
+        href: "/denoise/subscription-and-pro/",
+      },
     ],
   },
   {
-    title: "Automate headlessly",
-    description: "Run the same workflows in CI and on a schedule.",
+    title: "DevOps",
+    description:
+      "Build your software factory using your team's current hardware as infra",
     links: [
-      { title: "Headless Use", href: "/dn/headless-use/" },
+      {
+        title: "Self-hosted runners",
+        href: "/operations/self-hosted-runners/",
+      },
       {
         title: "Scheduled Workflows",
         href: "/dn/scheduled-workflows/",
       },
       { title: "GitHub token setup", href: "/dn/github-token-setup/" },
-    ],
-  },
-  {
-    title: "Agent harnesses",
-    description:
-      "Wire dn into Cursor, Claude Code, Codex, OpenCode, and more.",
-    links: [
-      { title: "Cookbooks overview", href: "/cookbooks/overview/" },
-      { title: "Cursor", href: "/cookbooks/cursor/" },
-      { title: "Claude Code", href: "/cookbooks/claude-code/" },
-      { title: "Codex", href: "/cookbooks/codex/" },
-      { title: "OpenCode", href: "/cookbooks/opencode/" },
+      { title: "Progress reporting", href: "/dn/progress-reporting/" },
     ],
   },
 ];
 
-const moreLinks = [
-  { title: "Introduction", href: "/introduction/" },
-  {
-    title: "Self-hosted runners",
-    href: "/operations/self-hosted-runners/",
-  },
-];
+const moreLinks = [{ title: "Introduction", href: "/introduction/" }];
 ---
 
-<section class="home-segments" aria-labelledby="home-segments-heading">
+<section class="home-segments not-content" aria-labelledby="home-segments-heading">
   <div class="home-segments__intro">
-    <h2 id="home-segments-heading">Start with what you need</h2>
+    <h2 id="home-segments-heading">Start by role</h2>
     <p>
-      Jump to high-value pages for the terminal, the web app, automation, or
-      agent harnesses.
+      Jump to high-value pages for Software Engineers, Product Managers, or DevOps.
     </p>
   </div>
 
@@ -126,11 +118,12 @@ const moreLinks = [
     display: grid;
     gap: 1rem;
     grid-template-columns: 1fr;
+    align-items: stretch;
   }
 
   @media (min-width: 50rem) {
     .home-segments__grid {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(3, 1fr);
     }
   }
 
@@ -138,6 +131,9 @@ const moreLinks = [
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+    margin: 0;
+    height: 100%;
+    min-height: 100%;
     padding: 1.25rem 1.35rem;
     border: 1px solid var(--sl-color-gray-5);
     border-radius: 0.5rem;
@@ -148,7 +144,11 @@ const moreLinks = [
   }
 
   .home-segment:hover {
-    border-color: color-mix(in srgb, var(--sl-color-accent) 45%, var(--sl-color-gray-5));
+    border-color: color-mix(
+      in srgb,
+      var(--sl-color-accent) 45%,
+      var(--sl-color-gray-5)
+    );
     background: color-mix(in srgb, var(--sl-color-gray-6) 80%, transparent);
   }
 
@@ -168,22 +168,35 @@ const moreLinks = [
 
   .home-segment__links {
     list-style: none;
-    margin: 0.25rem 0 0;
+    margin: auto 0 0;
     padding: 0;
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
+    align-content: flex-start;
     gap: 0.5rem;
+  }
+
+  .home-segment__links li {
+    display: contents;
+    margin: 0;
+    padding: 0;
   }
 
   .home-segment__links a {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    margin: 0;
+    min-height: 2rem;
     padding: 0.3rem 0.7rem;
     border-radius: 999rem;
     border: 1px solid var(--sl-color-gray-5);
     background: color-mix(in srgb, var(--sl-color-black) 35%, transparent);
     color: var(--sl-color-gray-1);
     font-size: var(--sl-text-sm);
+    line-height: 1.25;
     text-decoration: none;
     transition:
       border-color 0.15s ease,
