@@ -127,8 +127,9 @@ This produces:
 - `plans/{owner}_{repo}_{milestone}.stack.json` — machine-readable queue state
 
 Commit both files when you want the queue tracked in version control. Run
-`dn kickstart --milestone 42` to work through unchecked items; use `--complete`
-to drain the queue without prompts between tasks. See
+`dn kickstart --milestone 42` to work through unchecked items; use
+`--publish pr --complete` to drain the queue without prompts between tasks (each
+item is published before the next). See
 [Completing GitHub Issues](/dn/completing-github-issues/#milestone-queues).
 
 ## Project base images

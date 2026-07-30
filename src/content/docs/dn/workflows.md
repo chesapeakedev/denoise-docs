@@ -89,7 +89,9 @@ dn land plans/issue-123.plan.md --dry-run
 
 `land` discovers or accepts a `plans/*.plan.md` file, verifies its checklist,
 reviews current workspace changes, and uses the selected agent to group them
-into logical conventional commits. On success, it removes the plan file.
+into logical conventional commits. On success, it removes the plan file. Land
+targets one plan at a time; for per-issue publish without stacking local
+kickstarts, use `dn kickstart --publish pr|direct` instead.
 
 `--single` creates one deterministic commit without an agent. `--dry-run`
 previews the operation without committing, deleting a plan, or changing GitHub.
@@ -318,12 +320,13 @@ the gambit file.
 dn meld --milestone 42
 dn init stack 42
 dn kickstart --milestone 42 --once
-dn kickstart --milestone 42 --complete
+dn kickstart --publish pr --milestone 42 --complete
 ```
 
 `dn meld --milestone` writes a user-value-focused milestone description.
 `dn init stack` creates a prioritized execution queue. `--once` processes one
-unchecked item; `--complete` processes all remaining items.
+unchecked item; `--complete` processes all remaining items and requires
+`--publish pr` or `--publish direct`.
 
 ## `dn sync`
 

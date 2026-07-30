@@ -81,13 +81,15 @@ the branch and pull request provide enough isolation for review.
 ## Complete and verify work locally
 
 Run `kickstart` without a publish mode to keep the plan and changes in the
-current workspace:
+current workspace. Attended kickstart exits after success — it does not close
+the GitHub issue or ask whether to continue:
 
 ```bash
 dn kickstart 123
 dn until validate .github/dn/gambit.json
 dn until run .github/dn/gambit.json
 dn land --issue-testplan
+dn todo done 123
 ```
 
 Configure the gambit so its generator resolves problems in the current issue
@@ -116,9 +118,12 @@ generator and verifier within the configured budget, leaving all work local.
 Review the resulting diff before running `land`.
 
 `land` validates the completed plan, groups the workspace changes into local
-commits, and removes the plan. `--issue-testplan` also upserts a concise
-`## Test Plan` checklist on the linked issue. It does not push or open a pull
-request.
+commits, and removes the plan. It targets **one plan at a time** (explicit path,
+`PLAN`, or newest `plans/*.plan.md`). Do not stack multiple local kickstarts
+before landing — use `--publish pr|direct` when you want each issue published
+without a separate land step. `--issue-testplan` also upserts a concise
+`## Test Plan` checklist on the linked issue. It does not push, open a pull
+request, or close the issue.
 
 Push the resulting feature branch or bookmark with your usual VCS workflow, then
 open the pull request:
@@ -240,8 +245,10 @@ dn kickstart --publish pr --milestone 42 --complete
 
 `dn init stack` scores and orders the open issues. `--once` processes the next
 unchecked item and is suitable for CI. `--complete` processes every remaining
-item. Use `--publish pr` in an ephemeral runner so each completed issue produces
-a durable pull request.
+item and **requires** `--publish pr` or `--publish direct` so each stack item is
+published before the next. Use `--publish pr` in an ephemeral runner so each
+completed issue produces a durable pull request. On `--once` / `--complete`
+success, the stack item is marked done and the GitHub issue is closed.
 
 To clarify the milestone outcome before creating its execution queue, run:
 

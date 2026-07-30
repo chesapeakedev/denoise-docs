@@ -73,7 +73,9 @@ dn todo done plans/auth.plan.md
 ```
 
 When the ref is a GitHub issue, `dn` closes the issue with a comment. Use this
-after work lands to keep the list and GitHub in sync.
+after `dn land` (or after `--publish direct` when you want the issue closed) to
+keep the list and GitHub in sync. Attended `dn kickstart` does not mark todo
+items done on exit.
 
 ## `dn tidy`
 
@@ -97,8 +99,11 @@ running the top item. If the list is empty, it can search the current repository
 for open issues and plan files, score them, write the list, and suggest the
 first item.
 
-After a successful run, `dn` can mark the item done and continue to the next
-one.
+Attended kickstart exits after a successful run. It does not mark the queue item
+done or ask to continue. Review the changes, run `dn land` when you are ready to
+commit, then `dn todo done` to check the item off and close the GitHub issue if
+applicable. For per-issue publish without a separate land step, use
+`--publish pr` or `--publish direct`.
 
 ## `dn sync`
 
