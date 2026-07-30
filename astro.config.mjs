@@ -22,6 +22,7 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "denoise",
+      favicon: "/favicon.png",
       logo: {
         src: "./src/assets/denoise-logo.png",
         alt: "denoise",

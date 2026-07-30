@@ -11,7 +11,9 @@ async function handler(req: Request): Promise<Response> {
   // Favicon often cached aggressively; force revalidation so updates appear after deploy
   if (
     fileResponse.ok &&
-    (url.pathname === "/favicon.svg" || url.pathname === "/favicon.ico")
+    (url.pathname === "/favicon.png" ||
+      url.pathname === "/favicon.svg" ||
+      url.pathname === "/favicon.ico")
   ) {
     const headers = new Headers(fileResponse.headers);
     headers.set("Cache-Control", "no-cache, must-revalidate");
