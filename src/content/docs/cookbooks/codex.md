@@ -237,8 +237,7 @@ denoise and other integrators dispatch the same payload shapes from the UI.
 
 ## Related
 
-- [Headless Use](/dn/headless-use/) — templates, dispatch payloads,
-  permissions
+- [Headless Use](/dn/headless-use/) — templates, dispatch payloads, permissions
 - [OpenCode](/cookbooks/opencode/) — alternative harness using the same
   `OPENAI_API_KEY` secret name
 - [Completing GitHub Issues — Publish modes](/dn/completing-github-issues/#publish-modes)

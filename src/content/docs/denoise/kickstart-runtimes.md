@@ -9,13 +9,13 @@ Denoise does **not** run kickstart on the denoise application host.
 
 ## Supported matrix
 
-| Runtime          | Where it runs                         | Progress                         | Prerequisites                                      |
-| ---------------- | ------------------------------------- | -------------------------------- | -------------------------------------------------- |
-| `github_actions` | Target repo GitHub Actions            | HTTP if base URL set; else coarse | Agent secrets; `KICKSTART_PROGRESS_BASE_URL` for detailed |
-| `cursor_cloud`   | Cursor-managed VM                     | HTTP                             | `CURSOR_API_KEY` + progress base URL on denoise    |
-| `cloud_vm`       | exe.dev sandbox VM                    | HTTP                             | `EXE_TOKEN` + progress base URL (+ managed checkout for launcher) |
-| `device_runner`  | Paired developer laptop               | NDJSON via device job API        | Pairing enabled; registered checkout               |
-| Docker           | Your machine via CLI only             | N/A on hosted denoise            | `dn kickstart --sandbox docker` locally            |
+| Runtime          | Where it runs              | Progress                          | Prerequisites                                                     |
+| ---------------- | -------------------------- | --------------------------------- | ----------------------------------------------------------------- |
+| `github_actions` | Target repo GitHub Actions | HTTP if base URL set; else coarse | Agent secrets; `KICKSTART_PROGRESS_BASE_URL` for detailed         |
+| `cursor_cloud`   | Cursor-managed VM          | HTTP                              | `CURSOR_API_KEY` + progress base URL on denoise                   |
+| `cloud_vm`       | exe.dev sandbox VM         | HTTP                              | `EXE_TOKEN` + progress base URL (+ managed checkout for launcher) |
+| `device_runner`  | Paired developer laptop    | NDJSON via device job API         | Pairing enabled; registered checkout                              |
+| Docker           | Your machine via CLI only  | N/A on hosted denoise             | `dn kickstart --sandbox docker` locally                           |
 
 Preflight availability is listed at `GET /api/kickstart/runtimes?owner=&repo=`
 and shown in the confirm dialog. Unavailable options stay visible with a short
@@ -28,8 +28,7 @@ reason.
 - **Coarse** — Queued / running / succeeded / failed only. Common for GitHub
   Actions when the denoise deploy has no public `KICKSTART_PROGRESS_BASE_URL`.
 
-Shared HTTP bootstrap details:
-[Progress reporting](/dn/progress-reporting/).
+Shared HTTP bootstrap details: [Progress reporting](/dn/progress-reporting/).
 
 ## Notes
 

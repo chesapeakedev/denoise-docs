@@ -3,11 +3,11 @@ title: Progress reporting
 description: Shared HTTP progress bootstrap for denoise kickstart runners, plus NDJSON for device runners.
 ---
 
-`dn` reports structured kickstart progress to denoise (and other
-orchestrators) when correlation and a delivery mode are configured. Denoise
-issues a **per-invocation** progress token and delivers the same HTTP bootstrap
-to GitHub Actions, Cursor Cloud, and exe.dev (`cloud_vm`). Device runners use
-NDJSON over the device job API instead.
+`dn` reports structured kickstart progress to denoise (and other orchestrators)
+when correlation and a delivery mode are configured. Denoise issues a
+**per-invocation** progress token and delivers the same HTTP bootstrap to GitHub
+Actions, Cursor Cloud, and exe.dev (`cloud_vm`). Device runners use NDJSON over
+the device job API instead.
 
 Do **not** mint a shared `DN_PROGRESS_TOKEN` repository secret for every target
 repo. Tokens are short-lived and scoped to one invocation.
@@ -40,9 +40,9 @@ detailed progress and are unavailable in the picker until it is set.
 
 ## Delivery modes
 
-| Variable             | Purpose                                              |
-| -------------------- | ---------------------------------------------------- |
-| `DN_PROGRESS=http`   | POST events to `DN_PROGRESS_URL` with the bearer token |
+| Variable             | Purpose                                                  |
+| -------------------- | -------------------------------------------------------- |
+| `DN_PROGRESS=http`   | POST events to `DN_PROGRESS_URL` with the bearer token   |
 | `DN_PROGRESS=ndjson` | Write one JSON event per line to stderr (device runners) |
 
 Events use schema version `1.0` and include `invocation_id`, increasing `seq`,

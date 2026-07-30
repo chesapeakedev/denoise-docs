@@ -249,7 +249,6 @@ For Anthropic's managed GitHub app and action, see
 
 ## Related
 
-- [Headless Use](/dn/headless-use/) — templates, dispatch payloads,
-  permissions
+- [Headless Use](/dn/headless-use/) — templates, dispatch payloads, permissions
 - [Completing GitHub Issues — Publish modes](/dn/completing-github-issues/#publish-modes)
 - [Claude Code headless mode](https://docs.anthropic.com/en/docs/claude-code/headless)

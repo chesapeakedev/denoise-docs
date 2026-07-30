@@ -31,14 +31,14 @@ dn init workflows --agent opencode
 
 This writes:
 
-| Path                                       | Purpose                                                                                    |
-| ------------------------------------------ | ------------------------------------------------------------------------------------------ |
-| `.github/dn/config.json`                   | Repo-wide agent (`opencode`, `cursor`, `claude`, or `codex`)                               |
-| `.github/workflows/dn-init-stack.yml`      | Milestone stack generation                                                                 |
-| `.github/workflows/dn-prep-issue-plan.yml` | Meld plan phase; filename retained temporarily for compatibility                           |
-| `.github/workflows/dn-kickstart-issue.yml` | Full kickstart (plan + implement)                                                          |
+| Path                                       | Purpose                                                                                |
+| ------------------------------------------ | -------------------------------------------------------------------------------------- |
+| `.github/dn/config.json`                   | Repo-wide agent (`opencode`, `cursor`, `claude`, or `codex`)                           |
+| `.github/workflows/dn-init-stack.yml`      | Milestone stack generation                                                             |
+| `.github/workflows/dn-prep-issue-plan.yml` | Meld plan phase; filename retained temporarily for compatibility                       |
+| `.github/workflows/dn-kickstart-issue.yml` | Full kickstart (plan + implement)                                                      |
 | `.github/workflows/dn-daily-kickstart.yml` | Scheduled milestone queue runner — see [Scheduled Workflows](/dn/scheduled-workflows/) |
-| `.github/workflows/dn-todo-loop.yml`       | Todo plan loop (`schedule`, `workflow_dispatch`, `repository_dispatch`)                    |
+| `.github/workflows/dn-todo-loop.yml`       | Todo plan loop (`schedule`, `workflow_dispatch`, `repository_dispatch`)                |
 
 Set the agent once in `.github/dn/config.json`:
 
@@ -185,18 +185,18 @@ and GitHub integration setup on exe.dev — see
 [Sandbox providers — Set up exe.dev](/dn/sandbox/#set-up-exedev).
 
 VCS publish (branch, commit, PR) still runs on the host after workspace
-sync-out. See [Sandbox providers](/dn/sandbox/) for configuration, sync
-modes, Docker image notes, and exe.dev troubleshooting.
+sync-out. See [Sandbox providers](/dn/sandbox/) for configuration, sync modes,
+Docker image notes, and exe.dev troubleshooting.
 
 ## Workflow templates
 
-| Template ID          | Installed file           | Trigger                                      | Primary `dn` command                               |
-| -------------------- | ------------------------ | -------------------------------------------- | -------------------------------------------------- |
-| `dn.init_stack`      | `dn-init-stack.yml`      | `repository_dispatch` → `dn.init_stack`      | `dn init stack`                                    |
-| `dn.meld_issue_plan` | `dn-prep-issue-plan.yml` | `repository_dispatch` → `dn.meld_issue_plan` | `dn meld`                                          |
-| `dn.kickstart_issue` | `dn-kickstart-issue.yml` | `repository_dispatch` → `dn.kickstart_issue` | `dn kickstart`                                     |
-| `dn.daily_kickstart` | `dn-daily-kickstart.yml` | `schedule`, `workflow_dispatch`              | `dn kickstart --publish pr --milestone <n> --once` |
-| `dn.todo_loop`       | `dn-todo-loop.yml`       | `schedule`, `workflow_dispatch`, `repository_dispatch` → `dn.todo_loop` | `dn loop` on the repo todo plan |
+| Template ID          | Installed file           | Trigger                                                                 | Primary `dn` command                               |
+| -------------------- | ------------------------ | ----------------------------------------------------------------------- | -------------------------------------------------- |
+| `dn.init_stack`      | `dn-init-stack.yml`      | `repository_dispatch` → `dn.init_stack`                                 | `dn init stack`                                    |
+| `dn.meld_issue_plan` | `dn-prep-issue-plan.yml` | `repository_dispatch` → `dn.meld_issue_plan`                            | `dn meld`                                          |
+| `dn.kickstart_issue` | `dn-kickstart-issue.yml` | `repository_dispatch` → `dn.kickstart_issue`                            | `dn kickstart`                                     |
+| `dn.daily_kickstart` | `dn-daily-kickstart.yml` | `schedule`, `workflow_dispatch`                                         | `dn kickstart --publish pr --milestone <n> --once` |
+| `dn.todo_loop`       | `dn-todo-loop.yml`       | `schedule`, `workflow_dispatch`, `repository_dispatch` → `dn.todo_loop` | `dn loop` on the repo todo plan                    |
 
 See [Scheduled Workflows](/dn/scheduled-workflows/) for setup, the
 `DN_DAILY_KICKSTART_MILESTONE` variable, and manual runs.
@@ -277,8 +277,7 @@ The workflow runs the repository todo loop on a stable automation branch and
 opens or advances one recurring pull request for that plan. Requires
 `plans/todo.plan.md` (or the path configured for the repo). Denoise can start
 todo loop from the web with the same `repository_dispatch` event. Progress
-bootstrap details:
-[Progress reporting](/dn/progress-reporting/).
+bootstrap details: [Progress reporting](/dn/progress-reporting/).
 
 ## Dispatch and manage workflows from the CLI
 

@@ -243,13 +243,12 @@ Repo-scope installs write:
 
 User-scope installs write the same content under `~/.agents/` or `~/.claude/`.
 For per-repo `AGENTS.md` updates without the skill files, run `dn init agents`
-without `--skill` — see
-[Filesystem Context](/dn/filesystem-context/#agentsmd).
+without `--skill` — see [Filesystem Context](/dn/filesystem-context/#agentsmd).
 
 ## Command map
 
-| Need                | Commands                                                      | Reference                                                     |
-| ------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- |
+| Need                | Commands                                                      | Reference                                                 |
+| ------------------- | ------------------------------------------------------------- | --------------------------------------------------------- |
 | Orchestrate agents  | `kickstart`, `meld`, `loop`, `land`, `until`, `fixup`, `sync` | [Completing GitHub Issues](/dn/completing-github-issues/) |
 | Working with GitHub | `init stack`, `issue`, `glance`                               | [Working with GitHub](/dn/github-commands/)               |
 | Headless Use        | `init workflows`, `workflows`                                 | [Headless Use](/dn/headless-use/)                         |
@@ -265,8 +264,8 @@ You can pass global output flags after any subcommand:
 
 In CI, `dn` automatically enables unattended mode and sets `NO_COLOR` when it is
 not already set. See
-[Headless Use — Unattended output](/dn/headless-use/#unattended-output) for
-the full behavior.
+[Headless Use — Unattended output](/dn/headless-use/#unattended-output) for the
+full behavior.
 
 ## Common argument formats
 

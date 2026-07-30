@@ -8,13 +8,13 @@ structured execution controls.
 
 - Planning is now [`dn meld`](/dn/completing-github-issues/#plan-with-meld).
 - The canonical lifecycle is `meld → loop → land`.
-- [`dn until`](/dn/workflows/#dn-until) replaces health-check loops with
-  bounded generator/verifier gambits.
-- [`dn land`](/dn/workflows/#dn-land) replaces archive and standalone
-  test-plan flows.
+- [`dn until`](/dn/workflows/#dn-until) replaces health-check loops with bounded
+  generator/verifier gambits.
+- [`dn land`](/dn/workflows/#dn-land) replaces archive and standalone test-plan
+  flows.
 - [Sandbox schema 1.1](/dn/sandbox/) supports Docker and exe.dev.
-- [Progress events](/dn/progress-reporting/) correlate dispatch, execution,
-  and pull-request results.
+- [Progress events](/dn/progress-reporting/) correlate dispatch, execution, and
+  pull-request results.
 - `dn --version` prints script-friendly version output for CI checks.
 
 | Removed workflow | Replacement                |

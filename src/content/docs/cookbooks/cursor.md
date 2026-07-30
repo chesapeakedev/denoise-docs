@@ -270,13 +270,12 @@ approach.
 
 ## Related
 
-- [Headless Use](/dn/headless-use/) — templates, dispatch payloads,
-  permissions
+- [Headless Use](/dn/headless-use/) — templates, dispatch payloads, permissions
 - [OpenCode](/cookbooks/opencode/) — alternative agent harness
 - [Claude Code](/cookbooks/claude-code/) — alternative agent harness
 - [Codex](/cookbooks/codex/) — alternative agent harness
-- [Completing GitHub Issues](/dn/completing-github-issues/) — local and
-  Cursor Cloud execution
+- [Completing GitHub Issues](/dn/completing-github-issues/) — local and Cursor
+  Cloud execution
 - [Self-hosted runners](/operations/self-hosted-runners/) — longer-running
   kickstart jobs
 - [Cursor CLI installation](https://cursor.com/docs/cli/installation)

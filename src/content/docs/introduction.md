@@ -31,13 +31,13 @@ available automations without forcing everyone into the same tool:
 
 ## Quick links
 
-| Need                                         | Start here                                                                                                                                                                                          |
-| -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Need                                         | Start here                                                                                                                                                                                      |
+| -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Install and use dn                           | [Installation](/dn/installation/)                                                                                                                                                               |
 | Implement GitHub issues with dn and an agent | [Completing GitHub Issues](/dn/completing-github-issues/)                                                                                                                                       |
 | Automate in GitHub Actions                   | [Headless Use](/dn/headless-use/) → [OpenCode](/cookbooks/opencode/), [Claude Code](/cookbooks/claude-code/), [Codex](/cookbooks/codex/), or [Cursor](/cookbooks/cursor/)                       |
 | Connect denoise to dn Workflows              | [Milestone details](/denoise/milestone-details/) -> [GitHub integration](/denoise/github-integration/) -> [Headless Use — Denoise integrators](/dn/headless-use/#denoise-and-other-integrators) |
-| Denoise Pro and task kickstart               | [Subscription & Pro](/denoise/subscription-and-pro/) -> [Milestone details](/denoise/milestone-details/)                                                                                            |
+| Denoise Pro and task kickstart               | [Subscription & Pro](/denoise/subscription-and-pro/) -> [Milestone details](/denoise/milestone-details/)                                                                                        |
 
 ## Examples
 

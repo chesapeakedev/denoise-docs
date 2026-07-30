@@ -7,9 +7,8 @@ description: Try early dn commands that streamline triage, agent context, task q
 teams down after you adopt agents: choosing the next issue, loading the right
 context, keeping GitHub and a local queue aligned, and landing work without
 extra ceremony. The commands here are **experiments** toward that goal — smaller
-workflows you can use today alongside
-[kickstart](/dn/completing-github-issues/) and
-[Command reference](/dn/workflows/).
+workflows you can use today alongside [kickstart](/dn/completing-github-issues/)
+and [Command reference](/dn/workflows/).
 
 | Focus            | Commands               | What it changes                                                              |
 | ---------------- | ---------------------- | ---------------------------------------------------------------------------- |

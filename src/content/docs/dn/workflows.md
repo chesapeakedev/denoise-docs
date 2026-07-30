@@ -336,5 +336,5 @@ dn sync --skip-lint
 `sync` rebases the checkout onto remote `main` and publishes local commits that
 remain afterward. It is an explicit trunk-publication command, not the final
 step of an issue-to-pull-request workflow. See
-[Experimental — `dn sync`](/dn/task-list-and-sync/#dn-sync) for VCS
-detection, prerequisites, and the exact Git and Sapling operations.
+[Experimental — `dn sync`](/dn/task-list-and-sync/#dn-sync) for VCS detection,
+prerequisites, and the exact Git and Sapling operations.

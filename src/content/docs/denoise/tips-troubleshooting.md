@@ -27,8 +27,7 @@ issues, and collaborator visibility predictable.
    secrets, and run `dn.init_stack` from the milestone view before using
    **Kickstart!** on tasks. See
    [Milestone details](/denoise/milestone-details/). Choose where the run
-   executes in
-   [Kickstart runtimes](/denoise/kickstart-runtimes/).
+   executes in [Kickstart runtimes](/denoise/kickstart-runtimes/).
 7. **Expect coarse progress without a public base URL** — If live phase/step
    updates are missing for GitHub Actions, the denoise deploy may lack
    `KICKSTART_PROGRESS_BASE_URL`. See

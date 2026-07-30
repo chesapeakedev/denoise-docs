@@ -6,8 +6,8 @@ description: Run dn kickstart daily against a milestone queue, and schedule or d
 `dn init workflows` installs the canonical workflow files, including
 **`dn-daily-kickstart.yml`** and **`dn-todo-loop.yml`**. Daily kickstart runs
 against a committed milestone stack — one unchecked queue item per run, opening
-a PR for each. The todo loop can run on a schedule or via
-`repository_dispatch` from denoise.
+a PR for each. The todo loop can run on a schedule or via `repository_dispatch`
+from denoise.
 
 Use daily kickstart when you want steady, automated progress through a
 prioritized backlog without dispatching `dn.kickstart_issue` by hand every day.
@@ -154,13 +154,13 @@ See [Headless Use — `dn.todo_loop`](/dn/headless-use/#dntodo_loop) and
 
 ## Troubleshooting
 
-| Symptom                             | Check                                                                                                                        |
-| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| Workflow skips or fails immediately | `DN_DAILY_KICKSTART_MILESTONE` is set; stack file exists on default branch                                                   |
-| No unchecked items left             | Queue is complete — refresh with `dn init stack 42 --refresh` or dispatch `dn.init_stack`                                    |
+| Symptom                             | Check                                                                                                                    |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Workflow skips or fails immediately | `DN_DAILY_KICKSTART_MILESTONE` is set; stack file exists on default branch                                               |
+| No unchecked items left             | Queue is complete — refresh with `dn init stack 42 --refresh` or dispatch `dn.init_stack`                                |
 | No PR created                       | Workflow permissions and `pull-requests: write`; see [Headless Use — Troubleshooting](/dn/headless-use/#troubleshooting) |
-| Wrong milestone                     | Update the repository variable or pass `milestone` on `workflow_dispatch`                                                    |
-| Schedule never runs                 | Default branch must contain the workflow file; GitHub disables schedules on inactive repos                                   |
+| Wrong milestone                     | Update the repository variable or pass `milestone` on `workflow_dispatch`                                                |
+| Schedule never runs                 | Default branch must contain the workflow file; GitHub disables schedules on inactive repos                               |
 
 For milestone stack format and local `dn kickstart --milestone` usage, see
 [Completing GitHub Issues — Milestone queues](/dn/completing-github-issues/#milestone-queues)
