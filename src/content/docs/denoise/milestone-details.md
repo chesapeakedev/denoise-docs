@@ -232,9 +232,13 @@ For CLI-oriented planning and implementation depth, see
 
 - [Kickstart runtimes](/denoise/kickstart-runtimes/) — Where kickstart runs and
   how progress fidelity works
+- [Developer device runners](/denoise/device-runners/) — Pair a named device for
+  local kickstart
 - [GitHub integration](/denoise/github-integration/) — Link milestones, sync
   issues, convert tasks to GitHub issues
 - [Tips & troubleshooting](/denoise/tips-troubleshooting/) — When DN setup or
   kickstart actions are disabled
 - [Subscription & Pro](/denoise/subscription-and-pro/) — Pro requirements for
   automation from the app
+- [dn 0.0.34 and developer device runners](/whats-new/dn-0-0-34/) — Release
+  notes for the current CLI and runner integration

@@ -7,16 +7,20 @@ A device runner lets denoise send work to an existing macOS or Linux checkout.
 Source, checkout paths, GitHub credentials, agent credentials, and compute stay
 on that device.
 
-Device runners accept kickstart jobs, denoise-task jobs, and **task-sync**
-(Void ↔ `~/.dn/tasks/` relay). They do not run arbitrary commands or GitHub
-Actions workflows.
+Requires **dn 0.0.34** or newer on the device. See
+[dn 0.0.34 and developer device runners](/whats-new/dn-0-0-34/) for the release
+train summary.
+
+Device runners accept kickstart jobs, denoise-task jobs, and **task-sync** (Void
+↔ `~/.dn/tasks/` relay). They do not run arbitrary commands or GitHub Actions
+workflows.
 
 ## Local task sync (The Void)
 
-Denoise does not store free-plan task bodies long-term. When [The Void](/denoise/void/)
-creates or edits a ticketless task, denoise relays a short-lived envelope to the
-paired runner. `dn runner serve` writes task documents under
-`~/.dn/tasks/<id>.json` on the laptop.
+Denoise does not store free-plan task bodies long-term. When
+[The Void](/denoise/void/) creates or edits a ticketless task, denoise relays a
+short-lived envelope to the paired runner. `dn runner serve` writes task
+documents under `~/.dn/tasks/<id>.json` on the laptop.
 
 This is **not** `dn todo` / `~/.dn/todo.md`. Todo remains the GitHub-issue and
 plan-path kickstart queue. Local tasks are portable documents for ticketless

@@ -32,11 +32,11 @@ Pro-gated in The Void:
 
 ## Free vs Pro vs team
 
-| Product                         | Who it is for                         | What you get                                                                 |
-| ------------------------------- | ------------------------------------- | ---------------------------------------------------------------------------- |
-| **The Void** (Free)             | Solo local tasks                      | Void SPA, local `~/.dn/tasks/` sync, 1 device runner, ticketless kickstart   |
-| **denoise** (Denoise Pro)       | Team planning and GitHub handoff      | Roadmap, milestones, cloud sync, kickstart from the app, up to 10 runners    |
-| **Enterprise / org seats**      | Teams with shared billing             | Same denoise app; Pro access via org seat; orgs & shared billing             |
+| Product                    | Who it is for                    | What you get                                                               |
+| -------------------------- | -------------------------------- | -------------------------------------------------------------------------- |
+| **The Void** (Free)        | Solo local tasks                 | Void SPA, local `~/.dn/tasks/` sync, 1 device runner, ticketless kickstart |
+| **denoise** (Denoise Pro)  | Team planning and GitHub handoff | Roadmap, milestones, cloud sync, kickstart from the app, up to 10 runners  |
+| **Enterprise / org seats** | Teams with shared billing        | Same denoise app; Pro access via org seat; orgs & shared billing           |
 
 Signing in at denoise.cloud without Pro lands on `/subscribe`. The gate offers
 **Continue free in The Void** for solo use. See
@@ -53,8 +53,8 @@ Signing in at denoise.cloud without Pro lands on `/subscribe`. The gate offers
    ```
 
 3. Approve the pairing in the browser.
-4. Confirm sync status in The Void — when a runner is online, tasks persist under
-   `~/.dn/tasks/` on that device.
+4. Confirm sync status in The Void — when a runner is online, tasks persist
+   under `~/.dn/tasks/` on that device.
 
 Inspect local tasks without the network:
 
@@ -71,8 +71,8 @@ see [Developer device runners](/denoise/device-runners/).
 
 1. Type a title in the task input (or paste a GitHub issue URL if you have Pro).
 2. Add the task.
-3. Complete, edit, or delete from the list. GitHub-linked tasks may offer Done vs
-  Delete when Pro import is available.
+3. Complete, edit, or delete from the list. GitHub-linked tasks may offer Done
+   vs Delete when Pro import is available.
 
 Without a paired runner, tasks still work in the browser session; pair a device
 to persist them under `~/.dn/tasks/` and to run local kickstart.

@@ -109,3 +109,14 @@ issues, and collaborator visibility predictable.
 - Verify you have access to the repository and milestone
 - Check that the milestone exists on GitHub
 - Use **Update repos & orgs** in Profile if the repository is not listed
+
+### Device runner pairing or kickstart
+
+- Pair and approve from **Settings > Runners** (or **Devices** in The Void),
+  then run `dn runner doctor` on the device.
+- Register each trusted checkout with `dn runner register` before selecting the
+  device in the kickstart dialog.
+- Device jobs never fall back silently to GitHub Actions or managed VMs.
+- Use `dn` **0.0.34** or newer for the device-runner protocol. See
+  [Developer device runners](/denoise/device-runners/) and
+  [dn 0.0.34 and developer device runners](/whats-new/dn-0-0-34/).

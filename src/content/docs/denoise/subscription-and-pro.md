@@ -9,13 +9,13 @@ the UI. Enterprise adds org seats and shared billing.
 
 ## Free vs Pro vs Enterprise
 
-| Capability | Free (The Void) | Denoise Pro | Enterprise |
-| ---------- | --------------- | ----------- | ---------- |
-| Access to The Void | Yes | Yes | Yes |
-| Local tasks via paired runner (`~/.dn/tasks/`) | Yes (1 runner) | Yes (up to 10 runners) | Yes (up to 10 runners) |
-| Plan in web & handoff to agents | No | Yes | Yes |
-| Shared agent & human workspace | No | Yes | Yes |
-| Orgs & shared billing | No | No | Yes |
+| Capability                                     | Free (The Void) | Denoise Pro            | Enterprise             |
+| ---------------------------------------------- | --------------- | ---------------------- | ---------------------- |
+| Access to The Void                             | Yes             | Yes                    | Yes                    |
+| Local tasks via paired runner (`~/.dn/tasks/`) | Yes (1 runner)  | Yes (up to 10 runners) | Yes (up to 10 runners) |
+| Plan in web & handoff to agents                | No              | Yes                    | Yes                    |
+| Shared agent & human workspace                 | No              | Yes                    | Yes                    |
+| Orgs & shared billing                          | No              | No                     | Yes                    |
 
 Signing in at denoise.cloud without Pro lands on `/subscribe`. The gate shows
 the plan table and **Continue free in The Void** for solo use. The Void host has
@@ -82,3 +82,7 @@ see [GitHub integration](/denoise/github-integration/) and
   issues
 - [Tips & troubleshooting](/denoise/tips-troubleshooting/) — When Pro-gated
   actions are disabled
+- [Developer device runners](/denoise/device-runners/) — Runner limits on Free
+  vs Pro
+- [dn 0.0.34 and developer device runners](/whats-new/dn-0-0-34/) — Current
+  release train

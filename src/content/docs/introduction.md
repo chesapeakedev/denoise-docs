@@ -24,10 +24,10 @@ available automations without forcing everyone into the same tool:
   implementation, repository agent context, and automation dispatch.
 - **dn skill** - First-class integration with the most popular harnesses, such
   as Claude Code, Cursor, Codex, and opencode
-- **The Void** - Free solo task list that syncs to a paired laptop via `dn`
-  (no cloud todo store; no milestones)
-- **denoise** - Collaborative planning app (Denoise Pro) for milestones,
-  GitHub sync, and orchestrating agent automation alongside the terminal
+- **The Void** - Free solo task list that syncs to a paired laptop via `dn` (no
+  cloud todo store; no milestones)
+- **denoise** - Collaborative planning app (Denoise Pro) for milestones, GitHub
+  sync, and orchestrating agent automation alongside the terminal
 
 ![denoise Roadmap — milestones and project progress](../../assets/screenshots/roadmap.png)
 
@@ -39,8 +39,10 @@ available automations without forcing everyone into the same tool:
 | Implement GitHub issues with dn and an agent | [Completing GitHub Issues](/dn/completing-github-issues/)                                                                                                                                       |
 | Automate in GitHub Actions                   | [Headless Use](/dn/headless-use/) → [OpenCode](/cookbooks/opencode/), [Claude Code](/cookbooks/claude-code/), [Codex](/cookbooks/codex/), or [Cursor](/cookbooks/cursor/)                       |
 | Connect denoise to dn Workflows              | [Milestone details](/denoise/milestone-details/) -> [GitHub integration](/denoise/github-integration/) -> [Headless Use — Denoise integrators](/dn/headless-use/#denoise-and-other-integrators) |
-| Free solo tasks in The Void                  | [The Void](/denoise/void/) → [Developer device runners](/denoise/device-runners/)                                                                                                              |
+| Free solo tasks in The Void                  | [The Void](/denoise/void/) → [Developer device runners](/denoise/device-runners/)                                                                                                               |
 | Denoise Pro and task kickstart               | [Subscription & Pro](/denoise/subscription-and-pro/) -> [Milestone details](/denoise/milestone-details/)                                                                                        |
+| dn 0.0.34 release train                      | [What's new](/whats-new/dn-0-0-34/) → [Developer device runners](/denoise/device-runners/)                                                                                                      |
+| Public roadmap                               | [Roadmap](/roadmap/)                                                                                                                                                                            |
 
 ## Examples
 

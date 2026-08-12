@@ -128,3 +128,12 @@ update the linked issue.
 milestone changes sync back into denoise.
 
 If sync conflicts occur, the most recent change wins.
+
+## Related
+
+- [Milestone details](/denoise/milestone-details/) — DN setup and **Kickstart!**
+- [Kickstart runtimes](/denoise/kickstart-runtimes/) — Runtime matrix
+- [Developer device runners](/denoise/device-runners/) — Local checkout
+  kickstart
+- [dn 0.0.34 and developer device runners](/whats-new/dn-0-0-34/) — Current
+  release train

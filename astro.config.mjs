@@ -16,6 +16,7 @@ export default defineConfig({
     "/dn/codex": "/cookbooks/codex/",
     "/dn/cursor-github-actions": "/cookbooks/cursor/",
     "/denoise/workbench": "/denoise/void/",
+    "/operations/coming-soon": "/roadmap/",
   },
   image: {
     service: passthroughImageService(),
@@ -37,6 +38,16 @@ export default defineConfig({
       },
       sidebar: [
         { label: "Introduction", slug: "introduction" },
+        {
+          label: "What's new",
+          items: [
+            {
+              label: "dn 0.0.34 and device runners",
+              slug: "whats-new/dn-0-0-34",
+            },
+          ],
+        },
+        { label: "Roadmap", slug: "roadmap" },
         {
           label: "dn",
           items: [
@@ -134,10 +145,6 @@ export default defineConfig({
             {
               label: "Self-hosted runners",
               slug: "operations/self-hosted-runners",
-            },
-            {
-              label: "Coming Soon",
-              slug: "operations/coming-soon",
             },
             { label: "v0.0.34 migration", slug: "dn/v0034-migration" },
           ],

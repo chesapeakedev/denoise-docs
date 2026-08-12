@@ -28,8 +28,8 @@ milestone view workflow.
   `~/.dn/tasks/` on a paired device runner.
 - **Roadmap and milestones (Pro)** — Group tasks into projects; track progress
   from the Roadmap home with cloud sync.
-- **Focus timer** — Track focused work sessions from the header **Focus**
-  button in denoise.
+- **Focus timer** — Track focused work sessions from the header **Focus** button
+  in denoise.
 - **Sign-in with GitHub or Google** — Shared auth across denoise and The Void;
   enable cloud sync and identity-backed workflows in the team app.
 - **Collaboration (Pro)** — Share milestones with collaborators; control task
@@ -166,3 +166,14 @@ On **Profile** (`/profile`), these panels sit together:
   button opens the same tour.
 
 ![Usage data, runner history detail, and Help on Profile](../../../assets/screenshots/account-usage-data-help.png)
+When enabled, counts are stored in the same KV store as the rest of the app and
+included in the existing daily B2 backup.
+
+## Related
+
+- [Developer device runners](/denoise/device-runners/) — Pair a checkout for
+  Void sync and local kickstart
+- [Kickstart runtimes](/denoise/kickstart-runtimes/) — Where **Kickstart!** runs
+- [dn 0.0.34 and developer device runners](/whats-new/dn-0-0-34/) — Release
+  train summary
+- [Roadmap](/roadmap/) — Shipped themes and planned work

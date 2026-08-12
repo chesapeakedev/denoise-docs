@@ -8,26 +8,26 @@ task. Start here when you are using the app UI rather than the `dn` CLI.
 
 ## Choose Free or Pro
 
-| Product | URL | When to use it |
-| ------- | --- | -------------- |
-| **The Void** (Free) | [void.denoise.cloud](https://void.denoise.cloud) | Solo local tasks that sync to a paired laptop via `dn`. No milestones. |
-| **denoise** (Pro) | [denoise.cloud](https://denoise.cloud) | Roadmap, milestones, GitHub sync, shared workspace, and kickstart from the app. |
+| Product             | URL                                              | When to use it                                                                  |
+| ------------------- | ------------------------------------------------ | ------------------------------------------------------------------------------- |
+| **The Void** (Free) | [void.denoise.cloud](https://void.denoise.cloud) | Solo local tasks that sync to a paired laptop via `dn`. No milestones.          |
+| **denoise** (Pro)   | [denoise.cloud](https://denoise.cloud)           | Roadmap, milestones, GitHub sync, shared workspace, and kickstart from the app. |
 
-Signing in at denoise.cloud without Pro lands on `/subscribe`. Choose
-**Continue free in The Void** for solo use, or subscribe for the team app. See
+Signing in at denoise.cloud without Pro lands on `/subscribe`. Choose **Continue
+free in The Void** for solo use, or subscribe for the team app. See
 [The Void](/denoise/void/) and
 [Subscription & Pro](/denoise/subscription-and-pro/).
 
 ## App layout (denoise team app)
 
-When you have Denoise Pro (or an org seat), denoise opens to the **Roadmap** —
-a project-level view of your milestones. Open a milestone from the roadmap to
+When you have Denoise Pro (or an org seat), denoise opens to the **Roadmap** — a
+project-level view of your milestones. Open a milestone from the roadmap to
 manage its tasks on the **milestone view**.
 
-| View               | Route            | When                                    |
-| ------------------ | ---------------- | --------------------------------------- |
-| **Roadmap**        | `/`              | Default home for Pro / team use         |
-| **Milestone view** | `/milestone/:id` | Open a milestone from the roadmap       |
+| View               | Route            | When                                           |
+| ------------------ | ---------------- | ---------------------------------------------- |
+| **Roadmap**        | `/`              | Default home for Pro / team use                |
+| **Milestone view** | `/milestone/:id` | Open a milestone from the roadmap              |
 | **Profile**        | `/profile`       | Sign-in, GitHub access, plan, display settings |
 
 ![Roadmap view with milestone summary cards, workspace selector, and status filters](../../../assets/screenshots/roadmap.png)
