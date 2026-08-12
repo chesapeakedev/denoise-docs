@@ -174,6 +174,6 @@ included in the existing daily B2 backup.
 - [Developer device runners](/denoise/device-runners/) — Pair a checkout for
   Void sync and local kickstart
 - [Kickstart runtimes](/denoise/kickstart-runtimes/) — Where **Kickstart!** runs
-- [dn 0.0.34 and developer device runners](/whats-new/dn-0-0-34/) — Release
-  train summary
+- [dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/) — Current CLI
+  and runner guidance
 - [Roadmap](/roadmap/) — Shipped themes and planned work

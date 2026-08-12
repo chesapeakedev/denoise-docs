@@ -84,5 +84,5 @@ see [GitHub integration](/denoise/github-integration/) and
   actions are disabled
 - [Developer device runners](/denoise/device-runners/) — Runner limits on Free
   vs Pro
-- [dn 0.0.34 and developer device runners](/whats-new/dn-0-0-34/) — Current
-  release train
+- [dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/) — Current CLI
+  and runner guidance

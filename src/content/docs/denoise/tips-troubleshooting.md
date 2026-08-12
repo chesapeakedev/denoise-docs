@@ -117,6 +117,6 @@ issues, and collaborator visibility predictable.
 - Register each trusted checkout with `dn runner register` before selecting the
   device in the kickstart dialog.
 - Device jobs never fall back silently to GitHub Actions or managed VMs.
-- Use `dn` **0.0.34** or newer for the device-runner protocol. See
+- Use `dn` **0.0.37** or newer for the device-runner protocol. See
   [Developer device runners](/denoise/device-runners/) and
-  [dn 0.0.34 and developer device runners](/whats-new/dn-0-0-34/).
+  [dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/).

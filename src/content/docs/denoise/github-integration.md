@@ -135,5 +135,5 @@ If sync conflicts occur, the most recent change wins.
 - [Kickstart runtimes](/denoise/kickstart-runtimes/) — Runtime matrix
 - [Developer device runners](/denoise/device-runners/) — Local checkout
   kickstart
-- [dn 0.0.34 and developer device runners](/whats-new/dn-0-0-34/) — Current
-  release train
+- [dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/) — Current CLI
+  and runner guidance

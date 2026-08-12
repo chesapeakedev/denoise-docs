@@ -28,3 +28,8 @@ Update repository workflows with `dn workflows update`, validate them with
 `dn workflows validate`, and commit `.github/dn/config.json` plus generated
 workflow changes. New integrations use `dn.meld_issue_plan`; the legacy prep
 event and installed filename remain compatibility details.
+
+## Related
+
+- [dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/) — Current
+  recommended CLI and artifact status after this migration

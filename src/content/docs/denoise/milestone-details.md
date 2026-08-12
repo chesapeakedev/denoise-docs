@@ -240,5 +240,5 @@ For CLI-oriented planning and implementation depth, see
   kickstart actions are disabled
 - [Subscription & Pro](/denoise/subscription-and-pro/) — Pro requirements for
   automation from the app
-- [dn 0.0.34 and developer device runners](/whats-new/dn-0-0-34/) — Release
-  notes for the current CLI and runner integration
+- [dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/) — Current CLI
+  and runner guidance

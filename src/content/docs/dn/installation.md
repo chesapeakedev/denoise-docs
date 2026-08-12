@@ -60,9 +60,9 @@ dn
 `dn --version` prints only the version, so scripts and CI can compare it with a
 required release.
 
-For **dn 0.0.34** release notes, published container images, and developer
+For current **dn 0.0.37** guidance, published artifact status, and developer
 device runners, see
-[dn 0.0.34 and developer device runners](/whats-new/dn-0-0-34/). Pair a laptop
+[dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/). Pair a laptop
 with denoise using [Developer device runners](/denoise/device-runners/).
 
 ## Build from source

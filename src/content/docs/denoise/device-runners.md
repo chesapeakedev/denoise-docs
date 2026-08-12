@@ -7,9 +7,9 @@ A device runner lets denoise send work to an existing macOS or Linux checkout.
 Source, checkout paths, GitHub credentials, agent credentials, and compute stay
 on that device.
 
-Requires **dn 0.0.34** or newer on the device. See
-[dn 0.0.34 and developer device runners](/whats-new/dn-0-0-34/) for the release
-train summary.
+Requires **dn 0.0.37** or newer on the device. See
+[dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/) for current
+guidance.
 
 Device runners accept kickstart jobs, denoise-task jobs, and **task-sync** (Void
 ↔ `~/.dn/tasks/` relay). They do not run arbitrary commands or GitHub Actions

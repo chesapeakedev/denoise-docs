@@ -41,7 +41,7 @@ available automations without forcing everyone into the same tool:
 | Connect denoise to dn Workflows              | [Milestone details](/denoise/milestone-details/) -> [GitHub integration](/denoise/github-integration/) -> [Headless Use — Denoise integrators](/dn/headless-use/#denoise-and-other-integrators) |
 | Free solo tasks in The Void                  | [The Void](/denoise/void/) → [Developer device runners](/denoise/device-runners/)                                                                                                               |
 | Denoise Pro and task kickstart               | [Subscription & Pro](/denoise/subscription-and-pro/) -> [Milestone details](/denoise/milestone-details/)                                                                                        |
-| dn 0.0.34 release train                      | [What's new](/whats-new/dn-0-0-34/) → [Developer device runners](/denoise/device-runners/)                                                                                                      |
+| dn 0.0.37 and device runners                 | [What's new](/whats-new/dn-0-0-37/) → [Developer device runners](/denoise/device-runners/)                                                                                                      |
 | Public roadmap                               | [Roadmap](/roadmap/)                                                                                                                                                                            |
 
 ## Examples

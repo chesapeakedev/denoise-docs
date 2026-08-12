@@ -17,6 +17,7 @@ export default defineConfig({
     "/dn/cursor-github-actions": "/cookbooks/cursor/",
     "/denoise/workbench": "/denoise/void/",
     "/operations/coming-soon": "/roadmap/",
+    "/whats-new/dn-0-0-34": "/whats-new/dn-0-0-37/",
   },
   image: {
     service: passthroughImageService(),
@@ -42,8 +43,8 @@ export default defineConfig({
           label: "What's new",
           items: [
             {
-              label: "dn 0.0.34 and device runners",
-              slug: "whats-new/dn-0-0-34",
+              label: "dn 0.0.37 and device runners",
+              slug: "whats-new/dn-0-0-37",
             },
           ],
         },
