@@ -15,6 +15,7 @@ export default defineConfig({
     "/dn/claude": "/cookbooks/claude-code/",
     "/dn/codex": "/cookbooks/codex/",
     "/dn/cursor-github-actions": "/cookbooks/cursor/",
+    "/denoise/workbench": "/denoise/void/",
   },
   image: {
     service: passthroughImageService(),
@@ -103,7 +104,7 @@ export default defineConfig({
             { label: "Getting started", slug: "denoise/getting-started" },
             { label: "Authentication", slug: "denoise/authentication" },
             { label: "Features", slug: "denoise/features" },
-            { label: "Workbench", slug: "denoise/workbench" },
+            { label: "The Void", slug: "denoise/void" },
             {
               label: "Milestone details",
               slug: "denoise/milestone-details",

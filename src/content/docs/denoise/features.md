@@ -1,19 +1,19 @@
 ---
 title: Features
-description: Tasks, milestones, and focus timer in denoise.
+description: The Void for free solo tasks; denoise for milestones, focus timer, and Pro automation.
 ---
 
 ## Overview
 
-Denoise is an offline-first planning app for small tasks, project milestones,
-and GitHub-backed work. It keeps personal planning fast and local by default,
-then adds sync, collaboration, GitHub issue integration, and dn-powered
-automation when you sign in and connect a repository.
+Denoise is a planning stack for small software teams. **The Void** covers free
+solo tasks that stay on a paired laptop. **denoise** (Denoise Pro) is the
+collaborative Roadmap and milestone app with GitHub sync and dn-powered
+automation.
 
-The default experience is **Roadmap-first**: open the Roadmap to see milestones,
-then open a milestone to manage its tasks. See
-[Getting started — App layout](/denoise/getting-started/#app-layout) for routes
-and navigation.
+In the team app, the default experience is **Roadmap-first**: open the Roadmap
+to see milestones, then open a milestone to manage its tasks. See
+[Getting started](/denoise/getting-started/) for Free vs Pro entry points and
+[The Void](/denoise/void/) for the free product.
 
 ![Roadmap summary cards showing milestone counts by status](../../../assets/screenshots/roadmap-summary.png)
 
@@ -24,18 +24,18 @@ milestone view workflow.
 
 ## Core features
 
-- **Offline-first tasks** — Create and edit tasks locally on the milestone view,
-  even without signing in.
-- **Roadmap and milestones** — Group tasks into projects; track progress from
-  the Roadmap home.
+- **The Void (Free)** — Solo local tasks via void.denoise.cloud; sync to
+  `~/.dn/tasks/` on a paired device runner.
+- **Roadmap and milestones (Pro)** — Group tasks into projects; track progress
+  from the Roadmap home with cloud sync.
 - **Focus timer** — Track focused work sessions from the header **Focus**
-  button.
-- **Sign-in with GitHub or Google** — Enable cloud sync and identity-backed
-  workflows.
-- **Collaboration** — Share milestones with collaborators; control task
+  button in denoise.
+- **Sign-in with GitHub or Google** — Shared auth across denoise and The Void;
+  enable cloud sync and identity-backed workflows in the team app.
+- **Collaboration (Pro)** — Share milestones with collaborators; control task
   visibility with publish/private settings.
-- **GitHub issue sync** — Link milestones, import issues, and push task updates
-  back to GitHub.
+- **GitHub issue sync (Pro)** — Link milestones, import issues, and push task
+  updates back to GitHub.
 - **Task kickstart (Pro)** — Dispatch agent-backed kickstart from a task in a
   GitHub-linked milestone via **Kickstart!** in the task detail dialog.
 
@@ -137,14 +137,14 @@ Task visibility:
 Collaborators need sign-in and **Online** mode to see shared milestone updates.
 See [Authentication](/denoise/authentication/) for sync requirements.
 
-## Workbench
+## The Void
 
-The [Workbench](/denoise/workbench/) is a fast task-list view for **My Tasks**
-and for the full app experience when milestones are disabled. It uses an inline
-**Add a task...** input rather than the milestone view's **Add task** dialog.
+[The Void](/denoise/void/) is the free solo task list. Tasks sync to a paired
+laptop under `~/.dn/tasks/` via device runners; denoise does not keep a
+long-term cloud todo store for free tasks. There are no milestones in The Void.
 
-See the dedicated page for layout, filtering, task actions, and how the
-workbench relates to the Roadmap when milestones are on or off.
+See the dedicated page for pairing, Free vs Pro distinctions, and ticketless
+kickstart.
 
 ## Usage metrics (opt-in)
 

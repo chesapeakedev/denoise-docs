@@ -1,35 +1,41 @@
 ---
 title: Getting started
-description: Sign in and create your first task in denoise.
+description: Choose The Void for free solo tasks, or sign in to denoise for team planning.
 ---
 
-Use this page to sign in, understand the GitHub requirement, and create a first
-task in denoise. Start here when you are using the app UI rather than the `dn`
-CLI.
+Use this page to choose the right product surface, sign in, and create a first
+task. Start here when you are using the app UI rather than the `dn` CLI.
 
-## App layout
+## Choose Free or Pro
 
-When **Milestones** is enabled (the default when you are **Online**), denoise
-opens to the **Roadmap** — a project-level view of your milestones. Open a
-milestone from the roadmap to manage its tasks on the **milestone view**.
+| Product | URL | When to use it |
+| ------- | --- | -------------- |
+| **The Void** (Free) | [void.denoise.cloud](https://void.denoise.cloud) | Solo local tasks that sync to a paired laptop via `dn`. No milestones. |
+| **denoise** (Pro) | [denoise.cloud](https://denoise.cloud) | Roadmap, milestones, GitHub sync, shared workspace, and kickstart from the app. |
 
-| View               | Route            | When                                           |
-| ------------------ | ---------------- | ---------------------------------------------- |
-| **Roadmap**        | `/`              | Default home when Milestones is enabled        |
-| **Milestone view** | `/milestone/:id` | Open a milestone from the roadmap              |
-| **Workbench**      | `/todo`, `/plan` | Task list; default home when Milestones is off |
+Signing in at denoise.cloud without Pro lands on `/subscribe`. Choose
+**Continue free in The Void** for solo use, or subscribe for the team app. See
+[The Void](/denoise/void/) and
+[Subscription & Pro](/denoise/subscription-and-pro/).
+
+## App layout (denoise team app)
+
+When you have Denoise Pro (or an org seat), denoise opens to the **Roadmap** —
+a project-level view of your milestones. Open a milestone from the roadmap to
+manage its tasks on the **milestone view**.
+
+| View               | Route            | When                                    |
+| ------------------ | ---------------- | --------------------------------------- |
+| **Roadmap**        | `/`              | Default home for Pro / team use         |
+| **Milestone view** | `/milestone/:id` | Open a milestone from the roadmap       |
 | **Profile**        | `/profile`       | Sign-in, GitHub access, plan, display settings |
 
 ![Roadmap view with milestone summary cards, workspace selector, and status filters](../../../assets/screenshots/roadmap.png)
 
 _Roadmap — track milestones and project progress from the app home._
 
-The primary workflow is **New milestone** on the Roadmap → open the milestone
-card → **Add task** on the milestone view.
-
-To turn milestones off, open **Profile** → **Display Settings** and uncheck
-**Milestones**. The app then uses the [Workbench](/denoise/workbench/) at
-`/todo` instead of the Roadmap.
+The primary Pro workflow is **New milestone** on the Roadmap → open the
+milestone card → **Add task** on the milestone view.
 
 The header shows a sync badge (**Offline**, **Online**, or **Syncing…**). Click
 it to enable cloud sync when you are ready. Open **Profile** from the avatar
@@ -46,18 +52,30 @@ The app supports GitHub and Google sign-in:
 
 ![Sign In button in the header](../../../assets/screenshots/sign-in-button.png)
 
-![Header while signed out, showing Offline sync badge](../../../assets/screenshots/header-signed-out.png)
+![Header while signed out, showing offline sync badge](../../../assets/screenshots/header-signed-out.png)
 
 After sign-in, the header shows your avatar and an **Online** sync badge when
 cloud sync is enabled.
 
 ![Header while signed in with Online sync badge](../../../assets/screenshots/header-signed-in.png)
 
-GitHub authentication is required for GitHub milestone and issue integration.
-For sign-in behavior, repository access, and how the sync badge interacts with
+Auth cookies are shared across denoise.cloud and void.denoise.cloud. GitHub
+authentication is required for GitHub milestone and issue integration. For
+sign-in behavior, repository access, and how the sync badge interacts with
 authentication, see [Authentication](/denoise/authentication/).
 
 ## Creating your first task
+
+### Free — The Void
+
+1. Open [void.denoise.cloud](https://void.denoise.cloud).
+2. Optionally sign in and pair a device runner so tasks land under
+   `~/.dn/tasks/` on your laptop.
+3. Type a task title and add it.
+
+See [The Void](/denoise/void/) for local sync and ticketless kickstart.
+
+### Pro — denoise Roadmap
 
 On the Roadmap:
 
@@ -84,14 +102,14 @@ guided tour for your current screen.
 
 ## Next steps
 
-- Use [Features](/denoise/features/) to learn tasks, milestones, collaboration,
-  and GitHub sync.
-- Use [Workbench](/denoise/workbench/) for the task-list view and My Tasks.
+- Use [The Void](/denoise/void/) for free solo tasks and local `dn` sync.
+- Use [Features](/denoise/features/) to learn milestones, collaboration, and
+  GitHub sync in the team app.
 - Use [GitHub integration](/denoise/github-integration/) when you want to link
   milestones to GitHub issues and dn workflows.
 - Use [Milestone details](/denoise/milestone-details/) for DN setup, init_stack,
   and per-task kickstart on GitHub-linked milestones.
-- Use [Subscription & Pro](/denoise/subscription-and-pro/) when you want task
-  kickstart, repository initialization, and workflow dispatch from the app.
-- Use [Developer device runners](/denoise/device-runners/) when you want
-  kickstart to use a trusted local checkout and local credentials.
+- Use [Subscription & Pro](/denoise/subscription-and-pro/) for Free vs Pro vs
+  Enterprise.
+- Use [Developer device runners](/denoise/device-runners/) when you want Void
+  task-sync or Pro kickstart on a trusted local checkout.

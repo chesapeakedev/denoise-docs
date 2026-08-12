@@ -1,18 +1,45 @@
 ---
 title: Developer device runners
-description: Pair a trusted macOS or Linux checkout with denoise and run typed kickstart jobs on local compute.
+description: Pair a trusted macOS or Linux checkout for Void task-sync and typed kickstart jobs on local compute.
 ---
 
-A device runner lets denoise send a kickstart job to an existing macOS or Linux
-checkout. Source, checkout paths, GitHub credentials, agent credentials, and
-compute stay on that device.
+A device runner lets denoise send work to an existing macOS or Linux checkout.
+Source, checkout paths, GitHub credentials, agent credentials, and compute stay
+on that device.
+
+Device runners accept kickstart jobs, denoise-task jobs, and **task-sync**
+(Void ↔ `~/.dn/tasks/` relay). They do not run arbitrary commands or GitHub
+Actions workflows.
+
+## Local task sync (The Void)
+
+Denoise does not store free-plan task bodies long-term. When [The Void](/denoise/void/)
+creates or edits a ticketless task, denoise relays a short-lived envelope to the
+paired runner. `dn runner serve` writes task documents under
+`~/.dn/tasks/<id>.json` on the laptop.
+
+This is **not** `dn todo` / `~/.dn/todo.md`. Todo remains the GitHub-issue and
+plan-path kickstart queue. Local tasks are portable documents for ticketless
+Void work and `denoise-task` kickstart.
+
+```bash
+dn task list
+dn task show <id> --json
+dn kickstart --denoise-task ~/.dn/tasks/<id>.json --publish none
+```
+
+Runner limits: **1** active device on Free, **10** on Denoise Pro (including
+org-seat Pro). Pair from The Void **Devices** flow or denoise
+**Settings > Runners**.
 
 ## Pair and prepare a device
 
-The device needs `dn`, outbound HTTPS, a GitHub checkout, and a supported agent
-harness. Run the service as your normal login user.
+The device needs `dn`, outbound HTTPS, a GitHub checkout (for repository
+kickstart), and a supported agent harness. Run the service as your normal login
+user.
 
-1. Open **Settings > Runners** and create a pairing code.
+1. Open **Settings > Runners** in denoise (or **Devices** in The Void) and
+   create a pairing code.
 2. Run:
 
    ```bash
