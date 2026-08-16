@@ -9,7 +9,8 @@ GitHub credentials, agent credentials, and compute remain on the device.
 
 This is a denoise device runner, not a GitHub Actions self-hosted runner. It
 opens no inbound service port and accepts only denoise runner operations for
-repositories you explicitly register.
+checkouts you explicitly register. Pairing binds the Pi to your denoise account,
+not to a single GitHub repository.
 
 ## 1. Prepare the Pi
 
@@ -109,7 +110,8 @@ need. A runner can only execute tools available to the `denoise-runner` user.
 
 ## 5. Pair the Pi with denoise
 
-1. In denoise, open **Settings > Runners** and create a pairing code.
+1. In denoise, open a GitHub-linked milestone, click **Runners**, and create a
+   pairing code.
 2. On the Pi, run:
 
    ```bash
@@ -136,9 +138,10 @@ cd ~/src/REPOSITORY
 dn runner register
 ```
 
-Read the remote and trust prompt before confirming. Registration allowlists the
-repository and binds the denoise repository identity to this local checkout.
-Repeat the command from each additional checkout the Pi may use.
+Read the remote and trust prompt before confirming. Registration maps the GitHub
+slug to this local path in `~/.dn/runner/config.json`. Denoise never stores that
+path; it only sees slugs the Pi reports as ready. Repeat the command from each
+additional checkout the Pi may use. Denoise does not clone a missing checkout.
 
 Check the complete installation:
 
@@ -154,8 +157,9 @@ harnesses.
 ## 7. Run a job
 
 In denoise, open an issue or milestone kickstart action and select **Raspberry
-Pi** in the runtime picker. Choose the configured agent and publish mode, then
-start the run.
+Pi** in the runtime picker. Choose the **Execution checkout**, agent, and
+publish mode, then start the run. GitHub Actions stays on the planning
+repository. A device job can use a different registered checkout on the Pi.
 
 The device claims one job at a time. If it is offline, a queued job can wait for
 up to 24 hours; denoise does not silently move the job to hosted compute.

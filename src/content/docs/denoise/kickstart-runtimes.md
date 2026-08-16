@@ -14,7 +14,7 @@ Denoise does **not** run kickstart on the denoise application host.
 | `github_actions` | Target repo GitHub Actions | HTTP if base URL set; else coarse | Agent secrets; `KICKSTART_PROGRESS_BASE_URL` for detailed         |
 | `cursor_cloud`   | Cursor-managed VM          | HTTP                              | `CURSOR_API_KEY` + progress base URL on denoise                   |
 | `cloud_vm`       | exe.dev sandbox VM         | HTTP                              | `EXE_TOKEN` + progress base URL (+ managed checkout for launcher) |
-| `device_runner`  | Paired developer laptop    | NDJSON via device job API         | Pairing enabled; registered checkout                              |
+| `device_runner`  | Paired developer laptop    | NDJSON via device job API         | User-paired device; registered execution checkout                 |
 | Docker           | Your machine via CLI only  | N/A on hosted denoise             | `dn kickstart --sandbox docker` locally                           |
 
 Preflight availability is listed at `GET /api/kickstart/runtimes?owner=&repo=`
@@ -36,7 +36,10 @@ Shared HTTP bootstrap details: [Progress reporting](/dn/progress-reporting/).
   under `KICKSTART_RUNNER_WORKSPACE_ROOT` only to **start** `dn` with
   `--cursor-cloud` or `--sandbox exe.dev`. Agent work runs in the remote
   environment, not as untrusted code on the denoise app process.
-- Device jobs never fall back silently to hosted compute. See
+- Device jobs never fall back silently to hosted compute. Pair a device to your
+  account once, then pick an **Execution checkout** in the kickstart dialog.
+  GitHub Actions stays on the planning repository; a device runner can execute
+  in a different registered checkout. See
   [Developer device runners](/denoise/device-runners/).
 - Historical runs may still show a legacy `local` source label in progress
   history; new dispatches reject that source.

@@ -171,8 +171,8 @@ included in the existing daily B2 backup.
 
 ## Related
 
-- [Developer device runners](/denoise/device-runners/) — Pair a checkout for
-  Void sync and local kickstart
+- [Developer device runners](/denoise/device-runners/) — Pair a device for Void
+  sync and local kickstart
 - [Kickstart runtimes](/denoise/kickstart-runtimes/) — Where **Kickstart!** runs
 - [dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/) — Current CLI
   and runner guidance

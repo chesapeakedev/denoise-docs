@@ -1,11 +1,16 @@
 ---
 title: Developer device runners
-description: Pair a trusted macOS or Linux checkout for Void task-sync and typed kickstart jobs on local compute.
+description: Pair a trusted macOS or Linux device for Void task-sync and typed kickstart jobs on local compute.
 ---
 
-A device runner lets denoise send work to an existing macOS or Linux checkout.
-Source, checkout paths, GitHub credentials, agent credentials, and compute stay
-on that device.
+A device runner lets denoise send work to a macOS or Linux machine you already
+trust. Source, checkout paths, GitHub credentials, agent credentials, and
+compute stay on that device. Denoise stores GitHub repository slugs and
+readiness only — never local filesystem paths.
+
+Pairing binds the device to **your signed-in account**, not to a milestone or
+GitHub repository. Pair once, then use the same device on any repository you can
+write that has a ready checkout on that machine.
 
 Requires **dn 0.0.37** or newer on the device. See
 [dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/) for current
@@ -33,25 +38,29 @@ dn kickstart --denoise-task ~/.dn/tasks/<id>.json --publish none
 ```
 
 Runner limits: **1** active device on Free, **10** on Denoise Pro (including
-org-seat Pro). Pair from The Void **Devices** flow or denoise
-**Profile** → **Runners**.
+org-seat Pro). Pair from The Void **Devices** flow or from a GitHub-linked
+milestone in denoise (**Profile** → **Runners**). Profile settings point you to
+that milestone dialog; they do not create pairing codes.
 
 ## Pair and prepare a device
 
-The device needs `dn`, outbound HTTPS, a GitHub checkout (for repository
-kickstart), and a supported agent harness. Run the service as your normal login
-user.
+The device needs `dn`, outbound HTTPS, at least one GitHub checkout (for
+repository kickstart), and a supported agent harness. Run the service as your
+normal login user.
 
-1. In denoise, open **Profile** → **Runners** and click **Pair a device**. In
-   The Void, open **Devices**. Either flow creates a pairing code.
-2. Run:
+1. Open a GitHub-linked milestone and click **Runners**, or open **Devices** in
+   The Void. Click **Pair a device**.
+2. Run the command denoise shows. Typical form:
 
    ```bash
    dn runner connect <code> --install --name "Alex's MacBook Pro"
    ```
 
+   Optional `--repo owner/repo` is only a checkout hint. Pairing does not bind
+   the device to that repository.
+
 3. Approve the pairing in the browser.
-4. From every trusted checkout, register its remote:
+4. From every trusted checkout the device may use, register its remote:
 
    ```bash
    cd ~/src/project
@@ -59,7 +68,8 @@ user.
    ```
 
    Registration asks you to confirm trust. Use `--yes` only after inspecting the
-   checkout.
+   checkout. Paths stay in `~/.dn/runner/config.json` on the device. Denoise
+   never receives them.
 
 5. Check readiness:
 
@@ -68,9 +78,13 @@ user.
    dn runner status
    ```
 
-The UI distinguishes paired, online, and repository-ready devices. `--install`
-creates `~/Library/LaunchAgents/cloud.denoise.runner.plist` on macOS or
-`~/.config/systemd/user/denoise-runner.service` on Linux.
+The UI lists **your** devices and distinguishes paired, online, and ready
+(device ready and at least one registered checkout). `--install` creates
+`~/Library/LaunchAgents/cloud.denoise.runner.plist` on macOS or
+`~/.config/systemd/user/denoise-runner.service` on Linux. The service runs
+`dn runner serve` with `HOME` and `PATH` set; it does not pin a working
+directory. Jobs use the registered `owner/repo` → absolute path map. Denoise
+does not clone a missing checkout.
 
 ![Runners panel in Profile with a paired device, preferred agent, and recent jobs](../../../assets/screenshots/account-runners-panel.png)
 
@@ -81,10 +95,20 @@ their outcomes, and recommended next steps.
 
 ## Run kickstart
 
-Select the named device in the kickstart runtime picker. A busy device claims
-one job at a time. An offline device can retain a queued job for up to 24 hours
-and claim it after reconnecting. Denoise never silently moves a device job to
-hosted compute.
+In the milestone **Runners** dialog or the task **Kickstart!** confirm dialog,
+choose the named device and an **Execution checkout**. A busy device claims one
+job at a time. An offline device can retain a queued job for up to 24 hours and
+claim it after reconnecting. Denoise never silently moves a device job to hosted
+compute.
+
+**GitHub Actions** stays on the planning repository (the milestone's linked
+repo). Device runners are the path that can execute in a different checkout.
+
+When the issue lives on repository A and the execution checkout is repository B,
+the dialog states that the issue stays on A and the work and pull request land
+in B. You need GitHub read access to the issue repository and write access to
+the execution repository. The execution slug must already be registered and
+ready on the device.
 
 Device runners report progress with **NDJSON** over the device job API (not the
 shared HTTP bootstrap used by GitHub Actions, Cursor Cloud, and exe.dev). See
@@ -99,7 +123,9 @@ dn runner kickstart 213 --publish pr --wait
 dn runner kickstart 213 --publish pr --json
 ```
 
-The issue must belong to an explicitly registered repository.
+`kickstart` accepts a full GitHub issue URL or a number resolved from the
+current checkout. The execution target is a registered repository; the issue URL
+can point at a different repository.
 
 ## Agent preference
 
@@ -209,8 +235,9 @@ human status text:
 }
 ```
 
-These examples omit timestamps and other additive metadata. Branch on named
-fields, not object key order or human messages.
+`repository` is the execution checkout. `issue_url` can point at a different
+GitHub repository. These examples omit timestamps and other additive metadata.
+Branch on named fields, not object key order or human messages.
 
 State lives under `~/.dn/runner/`: `credential.json`, `config.json`, and on
 macOS `runner.log` and `runner.error.log`. The directory is mode `0700`;
@@ -220,10 +247,15 @@ credential and config files are `0600`.
 
 - The service makes outbound authenticated HTTPS requests and opens no inbound
   port.
-- Pairing needs signed-in browser approval; only the runner owner can dispatch.
+- Pairing needs signed-in browser approval. Only the runner owner can see the
+  device or dispatch jobs to it.
 - A job is a typed kickstart request, not arbitrary argv, shell, environment, or
   an Actions workflow.
-- Every repository must be allowlisted, and its remote must match the issue.
+- Each execution checkout must be registered on the device. Denoise never sees
+  local paths; it only sees GitHub slugs the device reports as ready.
+- The issue repository can differ from the execution checkout. Any registered
+  slug is a place your agent may run, including from an issue on another repo,
+  if you can write the execution repository on GitHub.
 - GitHub and agent authentication come from the local device.
 - Progress is redacted and capped before leaving `dn`.
 - Cancellation terminates the local child process.
@@ -239,7 +271,9 @@ Run `dn runner doctor`; it checks credential expiry, protocol support, installed
 harnesses, repository remotes, and (in JSON) `agent_readiness` for local agent
 overrides and harness authentication. Reconnect after an expired credential.
 Upgrade `dn` when the server reports an unsupported protocol version. Register
-the correct checkout when the remote does not match.
+the execution checkout when the picker has no ready slug — denoise does not
+clone it. If a checkout is missing from the picker, confirm GitHub access to
+that repository.
 
 ```bash
 # Foreground diagnostics

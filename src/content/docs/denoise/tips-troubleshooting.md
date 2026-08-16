@@ -112,11 +112,14 @@ issues, and collaborator visibility predictable.
 
 ### Device runner pairing or kickstart
 
-- Pair and approve from **Settings > Runners** (or **Devices** in The Void),
-  then run `dn runner doctor` on the device.
-- Register each trusted checkout with `dn runner register` before selecting the
-  device in the kickstart dialog.
+- Pair and approve from a GitHub-linked milestone (**Runners**) or from
+  **Devices** in The Void, then run `dn runner doctor` on the device.
+- Register each trusted checkout with `dn runner register` before selecting it
+  as the **Execution checkout**. Denoise does not clone missing checkouts and
+  does not store local paths.
 - Device jobs never fall back silently to GitHub Actions or managed VMs.
+- GitHub Actions stays on the planning repository. A device runner can execute
+  in a different registered checkout when you have GitHub write access there.
 - Use `dn` **0.0.37** or newer for the device-runner protocol. See
   [Developer device runners](/denoise/device-runners/) and
   [dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/).

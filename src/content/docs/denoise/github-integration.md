@@ -133,7 +133,7 @@ If sync conflicts occur, the most recent change wins.
 
 - [Milestone details](/denoise/milestone-details/) — DN setup and **Kickstart!**
 - [Kickstart runtimes](/denoise/kickstart-runtimes/) — Runtime matrix
-- [Developer device runners](/denoise/device-runners/) — Local checkout
-  kickstart
+- [Developer device runners](/denoise/device-runners/) — User-paired device
+  kickstart and execution checkouts
 - [dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/) — Current CLI
   and runner guidance

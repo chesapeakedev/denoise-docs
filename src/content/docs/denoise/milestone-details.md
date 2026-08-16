@@ -50,6 +50,12 @@ The guided product tour on this page highlights the DN setup action row and
 
 ![Copy link, Share, Edit milestone, and Add task buttons](../../../assets/screenshots/milestone-view-first-btn-row.png)
 
+On a GitHub-linked Pro milestone, **Runners** opens the default kickstart
+runtime picker and device pairing. Pair a device once to your account, then
+choose an **Execution checkout** for later **Kickstart!** runs. GitHub Actions
+stays on this planning repository. See
+[Developer device runners](/denoise/device-runners/).
+
 ![Add task dialog with title, tags, and description](../../../assets/screenshots/milestone-create-task.png)
 
 ### DN setup action row
@@ -190,8 +196,10 @@ requirement.
 Per-task kickstart plans and implements the issue. Choose an available runtime
 in the confirmation dialog: **GitHub Actions**, **Cursor Cloud**, **exe.dev**
 (`cloud_vm`), or a **paired device runner**. Availability depends on repository
-setup and the account. A device job never falls back silently to hosted compute.
-Docker sandbox is CLI-only on hosted denoise. See
+setup and the account. For a device runner, also pick the **Execution checkout**
+— the issue can stay on this milestone's repository while work and the pull
+request land in another registered checkout. A device job never falls back
+silently to hosted compute. Docker sandbox is CLI-only on hosted denoise. See
 [Kickstart runtimes](/denoise/kickstart-runtimes/).
 
 The progress panel shows **detailed** phase/step events when the chosen runtime
@@ -204,7 +212,8 @@ the repository has that workflow installed; it uses GitHub Actions today.
 
 1. Open a task in a GitHub-linked milestone (click the task row).
 2. In the task detail dialog, click **Kickstart!**
-3. Confirm **Run kickstart for this task?** and pick a runtime in the dialog.
+3. Confirm **Run kickstart for this task?**, pick a runtime, and for a device
+   runner choose the **Execution checkout**.
 4. Follow queued, running, failed, and completed states in the dialog or task
    status chips. GitHub Actions runs also provide **Watch on GitHub**. Completed
    published runs show a PR link when one was reported.
@@ -232,8 +241,8 @@ For CLI-oriented planning and implementation depth, see
 
 - [Kickstart runtimes](/denoise/kickstart-runtimes/) — Where kickstart runs and
   how progress fidelity works
-- [Developer device runners](/denoise/device-runners/) — Pair a named device for
-  local kickstart
+- [Developer device runners](/denoise/device-runners/) — Pair a device to your
+  account and choose an execution checkout
 - [GitHub integration](/denoise/github-integration/) — Link milestones, sync
   issues, convert tasks to GitHub issues
 - [Tips & troubleshooting](/denoise/tips-troubleshooting/) — When DN setup or
