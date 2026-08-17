@@ -36,6 +36,7 @@ available automations without forcing everyone into the same tool:
 
 | Need                                         | Start here                                                                                                                                                                                      |
 | -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Kickstart at four altitudes                  | [Working Above Syntax](/blog/working-above-syntax/)                                                                                                                                             |
 | Close work in dn and denoise                 | [Kickstart, land, sync, and done](/close-out/)                                                                                                                                                  |
 | Install and use dn                           | [Installation](/dn/installation/)                                                                                                                                                               |
 | Implement GitHub issues with dn and an agent | [Completing GitHub Issues](/dn/completing-github-issues/)                                                                                                                                       |

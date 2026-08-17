@@ -54,6 +54,15 @@ export default defineConfig({
         },
         { label: "Roadmap", slug: "roadmap" },
         {
+          label: "Blog",
+          items: [
+            {
+              label: "Working Above Syntax",
+              slug: "blog/working-above-syntax",
+            },
+          ],
+        },
+        {
           label: "dn",
           items: [
             {
