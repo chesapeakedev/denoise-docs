@@ -23,10 +23,13 @@ reason.
 
 ## Progress fidelity
 
-- **Detailed** — Phase and step events stream into the task progress panel
-  (Resolve → Implement → Lint → Publish timeline).
+- **Detailed** — Phase and step events stream into the task progress panel.
+  Leave-local kickstart uses **Resolve → Plan → Implement → Lint** (`dn ensure
+  lint`). Publish is not part of that job; Land then Sync own commit and trunk.
+  See [Kickstart, land, sync, and done](/close-out/).
 - **Coarse** — Queued / running / succeeded / failed only. Common for GitHub
   Actions when the denoise deploy has no public `KICKSTART_PROGRESS_BASE_URL`.
+  Land and Sync on a device runner are coarse.
 
 Shared HTTP bootstrap details: [Progress reporting](/dn/progress-reporting/).
 
@@ -47,5 +50,6 @@ Shared HTTP bootstrap details: [Progress reporting](/dn/progress-reporting/).
 ## Related
 
 - [Milestone details — Kickstart a task](/denoise/milestone-details/#kickstart-a-task)
+- [Kickstart, land, sync, and done](/close-out/)
 - [Sandbox execution](/dn/sandbox/)
 - [Headless Use](/dn/headless-use/)

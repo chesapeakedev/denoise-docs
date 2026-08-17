@@ -40,6 +40,10 @@ export default defineConfig({
       sidebar: [
         { label: "Introduction", slug: "introduction" },
         {
+          label: "Kickstart, land, sync, and done",
+          slug: "close-out",
+        },
+        {
           label: "What's new",
           items: [
             {
@@ -59,6 +63,10 @@ export default defineConfig({
             {
               label: "Completing GitHub Issues",
               slug: "dn/completing-github-issues",
+            },
+            {
+              label: "Kickstart, land, sync, and done",
+              slug: "close-out",
             },
             { label: "Command reference", slug: "dn/workflows" },
             { label: "Sandbox execution", slug: "dn/sandbox" },
@@ -114,6 +122,10 @@ export default defineConfig({
           label: "denoise",
           items: [
             { label: "Getting started", slug: "denoise/getting-started" },
+            {
+              label: "Kickstart, land, sync, and done",
+              slug: "close-out",
+            },
             { label: "Authentication", slug: "denoise/authentication" },
             { label: "Features", slug: "denoise/features" },
             { label: "The Void", slug: "denoise/void" },

@@ -91,7 +91,9 @@ dn land plans/issue-123.plan.md --dry-run
 reviews current workspace changes, and uses the selected agent to group them
 into logical conventional commits. On success, it removes the plan file. Land
 targets one plan at a time; for per-issue publish without stacking local
-kickstarts, use `dn kickstart --publish pr|direct` instead.
+kickstarts, use `dn kickstart --publish pr|direct` instead. These verbs match
+the denoise task dialog; quality lives on sync. See
+[Kickstart, land, sync, and done](/close-out/).
 
 `--single` creates one deterministic commit without an agent. `--dry-run`
 previews the operation without committing, deleting a plan, or changing GitHub.
@@ -117,7 +119,8 @@ stop the update instead of modifying an uncertain issue.
 Local outputs are commits or bookmarks and plan-file removal. The only GitHub
 change is the optional issue test-plan upsert. Push the resulting feature branch
 or bookmark and create a pull request with your usual VCS workflow. Use
-`dn sync` only for intentional trunk publication.
+`dn sync` only for intentional trunk publication. Quality checks live on sync
+(`sync.preflight`). See [Kickstart, land, sync, and done](/close-out/).
 
 If commit creation fails after removing a plan, `land` attempts to restore it.
 Inspect VCS state, restore or complete any partial commit, and rerun `land` with
@@ -333,11 +336,14 @@ unchecked item; `--complete` processes all remaining items and requires
 ```bash
 dn sync
 dn sync --workspace-root /path/to/checkout
-dn sync --skip-lint
+dn sync --skip-preflight
 ```
 
 `sync` rebases the checkout onto remote `main` and publishes local commits that
 remain afterward. It is an explicit trunk-publication command, not the final
-step of an issue-to-pull-request workflow. See
+step of an issue-to-pull-request workflow. Preflight is fail-fast lint + tests
+from `dn.json` `sync.preflight`; `--skip-preflight` is a CLI escape hatch.
+Denoise never sends it. These verbs match the denoise task dialog; quality
+lives on sync. See [Kickstart, land, sync, and done](/close-out/). See
 [Experimental — `dn sync`](/dn/task-list-and-sync/#dn-sync) for VCS detection,
 prerequisites, and the exact Git and Sapling operations.

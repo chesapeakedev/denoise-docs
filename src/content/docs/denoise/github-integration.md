@@ -100,7 +100,9 @@ Denoise dispatches the same workflow events exposed by `dn workflows dispatch`:
 - `dn.meld_issue_plan` — Produce a plan for an issue (CLI and Actions; not
   exposed as a separate milestone-page button today).
 - `dn.kickstart_issue` — Run plan plus implementation from **Kickstart!** in the
-  task detail dialog.
+  task detail dialog. After a leave-local device run, **Land** and **Sync**
+  queue `dn.land` and `dn.sync` on that checkout. See
+  [Kickstart, land, sync, and done](/close-out/).
 - `dn.todo_loop` — Advance the repository todo plan on a stable automation
   branch (GitHub Actions).
 
@@ -131,6 +133,8 @@ If sync conflicts occur, the most recent change wins.
 
 ## Related
 
+- [Kickstart, land, sync, and done](/close-out/) — Shared Kickstart, Land, Sync,
+  and Done verbs
 - [Milestone details](/denoise/milestone-details/) — DN setup and **Kickstart!**
 - [Kickstart runtimes](/denoise/kickstart-runtimes/) — Runtime matrix
 - [Developer device runners](/denoise/device-runners/) — User-paired device

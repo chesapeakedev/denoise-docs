@@ -3,6 +3,10 @@ title: Completing GitHub Issues
 description: Understand the different flows to complete work in GitHub with dn
 ---
 
+The `dn` CLI and the denoise task dialog share four close-out verbs:
+[Kickstart, land, sync, and done](/close-out/). This page covers CLI variants
+around that loop — pull-request kickstart, meld, fixup, and until.
+
 The `dn` CLI gives you a non-conversational assistant interface to the harnesses
 you already use. Use the CLI to orient your worfklow around durable plans,
 lining up targets for `dn kickstart`. Use `dn meld` and manual review to create
@@ -72,8 +76,8 @@ In pull-request mode, `kickstart`:
 3. Writes and validates a named plan.
 4. Runs the implementation agent.
 5. Updates the acceptance criteria and writes continuation context if needed.
-6. Runs project checks.
-7. Commits, pushes, and opens a pull request.
+6. Runs `dn ensure lint` so a fixer agent can clear fmt/lint.
+7. Commits, pushes, and opens a pull request. Host CI is the quality gate.
 
 This path has the fewest manual steps. It is useful for well-scoped issues when
 the branch and pull request provide enough isolation for review.
@@ -86,15 +90,16 @@ the GitHub issue or ask whether to continue:
 
 ```bash
 dn kickstart 123
-dn until validate .github/dn/gambit.json
-dn until run .github/dn/gambit.json
 dn land --issue-testplan
-dn todo done 123
+dn sync
 ```
 
-Configure the gambit so its generator resolves problems in the current issue
-implementation and its script verifier runs the repository's full merge gate.
-For example:
+Leave-local kickstart implements then runs `dn ensure lint`. Land commits.
+Sync re-runs lint, runs tests, and publishes to trunk. Then mark the issue
+Done. See [Kickstart, land, sync, and done](/close-out/).
+
+Configure a gambit only when you still want a generator/verifier loop before
+land:
 
 ```json
 {
@@ -203,8 +208,9 @@ is high, or another person needs to approve the plan before code changes begin.
 
 CI must use `pr` or `direct` because a local-only workspace disappears with the
 runner. Use `direct` only when you intentionally want to bypass pull-request
-review. `dn sync` also publishes trunk state; it is not part of an
-issue-to-pull-request workflow.
+review. `dn sync` publishes trunk after Land on the leave-local path; it is not
+part of the pull-request path. See
+[Kickstart, land, sync, and done](/close-out/).
 
 ## Run remotely or in CI
 

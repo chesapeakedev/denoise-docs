@@ -16,9 +16,14 @@ Requires **dn 0.0.37** or newer on the device. See
 [dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/) for current
 guidance.
 
-Device runners accept kickstart jobs, denoise-task jobs, and **task-sync** (Void
-↔ `~/.dn/tasks/` relay). They do not run arbitrary commands or GitHub Actions
-workflows.
+Device runners accept kickstart jobs, **land** jobs (`dn land` on the paired
+checkout), **sync** jobs (`dn sync` on the paired checkout; trunk quality
+gate), denoise-task jobs, and **task-sync** (Void ↔ `~/.dn/tasks/` relay). They
+do not run arbitrary commands or GitHub Actions workflows.
+
+The close-out verbs match the CLI: Kickstart → Land → Sync → Done. See
+[Kickstart, land, sync, and done](/close-out/). Void **task-sync** is unrelated
+to trunk Sync.
 
 ## Local task sync (The Void)
 
@@ -93,13 +98,17 @@ their outcomes, and recommended next steps.
 
 ![Runner history on the Profile Runners panel](../../../assets/screenshots/account-runners-history.png)
 
-## Run kickstart
+## Run kickstart, land, and sync
 
 In the milestone **Runners** dialog or the task **Kickstart!** confirm dialog,
 choose the named device and an **Execution checkout**. A busy device claims one
 job at a time. An offline device can retain a queued job for up to 24 hours and
 claim it after reconnecting. Denoise never silently moves a device job to hosted
 compute.
+
+After a leave-local kickstart, **Land** and **Sync** in the task dialog queue
+`dn land` and `dn sync` on that same checkout. Sync always runs `sync.preflight`
+(lint and tests when configured). Denoise never passes `--skip-preflight`.
 
 **GitHub Actions** stays on the planning repository (the milestone's linked
 repo). Device runners are the path that can execute in a different checkout.

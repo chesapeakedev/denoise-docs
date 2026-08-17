@@ -218,6 +218,13 @@ the repository has that workflow installed; it uses GitHub Actions today.
    status chips. GitHub Actions runs also provide **Watch on GitHub**. Completed
    published runs show a PR link when one was reported.
 
+On a **leave-local** device run, Kickstart ends at Lint (`dn ensure lint`).
+Then **Land** commits on the device, **Sync** re-runs lint, runs tests, and
+publishes to trunk, and **Done** closes the GitHub issue. Confirm Land and Sync
+the same way you confirm Kickstart. See
+[Kickstart, land, sync, and done](/close-out/). On the PR path, host CI is the
+gate; there is no Land or Sync button.
+
 <video autoplay loop muted playsinline class="demo-video" aria-label="Kickstart a task — confirm dispatch, track progress, and open the pull request">
   <source src="/demos/kickstart-task.mp4" type="video/mp4" />
 </video>
@@ -239,6 +246,8 @@ For CLI-oriented planning and implementation depth, see
 
 ## Next steps
 
+- [Kickstart, land, sync, and done](/close-out/) — Shared Kickstart, Land, Sync,
+  and Done verbs
 - [Kickstart runtimes](/denoise/kickstart-runtimes/) — Where kickstart runs and
   how progress fidelity works
 - [Developer device runners](/denoise/device-runners/) — Pair a device to your

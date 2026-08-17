@@ -118,8 +118,9 @@ Sapling takes precedence in dual-compatible repositories.
 
 ### What each run does
 
-1. **`make lint`** at the repository root (skip with `--skip-lint`)
-2. **Rebase onto remote `main`**
+1. Optional **`sync.preflight`** from `dn.json` (this repo: `make lint` then
+   `make tests`; skip with `--skip-preflight`)
+2. **Rebase onto remote trunk**
 3. **Publish** only when local commits remain after the rebase
 
 **Sapling** (`sl`):
@@ -153,5 +154,5 @@ credential helper, `gh auth` HTTPS, or SSH.
 ```bash
 dn sync
 dn sync --workspace-root /path/to/checkout
-dn sync --skip-lint   # skip make lint (used by make sync)
+dn sync --skip-preflight
 ```

@@ -15,7 +15,8 @@ capabilities to automate pieces of the software development lifecycle. **dn** is
 the CLI for developers who work from the terminal & agent harnesses such as
 Cursor & Claude Code. **denoise** is the web app for product managers,
 designers, and others who prefer a visual, collaborative experience for
-building.
+building. [Kickstart, land, sync, and done](/close-out/) use the same four verbs
+in both.
 
 Everyone builds. Cross-functional teams stay aligned on project planning and
 available automations without forcing everyone into the same tool:
@@ -35,6 +36,7 @@ available automations without forcing everyone into the same tool:
 
 | Need                                         | Start here                                                                                                                                                                                      |
 | -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Close work in dn and denoise                 | [Kickstart, land, sync, and done](/close-out/)                                                                                                                                                  |
 | Install and use dn                           | [Installation](/dn/installation/)                                                                                                                                                               |
 | Implement GitHub issues with dn and an agent | [Completing GitHub Issues](/dn/completing-github-issues/)                                                                                                                                       |
 | Automate in GitHub Actions                   | [Headless Use](/dn/headless-use/) → [OpenCode](/cookbooks/opencode/), [Claude Code](/cookbooks/claude-code/), [Codex](/cookbooks/codex/), or [Cursor](/cookbooks/cursor/)                       |

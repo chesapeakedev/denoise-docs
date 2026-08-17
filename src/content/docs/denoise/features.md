@@ -37,7 +37,9 @@ milestone view workflow.
 - **GitHub issue sync (Pro)** — Link milestones, import issues, and push task
   updates back to GitHub.
 - **Task kickstart (Pro)** — Dispatch agent-backed kickstart from a task in a
-  GitHub-linked milestone via **Kickstart!** in the task detail dialog.
+  GitHub-linked milestone via **Kickstart!** in the task detail dialog. On a
+  device runner, **Land** then **Sync** finish the same loop as the CLI. See
+  [Kickstart, land, sync, and done](/close-out/).
 
 ## Task management
 
@@ -171,6 +173,8 @@ included in the existing daily B2 backup.
 
 ## Related
 
+- [Kickstart, land, sync, and done](/close-out/) — Shared Kickstart, Land, Sync,
+  and Done verbs
 - [Developer device runners](/denoise/device-runners/) — Pair a device for Void
   sync and local kickstart
 - [Kickstart runtimes](/denoise/kickstart-runtimes/) — Where **Kickstart!** runs
