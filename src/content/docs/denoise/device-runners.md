@@ -1,20 +1,44 @@
 ---
-title: Developer device runners
-description: Pair a trusted macOS or Linux device for Void task-sync and typed kickstart jobs on local compute.
+title: Runners
+description: Enroll a place that can run harness plus dn against a GitHub repository — a paired device, GitHub Actions, or exe.dev.
 ---
 
-A device runner lets denoise send work to a macOS or Linux machine you already
-trust. Source, checkout paths, GitHub credentials, agent credentials, and
-compute stay on that device. Denoise stores GitHub repository slugs and
-readiness only — never local filesystem paths.
+A **runner** is a place that can run an agent harness and `dn` against a GitHub
+repository. Denoise does not run kickstart on the application host. You enroll a
+runner once, then pick it from **Kickstart!** and the milestone **Runners**
+dialog.
 
-Pairing binds the device to **your signed-in account**, not to a milestone or
-GitHub repository. Pair once, then use the same device on any repository you can
-write that has a ready checkout on that machine.
+Pairing a laptop binds the device to **your signed-in account**, not to a
+milestone. GitHub Actions is scoped to the planning repository. An exe.dev
+runner is account-scoped like a device and counts toward the same runner limit
+(1 on Free, 10 on Denoise Pro).
 
-Requires **dn 0.0.37** or newer on the device. See
-[dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/) for current
+Requires **dn 0.0.37** or newer on paired devices. See
+[dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/) for current CLI
 guidance.
+
+## Providers
+
+| Provider | Where it runs | Enroll | Operations | Credentials |
+| --- | --- | --- | --- | --- |
+| Device | Paired macOS or Linux machine | Pairing code + `dn runner connect` | Kickstart, land, sync, denoise-task, task-sync | Stay on the device |
+| GitHub Actions | Planning repository workflows | Install/update `dn` workflows | Kickstart with `--publish pr` | Repository secrets |
+| exe.dev | Ephemeral VM from [dn-images](https://github.com/chesapeakedev/dn-images) | Connect `EXE_TOKEN` in **Runners** | Kickstart with `--publish pr` | Your exe.dev token plus harness keys you connect |
+
+Denoise never silently moves a job from one runner to another. Unavailable
+runners stay visible with a reason. Self-hosted GitHub Actions hardware is a
+separate advanced path:
+[Self-hosted runners](/operations/self-hosted-runners/).
+
+Docker is isolation **on a device or local CLI**, not a runner you enroll. See
+[Sandbox execution](/dn/sandbox/).
+
+The rest of this page is the **device** provider: pairing, checkout
+registration, land/sync, and the local security boundary. GitHub Actions setup
+lives in the **Runners** dialog and
+[GitHub integration](/denoise/github-integration/). exe.dev enroll is Connect
+token in the same dialog. Kickstart! picks among enrolled runners — see
+[Kickstart runtimes](/denoise/kickstart-runtimes/).
 
 Device runners accept kickstart jobs, **land** jobs (`dn land` on the paired
 checkout), **sync** jobs (`dn sync` on the paired checkout; trunk quality
@@ -42,10 +66,11 @@ dn task show <id> --json
 dn kickstart --denoise-task ~/.dn/tasks/<id>.json --publish none
 ```
 
-Runner limits: **1** active device on Free, **10** on Denoise Pro (including
-org-seat Pro). Pair from The Void **Devices** flow or from a GitHub-linked
-milestone in denoise (**Profile** → **Runners**). Profile settings point you to
-that milestone dialog; they do not create pairing codes.
+Runner limits: **1** active device-or-exe.dev runner on Free, **10** on Denoise
+Pro (including org-seat Pro). GitHub Actions does not consume that slot. Pair
+from The Void **Devices** flow or from a GitHub-linked milestone in denoise
+(**Profile** → **Runners**). Profile settings point you to that milestone dialog;
+they do not create pairing codes.
 
 ## Pair and prepare a device
 
@@ -98,13 +123,34 @@ their outcomes, and recommended next steps.
 
 ![Runner history on the Profile Runners panel](../../../assets/screenshots/account-runners-history.png)
 
+Pairing stores a credential. Denoise stays offline until a `dn runner serve`
+loop heartbeats over HTTPS. The user service is that same outbound loop.
+Denoise does not open an inbound port on the device.
+
+### User service vs foreground serve
+
+Use the launchd or systemd user service after `dn runner connect <code>
+--install` or a later `dn runner install`. Check `dn runner doctor` and `dn
+runner status`: the device is online when the service check passes.
+
+Run `dn runner serve` in a terminal only for diagnostics, after pairing without
+`--install`, or when the user service has stopped. Do not run both. If the
+user service is already running, `dn runner serve` refuses to start.
+
+```bash
+dn runner stop
+dn runner serve
+```
+
+Return to the background loop with `dn runner start`. After upgrading `dn`,
+run `dn runner install` so the unit file uses the current binary and `PATH`.
+
 ## Run kickstart, land, and sync
 
 In the milestone **Runners** dialog or the task **Kickstart!** confirm dialog,
 choose the named device and an **Execution checkout**. A busy device claims one
 job at a time. An offline device can retain a queued job for up to 24 hours and
-claim it after reconnecting. Denoise never silently moves a device job to hosted
-compute.
+claim it after reconnecting.
 
 After a leave-local kickstart, **Land** and **Sync** in the task dialog queue
 `dn land` and `dn sync` on that same checkout. Sync always runs `sync.preflight`
@@ -120,7 +166,7 @@ the execution repository. The execution slug must already be registered and
 ready on the device.
 
 Device runners report progress with **NDJSON** over the device job API (not the
-shared HTTP bootstrap used by GitHub Actions, Cursor Cloud, and exe.dev). See
+shared HTTP bootstrap used by GitHub Actions and exe.dev). See
 [Kickstart runtimes](/denoise/kickstart-runtimes/) and
 [Progress reporting](/dn/progress-reporting/).
 
@@ -190,6 +236,9 @@ then wait for the next heartbeat:
 dn runner status --json
 dn runner jobs --json
 dn runner doctor --json
+dn runner install
+dn runner start
+dn runner stop
 dn runner pause --json
 dn runner resume --json
 dn runner rotate --json
@@ -197,10 +246,11 @@ dn runner unregister owner/repo --json
 dn runner disconnect --json
 ```
 
-The JSON forms have stable object output for agents. `pause` stops new claims;
-`resume` enables them. `rotate` replaces the device credential. `unregister`
-removes checkout trust. `disconnect` revokes the credential, stops the service,
-and removes the local credential file.
+The JSON forms have stable object output for agents. `install` writes and starts
+the user service. `start` loads it; `stop` unloads it and leaves the unit file
+in place. `pause` stops new claims; `resume` enables them. `rotate` replaces the
+device credential. `unregister` removes checkout trust. `disconnect` revokes the
+credential, stops the service, and removes the local credential file.
 
 For example, automation can inspect readiness and recent work without parsing
 human status text:
@@ -218,7 +268,14 @@ human status text:
     "paused": false,
     "repositories": [{ "repository": "owner/project", "ready": true }],
     "harnesses": ["codex"],
-    "docker": true
+    "docker": true,
+    "service": {
+      "installed": true,
+      "running": true,
+      "supervisor": "launchd",
+      "path": "/Users/alex/Library/LaunchAgents/cloud.denoise.runner.plist",
+      "pid": 4242
+    }
   }
 }
 ```
@@ -282,10 +339,11 @@ overrides and harness authentication. Reconnect after an expired credential.
 Upgrade `dn` when the server reports an unsupported protocol version. Register
 the execution checkout when the picker has no ready slug — denoise does not
 clone it. If a checkout is missing from the picker, confirm GitHub access to
-that repository.
+that repository. The doctor output also reports whether a serve loop is running.
 
 ```bash
-# Foreground diagnostics
+# Stop the user service before a foreground diagnostic loop
+dn runner stop
 dn runner serve
 
 # macOS service errors
