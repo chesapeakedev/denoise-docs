@@ -381,8 +381,9 @@ journalctl --user -u denoise-runner.service -f
 An exe.dev card that stays **Offline** with a VM name still listed means serve
 is not heartbeating. Refresh only re-reads the last check-in. If `ssh exe.dev
 ls` still shows the pet, SSH in and confirm `dn runner serve` is PID 1. If the
-pet is gone, Create VM, then retry Kickstart — do not wait for the 24-hour
-queue expiry.
+pet is gone, **Create VM**. A queued Kickstart stays in the queue for up to 24
+hours and can be picked up by any of your exe.dev VMs — not by a paired
+laptop. Do not Kickstart again.
 
 Command locations, production `make prod_logs`, and how to tell a laptop claim
 from an exe.dev claim:

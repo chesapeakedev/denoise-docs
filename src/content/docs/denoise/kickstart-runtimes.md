@@ -21,12 +21,17 @@ Actions workflows, and connecting exe.dev.
 
 Preflight availability is listed at `GET /api/kickstart/runtimes?owner=&repo=`
 and shown in the confirm dialog. Unavailable options stay visible with a short
-reason. Denoise never silently moves a job to a different runner.
+reason. Kickstart chooses an affinity. exe.dev VMs are a pool: a queued
+Kickstart can be claimed by any of your exe.dev VMs (same account, same
+personal or org scope). Paired devices are not a pool — hardware and
+checkouts differ, so those jobs stay on the device you picked. Land and
+sync always stay on the runner they were queued for.
 
 Device and exe.dev cards use the same badges: **Ready**, **Busy**, **Offline**,
 **Needs setup**. A runner is **Offline** when Denoise has not heard a heartbeat
 for 90 seconds. Kickstart still queues for up to 24 hours. A deleted exe.dev
-pet is **Needs setup**, not Offline — Create VM, then retry.
+pet is **Needs setup**, not Offline — Create VM so serve can pick up a queued
+Kickstart. Do not Kickstart again.
 
 CLI Docker (`dn kickstart --sandbox docker`) is local isolation on a machine you
 already have. It is not a denoise runner. Cursor Cloud is not in the public
