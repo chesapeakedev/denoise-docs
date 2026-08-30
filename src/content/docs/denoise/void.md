@@ -66,7 +66,7 @@ dn task show <id> --json
 
 This store is **not** `dn todo` / `~/.dn/todo.md`. Todo remains the GitHub-issue
 and plan-path kickstart queue. For pairing, readiness, and security boundaries,
-see [Developer device runners](/denoise/device-runners/).
+see [Runners](/denoise/device-runners/).
 
 ## Adding and managing tasks
 
@@ -96,7 +96,7 @@ app, see [Milestone details](/denoise/milestone-details/).
   first milestone
 - [Subscription & Pro](/denoise/subscription-and-pro/) — Free Void vs Pro vs
   Enterprise
-- [Developer device runners](/denoise/device-runners/) — pairing, task-sync, and
+- [Runners](/denoise/device-runners/) — pairing, task-sync, and
   runner limits
 - [Features](/denoise/features/) — Roadmap, milestones, and Pro automation in
   denoise

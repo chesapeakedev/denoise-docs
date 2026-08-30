@@ -20,7 +20,7 @@ describe direction, not a calendar. For a specific shipped release, start with
   [The Void](/denoise/void/).
 - **Developer device runners** — Pair a trusted checkout for Void task-sync and
   typed kickstart on local compute. See
-  [Developer device runners](/denoise/device-runners/).
+  [Runners](/denoise/device-runners/).
 - **Hosted kickstart runtimes** — GitHub Actions (default), Cursor Cloud, and
   exe.dev when configured. See
   [Kickstart runtimes](/denoise/kickstart-runtimes/).

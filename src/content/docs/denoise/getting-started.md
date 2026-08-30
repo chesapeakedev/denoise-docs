@@ -113,5 +113,5 @@ guided tour for your current screen.
   and per-task kickstart on GitHub-linked milestones.
 - Use [Subscription & Pro](/denoise/subscription-and-pro/) for Free vs Pro vs
   Enterprise.
-- Use [Developer device runners](/denoise/device-runners/) when you want Void
+- Use [Runners](/denoise/device-runners/) when you want Void
   task-sync or Pro kickstart on a trusted local checkout.

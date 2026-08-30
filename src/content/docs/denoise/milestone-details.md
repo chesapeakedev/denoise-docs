@@ -54,7 +54,7 @@ On a GitHub-linked Pro milestone, **Runners** opens the default kickstart
 runtime picker and device pairing. Pair a device once to your account, then
 choose an **Execution checkout** for later **Kickstart!** runs. GitHub Actions
 stays on this planning repository. See
-[Developer device runners](/denoise/device-runners/).
+[Runners](/denoise/device-runners/).
 
 ![Add task dialog with title, tags, and description](../../../assets/screenshots/milestone-create-task.png)
 
@@ -250,7 +250,7 @@ For CLI-oriented planning and implementation depth, see
   and Done verbs
 - [Kickstart runtimes](/denoise/kickstart-runtimes/) — Where kickstart runs and
   how progress fidelity works
-- [Developer device runners](/denoise/device-runners/) — Pair a device to your
+- [Runners](/denoise/device-runners/) — Pair a device to your
   account and choose an execution checkout
 - [GitHub integration](/denoise/github-integration/) — Link milestones, sync
   issues, convert tasks to GitHub issues

@@ -1,26 +1,28 @@
 ---
 title: Sandbox execution
-description: Choose host, Docker, exe.dev, Cursor Cloud, or GitHub Actions execution and configure dn sandbox schema 1.1.
+description: Isolate local CLI agent phases with Docker or host execution. Denoise Kickstart! picks a runner, not a sandbox provider.
 ---
 
-Sandbox providers control where local agent phases execute. Host execution is
-the default; Docker provides a reproducible local container and exe.dev provides
-a remote VM. Cursor Cloud and GitHub Actions are separate execution runtimes,
-not `dn` sandbox providers.
+Sandbox settings control how a **local** `dn` process isolates agent phases on
+the machine where you already have a checkout. Host execution is the default.
+Docker bind-mounts that checkout into a container from
+[dn-images](https://github.com/chesapeakedev/dn-images).
 
-On **hosted denoise**, kickstart runtimes are GitHub Actions, Cursor Cloud,
-exe.dev, and paired device runners — not Docker and not the denoise application
-host. See [Kickstart runtimes](/denoise/kickstart-runtimes/).
+This is **not** how denoise chooses where Kickstart! runs. Denoise assigns jobs
+to a [runner](/denoise/device-runners/) (device, GitHub Actions, or exe.dev).
+See [Kickstart runtimes](/denoise/kickstart-runtimes/).
 
-## Choose a runtime
+CLI `dn --sandbox exe.dev` still git-syncs from a laptop checkout into an
+exe.dev VM. Denoise exe.dev jobs do **not** use that path: they boot a dn-images
+VM, clone inside it, and run `dn kickstart` there.
 
-| Runtime        | Best for                                          | Workspace behavior                   |
+## Choose local isolation
+
+| Mode           | Best for                                          | Workspace behavior                   |
 | -------------- | ------------------------------------------------- | ------------------------------------ |
-| Host           | Trusted work with local tools and credentials     | Changes the current checkout         |
+| Host (`none`)  | Trusted work with local tools and credentials     | Changes the current checkout         |
 | Docker         | Reproducible local tools and reduced blast radius | Bind-mounts the checkout             |
-| exe.dev        | Stronger remote isolation                         | Syncs through a temporary Git branch |
-| Cursor Cloud   | Durable Cursor-managed execution                  | Works in a remote clone              |
-| GitHub Actions | Repository automation and scheduled work          | Uses an ephemeral Actions checkout   |
+| exe.dev (CLI)  | Stronger remote isolation from a local checkout   | Syncs through a temporary Git branch |
 
 ## Configure schema 1.1
 

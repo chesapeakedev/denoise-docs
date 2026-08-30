@@ -63,7 +63,7 @@ required release.
 For current **dn 0.0.37** guidance, published artifact status, and developer
 device runners, see
 [dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/). Pair a laptop
-with denoise using [Developer device runners](/denoise/device-runners/).
+with denoise using [Runners](/denoise/device-runners/).
 
 ## Build from source
 
