@@ -121,5 +121,9 @@ issues, and collaborator visibility predictable.
 - GitHub Actions stays on the planning repository. A device runner can execute
   in a different registered checkout when you have GitHub write access there.
 - Use `dn` **0.0.37** or newer for the device-runner protocol. See
-  [Developer device runners](/denoise/device-runners/) and
+  [Runners](/denoise/device-runners/) and
   [dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/).
+- exe.dev uses the same Kickstart job queue as a paired device. **Offline**
+  means no heartbeat for 90 seconds; jobs still queue for 24 hours. If you
+  deleted the pet at exe.dev, Create VM. Serve and production log locations:
+  [Runner logs](/operations/runner-logs/).

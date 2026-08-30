@@ -152,7 +152,7 @@ export default defineConfig({
             },
             { label: "GitHub integration", slug: "denoise/github-integration" },
             {
-              label: "Developer device runners",
+              label: "Runners",
               slug: "denoise/device-runners",
             },
             {
@@ -167,6 +167,10 @@ export default defineConfig({
             {
               label: "Self-hosted runners",
               slug: "operations/self-hosted-runners",
+            },
+            {
+              label: "Runner logs",
+              slug: "operations/runner-logs",
             },
             { label: "v0.0.34 migration", slug: "dn/v0034-migration" },
           ],

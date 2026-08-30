@@ -1,25 +1,36 @@
 ---
 title: Kickstart runtimes
-description: Where denoise runs kickstart — GitHub Actions, Cursor Cloud, exe.dev, device runners, and CLI Docker.
+description: Kickstart! picks a runner — GitHub Actions, a paired device, or exe.dev — not a parallel runtime type.
 ---
 
-When you click **Kickstart!** on a task, denoise asks where the run should
-execute. Choose a runtime that matches your isolation and credential needs.
-Denoise does **not** run kickstart on the denoise application host.
+When you click **Kickstart!** on a task, denoise asks **which runner** should
+execute. Every choice is an enrolled runner with a provider. Denoise does
+**not** run kickstart on the denoise application host.
 
-## Supported matrix
+Enroll runners in the milestone **Runners** dialog. See
+[Runners](/denoise/device-runners/) for pairing a device, installing GitHub
+Actions workflows, and connecting exe.dev.
 
-| Runtime          | Where it runs              | Progress                          | Prerequisites                                                     |
-| ---------------- | -------------------------- | --------------------------------- | ----------------------------------------------------------------- |
-| `github_actions` | Target repo GitHub Actions | HTTP if base URL set; else coarse | Agent secrets; `KICKSTART_PROGRESS_BASE_URL` for detailed         |
-| `cursor_cloud`   | Cursor-managed VM          | HTTP                              | `CURSOR_API_KEY` + progress base URL on denoise                   |
-| `cloud_vm`       | exe.dev sandbox VM         | HTTP                              | `EXE_TOKEN` + progress base URL (+ managed checkout for launcher) |
-| `device_runner`  | Paired developer laptop    | NDJSON via device job API         | User-paired device; registered execution checkout                 |
-| Docker           | Your machine via CLI only  | N/A on hosted denoise             | `dn kickstart --sandbox docker` locally                           |
+## Supported runners
+
+| Provider | Where it runs | Progress | Prerequisites |
+| --- | --- | --- | --- |
+| GitHub Actions | Planning repo workflows | HTTP if base URL set; else coarse | Installed `dn` workflows; agent repository secrets |
+| Device | Paired macOS or Linux checkout | NDJSON via the device job API | Paired device; registered execution checkout |
+| exe.dev | Persistent VM from `ghcr.io/chesapeakedev/dn:<harness>` | NDJSON via the same job API | Connected `EXE_TOKEN` (`new`, `ls`, `rm`); harness key; reachable progress base URL |
 
 Preflight availability is listed at `GET /api/kickstart/runtimes?owner=&repo=`
 and shown in the confirm dialog. Unavailable options stay visible with a short
-reason.
+reason. Denoise never silently moves a job to a different runner.
+
+Device and exe.dev cards use the same badges: **Ready**, **Busy**, **Offline**,
+**Needs setup**. A runner is **Offline** when Denoise has not heard a heartbeat
+for 90 seconds. Kickstart still queues for up to 24 hours. A deleted exe.dev
+pet is **Needs setup**, not Offline — Create VM, then retry.
+
+CLI Docker (`dn kickstart --sandbox docker`) is local isolation on a machine you
+already have. It is not a denoise runner. Cursor Cloud is not in the public
+chooser.
 
 ## Progress fidelity
 
@@ -31,24 +42,29 @@ reason.
   Actions when the denoise deploy has no public `KICKSTART_PROGRESS_BASE_URL`.
   Land and Sync on a device runner are coarse.
 
-Shared HTTP bootstrap details: [Progress reporting](/dn/progress-reporting/).
+Device and exe.dev kickstart both post NDJSON on the job progress route. Shared
+HTTP bootstrap (GitHub Actions) details:
+[Progress reporting](/dn/progress-reporting/).
+
+The Kickstart panel is phases, not a full agent dump. Serve stdout lives on the
+runner. See [Runner logs](/operations/runner-logs/).
 
 ## Notes
 
-- Managed Cursor Cloud and exe.dev launches still use a server-side checkout
-  under `KICKSTART_RUNNER_WORKSPACE_ROOT` only to **start** `dn` with
-  `--cursor-cloud` or `--sandbox exe.dev`. Agent work runs in the remote
-  environment, not as untrusted code on the denoise app process.
-- Device jobs never fall back silently to hosted compute. Pair a device to your
-  account once, then pick an **Execution checkout** in the kickstart dialog.
-  GitHub Actions stays on the planning repository; a device runner can execute
-  in a different registered checkout. See
-  [Developer device runners](/denoise/device-runners/).
-- Historical runs may still show a legacy `local` source label in progress
-  history; new dispatches reject that source.
+- **GitHub Actions** always publishes a pull request on the planning repository.
+- A **device** runner can execute in a different registered checkout. After
+  leave-local kickstart, Land and Sync run on that checkout.
+- **exe.dev** reuses one [dn-images](https://github.com/chesapeakedev/dn-images)
+  VM. The VM clones the execution repo at claim time and runs kickstart inside
+  the image with `--publish pr`. Denoise does not keep a launcher checkout and
+  does not call host `dn --sandbox exe.dev`. Disconnect destroys the VM.
+- Historical runs may still show a legacy `local` or `cloud_vm` source label in
+  progress history; new dispatches reject `local`.
 
 ## Related
 
+- [Runners](/denoise/device-runners/)
+- [Runner logs](/operations/runner-logs/)
 - [Milestone details — Kickstart a task](/denoise/milestone-details/#kickstart-a-task)
 - [Kickstart, land, sync, and done](/close-out/)
 - [Sandbox execution](/dn/sandbox/)

@@ -23,7 +23,7 @@ guidance.
 | --- | --- | --- | --- | --- |
 | Device | Paired macOS or Linux machine | Pairing code + `dn runner connect` | Kickstart, land, sync, denoise-task, task-sync | Stay on the device |
 | GitHub Actions | Planning repository workflows | Install/update `dn` workflows | Kickstart with `--publish pr` | Repository secrets |
-| exe.dev | Ephemeral VM from [dn-images](https://github.com/chesapeakedev/dn-images) | Connect `EXE_TOKEN` in **Runners** | Kickstart with `--publish pr` | Your exe.dev token plus harness keys you connect |
+| exe.dev | Persistent VM from [dn-images](https://github.com/chesapeakedev/dn-images) | Connect `EXE_TOKEN` in **Runners** | Kickstart with `--publish pr` | Your exe.dev token plus harness keys you connect |
 
 Denoise never silently moves a job from one runner to another. Unavailable
 runners stay visible with a reason. Self-hosted GitHub Actions hardware is a
@@ -33,12 +33,13 @@ separate advanced path:
 Docker is isolation **on a device or local CLI**, not a runner you enroll. See
 [Sandbox execution](/dn/sandbox/).
 
-The rest of this page is the **device** provider: pairing, checkout
-registration, land/sync, and the local security boundary. GitHub Actions setup
+The rest of this page covers **device** pairing, checkout registration, land/sync,
+and the local security boundary, then **exe.dev** enroll. GitHub Actions setup
 lives in the **Runners** dialog and
-[GitHub integration](/denoise/github-integration/). exe.dev enroll is Connect
-token in the same dialog. Kickstart! picks among enrolled runners — see
-[Kickstart runtimes](/denoise/kickstart-runtimes/).
+[GitHub integration](/denoise/github-integration/). Kickstart! picks among
+enrolled runners — see [Kickstart runtimes](/denoise/kickstart-runtimes/).
+Contributor log locations for both providers:
+[Runner logs](/operations/runner-logs/).
 
 Device runners accept kickstart jobs, **land** jobs (`dn land` on the paired
 checkout), **sync** jobs (`dn sync` on the paired checkout; trunk quality
@@ -165,8 +166,8 @@ in B. You need GitHub read access to the issue repository and write access to
 the execution repository. The execution slug must already be registered and
 ready on the device.
 
-Device runners report progress with **NDJSON** over the device job API (not the
-shared HTTP bootstrap used by GitHub Actions and exe.dev). See
+Device runners and exe.dev report progress with **NDJSON** over the same device
+job API. GitHub Actions uses the shared HTTP bootstrap. See
 [Kickstart runtimes](/denoise/kickstart-runtimes/) and
 [Progress reporting](/dn/progress-reporting/).
 
@@ -309,6 +310,29 @@ State lives under `~/.dn/runner/`: `credential.json`, `config.json`, and on
 macOS `runner.log` and `runner.error.log`. The directory is mode `0700`;
 credential and config files are `0600`.
 
+## Connect an exe.dev runner
+
+An exe.dev runner is the same Kickstart job queue as a paired device, on a
+persistent cloud VM. Denoise does not SSH into the pet. Connect uses `new`,
+`ls`, and `rm` only. The VM clones `/workspace/{owner}/{repo}` when it claims a
+job. Publish is `--publish pr`. Land and Sync stay on a device checkout.
+
+1. Open a GitHub-linked milestone and click **Runners**.
+2. Select **exe.dev**. Paste an `EXE_TOKEN` with `new`, `ls`, and `rm` scopes
+   and the agent key for the harness image.
+3. Click **Connect**. Denoise creates one VM (`dn-` plus a short runner id) and
+   reuses it. **Disconnect** destroys that VM.
+4. Wait until the card shows **Ready** and a recent last heartbeat. The VM is
+   **Offline** when Denoise has not heard from `dn runner serve` for 90
+   seconds. Kickstart still queues for up to 24 hours, the same as a laptop.
+5. If you deleted the pet in the exe.dev dashboard, refresh **Runners** so
+   Denoise forgets the name, then **Create VM**.
+
+The Denoise-stored token cannot SSH. To inspect the pet yourself, use an
+exe.dev login that owns it (`ssh exe.dev ls`, then `ssh <vmName>.exe.xyz` as
+user `dn`). PID 1 is `dn runner serve`. See
+[Runner logs](/operations/runner-logs/).
+
 ## Security boundary
 
 - The service makes outbound authenticated HTTPS requests and opens no inbound
@@ -346,12 +370,23 @@ that repository. The doctor output also reports whether a serve loop is running.
 dn runner stop
 dn runner serve
 
-# macOS service errors
+# macOS service stdout / stderr
+tail -f ~/.dn/runner/runner.log
 tail -f ~/.dn/runner/runner.error.log
 
 # Linux service logs
 journalctl --user -u denoise-runner.service -f
 ```
+
+An exe.dev card that stays **Offline** with a VM name still listed means serve
+is not heartbeating. Refresh only re-reads the last check-in. If `ssh exe.dev
+ls` still shows the pet, SSH in and confirm `dn runner serve` is PID 1. If the
+pet is gone, Create VM, then retry Kickstart — do not wait for the 24-hour
+queue expiry.
+
+Command locations, production `make prod_logs`, and how to tell a laptop claim
+from an exe.dev claim:
+[Runner logs](/operations/runner-logs/).
 
 For arbitrary Actions workflows and GitHub-native runner controls, use the
 advanced
