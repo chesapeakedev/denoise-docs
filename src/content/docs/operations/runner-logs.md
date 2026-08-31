@@ -26,7 +26,7 @@ is not the exe.dev pet.
 | Symptom | First log |
 | --- | --- |
 | Device **Offline** | Laptop `runner.log` / `journalctl`, then `dn runner doctor` |
-| exe.dev **Offline**, VM still listed | Personal `ssh exe.dev ls`, then VM PID 1 console |
+| exe.dev **Offline**, VM still listed | `make exe_dev_status VM=<vm>` then `make exe_dev_journal VM=<vm>` |
 | exe.dev **Needs setup**, no VM name | Pet gone from `ls`; Create VM in **Runners** |
 | Queued, no phases, fresh heartbeat | Serve is up but not claiming this `runner_id` |
 | Running, no phases | `github-token`, clone, or progress POST |
@@ -64,22 +64,42 @@ Hung macOS processes (kickstart or Deno not exiting):
 ## exe.dev VM
 
 The Denoise-stored `EXE_TOKEN` can run `new`, `ls`, and `rm` only. It cannot
-SSH. Use an exe.dev account that owns the pet:
+SSH. Use an exe.dev account that owns the pet.
+
+New images boot systemd as PID 1. Serve is the linger user unit
+`denoise-runner.service`, same as a Linux laptop. Prefer systemd over `ps`.
+From the denoise repo:
+
+```bash
+make exe_dev_ls
+make exe_dev_status VM=<vmName>
+make exe_dev_journal VM=<vmName>
+JOURNAL_FOLLOW=1 make exe_dev_journal VM=<vmName>
+make exe_dev_failed VM=<vmName>
+make exe_dev_doctor VM=<vmName>
+make exe_dev_serve VM=<vmName>
+```
+
+Those targets set `XDG_RUNTIME_DIR` so non-login SSH can reach the user bus.
+Without it, `systemctl --user` fails with “Failed to connect to bus”.
+
+Raw one-shot SSH (do not use `ssh exe.dev ssh VM -- cmd`; `--` is passed to
+bash):
 
 ```bash
 ssh exe.dev ls
-ssh <vmName>.exe.xyz
-# or: ssh exe.dev ssh <vmName> -- ps -ef
+ssh <vmName>.exe.xyz 'systemctl is-system-running'
+ssh <vmName>.exe.xyz 'cat /proc/1/cmdline' | tr '\0' ' '; echo
+ssh <vmName>.exe.xyz 'systemctl --failed --no-pager'
+ssh <vmName>.exe.xyz 'export XDG_RUNTIME_DIR=/run/user/$(id -u); export DBUS_SESSION_BUS_ADDRESS=unix:path=$XDG_RUNTIME_DIR/bus; systemctl --user status denoise-runner.service --no-pager -l'
+ssh <vmName>.exe.xyz 'export XDG_RUNTIME_DIR=/run/user/$(id -u); export DBUS_SESSION_BUS_ADDRESS=unix:path=$XDG_RUNTIME_DIR/bus; journalctl --user -u denoise-runner.service -n 80 --no-pager'
+ssh <vmName>.exe.xyz 'export XDG_RUNTIME_DIR=/run/user/$(id -u); export DBUS_SESSION_BUS_ADDRESS=unix:path=$XDG_RUNTIME_DIR/bus; dn runner doctor'
 ```
 
-Login user is `dn`. Current images run `dn runner serve` as PID 1. That
-console is the serve log; `~/.dn/runner/runner.log` is the laptop LaunchAgent
-path and is not where the pet writes. `/tmp/dn-runner.log` exists only on the
-old nohup fallback.
-
-If PID 1 is `sleep infinity`, the image booted without `DN_RUNNER_CREDENTIAL`
-(recreate the VM from **Runners**). If `last_seen_at` is stale and `ls` still
-lists the pet, serve is not looping.
+Login user is `dn`. PID 1 `exe-init` is the old image: Create VM after the
+systemd image is published. `/tmp/dn-runner.log` exists only on the nohup
+fallback. `~/.dn/runner/runner.log` is the laptop LaunchAgent path. If
+`last_seen_at` is stale and `ls` still lists the pet, serve is not looping.
 
 ## denoise.cloud (contributors)
 
