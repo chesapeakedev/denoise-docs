@@ -29,17 +29,17 @@ is deployed. You choose which repositories and organizations denoise can access.
 
 After sign-in, manage access from **Profile**:
 
-| Action                  | When to use                                                                                                    |
-| ----------------------- | -------------------------------------------------------------------------------------------------------------- |
-| **Switch Accounts**     | Use a different GitHub account.                                                                                |
+| Action                  | When to use                                                                                                  |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------ |
+| **Switch Accounts**     | Use a different GitHub account.                                                                              |
 | **Update repos & orgs** | Open GitHub to choose which repos and orgs denoise can access for milestones, issues, and workflow dispatch. |
 
 ![GitHub account access and repo setup checklist in Profile](../../../assets/screenshots/account-github-settings.png)
 
-When GitHub is connected, the same card includes a **Repo setup checklist for
-dn actions**: pair a runner or install workflows from a linked milestone, add
-the Actions secret for that agent when you use GitHub Actions, then kickstart
-once a runner shows Ready.
+When GitHub is connected, the same card includes a **Repo setup checklist for dn
+actions**: pair a runner or install workflows from a linked milestone, add the
+Actions secret for that agent when you use GitHub Actions, then kickstart once a
+runner shows Ready.
 
 You can also review installations at
 [github.com/settings/installations](https://github.com/settings/installations).

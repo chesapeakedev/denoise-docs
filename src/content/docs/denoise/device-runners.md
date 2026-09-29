@@ -127,24 +127,23 @@ effect. Example user config:
 Clearing `defaults.agent` (or deleting `~/.dn/config.json` when you do not need
 other defaults) lets the Denoise preference apply. Heartbeats re-probe
 readiness, so you do not need to restart the runner after a config change for
-the UI message to update—though a running job already claimed keeps its
-resolved agent.
+the UI message to update—though a running job already claimed keeps its resolved
+agent.
 
-Agent credentials stay on the device. Denoise never receives API keys. If the
-UI reports a harness is installed but not authenticated, sign in with that
-CLI, then wait for the next heartbeat:
+Agent credentials stay on the device. Denoise never receives API keys. If the UI
+reports a harness is installed but not authenticated, sign in with that CLI,
+then wait for the next heartbeat:
 
-| Agent | Guide |
-| ----- | ----- |
-| Cursor | [Local authentication](/cookbooks/cursor/#local-authentication) |
-| Claude Code | [Local authentication](/cookbooks/claude-code/#local-authentication) |
-| Codex | [Local authentication](/cookbooks/codex/#local-authentication) |
-| OpenCode | [Local authentication](/cookbooks/opencode/#local-authentication) |
+| Agent          | Guide                                                                   |
+| -------------- | ----------------------------------------------------------------------- |
+| Cursor         | [Local authentication](/cookbooks/cursor/#local-authentication)         |
+| Claude Code    | [Local authentication](/cookbooks/claude-code/#local-authentication)    |
+| Codex          | [Local authentication](/cookbooks/codex/#local-authentication)          |
+| OpenCode       | [Local authentication](/cookbooks/opencode/#local-authentication)       |
 | GitHub Copilot | [Local authentication](/cookbooks/github-copilot/#local-authentication) |
 
-`dn runner doctor --json` includes the same `agent_readiness` block the UI
-uses (config present, local agent source, and per-harness install/auth
-booleans).
+`dn runner doctor --json` includes the same `agent_readiness` block the UI uses
+(config present, local agent source, and per-harness install/auth booleans).
 
 ## Operate and automate
 
