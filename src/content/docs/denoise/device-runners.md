@@ -30,7 +30,7 @@ dn kickstart --denoise-task ~/.dn/tasks/<id>.json --publish none
 
 Runner limits: **1** active device on Free, **10** on Denoise Pro (including
 org-seat Pro). Pair from The Void **Devices** flow or denoise
-**Settings > Runners**.
+**Profile** → **Runners**.
 
 ## Pair and prepare a device
 
@@ -38,8 +38,8 @@ The device needs `dn`, outbound HTTPS, a GitHub checkout (for repository
 kickstart), and a supported agent harness. Run the service as your normal login
 user.
 
-1. Open **Settings > Runners** in denoise (or **Devices** in The Void) and
-   create a pairing code.
+1. In denoise, open **Profile** → **Runners** and click **Pair a device**. In
+   The Void, open **Devices**. Either flow creates a pairing code.
 2. Run:
 
    ```bash
@@ -68,6 +68,13 @@ The UI distinguishes paired, online, and repository-ready devices. `--install`
 creates `~/Library/LaunchAgents/cloud.denoise.runner.plist` on macOS or
 `~/.config/systemd/user/denoise-runner.service` on Linux.
 
+![Runners panel in Profile with a paired device, preferred agent, and recent jobs](../../../assets/screenshots/account-runners-panel.png)
+
+On the same panel, **View runner history** opens recent local and cloud runs,
+their outcomes, and recommended next steps.
+
+![Runner history on the Profile Runners panel](../../../assets/screenshots/account-runners-history.png)
+
 ## Run kickstart
 
 Select the named device in the kickstart runtime picker. A busy device claims
@@ -89,6 +96,55 @@ dn runner kickstart 213 --publish pr --json
 ```
 
 The issue must belong to an explicitly registered repository.
+
+## Agent preference
+
+In **Settings → Runners**, each paired device has a **Preferred agent** control
+(OpenCode, Cursor, Claude Code, Codex, or GitHub Copilot when that CLI is
+installed on the device). Denoise stamps that preference on queued jobs.
+
+The device still decides which agent actually runs:
+
+1. Local selection wins: `DN_AGENT` / `*_ENABLED`, then `defaults.agent` in
+   `~/.dn/config.json` (or a `repos[owner/repo]` override), then project
+   `dn.json`
+2. Else Denoise's stamped preference (or the first advertised harness)
+3. Else OpenCode
+
+If the Runners UI shows that a local config or environment agent will override
+your preference, edit or remove that local default so the UI control takes
+effect. Example user config:
+
+```json
+{
+  "schema_version": "2.0",
+  "defaults": {
+    "agent": "cursor"
+  }
+}
+```
+
+Clearing `defaults.agent` (or deleting `~/.dn/config.json` when you do not need
+other defaults) lets the Denoise preference apply. Heartbeats re-probe
+readiness, so you do not need to restart the runner after a config change for
+the UI message to update—though a running job already claimed keeps its
+resolved agent.
+
+Agent credentials stay on the device. Denoise never receives API keys. If the
+UI reports a harness is installed but not authenticated, sign in with that
+CLI, then wait for the next heartbeat:
+
+| Agent | Guide |
+| ----- | ----- |
+| Cursor | [Local authentication](/cookbooks/cursor/#local-authentication) |
+| Claude Code | [Local authentication](/cookbooks/claude-code/#local-authentication) |
+| Codex | [Local authentication](/cookbooks/codex/#local-authentication) |
+| OpenCode | [Local authentication](/cookbooks/opencode/#local-authentication) |
+| GitHub Copilot | [Local authentication](/cookbooks/github-copilot/#local-authentication) |
+
+`dn runner doctor --json` includes the same `agent_readiness` block the UI
+uses (config present, local agent source, and per-harness install/auth
+booleans).
 
 ## Operate and automate
 
@@ -177,7 +233,8 @@ minutes, and one hosted run avoided. It does not estimate dollar savings.
 ## Troubleshoot
 
 Run `dn runner doctor`; it checks credential expiry, protocol support, installed
-harnesses, and repository remotes. Reconnect after an expired credential.
+harnesses, repository remotes, and (in JSON) `agent_readiness` for local agent
+overrides and harness authentication. Reconnect after an expired credential.
 Upgrade `dn` when the server reports an unsupported protocol version. Register
 the correct checkout when the remote does not match.
 

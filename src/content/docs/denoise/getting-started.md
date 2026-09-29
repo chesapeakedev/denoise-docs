@@ -80,9 +80,11 @@ See [The Void](/denoise/void/) for local sync and ticketless kickstart.
 On the Roadmap:
 
 1. Click **New milestone**.
-2. Enter a name and optional description, then click **Create**.
+2. Enter a name, choose a **Kickstart publish default** (**Pull request** or
+   **Direct to trunk**), and add an optional description and due date. Then
+   click **Create**.
 
-![Create Milestone dialog](../../../assets/screenshots/create-milestone.png)
+![Create Milestone dialog with name, kickstart publish default, description, and due date](../../../assets/screenshots/create-milestone.png)
 
 3. Open the milestone from the roadmap list.
 4. Click **Add task** in the milestone header.

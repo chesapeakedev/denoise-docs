@@ -87,7 +87,7 @@ issues, and collaborator visibility predictable.
 - **Missing repository access** — In **Profile**, use **Update repos & orgs** to
   grant denoise access to the linked repository.
 
-  ![Update repos and orgs in Profile](../../../assets/screenshots/account-github-settings.png)
+  ![GitHub account access and Update repos & orgs in Profile](../../../assets/screenshots/account-github-settings.png)
 
 ### Changes aren't syncing to GitHub
 

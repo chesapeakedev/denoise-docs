@@ -44,8 +44,8 @@ Signing in at denoise.cloud without Pro lands on `/subscribe`. The gate offers
 
 ## Pair a device for local sync
 
-1. Open The Void and use the **Devices** flow (or denoise
-   **Settings > Runners**) to create a pairing code.
+1. Open The Void and use the **Devices** flow (or denoise **Profile** →
+   **Runners** → **Pair a device**) to create a pairing code.
 2. On the laptop, run:
 
    ```bash

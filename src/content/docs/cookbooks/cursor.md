@@ -182,6 +182,24 @@ dn workflows validate --json
 Secret validation is best-effort; confirm the secret exists in **Settings →
 Secrets and variables → Actions**.
 
+## Local authentication
+
+For [device runners](/denoise/device-runners/#agent-preference) and interactive
+local use, authenticate the Cursor CLI on the machine that runs kickstart:
+
+```bash
+agent login
+```
+
+Or set an API key and confirm status:
+
+```bash
+export CURSOR_API_KEY="your-cursor-api-key"
+agent status
+```
+
+Unattended CI still uses the `CURSOR_API_KEY` repository secret (below).
+
 ## Step 4 — Verify locally (recommended)
 
 Before relying on CI, confirm the Cursor CLI authenticates from your machine:

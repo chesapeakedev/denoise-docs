@@ -346,6 +346,18 @@ OpenCode also lists Deep Infra as a built-in provider (`/connect` in the TUI).
 That path stores credentials interactively for local development. For unattended
 CI, use the explicit `provider` block with `{env:OPENAI_API_KEY}`.
 
+## Local authentication
+
+For [device runners](/denoise/device-runners/#agent-preference) and interactive
+local use, configure a provider in OpenCode (TUI `/connect` or
+`~/.config/opencode/`) or export a provider API key on the machine that runs
+kickstart:
+
+```bash
+export OPENAI_API_KEY="your-api-token"
+# or ANTHROPIC_API_KEY / other provider keys your opencode.json expects
+```
+
 ## Verify locally
 
 Before relying on CI, confirm OpenCode reaches your provider:

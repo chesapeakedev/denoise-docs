@@ -6,6 +6,21 @@ description: Install dn as a portable Copilot skill, then complete a GitHub issu
 This guide installs the portable `dn` skill and uses GitHub Copilot CLI as the
 interface for an end-to-end `kickstart` run.
 
+## Local authentication
+
+For [device runners](/denoise/device-runners/#agent-preference) and interactive
+local use, install Copilot CLI and sign in on the machine that runs kickstart:
+
+```bash
+npm install -g @github/copilot
+copilot
+# run /login if prompted
+```
+
+Copilot may reuse an existing GitHub CLI login (`gh auth login`). See
+[Installing GitHub Copilot CLI](https://docs.github.com/en/copilot/how-tos/copilot-cli/set-up-copilot-cli/install-copilot-cli)
+for other installation methods.
+
 ## 1. Install and sign in to Copilot CLI
 
 Copilot CLI requires an active GitHub Copilot plan. Install it with npm:

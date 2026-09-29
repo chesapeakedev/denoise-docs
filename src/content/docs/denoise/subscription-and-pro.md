@@ -56,8 +56,6 @@ for setup steps.
    `/subscribe`).
 3. Under **Plan & billing**, view your current plan or upgrade.
 
-![Profile page with Display Settings; Plan & billing appears above this section](../../../assets/screenshots/account-display-settings.png)
-
 After Stripe Checkout, the app polls until billing status updates (webhooks can
 lag briefly). A success toast confirms when Pro is active.
 

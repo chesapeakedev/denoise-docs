@@ -96,10 +96,12 @@ hours).
 Milestones help you organize tasks into groups or projects:
 
 1. On the **Roadmap**, click **New milestone**.
-2. Enter a name and optional description, then click **Create**.
+2. Enter a name, choose a **Kickstart publish default** (**Pull request** or
+   **Direct to trunk**), and add an optional description and due date. Then
+   click **Create**.
 3. Open the milestone from the roadmap list to add and manage tasks.
 
-![Create Milestone dialog](../../../assets/screenshots/create-milestone.png)
+![Create Milestone dialog with name, kickstart publish default, description, and due date](../../../assets/screenshots/create-milestone.png)
 
 ![Milestone card on the Roadmap with GitHub link and progress](../../../assets/screenshots/roadmap-milestone-list.png)
 
@@ -146,14 +148,21 @@ long-term cloud todo store for free tasks. There are no milestones in The Void.
 See the dedicated page for pairing, Free vs Pro distinctions, and ticketless
 kickstart.
 
-## Usage metrics (opt-in)
+## Profile: usage, runner history, and help
 
-Denoise can collect anonymous usage metrics, such as upgrade clicks and
-milestone/task counts, to help improve the product. Metrics are opt-in only. In
-**Profile**, enable **Share anonymous usage data to help us improve the
-product**.
+On **Profile** (`/profile`), these panels sit together:
 
-![Usage data opt-in in Profile](../../../assets/screenshots/account-usage-data-and-help.png)
+- **Usage data** — Enable **Share anonymous first-party usage counters to help
+  us improve the product**. Counts include events such as upgrade clicks and
+  milestone and task totals. When enabled, they are stored in the same KV store
+  as the rest of the app and included in the existing daily B2 backup.
+- **Runner history detail** — Enable **Include redacted agent output** to store
+  redacted agent output with future runs, so runner history can show what the
+  agent was doing. Secrets are redacted before upload. Task and repository
+  content may still appear.
+- **Help** — **View tour** opens the guided tour for your current screen.
+  **Reset onboarding** makes that tour auto-open again on the next load. The
+  same card shows the current build and **Copy full SHA**. The header **Help**
+  button opens the same tour.
 
-When enabled, counts are stored in the same KV store as the rest of the app and
-included in the existing daily B2 backup.
+![Usage data, runner history detail, and Help on Profile](../../../assets/screenshots/account-usage-data-help.png)

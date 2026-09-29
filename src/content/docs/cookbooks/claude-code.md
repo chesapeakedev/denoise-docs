@@ -177,6 +177,19 @@ Verify:
 dn workflows validate --json
 ```
 
+## Local authentication
+
+For [device runners](/denoise/device-runners/#agent-preference) and interactive
+local use, sign in with Claude Code on the machine that runs kickstart:
+
+```bash
+claude
+# then run /login inside the CLI if prompted
+```
+
+For headless / API-key use (including CI), set `ANTHROPIC_API_KEY` and
+`CLAUDE_CODE_BARE=1` as in the verify steps below.
+
 ## Verify locally
 
 **Interactive (default).** If you already ran `claude` login on your machine,

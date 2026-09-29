@@ -29,12 +29,17 @@ is deployed. You choose which repositories and organizations denoise can access.
 
 After sign-in, manage access from **Profile**:
 
-| Action                  | When to use                                                                                                |
-| ----------------------- | ---------------------------------------------------------------------------------------------------------- |
-| **Switch Accounts**     | Sign in with a different GitHub account (OAuth-only flow).                                                 |
-| **Update repos & orgs** | Change which repositories and organizations denoise can use for milestones, issues, and workflow dispatch. |
+| Action                  | When to use                                                                                                    |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------- |
+| **Switch Accounts**     | Use a different GitHub account.                                                                                |
+| **Update repos & orgs** | Open GitHub to choose which repos and orgs denoise can access for milestones, issues, and workflow dispatch. |
 
-![GitHub account and repository access in Profile](../../../assets/screenshots/account-github-settings.png)
+![GitHub account access and repo setup checklist in Profile](../../../assets/screenshots/account-github-settings.png)
+
+When GitHub is connected, the same card includes a **Repo setup checklist for
+dn actions**: pair a runner or install workflows from a linked milestone, add
+the Actions secret for that agent when you use GitHub Actions, then kickstart
+once a runner shows Ready.
 
 You can also review installations at
 [github.com/settings/installations](https://github.com/settings/installations).
@@ -74,10 +79,6 @@ When you switch from Offline to Online, a confirmation asks: “Do you want to
 sync your todos across devices?” If you confirm, the app tries to open a
 WebSocket to the server. Whether it reaches **Online** depends on authentication
 and what you have selected.
-
-Connection mode can also be managed in **Profile** → **Data Settings**.
-
-![Connection mode in Profile Data Settings](../../../assets/screenshots/account-data-settings.png)
 
 ## How authentication and the sync badge interact
 

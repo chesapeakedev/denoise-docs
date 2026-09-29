@@ -173,6 +173,19 @@ Verify:
 dn workflows validate --json
 ```
 
+## Local authentication
+
+For [device runners](/denoise/device-runners/#agent-preference) and interactive
+local use, install Codex and sign in (or set `OPENAI_API_KEY`) on the machine
+that runs kickstart:
+
+```bash
+curl -fsSL https://chatgpt.com/codex/install.sh | bash
+codex login
+# or
+export OPENAI_API_KEY="your-openai-api-key"
+```
+
 ## Verify locally
 
 Install and authenticate Codex:
