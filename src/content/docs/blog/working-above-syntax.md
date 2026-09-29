@@ -3,20 +3,16 @@ title: Working Above Syntax
 description: Kickstart at four altitudes — you run it, one agent runs it, you bring the harness that fits (including background agents and device runners), and denoise makes the factory multiplayer.
 ---
 
-Agents still edit files. The expensive work is starting and steering that work —
-in time, and in model and runtime spend. `dn kickstart` is the unit of progress:
-an issue or a local spec in, a plan plus an implementation out. Maturity is who
-can share that command — you, one harness, then the harness and runtime that
-fit the job, then the rest of the team in denoise.
+# Working Above Syntax
 
-`dn loop` and `dn until` appear when kickstart is not the whole story: resume a
-plan another caller already started, or chase a goal with a generator and a
-verifier instead of one ticket.
-
-This page is an operator map, not a command reference. Setup and flags live on
-[Completing GitHub Issues](/dn/completing-github-issues/), the
-[cookbooks](/cookbooks/overview/), and
-[Scheduled Workflows](/dn/scheduled-workflows/).
+To deliver on the value proposition of denoise, it has to be concrete how we're
+saving you time or money. Depending on who you ask, AI is a nice convenience or
+a substantial force multiplayer. We look at a user's ability to be productive
+with the `dn` CLI as three levels of maturity. `dn kickstart` creates the
+smallest unit of progress when attempting to measure productivity. Another great
+lens for understanding productivity with `dn` is "Who is using it?" You, your
+harness, your team? We want to create a toolkit that gives each of those answers
+the easiest path to create multiplicative force.
 
 ## You use the CLI
 
@@ -24,23 +20,26 @@ You type `dn kickstart`. The coding agent still writes the patch; you are the
 dispatcher.
 
 ```bash
-dn kickstart 123
-dn kickstart --awp https://github.com/owner/repo/issues/123
-dn kickstart docs/spec.md
+dn kickstart https://github.com/owner/repo/issues/123
 ```
 
-Kickstart against a GitHub issue, pass `--awp` when the run should open a pull
-request, or point it at a local markdown spec. If the first pass is incomplete,
-`dn loop` continues the plan kickstart wrote instead of re-explaining the task.
+You are encouraged to plan upfront exhaustively and then "land the plane" with
+kickstart. Using the CLI, you can steer the prompt & add additional filesystem
+context, but `dn` mostly knows what to do with a github issue to create an
+auditable plan and see it through, whether that's making changes against the
+local workspace, or creating a pull request on your behalf.
 
-**Off your plate:** restating “plan then implement this issue” in chat;
-rebuilding context for the same ticket; driving the editor through an
-undocumented sequence.
+It's useful to look at `dn kickstart` as a dice roll you do your best to cheat.
+The more you orient your git repo to include filesystem context useful to the
+agent, and the more you write direct, detailed plans in github issues, the more
+you are short circuiting the work you would traditionally spend most of your
+time on as a software develper.
 
-**Time back on:** one command instead of a long prompt; a durable plan under
-`plans/` you can `loop`.
-
-You still start every run.
+`dn` enables this workflow to be harnesss & model agnostic, giving software
+developers a tool they can adopt and see immediate productivity benefits with.
+If you use github at your job, you will burn your assigned backlog down faster,
+or else you've already created a system for yourself that `dn` puts in the
+background for you.
 
 ## Your agent uses the CLI
 
@@ -66,12 +65,14 @@ instead of driving argv.
 One human, one session, one harness still starts the work. You are still paying
 interactive-session time on whichever model that harness uses.
 
-## Bring your own harness
+## Your harness uses the CLI
+
+If you use a non-editor harness such as Cursor Agent Mode, Codex desktop, or many others at this point, using `dn` as an agent tool will feel very natural. 
 
 Level 2 still ties kickstart to one interactive harness. Level 3 is when you
-bring the harness that fits the task and let work run in the background. The
-CLI plus `plans/` is what makes that switch possible; the point is not the
-files, it is the spend.
+bring the harness that fits the task and let work run in the background. The CLI
+plus `plans/` is what makes that switch possible; the point is not the files, it
+is the spend.
 
 **Right model for the task.** Install the skill (or pass `--agent`) in more than
 one tool. Use a stronger, usually costlier, harness for a hard `kickstart`.
@@ -79,6 +80,9 @@ one tool. Use a stronger, usually costlier, harness for a hard `kickstart`.
 gate, not a ticket — a bounded generator/verifier, not “one issue, one
 kickstart.” You stop paying frontier-interactive rates for work that does not
 need them.
+
+
+## Your team of agents uses the CLI
 
 **Background agents.** You are not in the chat. `dn init workflows` installs the
 canonical GitHub Actions templates. Scheduled
@@ -90,22 +94,22 @@ gate. `dn.kickstart_issue` is the on-demand dispatch of the same kickstart.
 
 **Device runners save money.** Pair a Mac or Linux machine you already have.
 Kickstart uses [local compute](/denoise/device-runners/) and the harness login
-already on that device. Hosted kickstart runtimes — GitHub Actions minutes,
-Cursor Cloud, exe.dev — bill a VM per job. A
-[device runner](/denoise/kickstart-runtimes/) keeps that spend on the laptop and
-subscription you already run. Denoise does not invent a price for either path;
-it lets you choose.
+already on that device. Hosted runners — GitHub Actions minutes or an
+[exe.dev runner you connected](/denoise/kickstart-runtimes/) — bill a VM per
+job. A device runner keeps that spend on the laptop and subscription you
+already run. Denoise does not invent a price for either path; it lets you
+choose.
 
 **Off your plate:** sitting in one vendor session for every ticket; using the
 same expensive model for kickstart and for a routine `loop`; watching a goal
 loop; paying hosted runtime rates when a paired device can run kickstart;
 draining a milestone queue only from your afternoon.
 
-**Time and money back on:** match harness to difficulty; background
-kickstart / loop / until while you do something else; runner jobs on local
-compute instead of cloud VMs.
+**Time and money back on:** match harness to difficulty; background kickstart /
+loop / until while you do something else; runner jobs on local compute instead
+of cloud VMs.
 
-## denoise makes the factory multiplayer
+## The multiplayer software factory
 
 After you can pick harnesses and runners, the bottleneck is who is allowed to
 sit above syntax. A CLI, a skill, and a pairing flow still assume someone who
@@ -114,9 +118,8 @@ lives in those tools.
 denoise puts **Kickstart!** on a shared Roadmap: milestones, GitHub-linked
 tasks, collaborators, and a runtime picker — including device runners — for the
 callers that actually run `dn kickstart`. See
-[Getting started](/denoise/getting-started/),
-[Features](/denoise/features/), and
-[Milestone details](/denoise/milestone-details/).
+[Getting started](/denoise/getting-started/), [Features](/denoise/features/),
+and [Milestone details](/denoise/milestone-details/).
 
 **Off your plate:** translating CLI state for people who do not live in a
 harness; only engineers can fire kickstart; work that never becomes visible to
@@ -144,10 +147,3 @@ not checkout paths. The high-sovereignty direction is denoise as a coordination
 server for a fleet of compute the team owns, using harnesses and models they
 already run. Hosted runtimes remain available. You keep the option to
 reconfigure.
-
-| Caller | How kickstart shows up | What leaves your plate |
-| ------ | ---------------------- | ---------------------- |
-| You | `dn kickstart` in a terminal; `loop` if the plan is incomplete | Restating plan-then-implement in chat |
-| One harness | Skill runs `kickstart` / `loop` from the conversation | Typing argv; re-teaching the workflow |
-| The harness that fits | `--agent`, scheduled `kickstart` / `loop` / `until`, device runners | One interactive model for every job; watching the run; hosted VMs when a laptop can do it |
-| The team in denoise | **Kickstart!** on a shared milestone | Only engineers can start work; CLI state as the team’s source of truth |
