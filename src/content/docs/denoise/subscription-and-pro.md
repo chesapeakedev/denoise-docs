@@ -50,10 +50,10 @@ for setup steps.
 
 ## Manage your plan
 
-1. Sign in with GitHub or Google at denoise.cloud.
-2. Open **Profile** from the avatar menu (or complete Checkout from
-   `/subscribe`).
-3. Under **Plan & billing**, view your current plan or upgrade.
+1. Open [denoise.cloud/subscribe](https://denoise.cloud/subscribe) and sign in,
+   or start a trial or subscription from that page.
+2. After you have a session, open **Profile** from the avatar menu. Under
+   **Plan & billing**, view your current plan or upgrade.
 
 After Stripe Checkout, the app polls until billing status updates (webhooks can
 lag briefly). A success toast confirms when Pro is active.

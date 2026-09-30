@@ -7,19 +7,24 @@ The app supports optional sign-in and an **Offline / Online** sync badge in the
 header. You can use denoise without logging in; authentication determines what
 syncs when you go online.
 
-## Sign-in options
+## Sign-in and sign-up
 
-- **GitHub** — Sign in with your GitHub account. Required for
-  [GitHub integration](/denoise/github-integration/) (linking milestones,
-  syncing issues, converting tasks to issues, and dn workflow dispatch).
-- **Google** — Sign in with your Google account. Gives you a stable identity and
-  cloud sync; GitHub features still require GitHub auth.
+Sign-in and sign-up happen on
+[denoise.cloud/subscribe](https://denoise.cloud/subscribe) (`/subscribe`), not
+on Profile.
 
-Sign-in uses OAuth: click **Sign In**, choose GitHub or Google, complete the
-flow in your browser, and you are redirected back to the app with a session.
-Your session is stored in a cookie and validated by the server.
+- Existing account: **Sign in** at the top of the page.
+- New Pro plan: **Sign in for free trial** or **Sign in to subscribe — $6/mo**.
+- Team plan: **Sign in for Team**.
+- Free solo use: **Continue in The Void**.
 
-![Sign In button in the header](../../../assets/screenshots/sign-in-button.png)
+Those sign-in buttons start GitHub OAuth. Complete the flow in your browser, and
+you are redirected back to the app with a session. Your session is stored in a
+cookie and validated by the server.
+
+GitHub sign-in is required for
+[GitHub integration](/denoise/github-integration/) (linking milestones, syncing
+issues, converting tasks to issues, and dn workflow dispatch).
 
 ### GitHub App and repository access
 

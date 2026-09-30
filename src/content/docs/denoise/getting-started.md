@@ -28,7 +28,7 @@ manage its tasks on the **milestone view**.
 | ------------------ | ---------------- | ---------------------------------------------- |
 | **Roadmap**        | `/`              | Default home for Pro / team use                |
 | **Milestone view** | `/milestone/:id` | Open a milestone from the roadmap              |
-| **Profile**        | `/profile`       | Sign-in, GitHub access, plan, display settings |
+| **Profile**        | `/profile`       | GitHub access, plan, and display settings |
 
 ![Roadmap view with milestone summary cards, workspace selector, and status filters](../../../assets/screenshots/roadmap.png)
 
@@ -39,18 +39,20 @@ milestone card → **Add task** on the milestone view.
 
 The header shows a sync badge (**Offline**, **Online**, or **Syncing…**). Click
 it to enable cloud sync when you are ready. Open **Profile** from the avatar
-menu for sign-in and account settings.
+menu for account settings.
 
 ## Authentication
 
-The app supports GitHub and Google sign-in:
+Sign-in and sign-up happen on
+[denoise.cloud/subscribe](https://denoise.cloud/subscribe) (`/subscribe`).
 
-1. Click **Sign In** in the header.
-2. Choose GitHub or Google.
-3. Complete the OAuth flow.
-4. Return to the app after authentication completes.
+- Existing account: **Sign in** at the top of the page.
+- New Pro plan: **Sign in for free trial** or **Sign in to subscribe — $6/mo**.
+- Team plan: **Sign in for Team**.
+- Free solo use, without a denoise subscription: **Continue in The Void**.
 
-![Sign In button in the header](../../../assets/screenshots/sign-in-button.png)
+Those sign-in buttons start GitHub OAuth. You return to the app with a session
+after GitHub finishes.
 
 ![Header while signed out, showing offline sync badge](../../../assets/screenshots/header-signed-out.png)
 
