@@ -18,11 +18,11 @@ VM, clone inside it, and run `dn kickstart` there.
 
 ## Choose local isolation
 
-| Mode           | Best for                                          | Workspace behavior                   |
-| -------------- | ------------------------------------------------- | ------------------------------------ |
-| Host (`none`)  | Trusted work with local tools and credentials     | Changes the current checkout         |
-| Docker         | Reproducible local tools and reduced blast radius | Bind-mounts the checkout             |
-| exe.dev (CLI)  | Stronger remote isolation from a local checkout   | Syncs through a temporary Git branch |
+| Mode          | Best for                                          | Workspace behavior                   |
+| ------------- | ------------------------------------------------- | ------------------------------------ |
+| Host (`none`) | Trusted work with local tools and credentials     | Changes the current checkout         |
+| Docker        | Reproducible local tools and reduced blast radius | Bind-mounts the checkout             |
+| exe.dev (CLI) | Stronger remote isolation from a local checkout   | Syncs through a temporary Git branch |
 
 ## Configure schema 1.1
 

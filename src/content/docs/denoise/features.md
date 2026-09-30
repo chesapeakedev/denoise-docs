@@ -11,11 +11,12 @@ collaborative Roadmap and milestone app with GitHub sync and dn-powered
 automation.
 
 In the team app, the default experience is **Roadmap-first**: open the Roadmap
-to see milestones, then open a milestone to manage its tasks. See
+to see milestones, then open a milestone to manage its tasks. A progress bar at
+the top shows how many tasks are completed. See
 [Getting started](/denoise/getting-started/) for Free vs Pro entry points and
 [The Void](/denoise/void/) for the free product.
 
-![Roadmap summary cards showing milestone counts by status](../../../assets/screenshots/roadmap-summary.png)
+![Roadmap with progress bar, workspace selector, and milestone list](../../../assets/screenshots/roadmap.png)
 
 [Denoise Pro](/denoise/subscription-and-pro/) adds task kickstart, repository
 initialization, and workflow dispatch from the app UI on GitHub-linked
@@ -105,7 +106,7 @@ Milestones help you organize tasks into groups or projects:
 
 ![Create Milestone dialog with name, kickstart publish default, description, and due date](../../../assets/screenshots/create-milestone.png)
 
-![Milestone card on the Roadmap with GitHub link and progress](../../../assets/screenshots/roadmap-milestone-list.png)
+![Roadmap milestone rows with status, Build, and progress rings](../../../assets/screenshots/roadmap-milestone-list.png)
 
 Use the **Workspace** selector on the Roadmap to scope milestones by
 organization when you belong to multiple workspaces.
@@ -119,11 +120,9 @@ restores that view so you can pick up where you left off.
 
 ### Filtering milestones
 
-On the Roadmap, use **status filters** (All, Open, In Progress, Completed,
-Closed, Overdue), the **Repository** dropdown, and the **Sort** control to
+On the Roadmap, use the status chips (**Active**, **All**, **Open**, **In
+Flight**, **Completed**, **Closed**, **Overdue**) and the **Due date** sort to
 narrow the milestone list.
-
-![Roadmap status filters, repository selector, and sort controls](../../../assets/screenshots/denoise-tour.png)
 
 ## Collaboration
 

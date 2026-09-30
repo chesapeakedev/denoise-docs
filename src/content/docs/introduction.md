@@ -30,7 +30,7 @@ available automations without forcing everyone into the same tool:
 - **denoise** - Collaborative planning app (Denoise Pro) for milestones, GitHub
   sync, and orchestrating agent automation alongside the terminal
 
-![denoise Roadmap — milestones and project progress](../../assets/screenshots/roadmap.png)
+![denoise Roadmap with a progress bar and milestone list](../../assets/screenshots/roadmap.png)
 
 ## Quick links
 
@@ -44,7 +44,7 @@ available automations without forcing everyone into the same tool:
 | Connect denoise to dn Workflows              | [Milestone details](/denoise/milestone-details/) -> [GitHub integration](/denoise/github-integration/) -> [Headless Use — Denoise integrators](/dn/headless-use/#denoise-and-other-integrators) |
 | Free solo tasks in The Void                  | [The Void](/denoise/void/) → [Runners](/denoise/device-runners/)                                                                                                                                |
 | Denoise Pro and task kickstart               | [Subscription & Pro](/denoise/subscription-and-pro/) -> [Milestone details](/denoise/milestone-details/)                                                                                        |
-| dn 0.0.37 and device runners                 | [What's new](/whats-new/dn-0-0-37/) → [Runners](/denoise/device-runners/)                                                                                                      |
+| dn 0.0.37 and device runners                 | [What's new](/whats-new/dn-0-0-37/) → [Runners](/denoise/device-runners/)                                                                                                                       |
 | Public roadmap                               | [Roadmap](/roadmap/)                                                                                                                                                                            |
 
 ## Examples

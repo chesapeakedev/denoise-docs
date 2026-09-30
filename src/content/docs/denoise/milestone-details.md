@@ -53,8 +53,7 @@ The guided product tour on this page highlights the DN setup action row and
 On a GitHub-linked Pro milestone, **Runners** opens the default kickstart
 runtime picker and device pairing. Pair a device once to your account, then
 choose an **Execution checkout** for later **Kickstart!** runs. GitHub Actions
-stays on this planning repository. See
-[Runners](/denoise/device-runners/).
+stays on this planning repository. See [Runners](/denoise/device-runners/).
 
 ![Add task dialog with title, tags, and description](../../../assets/screenshots/milestone-create-task.png)
 
@@ -218,12 +217,11 @@ the repository has that workflow installed; it uses GitHub Actions today.
    status chips. GitHub Actions runs also provide **Watch on GitHub**. Completed
    published runs show a PR link when one was reported.
 
-On a **leave-local** device run, Kickstart ends at Lint (`dn ensure lint`).
-Then **Land** commits on the device, **Sync** re-runs lint, runs tests, and
-publishes to trunk, and **Done** closes the GitHub issue. Confirm Land and Sync
-the same way you confirm Kickstart. See
-[Kickstart, land, sync, and done](/close-out/). On the PR path, host CI is the
-gate; there is no Land or Sync button.
+On a **leave-local** device run, Kickstart ends at Lint (`dn ensure lint`). Then
+**Land** commits on the device, **Sync** re-runs lint, runs tests, and publishes
+to trunk, and **Done** closes the GitHub issue. Confirm Land and Sync the same
+way you confirm Kickstart. See [Kickstart, land, sync, and done](/close-out/).
+On the PR path, host CI is the gate; there is no Land or Sync button.
 
 <video autoplay loop muted playsinline class="demo-video" aria-label="Kickstart a task — confirm dispatch, track progress, and open the pull request">
   <source src="/demos/kickstart-task.mp4" type="video/mp4" />
@@ -250,8 +248,8 @@ For CLI-oriented planning and implementation depth, see
   and Done verbs
 - [Kickstart runtimes](/denoise/kickstart-runtimes/) — Where kickstart runs and
   how progress fidelity works
-- [Runners](/denoise/device-runners/) — Pair a device to your
-  account and choose an execution checkout
+- [Runners](/denoise/device-runners/) — Pair a device to your account and choose
+  an execution checkout
 - [GitHub integration](/denoise/github-integration/) — Link milestones, sync
   issues, convert tasks to GitHub issues
 - [Tips & troubleshooting](/denoise/tips-troubleshooting/) — When DN setup or

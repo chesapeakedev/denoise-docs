@@ -5,16 +5,16 @@ description: Find serve and kickstart logs for a paired device, an exe.dev VM, a
 
 Use this page when a Kickstart job stays queued, never shows phases, or you need
 the runner’s stdout rather than the task progress panel. Device runners and
-exe.dev runners share the same job queue: Denoise stores the job; `dn runner
-serve` heartbeats, claims, clones (exe.dev) or uses a registered checkout
-(device), then posts NDJSON progress.
+exe.dev runners share the same job queue: Denoise stores the job;
+`dn runner
+serve` heartbeats, claims, clones (exe.dev) or uses a registered
+checkout (device), then posts NDJSON progress.
 
-The Kickstart panel is phases from that progress ingest. It is not a full
-agent dump.
+The Kickstart panel is phases from that progress ingest. It is not a full agent
+dump.
 
-User-facing enroll and recovery:
-[Runners](/denoise/device-runners/). Runtime picker behavior:
-[Kickstart runtimes](/denoise/kickstart-runtimes/).
+User-facing enroll and recovery: [Runners](/denoise/device-runners/). Runtime
+picker behavior: [Kickstart runtimes](/denoise/kickstart-runtimes/).
 
 ## Identify the hop
 
@@ -23,13 +23,13 @@ Split **invocation** (`kickstart_invocations.status`), **job**
 are per `runner_id`. Host `POST /api/runners/jobs/claim` traffic from a laptop
 is not the exe.dev pet.
 
-| Symptom | First log |
-| --- | --- |
-| Device **Offline** | Laptop `runner.log` / `journalctl`, then `dn runner doctor` |
+| Symptom                              | First log                                                         |
+| ------------------------------------ | ----------------------------------------------------------------- |
+| Device **Offline**                   | Laptop `runner.log` / `journalctl`, then `dn runner doctor`       |
 | exe.dev **Offline**, VM still listed | `make exe_dev_status VM=<vm>` then `make exe_dev_journal VM=<vm>` |
-| exe.dev **Needs setup**, no VM name | Pet gone from `ls`; Create VM in **Runners** |
-| Queued, no phases, fresh heartbeat | Serve is up but not claiming this `runner_id` |
-| Running, no phases | `github-token`, clone, or progress POST |
+| exe.dev **Needs setup**, no VM name  | Pet gone from `ls`; Create VM in **Runners**                      |
+| Queued, no phases, fresh heartbeat   | Serve is up but not claiming this `runner_id`                     |
+| Running, no phases                   | `github-token`, clone, or progress POST                           |
 
 Queued jobs expire after 24 hours. Offline is 90 seconds without a heartbeat.
 
@@ -55,8 +55,8 @@ dn runner serve
 ```
 
 State lives under `~/.dn/runner/` (`credential.json`, `config.json`, logs).
-Return to the background loop with `dn runner start`. After upgrading `dn`,
-run `dn runner install` so the unit file uses the current binary.
+Return to the background loop with `dn runner start`. After upgrading `dn`, run
+`dn runner install` so the unit file uses the current binary.
 
 Hung macOS processes (kickstart or Deno not exiting):
 [Hung process triage](/operations/hung-process-triage/).
@@ -67,8 +67,8 @@ The Denoise-stored `EXE_TOKEN` can run `new`, `ls`, and `rm` only. It cannot
 SSH. Use an exe.dev account that owns the pet.
 
 New images boot systemd as PID 1. Serve is the linger user unit
-`denoise-runner.service`, same as a Linux laptop. Prefer systemd over `ps`.
-From the denoise repo:
+`denoise-runner.service`, same as a Linux laptop. Prefer systemd over `ps`. From
+the denoise repo:
 
 ```bash
 make exe_dev_ls
@@ -103,8 +103,8 @@ fallback. `~/.dn/runner/runner.log` is the laptop LaunchAgent path. If
 
 ## denoise.cloud (contributors)
 
-Production storage is PlanetScale via the denoise container `DATABASE_URL`.
-Do not query baltimore’s empty compose Postgres. Do not dump `secretsCipher`,
+Production storage is PlanetScale via the denoise container `DATABASE_URL`. Do
+not query baltimore’s empty compose Postgres. Do not dump `secretsCipher`,
 `EXE_TOKEN`, GitHub tokens, or harness keys.
 
 ```bash

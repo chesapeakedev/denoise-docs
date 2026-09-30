@@ -19,8 +19,7 @@ describe direction, not a calendar. For a specific shipped release, start with
 - **The Void** — Free solo task list with local `~/.dn/tasks/` sync. See
   [The Void](/denoise/void/).
 - **Developer device runners** — Pair a trusted checkout for Void task-sync and
-  typed kickstart on local compute. See
-  [Runners](/denoise/device-runners/).
+  typed kickstart on local compute. See [Runners](/denoise/device-runners/).
 - **Hosted kickstart runtimes** — GitHub Actions (default), Cursor Cloud, and
   exe.dev when configured. See
   [Kickstart runtimes](/denoise/kickstart-runtimes/).

@@ -49,7 +49,7 @@ issues, and collaborator visibility predictable.
 - Ensure the milestone is linked to GitHub (look for the GitHub indicator on the
   roadmap card)
 
-  ![Linked milestone card on the Roadmap](../../../assets/screenshots/roadmap-milestone-list.png)
+  ![Roadmap milestone rows with status, Build, and progress rings](../../../assets/screenshots/roadmap-milestone-list.png)
 
 - Ensure the task isn't already a GitHub issue
 

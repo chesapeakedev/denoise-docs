@@ -19,32 +19,31 @@ guidance.
 
 ## Providers
 
-| Provider | Where it runs | Enroll | Operations | Credentials |
-| --- | --- | --- | --- | --- |
-| Device | Paired macOS or Linux machine | Pairing code + `dn runner connect` | Kickstart, land, sync, denoise-task, task-sync | Stay on the device |
-| GitHub Actions | Planning repository workflows | Install/update `dn` workflows | Kickstart with `--publish pr` | Repository secrets |
-| exe.dev | Persistent VM from [dn-images](https://github.com/chesapeakedev/dn-images) | Connect `EXE_TOKEN` in **Runners** | Kickstart with `--publish pr` | Your exe.dev token plus harness keys you connect |
+| Provider       | Where it runs                                                              | Enroll                             | Operations                                     | Credentials                                      |
+| -------------- | -------------------------------------------------------------------------- | ---------------------------------- | ---------------------------------------------- | ------------------------------------------------ |
+| Device         | Paired macOS or Linux machine                                              | Pairing code + `dn runner connect` | Kickstart, land, sync, denoise-task, task-sync | Stay on the device                               |
+| GitHub Actions | Planning repository workflows                                              | Install/update `dn` workflows      | Kickstart with `--publish pr`                  | Repository secrets                               |
+| exe.dev        | Persistent VM from [dn-images](https://github.com/chesapeakedev/dn-images) | Connect `EXE_TOKEN` in **Runners** | Kickstart with `--publish pr`                  | Your exe.dev token plus harness keys you connect |
 
 Denoise never silently moves a job from one runner to another. Unavailable
 runners stay visible with a reason. Self-hosted GitHub Actions hardware is a
-separate advanced path:
-[Self-hosted runners](/operations/self-hosted-runners/).
+separate advanced path: [Self-hosted runners](/operations/self-hosted-runners/).
 
 Docker is isolation **on a device or local CLI**, not a runner you enroll. See
 [Sandbox execution](/dn/sandbox/).
 
-The rest of this page covers **device** pairing, checkout registration, land/sync,
-and the local security boundary, then **exe.dev** enroll. GitHub Actions setup
-lives in the **Runners** dialog and
+The rest of this page covers **device** pairing, checkout registration,
+land/sync, and the local security boundary, then **exe.dev** enroll. GitHub
+Actions setup lives in the **Runners** dialog and
 [GitHub integration](/denoise/github-integration/). Kickstart! picks among
 enrolled runners — see [Kickstart runtimes](/denoise/kickstart-runtimes/).
 Contributor log locations for both providers:
 [Runner logs](/operations/runner-logs/).
 
 Device runners accept kickstart jobs, **land** jobs (`dn land` on the paired
-checkout), **sync** jobs (`dn sync` on the paired checkout; trunk quality
-gate), denoise-task jobs, and **task-sync** (Void ↔ `~/.dn/tasks/` relay). They
-do not run arbitrary commands or GitHub Actions workflows.
+checkout), **sync** jobs (`dn sync` on the paired checkout; trunk quality gate),
+denoise-task jobs, and **task-sync** (Void ↔ `~/.dn/tasks/` relay). They do not
+run arbitrary commands or GitHub Actions workflows.
 
 The close-out verbs match the CLI: Kickstart → Land → Sync → Done. See
 [Kickstart, land, sync, and done](/close-out/). Void **task-sync** is unrelated
@@ -70,8 +69,8 @@ dn kickstart --denoise-task ~/.dn/tasks/<id>.json --publish none
 Runner limits: **1** active device-or-exe.dev runner on Free, **10** on Denoise
 Pro (including org-seat Pro). GitHub Actions does not consume that slot. Pair
 from The Void **Devices** flow or from a GitHub-linked milestone in denoise
-(**Profile** → **Runners**). Profile settings point you to that milestone dialog;
-they do not create pairing codes.
+(**Profile** → **Runners**). Profile settings point you to that milestone
+dialog; they do not create pairing codes.
 
 ## Pair and prepare a device
 
@@ -125,26 +124,29 @@ their outcomes, and recommended next steps.
 ![Runner history on the Profile Runners panel](../../../assets/screenshots/account-runners-history.png)
 
 Pairing stores a credential. Denoise stays offline until a `dn runner serve`
-loop heartbeats over HTTPS. The user service is that same outbound loop.
-Denoise does not open an inbound port on the device.
+loop heartbeats over HTTPS. The user service is that same outbound loop. Denoise
+does not open an inbound port on the device.
 
 ### User service vs foreground serve
 
-Use the launchd or systemd user service after `dn runner connect <code>
---install` or a later `dn runner install`. Check `dn runner doctor` and `dn
-runner status`: the device is online when the service check passes.
+Use the launchd or systemd user service after
+`dn runner connect <code>
+--install` or a later `dn runner install`. Check
+`dn runner doctor` and `dn
+runner status`: the device is online when the service
+check passes.
 
 Run `dn runner serve` in a terminal only for diagnostics, after pairing without
-`--install`, or when the user service has stopped. Do not run both. If the
-user service is already running, `dn runner serve` refuses to start.
+`--install`, or when the user service has stopped. Do not run both. If the user
+service is already running, `dn runner serve` refuses to start.
 
 ```bash
 dn runner stop
 dn runner serve
 ```
 
-Return to the background loop with `dn runner start`. After upgrading `dn`,
-run `dn runner install` so the unit file uses the current binary and `PATH`.
+Return to the background loop with `dn runner start`. After upgrading `dn`, run
+`dn runner install` so the unit file uses the current binary and `PATH`.
 
 ## Run kickstart, land, and sync
 
@@ -323,16 +325,15 @@ job. Publish is `--publish pr`. Land and Sync stay on a device checkout.
 3. Click **Connect**. Denoise creates one VM (`dn-` plus a short runner id) and
    reuses it. **Disconnect** destroys that VM.
 4. Wait until the card shows **Ready** and a recent last heartbeat. The VM is
-   **Offline** when Denoise has not heard from `dn runner serve` for 90
-   seconds. Kickstart still queues for up to 24 hours, the same as a laptop.
+   **Offline** when Denoise has not heard from `dn runner serve` for 90 seconds.
+   Kickstart still queues for up to 24 hours, the same as a laptop.
 5. If you deleted the pet in the exe.dev dashboard, refresh **Runners** so
    Denoise forgets the name, then **Create VM**.
 
-The Denoise-stored token cannot SSH. To inspect the pet yourself, use an
-exe.dev login that owns it (`ssh exe.dev ls`, then `ssh <vmName>.exe.xyz` as
-user `dn`). PID 1 is systemd; `dn runner serve` runs as the user unit
-`denoise-runner.service`. See
-[Runner logs](/operations/runner-logs/).
+The Denoise-stored token cannot SSH. To inspect the pet yourself, use an exe.dev
+login that owns it (`ssh exe.dev ls`, then `ssh <vmName>.exe.xyz` as user `dn`).
+PID 1 is systemd; `dn runner serve` runs as the user unit
+`denoise-runner.service`. See [Runner logs](/operations/runner-logs/).
 
 ## Security boundary
 
@@ -380,16 +381,16 @@ journalctl --user -u denoise-runner.service -f
 ```
 
 An exe.dev card that stays **Offline** with a VM name still listed means serve
-is not heartbeating. Refresh only re-reads the last check-in. If `ssh exe.dev
+is not heartbeating. Refresh only re-reads the last check-in. If
+`ssh exe.dev
 ls` still shows the pet, SSH in as `dn` and confirm
-`systemctl --user status denoise-runner.service` is active. If the pet is
-gone, **Create VM**. A queued Kickstart stays in the queue for up to 24 hours
-and can be picked up by any of your exe.dev VMs — not by a paired laptop. Do
-not Kickstart again.
+`systemctl --user status denoise-runner.service` is active. If the pet is gone,
+**Create VM**. A queued Kickstart stays in the queue for up to 24 hours and can
+be picked up by any of your exe.dev VMs — not by a paired laptop. Do not
+Kickstart again.
 
 Command locations, production `make prod_logs`, and how to tell a laptop claim
-from an exe.dev claim:
-[Runner logs](/operations/runner-logs/).
+from an exe.dev claim: [Runner logs](/operations/runner-logs/).
 
 For arbitrary Actions workflows and GitHub-native runner controls, use the
 advanced

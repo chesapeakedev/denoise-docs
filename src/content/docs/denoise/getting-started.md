@@ -24,15 +24,15 @@ When you have Denoise Pro (or an org seat), denoise opens to the **Roadmap** —
 project-level view of your milestones. Open a milestone from the roadmap to
 manage its tasks on the **milestone view**.
 
-| View               | Route            | When                                           |
-| ------------------ | ---------------- | ---------------------------------------------- |
-| **Roadmap**        | `/`              | Default home for Pro / team use                |
-| **Milestone view** | `/milestone/:id` | Open a milestone from the roadmap              |
+| View               | Route            | When                                      |
+| ------------------ | ---------------- | ----------------------------------------- |
+| **Roadmap**        | `/`              | Default home for Pro / team use           |
+| **Milestone view** | `/milestone/:id` | Open a milestone from the roadmap         |
 | **Profile**        | `/profile`       | GitHub access, plan, and display settings |
 
-![Roadmap view with milestone summary cards, workspace selector, and status filters](../../../assets/screenshots/roadmap.png)
+![Roadmap with progress bar, workspace selector, and status filters](../../../assets/screenshots/roadmap.png)
 
-_Roadmap — track milestones and project progress from the app home._
+_Roadmap — track task progress and milestones from the app home._
 
 The primary Pro workflow is **New milestone** on the Roadmap → open the
 milestone card → **Add task** on the milestone view.
@@ -99,10 +99,11 @@ On the Roadmap:
 
 6. Confirm the task appears in the milestone task list.
 
-Use **Take a tour** on the Roadmap or the header **Help** button to open a
-guided tour for your current screen.
+Use the header **Help** button to open a guided tour for your current screen. On
+the Roadmap, the tour points at the progress strip and the status filters.
+**Active** is the default filter (open, in flight, and overdue).
 
-![Guided tour highlighting roadmap filters](../../../assets/screenshots/denoise-tour.png)
+![Guided tour highlighting the Roadmap progress strip and status filters](../../../assets/screenshots/denoise-tour.png)
 
 ## Next steps
 
@@ -115,5 +116,5 @@ guided tour for your current screen.
   and per-task kickstart on GitHub-linked milestones.
 - Use [Subscription & Pro](/denoise/subscription-and-pro/) for Free vs Pro vs
   Enterprise.
-- Use [Runners](/denoise/device-runners/) when you want Void
-  task-sync or Pro kickstart on a trusted local checkout.
+- Use [Runners](/denoise/device-runners/) when you want Void task-sync or Pro
+  kickstart on a trusted local checkout.

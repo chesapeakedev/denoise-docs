@@ -343,7 +343,7 @@ dn sync --skip-preflight
 remain afterward. It is an explicit trunk-publication command, not the final
 step of an issue-to-pull-request workflow. Preflight is fail-fast lint + tests
 from `dn.json` `sync.preflight`; `--skip-preflight` is a CLI escape hatch.
-Denoise never sends it. These verbs match the denoise task dialog; quality
-lives on sync. See [Kickstart, land, sync, and done](/close-out/). See
+Denoise never sends it. These verbs match the denoise task dialog; quality lives
+on sync. See [Kickstart, land, sync, and done](/close-out/). See
 [Experimental — `dn sync`](/dn/task-list-and-sync/#dn-sync) for VCS detection,
 prerequisites, and the exact Git and Sapling operations.

@@ -67,7 +67,8 @@ interactive-session time on whichever model that harness uses.
 
 ## Your harness uses the CLI
 
-If you use a non-editor harness such as Cursor Agent Mode, Codex desktop, or many others at this point, using `dn` as an agent tool will feel very natural. 
+If you use a non-editor harness such as Cursor Agent Mode, Codex desktop, or
+many others at this point, using `dn` as an agent tool will feel very natural.
 
 Level 2 still ties kickstart to one interactive harness. Level 3 is when you
 bring the harness that fits the task and let work run in the background. The CLI
@@ -80,7 +81,6 @@ one tool. Use a stronger, usually costlier, harness for a hard `kickstart`.
 gate, not a ticket — a bounded generator/verifier, not “one issue, one
 kickstart.” You stop paying frontier-interactive rates for work that does not
 need them.
-
 
 ## Your team of agents uses the CLI
 
@@ -96,9 +96,8 @@ gate. `dn.kickstart_issue` is the on-demand dispatch of the same kickstart.
 Kickstart uses [local compute](/denoise/device-runners/) and the harness login
 already on that device. Hosted runners — GitHub Actions minutes or an
 [exe.dev runner you connected](/denoise/kickstart-runtimes/) — bill a VM per
-job. A device runner keeps that spend on the laptop and subscription you
-already run. Denoise does not invent a price for either path; it lets you
-choose.
+job. A device runner keeps that spend on the laptop and subscription you already
+run. Denoise does not invent a price for either path; it lets you choose.
 
 **Off your plate:** sitting in one vendor session for every ticket; using the
 same expensive model for kickstart and for a routine `loop`; watching a goal

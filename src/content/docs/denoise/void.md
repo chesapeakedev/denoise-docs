@@ -44,9 +44,9 @@ Signing in at denoise.cloud without Pro lands on `/subscribe`. The gate offers
 
 ## Pair a device for local sync
 
-1. Open The Void and use **Devices**, or open denoise **Profile** →
-   **Runners** and select a GitHub-linked milestone, to create a pairing code.
-   Pairing binds the device to your account, not to a repository.
+1. Open The Void and use **Devices**, or open denoise **Profile** → **Runners**
+   and select a GitHub-linked milestone, to create a pairing code. Pairing binds
+   the device to your account, not to a repository.
 2. On the laptop, run:
 
    ```bash
@@ -96,7 +96,6 @@ app, see [Milestone details](/denoise/milestone-details/).
   first milestone
 - [Subscription & Pro](/denoise/subscription-and-pro/) — Free Void vs Pro vs
   Enterprise
-- [Runners](/denoise/device-runners/) — pairing, task-sync, and
-  runner limits
+- [Runners](/denoise/device-runners/) — pairing, task-sync, and runner limits
 - [Features](/denoise/features/) — Roadmap, milestones, and Pro automation in
   denoise

@@ -94,9 +94,9 @@ dn land --issue-testplan
 dn sync
 ```
 
-Leave-local kickstart implements then runs `dn ensure lint`. Land commits.
-Sync re-runs lint, runs tests, and publishes to trunk. Then mark the issue
-Done. See [Kickstart, land, sync, and done](/close-out/).
+Leave-local kickstart implements then runs `dn ensure lint`. Land commits. Sync
+re-runs lint, runs tests, and publishes to trunk. Then mark the issue Done. See
+[Kickstart, land, sync, and done](/close-out/).
 
 Configure a gambit only when you still want a generator/verifier loop before
 land:

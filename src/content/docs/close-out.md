@@ -20,12 +20,12 @@ you confirm Kickstart.
 
 ## The four verbs
 
-| Verb         | `dn` command     | Denoise control                         | What it does                                                                                          |
-| ------------ | ---------------- | --------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| **Kickstart** | `dn kickstart`  | **Kickstart!**                          | Plan, implement, then `dn ensure lint` so a fixer agent can clear fmt/lint. Does not run tests. Does not push to trunk. |
-| **Land**      | `dn land`       | **Land** (device runner)                | Local commits. Does not push.                                                                         |
-| **Sync**      | `dn sync`       | **Sync** (device runner, after Land)    | Fail-fast lint + tests from `sync.preflight`, then rebase and push. No fixer agent.                   |
-| **Done**      | close the issue | Status control (complete / reopen)      | Closes the GitHub issue. Not trunk publish.                                                           |
+| Verb          | `dn` command    | Denoise control                      | What it does                                                                                                            |
+| ------------- | --------------- | ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
+| **Kickstart** | `dn kickstart`  | **Kickstart!**                       | Plan, implement, then `dn ensure lint` so a fixer agent can clear fmt/lint. Does not run tests. Does not push to trunk. |
+| **Land**      | `dn land`       | **Land** (device runner)             | Local commits. Does not push.                                                                                           |
+| **Sync**      | `dn sync`       | **Sync** (device runner, after Land) | Fail-fast lint + tests from `sync.preflight`, then rebase and push. No fixer agent.                                     |
+| **Done**      | close the issue | Status control (complete / reopen)   | Closes the GitHub issue. Not trunk publish.                                                                             |
 
 Leave-local kickstart in denoise shows **Resolve → Plan → Implement → Lint**.
 Lint is `dn ensure lint` (fixer). **Publish** is not part of that job; Land then
@@ -53,13 +53,13 @@ There is no Land or Sync button on the PR path. GHA and cloud stay PR-only.
 
 ## Where quality runs
 
-| Step       | Lint / fmt                         | Tests                         | Fixer agent | Role                                      |
-| ---------- | ---------------------------------- | ----------------------------- | ----------- | ----------------------------------------- |
-| Kickstart  | Yes — `dn ensure lint`             | No                            | Yes         | Useful code before Land or a PR           |
-| Land       | No                                 | No                            | No          | Local commits                             |
-| Sync       | Yes — same lint argv, fail-fast    | Yes — `sync.preflight`        | No          | Trunk gate after review                   |
-| PR / CI    | Host CI                            | Host CI                       | No          | Gate for the PR path                      |
-| Done       | No                                 | No                            | No          | Close the GitHub issue                    |
+| Step      | Lint / fmt                      | Tests                  | Fixer agent | Role                            |
+| --------- | ------------------------------- | ---------------------- | ----------- | ------------------------------- |
+| Kickstart | Yes — `dn ensure lint`          | No                     | Yes         | Useful code before Land or a PR |
+| Land      | No                              | No                     | No          | Local commits                   |
+| Sync      | Yes — same lint argv, fail-fast | Yes — `sync.preflight` | No          | Trunk gate after review         |
+| PR / CI   | Host CI                         | Host CI                | No          | Gate for the PR path            |
+| Done      | No                              | No                     | No          | Close the GitHub issue          |
 
 Kickstart lints so the agent can fix fmt/lint. Sync (or CI on the PR path) is
 the publish gate and re-runs lint plus tests. Duplicate lint is expected: it is
@@ -83,10 +83,9 @@ See [Runners](/denoise/device-runners/) for the Void relay.
 
 ## Next steps
 
-- [Completing GitHub Issues](/dn/completing-github-issues/) — CLI variants
-  (PR, meld, fixup, until)
+- [Completing GitHub Issues](/dn/completing-github-issues/) — CLI variants (PR,
+  meld, fixup, until)
 - [Milestone details](/denoise/milestone-details/) — task dialog controls
 - [Command reference](/dn/workflows/) — `dn land` and `dn sync` flags
 - [Kickstart runtimes](/denoise/kickstart-runtimes/) — where Kickstart runs
-- [Runners](/denoise/device-runners/) — pairing, Land, and Sync
-  on a laptop
+- [Runners](/denoise/device-runners/) — pairing, Land, and Sync on a laptop

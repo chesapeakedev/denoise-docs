@@ -57,7 +57,7 @@ To connect a milestone in the app to a GitHub milestone:
 Once linked, denoise shows a GitHub indicator on the roadmap card and syncs
 issues from GitHub.
 
-![Linked milestone card on the Roadmap with repository path](../../../assets/screenshots/roadmap-milestone-list.png)
+![Roadmap milestone rows with status, Build, and progress rings](../../../assets/screenshots/roadmap-milestone-list.png)
 
 ## Automatic issue sync
 
@@ -137,7 +137,7 @@ If sync conflicts occur, the most recent change wins.
   and Done verbs
 - [Milestone details](/denoise/milestone-details/) — DN setup and **Kickstart!**
 - [Kickstart runtimes](/denoise/kickstart-runtimes/) — Runtime matrix
-- [Runners](/denoise/device-runners/) — User-paired device
-  kickstart and execution checkouts
+- [Runners](/denoise/device-runners/) — User-paired device kickstart and
+  execution checkouts
 - [dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/) — Current CLI
   and runner guidance
