@@ -23,9 +23,9 @@ issues, and collaborator visibility predictable.
 
 5. **GitHub-linked tasks** — You can't move GitHub-linked tasks to different
    milestones; the issue number prefix is managed automatically.
-6. **Initialize the repo before kickstart** — Install workflows, configure
-   secrets, and run `dn.init_stack` from the milestone view before using
-   **Kickstart!** on tasks. See
+6. **Initialize the repo before kickstart** — In **Runners**, install workflows
+   and configure secrets. Then **Initialize stack** from the overflow menu
+   before you click **Kickstart** on a task. See
    [Milestone details](/denoise/milestone-details/). Choose where the run
    executes in [Kickstart runtimes](/denoise/kickstart-runtimes/).
 7. **Expect coarse progress without a public base URL** — If live phase/step
@@ -53,36 +53,36 @@ issues, and collaborator visibility predictable.
 
 - Ensure the task isn't already a GitHub issue
 
-### DN setup or kickstart actions are disabled
+### Runners or kickstart actions are disabled
 
 - **Not signed in with GitHub** — GitHub integration requires GitHub auth, not
   Google alone. See [Authentication](/denoise/authentication/).
-- **Offline mode** — Switch to **Online** via the header sync badge. DN setup
-  and kickstart dispatch require a server connection.
+- **Offline mode** — Switch to **Online** via the header sync badge. Workflow
+  install and kickstart dispatch require a server connection.
 - **Milestone not linked to GitHub** — Link the milestone to a GitHub repository
   and milestone first. See
   [GitHub integration — Linking a milestone](/denoise/github-integration/#linking-a-milestone-to-github).
-- **Repository not initialized** — Open the milestone and complete DN setup:
-  pick an agent, install workflows, add Actions secrets, then optionally run
-  **Run dn.init_stack**. See
+- **Runner not ready** — Open **Runners**. On GitHub Actions, pick an agent,
+  **Install workflows**, and add the Actions secret. A device shows **Offline**
+  or **Needs setup** until it is paired. See
   [Milestone details — Connect dn to this repository](/denoise/milestone-details/#connect-dn-to-this-repository).
 
-  ![DN setup action row on the milestone view](../../../assets/screenshots/milestone-view-second-btn-row.png)
+  ![GitHub Actions card in Runners with Install workflows](../../../assets/screenshots/milestone-runners-modal-gh.png)
 
-  ![Repository and dn setup panel with blockers](../../../assets/screenshots/milestone-view-repo-dn-info.png)
+  ![Initialize stack dialog when the runner still needs setup](../../../assets/screenshots/milestone-initialize-stack-modal.png)
 
 - **Agent picker out of date** — If you changed the agent after installing
-  workflows, re-run **Install/Update workflows** so `.github/dn/config.json`
+  workflows, choose **Install workflows** again so `.github/dn/config.json`
   matches your selection.
 - **Stack order needs refresh** — Open issues were added or changed after the
-  last `dn.init_stack` run. Re-run **Run dn.init_stack** on the milestone view.
-- **Pro required** — Install/update workflows, `dn.init_stack`, kickstart
-  ordering, and **Kickstart!** require
+  last init-stack run. Open the overflow menu and choose **Refresh stack…**.
+- **Pro required** — Workflow install, stack ranking, kickstart ordering, and
+  **Kickstart** require
   [Denoise Pro](/denoise/subscription-and-pro/) (or an organization Pro seat).
 - **Issue disqualified** — Stack planning marked the issue ineligible for
-  kickstart. Check the reason in the task detail dialog or task row tooltip.
+  kickstart. Check the reason on the task row or kickstart setup page.
 - **Closed issue** — Kickstart is only available for open GitHub issues.
-- **Private task** — **Kickstart!** on a private task is limited to the owner
+- **Private task** — **Kickstart** on a private task is limited to the owner
   and milestone collaborators.
 - **Missing repository access** — In **Profile**, use **Update repos & orgs** to
   grant denoise access to the linked repository.

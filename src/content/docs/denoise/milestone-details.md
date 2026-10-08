@@ -1,6 +1,6 @@
 ---
 title: Milestone details
-description: DN setup, init_stack, kickstart order, and per-task kickstart on the milestone view.
+description: Milestone header, Runners, stack ranking, and per-task kickstart.
 ---
 
 Use this page when you open a milestone in denoise and want to connect dn to the
@@ -26,54 +26,95 @@ workflows and dispatch GitHub Actions events.
 Open a milestone from the **Roadmap** to reach the milestone view
 (`/milestone/:id`). The page includes:
 
-- **Milestone header** — Copy link, Share, Edit milestone, Add task, and (for
-  linked milestones) a GitHub refresh control.
-- **DN setup action row** — Agent picker, Install/Update workflows, Run
-  dn.init_stack, and an overflow menu (Open Actions, Configure secrets). Visible
-  for Pro users on GitHub-linked milestones.
-- **Setup status strip** — Short setup summary, dispatch feedback, and stack
-  staleness hints when attention is needed.
-- **Repository & dn setup** — Collapsible panel with detected repository
-  context, template status, setup blockers, and suggested kickstart targets.
-- **Task list** — Filter chips (All, Open, In Progress, Completed), optional
-  **Kickstart order** toggle, stack staleness pill, and kickstart badges on task
-  rows.
-- **Task detail dialog** — Opens when you click a task; includes **Kickstart!**
-  and dispatch status indicators.
+- **Header** — Status pill and title, then **Add task**, **Import issues**, copy
+  GitHub link, **Runners**, and an overflow menu.
+- **Milestone details** — Collapsed by default. Open it for the description and
+  a preferred-runner prompt.
+- **Task list** — Progress bar, filter chips (**All**, **Open**, **Completed**),
+  **Kickstart order**, hide-completed, GitHub refresh, and one row per task.
 
-![Milestone view overview with header, DN setup row, and task list](../../../assets/screenshots/milestone-view.png)
+![Milestone view with header, progress bar, filters, and task list](../../../assets/screenshots/milestone-view.png)
 
-The guided product tour on this page highlights the DN setup action row and
-**Repository & dn setup** panel when the milestone is linked to GitHub.
+Use the header **Help** button to open a guided tour for this screen.
 
-### Milestone header actions
+### Header actions
 
-![Copy link, Share, Edit milestone, and Add task buttons](../../../assets/screenshots/milestone-view-first-btn-row.png)
+**Add task**, **Import issues**, the copy-link button, and **Runners** sit in
+the header. The overflow menu holds **Copy link**, **Share**, **Edit
+milestone**, **Daily workflows**, and **Refresh stack…** (or **Initialize
+stack…** when the milestone has no stack yet).
 
-On a GitHub-linked Pro milestone, **Runners** opens the default kickstart
-runtime picker and device pairing. Pair a device once to your account, then
-choose an **Execution checkout** for later **Kickstart!** runs. GitHub Actions
-stays on this planning repository. See [Runners](/denoise/device-runners/).
+![Milestone header and overflow menu](../../../assets/screenshots/milestone-view-menu.png)
 
-![Add task dialog with title, tags, and description](../../../assets/screenshots/milestone-create-task.png)
+**Import issues** pulls open GitHub issues into this milestone. Issues already
+on the milestone are marked **Already imported**.
 
-### DN setup action row
+![Import GitHub issues dialog](../../../assets/screenshots/milestone-import-gh-issues.png)
 
-![Agent picker, Install/Update workflows, Run dn.init_stack, and overflow menu](../../../assets/screenshots/milestone-view-second-btn-row.png)
+**Share** opens **Manage Participants**. Search by name, email, or GitHub
+username.
 
-### Repository & dn setup panel
+![Manage Participants dialog](../../../assets/screenshots/milestone-manage-participants.png)
 
-![Repository and dn setup panel with stack context and setup status](../../../assets/screenshots/milestone-view-repo-dn-info.png)
+**Edit milestone** changes the title, **Kickstart publish default** (**Pull
+request** or **Direct to trunk**), description, and due date.
 
-![Milestone details collapsible section](../../../assets/screenshots/milestone-view-details.png)
+![Edit milestone dialog](../../../assets/screenshots/milestone-edit.png)
+
+**Daily workflows** installs, enables, or runs **Daily kickstart**
+(`dn.daily_kickstart`) for this milestone.
+
+![Daily kickstart dialog](../../../assets/screenshots/milestone-daily-workflow.png)
+
+### Filters
+
+The strip under the header shows tasks completed and a progress bar. Filter with
+**All**, **Open**, and **Completed**. **Kickstart order** sorts by stack
+priority (Pro). The eye icon hides completed tasks. The refresh icon pulls the
+latest GitHub issues.
+
+![Milestone progress bar, status filters, Kickstart order, and GitHub refresh](../../../assets/screenshots/milestone-status-filters-refresh.png)
+
+### Milestone details
+
+Expand **Milestone details** for the description and the preferred-runner line.
+Until a runner is preferred, the row says quick kickstart opens kickstart setup,
+with **Choose runner**.
+
+![Milestone details expanded with description and Choose runner](../../../assets/screenshots/milestone-view-details.png)
+
+### Add task
+
+**Add task** opens **Add work**. Choose **Denoise task** (kept in this
+workspace) or **GitHub issue** (created in the linked milestone).
+
+![Add work chooser for a Denoise task or a GitHub issue](../../../assets/screenshots/milestone-add-task-modal.png)
+
+A Denoise task takes a title, labels, and a markdown description.
+
+![Add task dialog with title, labels, and description](../../../assets/screenshots/milestone-add-task-modal-denoise.png)
+
+A GitHub issue takes a title, description, assignees, and labels. The linked
+repository and milestone are shown on the form.
+
+![Create GitHub Issue dialog](../../../assets/screenshots/milestone-add-task-modal-github.png)
+
+On a task row, **+** opens the label picker.
+
+![Label picker on a milestone task row](../../../assets/screenshots/milestone-add-task-label.png)
 
 ## Connect dn to this repository
 
-The DN setup action row and **Repository & dn setup** panel walk through
-repository preparation. Complete these steps in order:
+Open **Runners** on a GitHub-linked Pro milestone. The dialog asks where
+kickstart should run: a paired device, **exe.dev**, or **GitHub Actions**. Each
+option has an **Implement in** checkout. See [Runners](/denoise/device-runners/).
 
-1. **Pick an agent** — Choose the agent harness written to
-   `.github/dn/config.json` when you install workflows:
+![Runners dialog with a paired local device](../../../assets/screenshots/milestone-runners-modal-local.png)
+
+GitHub Actions setup is on that card, not a separate button row:
+
+1. **Pick an agent.** The choice is written to `.github/dn/config.json` when you
+   install workflows.
 
    | Agent       | Actions secret required |
    | ----------- | ----------------------- |
@@ -84,160 +125,157 @@ repository preparation. Complete these steps in order:
 
    For Cursor-specific setup, see [Use dn with Cursor](/cookbooks/cursor/).
 
-2. **Install/Update workflows** — Installs or refreshes
-   `.github/workflows/dn-*.yml` templates, `.github/dn/config.json`, and the
-   agent install script. Requires **Online** mode.
+2. **Install workflows.** Installs or refreshes the `dn` workflow files. The
+   card lists `dn.init_stack`, `dn.meld_issue_plan`, and `dn.kickstart_issue`
+   as installed or not installed. Requires **Online** mode.
+3. **Configure secrets** or **Open Actions** on the same card when the agent
+   needs a repository secret.
 
-3. **Configure secrets** — Add the secret for your chosen agent. Use **Configure
-   secrets** in the overflow menu (⋮) next to the setup actions, or open
-   repository Actions secrets in GitHub directly.
+![GitHub Actions card in Runners with Install workflows](../../../assets/screenshots/milestone-runners-modal-gh.png)
 
-4. **Run dn.init_stack** — Optional but recommended. Dispatches stack
-   initialization for the linked GitHub milestone so kickstart ordering and meld
-   suggestions improve. See [Run dn.init_stack](#run-dninit_stack) below.
+A runner shows **Ready**, **Needs setup**, or **Offline**. If you change the
+agent after workflows are installed, install workflows again so the repository
+matches the new agent.
 
-### Setup states
+exe.dev connects with `EXE_TOKEN` and a harness image. Kickstart stays blocked
+until Denoise can read the repository's `opencode.json` when that harness needs
+a model.
 
-Denoise tracks repository readiness as setup progresses:
+![exe.dev card in the Runners dialog](../../../assets/screenshots/milestone-runners-modal-exe.png)
 
-| State                           | What it means                                                        |
-| ------------------------------- | -------------------------------------------------------------------- |
-| Not configured                  | Workflows or agent config are missing. Follow the setup steps above. |
-| Partially configured            | Some templates or secrets are still missing or outdated.             |
-| Ready for dn kickstart and meld | Workflows, agent config, and required secrets are in place.          |
-
-The setup status strip shows a short summary (for example **Setup: Checking…**
-while loading, or blocker text when setup is incomplete).
-
-If you change the agent picker after workflows are already installed, denoise
-warns that the repository is configured for a different agent. Re-run
-**Install/Update workflows** to apply the newly selected agent.
-
-You can also prepare a repository from the terminal instead of the app. See
+You can also prepare a repository from the terminal. See
 [GitHub integration — Prepare the repository](/denoise/github-integration/#prepare-the-repository).
 
-## Run dn.init_stack
+## Initialize or refresh the stack
 
-**Run dn.init_stack** dispatches the `dn.init_stack` workflow for the linked
-GitHub milestone number. The workflow scans the repository and writes milestone
-stack context (for example `{milestone}.stack.md` in the repo).
+**Initialize stack** (or **Refresh stack** after a stack exists) ranks milestone
+issues for **Kickstart order**. It opens a stack PR in the repository when
+publish completes. Choose a device, exe.dev, or GitHub Actions. If that runner
+is not ready, the confirm button is **Set up runner** and **Runners** jumps to
+setup.
+
+![Initialize stack dialog choosing where init stack runs](../../../assets/screenshots/milestone-initialize-stack-modal.png)
+
+![Refresh stack dialog with a ready device runner](../../../assets/screenshots/milestone-refresh-stack.png)
 
 Requirements:
 
 - **Online** mode
-- No remaining setup blockers (workflows installed, agent config present,
-  required secret configured)
+- A runner that can run `dn.init_stack` (device ready, or GitHub Actions
+  workflows installed)
 - Pro subscription
-
-When you click **Run dn.init_stack**:
-
-1. The setup status strip shows dispatch progress (for example **Dispatching
-   dn.init_stack…**).
-2. Denoise polls GitHub Actions until the workflow is accepted or fails.
-3. A success toast offers **Watch on GitHub** to open the Actions run.
 
 <video autoplay loop muted playsinline class="demo-video" aria-label="Run dn.init_stack — dispatch progress and Watch on GitHub">
   <source src="/demos/dn-init-stack.mp4" type="video/mp4" />
 </video>
 
-After a successful run, denoise loads stack scores for the milestone. You may
-see kickstart complexity badges, **Kickstart order** sorting, and suggested
-kickstart targets in **Repository & dn setup**.
+After a successful run, denoise loads stack scores for the milestone and
+**Kickstart order** can sort the task list.
 
 For payload details and CLI parity, see
 [Headless Use — Dispatch payloads](/dn/headless-use/#dispatch-payloads).
 
 ## Stack order staleness
 
-Stack context can become outdated when issues change after the last
-`dn.init_stack` run. Denoise detects this and shows:
-
-- A **Stack order needs refresh** pill in the task filter row
-- An amber **Run dn.init_stack** button when staleness is detected
-- A banner in **Repository & dn setup** listing issue numbers missing from the
-  current stack
-
-Re-run **Run dn.init_stack** to refresh stack order for the milestone.
+Stack context can become outdated when issues change after the last init-stack
+run. Open the overflow menu and choose **Refresh stack…** to rank the issues
+again.
 
 Denoise may also detect kickstart-plan staleness when some open issues have plan
-metadata and others do not. Re-running init_stack or refreshing from GitHub can
+metadata and others do not. Refreshing the stack or refreshing from GitHub can
 align plan data with the current issue set.
 
 ## Kickstart order and task badges
 
 After stack initialization (or when kickstart plan metadata is present from
-sync), Pro users can sort tasks by kickstart plan priority:
-
-- Click the **Kickstart order** chip in the task filter row to toggle between
-  manual order and kickstart priority order.
-- You can also choose **Kickstart priority (Pro)** from the sort dropdown in the
-  milestone header.
+sync), Pro users can sort tasks by kickstart plan priority. Click the
+**Kickstart order** chip in the filter row to toggle between manual order and
+kickstart priority order.
 
 <video autoplay loop muted playsinline class="demo-video" aria-label="Kickstart order — toggle to sort tasks by kickstart plan priority">
   <source src="/demos/kickstart-order.mp4" type="video/mp4" />
 </video>
 
-Task rows may show:
+Task rows show **Kickstart** when the issue is ready. While a run is in
+progress the row shows a status line and **Cancel**.
 
-- A **numeric complexity badge** from the kickstart plan
-- A **disqualified** indicator with a reason when kickstart cannot run on that
-  issue
-- **Kickstart status chips** after dispatch — Running, Failed, or Complete — and
-  a **PR** link when a pull request is available
+![Task row with kickstart queued on a device runner](../../../assets/screenshots/milestone-kickstart-running.png)
 
-![Task row with kickstart complete status and PR link](../../../assets/screenshots/milestone-view-task-row-ks-complete.png)
+When the plan is ready, the row offers **Review plan**.
+
+![Task row with plan ready for review](../../../assets/screenshots/milestone-kickstart-plan-ready.png)
+
+![Review plan dialog with Approve and implement](../../../assets/screenshots/milestone-kickstart-review-plan-modal.png)
+
+Approving the plan moves the row to implementation.
+
+![Task row while kickstart is implementing](../../../assets/screenshots/milestone-kickstart-implementing.png)
+
+A published run shows the GitHub mark, a **PR** link, and **Kickstart again**.
+
+![Completed kickstart row with a pull request and Kickstart again](../../../assets/screenshots/milestone-kickstart-complete-buttons.png)
 
 Free users see a locked **Kickstart order** chip that explains the Pro
 requirement.
 
 ## Kickstart a task
 
-Per-task kickstart plans and implements the issue. Choose an available runtime
-in the confirmation dialog: **GitHub Actions**, **Cursor Cloud**, **exe.dev**
-(`cloud_vm`), or a **paired device runner**. Availability depends on repository
-setup and the account. For a device runner, also pick the **Execution checkout**
-— the issue can stay on this milestone's repository while work and the pull
-request land in another registered checkout. A device job never falls back
-silently to hosted compute. Docker sandbox is CLI-only on hosted denoise. See
-[Kickstart runtimes](/denoise/kickstart-runtimes/).
+**Kickstart** on a task row opens a setup page, not a confirm dialog. The page
+starts from the issue summary, then asks where kickstart should run and how
+detailed the plan should be.
 
-The progress panel shows **detailed** phase/step events when the chosen runtime
-streams HTTP progress (or NDJSON on a device). Without a public progress base
-URL, GitHub Actions stays available with **coarse** queued/running/terminal
-status only. See [Progress reporting](/dn/progress-reporting/).
+![Kickstart setup page with the task summary](../../../assets/screenshots/milestone-kickstart-start-summary.png)
 
-From the milestone view you can also start a **Todo loop** (`dn.todo_loop`) when
-the repository has that workflow installed; it uses GitHub Actions today.
+Choose a paired device, **exe.dev**, or **GitHub Actions**, and an **Implement
+in** checkout. A device job stays on that machine. Docker sandbox is CLI-only
+on hosted denoise. See [Kickstart runtimes](/denoise/kickstart-runtimes/).
 
-1. Open a task in a GitHub-linked milestone (click the task row).
-2. In the task detail dialog, click **Kickstart!**
-3. Confirm **Run kickstart for this task?**, pick a runtime, and for a device
-   runner choose the **Execution checkout**.
-4. Follow queued, running, failed, and completed states in the dialog or task
-   status chips. GitHub Actions runs also provide **Watch on GitHub**. Completed
-   published runs show a PR link when one was reported.
+![Kickstart runner picker with a ready device](../../../assets/screenshots/milestone-kickstart-start-runner.png)
+
+**Plan detail** defaults to **Balanced**. Optional additional guidance steers
+the planning agent without replacing the issue text.
+
+![Kickstart plan detail and additional guidance](../../../assets/screenshots/milestone-kickstart-start-plan-detail.png)
+
+**After kickstart** chooses what happens when implementation finishes:
+
+- **Review locally before publishing** — Keep changes on the device, then land
+  and sync.
+- **Open a pull request** — Commit, push a branch, and open a GitHub pull
+  request.
+- **Commit directly to trunk** — Lint, test, commit, and push to the default
+  branch.
+
+**Advanced** sets phase time limits. The default is plan 10 minutes and
+implement 20 minutes.
+
+![Kickstart advanced time limits and after-kickstart publish choice](../../../assets/screenshots/milestone-kickstart-start-advanced-after.png)
+
+The progress strip on the task row shows queued, planning, and implementing
+states. GitHub Actions runs can offer **Watch on GitHub**. See
+[Progress reporting](/dn/progress-reporting/).
 
 On a **leave-local** device run, Kickstart ends at Lint (`dn ensure lint`). Then
 **Land** commits on the device, **Sync** re-runs lint, runs tests, and publishes
-to trunk, and **Done** closes the GitHub issue. Confirm Land and Sync the same
-way you confirm Kickstart. See [Kickstart, land, sync, and done](/close-out/).
-On the PR path, host CI is the gate; there is no Land or Sync button.
+to trunk, and **Done** closes the GitHub issue. See
+[Kickstart, land, sync, and done](/close-out/). On the pull-request path, host
+CI is the gate.
 
-<video autoplay loop muted playsinline class="demo-video" aria-label="Kickstart a task — confirm dispatch, track progress, and open the pull request">
+<video autoplay loop muted playsinline class="demo-video" aria-label="Kickstart a task from the milestone view through plan review and a pull request">
   <source src="/demos/kickstart-task.mp4" type="video/mp4" />
 </video>
 
-**Kickstart!** is available when:
+**Kickstart** is available when:
 
 - You have Pro (or an organization Pro seat).
 - The task is in a GitHub-linked milestone with a linked issue.
-- Repository setup is complete (**Ready for dn kickstart and meld.**).
+- A runner for that task is **Ready**.
 - The issue is open and not disqualified during stack planning.
 - You are the task owner or a collaborator on a shared task. Private tasks
   restrict kickstart to the owner and collaborators.
 
-When kickstart is disabled, the dialog shows a short reason (for example
-incomplete repository setup, disqualified issue, or closed task).
+When kickstart is disabled, the row or setup page shows a short reason (for
+example a runner that needs setup, a disqualified issue, or a closed task).
 
 For CLI-oriented planning and implementation depth, see
 [Completing GitHub Issues](/dn/completing-github-issues/).
@@ -252,7 +290,7 @@ For CLI-oriented planning and implementation depth, see
   an execution checkout
 - [GitHub integration](/denoise/github-integration/) — Link milestones, sync
   issues, convert tasks to GitHub issues
-- [Tips & troubleshooting](/denoise/tips-troubleshooting/) — When DN setup or
+- [Tips & troubleshooting](/denoise/tips-troubleshooting/) — When runners or
   kickstart actions are disabled
 - [Subscription & Pro](/denoise/subscription-and-pro/) — Pro requirements for
   automation from the app

@@ -91,11 +91,14 @@ On the Roadmap:
 3. Open the milestone from the roadmap list.
 4. Click **Add task** in the milestone header.
 
-![Milestone header with Add task button](../../../assets/screenshots/milestone-view-first-btn-row.png)
+![Milestone header with Add task, Import issues, and Runners](../../../assets/screenshots/milestone-view.png)
 
-5. Enter a title, optional tags and description, then click **Save**.
+5. In **Add work**, choose **Denoise task** or **GitHub issue**. Enter a title
+   and description, then create the task or issue.
 
-![Add task dialog with title, tags, and description](../../../assets/screenshots/milestone-create-task.png)
+![Add work chooser for a Denoise task or a GitHub issue](../../../assets/screenshots/milestone-add-task-modal.png)
+
+![Add task dialog with title, labels, and description](../../../assets/screenshots/milestone-add-task-modal-denoise.png)
 
 6. Confirm the task appears in the milestone task list.
 
@@ -112,8 +115,8 @@ the Roadmap, the tour points at the progress strip and the status filters.
   GitHub sync in the team app.
 - Use [GitHub integration](/denoise/github-integration/) when you want to link
   milestones to GitHub issues and dn workflows.
-- Use [Milestone details](/denoise/milestone-details/) for DN setup, init_stack,
-  and per-task kickstart on GitHub-linked milestones.
+- Use [Milestone details](/denoise/milestone-details/) for Runners, stack
+  ranking, and per-task kickstart on GitHub-linked milestones.
 - Use [Subscription & Pro](/denoise/subscription-and-pro/) for Free vs Pro vs
   Enterprise.
 - Use [Runners](/denoise/device-runners/) when you want Void task-sync or Pro

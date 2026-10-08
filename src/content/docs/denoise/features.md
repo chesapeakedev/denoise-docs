@@ -37,20 +37,21 @@ milestone view workflow.
   visibility with publish/private settings.
 - **GitHub issue sync (Pro)** — Link milestones, import issues, and push task
   updates back to GitHub.
-- **Task kickstart (Pro)** — Dispatch agent-backed kickstart from a task in a
-  GitHub-linked milestone via **Kickstart!** in the task detail dialog. On a
-  device runner, **Land** then **Sync** finish the same loop as the CLI. See
+- **Task kickstart (Pro)** — **Kickstart** on a task row opens kickstart setup
+  (summary, runner, and plan detail). On a leave-local device run, **Land** then
+  **Sync** finish the same loop as the CLI. See
   [Kickstart, land, sync, and done](/close-out/).
 
 ## Task management
 
 Tasks live on the **milestone view** (`/milestone/:id`). Open a milestone from
-the Roadmap to reach them. Click **Add task** in the milestone header to create
-a task with a title, tags, and markdown description.
+the Roadmap to reach them. Click **Add task** to open **Add work**, then choose
+a Denoise task or a GitHub issue. A Denoise task takes a title, labels, and a
+markdown description.
 
-![Add task dialog with title, tags, and description](../../../assets/screenshots/milestone-create-task.png)
+![Add task dialog with title, labels, and description](../../../assets/screenshots/milestone-add-task-modal-denoise.png)
 
-![Milestone task list with GitHub-linked issues](../../../assets/screenshots/milestone-view-task-list.png)
+![Milestone task list with GitHub-linked issues](../../../assets/screenshots/milestone-view.png)
 
 - **Complete or reopen** — Toggle task completion from the task row.
 - **Edit** — Update task title and description in the task detail dialog.
@@ -59,28 +60,19 @@ a task with a title, tags, and markdown description.
 - **Due dates** — Track deadlines.
 - **Urgent flag** — Mark tasks that need priority attention.
 
-### Filtering and sorting tasks
+### Filtering tasks
 
-**Filter tasks by text** — Use the search input in the milestone header to
-filter tasks within the current milestone. The filter searches both task titles
-and descriptions (case-insensitive).
+The strip under the milestone header shows a progress bar and filter chips:
+**All**, **Open**, and **Completed**. The refresh icon pulls the latest GitHub
+issues.
 
-**Sort tasks** — Use the sort dropdown in the milestone header to change the
-order of tasks:
+![Milestone progress bar, status filters, Kickstart order, and GitHub refresh](../../../assets/screenshots/milestone-status-filters-refresh.png)
 
-- **Default order** — Tasks are shown in their original order
-- **Name A-Z** — Sort tasks alphabetically (ascending)
-- **Name Z-A** — Sort tasks alphabetically (descending)
-- **Kickstart priority (Pro)** — Order tasks by kickstart plan priority on
-  GitHub-linked milestones with repository context
+**Kickstart order** — Click the **Kickstart order** chip to sort by kickstart
+plan priority (Pro). Free users see a locked chip with Pro upgrade details.
 
-**Kickstart order** — On the milestone view, click the **Kickstart order** chip
-in the task filter row to toggle kickstart priority sorting (Pro). Free users
-see a locked chip with Pro upgrade details.
-
-**Hide completed tasks** — Click the eye icon in the milestone filter row to
-toggle visibility of completed tasks. When enabled, only incomplete tasks are
-shown.
+**Hide completed tasks** — Click the eye icon in the filter row to hide
+completed tasks. When enabled, only incomplete tasks are shown.
 
 <video autoplay loop muted playsinline class="demo-video" aria-label="Kickstart order — toggle to sort tasks by kickstart plan priority">
   <source src="/demos/kickstart-order.mp4" type="video/mp4" />
@@ -126,10 +118,11 @@ narrow the milestone list.
 
 ## Collaboration
 
-Share a milestone with teammates from the milestone header (**Share**). Shared
-milestones sync tasks in real time when you are **Online** and signed in.
+Share a milestone from the header overflow menu (**Share**). That opens
+**Manage Participants**. Shared milestones sync tasks in real time when you are
+**Online** and signed in.
 
-![Milestone header with Share and Add task](../../../assets/screenshots/milestone-view-first-btn-row.png)
+![Milestone overflow menu with Share](../../../assets/screenshots/milestone-view-menu.png)
 
 Task visibility:
 
@@ -175,7 +168,7 @@ included in the existing daily B2 backup.
 - [Kickstart, land, sync, and done](/close-out/) — Shared Kickstart, Land, Sync,
   and Done verbs
 - [Runners](/denoise/device-runners/) — Pair a device or connect exe.dev
-- [Kickstart runtimes](/denoise/kickstart-runtimes/) — Where **Kickstart!** runs
+- [Kickstart runtimes](/denoise/kickstart-runtimes/) — Where kickstart runs
 - [Runner logs](/operations/runner-logs/) — Serve stdout for devices and exe.dev
 - [dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/) — Current CLI
   and runner guidance

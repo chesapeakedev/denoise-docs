@@ -12,8 +12,8 @@ Most automation features require [Denoise Pro](/denoise/subscription-and-pro/)
 and **Online** mode. GitHub sign-in and repository access are required; see
 [Authentication](/denoise/authentication/).
 
-For DN setup, stack initialization, kickstart ordering, and per-task kickstart
-on the milestone view, see [Milestone details](/denoise/milestone-details/).
+For Runners, stack ranking, kickstart ordering, and per-task kickstart on the
+milestone view, see [Milestone details](/denoise/milestone-details/).
 
 ## Prepare the repository
 
@@ -31,10 +31,10 @@ files. Set the secret required by the configured agent, such as
 `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, or `CURSOR_API_KEY`. For Cursor, see
 [Use dn with Cursor](/cookbooks/cursor/).
 
-When you use the app, **Install/Update workflows** writes the selected agent to
-`.github/dn/config.json`. Workflow dispatch uses that repository configuration;
-changing the agent picker alone does not update the repo until you re-run
-Install workflows.
+When you use the app, **Install workflows** on the GitHub Actions card in
+**Runners** writes the selected agent to `.github/dn/config.json`. Workflow
+dispatch uses that repository configuration; changing the agent alone does not
+update the repo until you install workflows again.
 
 See [Headless Use — Dispatch payloads](/dn/headless-use/#dispatch-payloads) for
 dispatch payloads, permissions, and troubleshooting.
@@ -72,7 +72,7 @@ GitHub issues appear in the app as `#123: Issue Title`. Linked tasks show the
 issue title and markdown description in the task card. Sync is disabled while
 offline; local changes remain saved and sync again when connectivity returns.
 
-![GitHub-linked tasks in the milestone task list](../../../assets/screenshots/milestone-view-task-list.png)
+![GitHub-linked tasks in the milestone task list](../../../assets/screenshots/milestone-view.png)
 
 Use the GitHub refresh control on the milestone view to pull the latest issues
 for a linked milestone.
@@ -85,29 +85,31 @@ for a linked milestone.
 
 On a GitHub-linked milestone, Pro users can:
 
-- Install or update dn workflow templates and configure the agent harness
-- Dispatch `dn.init_stack` for milestone stack context
-- Sort tasks by kickstart plan priority
-- Dispatch `dn.kickstart_issue` per task from the task detail dialog (pick a
-  runtime — see [Kickstart runtimes](/denoise/kickstart-runtimes/))
-- Start `dn.todo_loop` when that workflow is installed
+- Open **Runners** and install dn workflows for GitHub Actions, or choose a
+  paired device or exe.dev
+- **Initialize stack** or **Refresh stack** from the overflow menu
+- Sort tasks with the **Kickstart order** chip
+- Open **Kickstart** on a task row and choose a runner (see
+  [Kickstart runtimes](/denoise/kickstart-runtimes/))
+- Start **Daily kickstart** from the overflow menu when that workflow is
+  available
 
-![DN setup action row on the milestone view](../../../assets/screenshots/milestone-view-second-btn-row.png)
+![GitHub Actions card in Runners with Install workflows](../../../assets/screenshots/milestone-runners-modal-gh.png)
 
 Denoise dispatches the same workflow events exposed by `dn workflows dispatch`:
 
 - `dn.init_stack` — Generate milestone stack markdown and JSON files.
 - `dn.meld_issue_plan` — Produce a plan for an issue (CLI and Actions; not
   exposed as a separate milestone-page button today).
-- `dn.kickstart_issue` — Run plan plus implementation from **Kickstart!** in the
-  task detail dialog. After a leave-local device run, **Land** and **Sync**
-  queue `dn.land` and `dn.sync` on that checkout. See
+- `dn.kickstart_issue` — Run plan plus implementation from **Kickstart** on a
+  task row. After a leave-local device run, **Land** and **Sync** queue
+  `dn.land` and `dn.sync` on that checkout. See
   [Kickstart, land, sync, and done](/close-out/).
 - `dn.todo_loop` — Advance the repository todo plan on a stable automation
   branch (GitHub Actions).
 
 See [Milestone details](/denoise/milestone-details/) for the full UI workflow,
-setup states, dispatch feedback, and kickstart blockers. Live progress uses the
+runner setup, and kickstart blockers. Live progress uses the
 shared HTTP bootstrap described in
 [Progress reporting](/dn/progress-reporting/).
 
@@ -135,7 +137,7 @@ If sync conflicts occur, the most recent change wins.
 
 - [Kickstart, land, sync, and done](/close-out/) — Shared Kickstart, Land, Sync,
   and Done verbs
-- [Milestone details](/denoise/milestone-details/) — DN setup and **Kickstart!**
+- [Milestone details](/denoise/milestone-details/) — Runners and kickstart
 - [Kickstart runtimes](/denoise/kickstart-runtimes/) — Runtime matrix
 - [Runners](/denoise/device-runners/) — User-paired device kickstart and
   execution checkouts
