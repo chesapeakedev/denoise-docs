@@ -118,8 +118,8 @@ narrow the milestone list.
 
 ## Collaboration
 
-Share a milestone from the header overflow menu (**Share**). That opens
-**Manage Participants**. Shared milestones sync tasks in real time when you are
+Share a milestone from the header overflow menu (**Share**). That opens **Manage
+Participants**. Shared milestones sync tasks in real time when you are
 **Online** and signed in.
 
 ![Milestone overflow menu with Share](../../../assets/screenshots/milestone-view-menu.png)

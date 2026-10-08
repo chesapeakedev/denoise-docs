@@ -77,13 +77,13 @@ issues, and collaborator visibility predictable.
 - **Stack order needs refresh** — Open issues were added or changed after the
   last init-stack run. Open the overflow menu and choose **Refresh stack…**.
 - **Pro required** — Workflow install, stack ranking, kickstart ordering, and
-  **Kickstart** require
-  [Denoise Pro](/denoise/subscription-and-pro/) (or an organization Pro seat).
+  **Kickstart** require [Denoise Pro](/denoise/subscription-and-pro/) (or an
+  organization Pro seat).
 - **Issue disqualified** — Stack planning marked the issue ineligible for
   kickstart. Check the reason on the task row or kickstart setup page.
 - **Closed issue** — Kickstart is only available for open GitHub issues.
-- **Private task** — **Kickstart** on a private task is limited to the owner
-  and milestone collaborators.
+- **Private task** — **Kickstart** on a private task is limited to the owner and
+  milestone collaborators.
 - **Missing repository access** — In **Profile**, use **Update repos & orgs** to
   grant denoise access to the linked repository.
 

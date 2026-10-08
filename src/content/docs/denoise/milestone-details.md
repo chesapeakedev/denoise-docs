@@ -107,7 +107,8 @@ On a task row, **+** opens the label picker.
 
 Open **Runners** on a GitHub-linked Pro milestone. The dialog asks where
 kickstart should run: a paired device, **exe.dev**, or **GitHub Actions**. Each
-option has an **Implement in** checkout. See [Runners](/denoise/device-runners/).
+option has an **Implement in** checkout. See
+[Runners](/denoise/device-runners/).
 
 ![Runners dialog with a paired local device](../../../assets/screenshots/milestone-runners-modal-local.png)
 
@@ -126,8 +127,8 @@ GitHub Actions setup is on that card, not a separate button row:
    For Cursor-specific setup, see [Use dn with Cursor](/cookbooks/cursor/).
 
 2. **Install workflows.** Installs or refreshes the `dn` workflow files. The
-   card lists `dn.init_stack`, `dn.meld_issue_plan`, and `dn.kickstart_issue`
-   as installed or not installed. Requires **Online** mode.
+   card lists `dn.init_stack`, `dn.meld_issue_plan`, and `dn.kickstart_issue` as
+   installed or not installed. Requires **Online** mode.
 3. **Configure secrets** or **Open Actions** on the same card when the agent
    needs a repository secret.
 
@@ -196,8 +197,8 @@ kickstart priority order.
   <source src="/demos/kickstart-order.mp4" type="video/mp4" />
 </video>
 
-Task rows show **Kickstart** when the issue is ready. While a run is in
-progress the row shows a status line and **Cancel**.
+Task rows show **Kickstart** when the issue is ready. While a run is in progress
+the row shows a status line and **Cancel**.
 
 ![Task row with kickstart queued on a device runner](../../../assets/screenshots/milestone-kickstart-running.png)
 
@@ -227,8 +228,8 @@ detailed the plan should be.
 ![Kickstart setup page with the task summary](../../../assets/screenshots/milestone-kickstart-start-summary.png)
 
 Choose a paired device, **exe.dev**, or **GitHub Actions**, and an **Implement
-in** checkout. A device job stays on that machine. Docker sandbox is CLI-only
-on hosted denoise. See [Kickstart runtimes](/denoise/kickstart-runtimes/).
+in** checkout. A device job stays on that machine. Docker sandbox is CLI-only on
+hosted denoise. See [Kickstart runtimes](/denoise/kickstart-runtimes/).
 
 ![Kickstart runner picker with a ready device](../../../assets/screenshots/milestone-kickstart-start-runner.png)
 
