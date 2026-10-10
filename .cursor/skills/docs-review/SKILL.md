@@ -20,6 +20,8 @@ Use this skill for a **review pass** on one page (or one section) in
   editing the skill, run `make sync_codex_skills` (also runs in `make check`).
 - **Invoke in Codex:** ask for a docs review and name this skill (`docs-review`)
   or the page path (for example `runners/progress-reporting.md`).
+- **Repo / VCS:** use [repo-workflow](../repo-workflow/SKILL.md) (`make repo_vcs`
+  then the matching CLI for commits).
 
 Default scope: **review and recommend**. Rewrite prose only when the user asks
 to apply fixes.
