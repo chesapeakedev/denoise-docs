@@ -12,7 +12,6 @@ const segments = [
       },
       { title: "Command reference", href: "/dn/workflows/" },
       { title: "Cookbooks", href: "/cookbooks/overview/" },
-      { title: "Headless Use", href: "/runners/headless-use/" },
       {
         title: "Runners",
         href: "/runners/overview/",
@@ -22,16 +21,16 @@ const segments = [
   {
     title: "Product Manager",
     description:
-      "Plan your project, build from the browser, and keep the team in sync from Github",
+      "Plan your project, build from the browser, and keep the team in sync from GitHub",
     links: [
       { title: "Getting started", href: "/denoise/getting-started/" },
-      { title: "The Void", href: "/denoise/void/" },
-      { title: "Milestone details", href: "/denoise/milestone-details/" },
       { title: "GitHub integration", href: "/denoise/github-integration/" },
+      { title: "Milestone details", href: "/denoise/milestone-details/" },
       {
         title: "Subscription & Pro",
         href: "/denoise/subscription-and-pro/",
       },
+      { title: "The Void", href: "/denoise/void/" },
     ],
   },
   {
@@ -40,18 +39,23 @@ const segments = [
       "Build your software factory using your team's current hardware as infra",
     links: [
       {
-        title: "Self-hosted runners",
-        href: "/runners/self-hosted-runners/",
-      },
-      {
-        title: "Scheduled Workflows",
-        href: "/runners/scheduled-workflows/",
-      },
-      { title: "GitHub token setup", href: "/runners/github-token-setup/" },
-      { title: "Kickstart runtimes", href: "/runners/kickstart-runtimes/" },
-      {
         title: "Runners",
         href: "/runners/overview/",
+      },
+      {
+        title: "Enroll runners",
+        href: "/runners/device-runners/",
+      },
+      { title: "GitHub token setup", href: "/runners/github-token-setup/" },
+      { title: "Headless setup", href: "/runners/headless-use/" },
+      { title: "Kickstart runtimes", href: "/runners/kickstart-runtimes/" },
+      {
+        title: "Scheduled workflows",
+        href: "/runners/scheduled-workflows/",
+      },
+      {
+        title: "Self-hosted runners",
+        href: "/runners/self-hosted-runners/",
       },
     ],
   },
@@ -180,7 +184,7 @@ const moreLinks = [
 
   .home-segment__links {
     list-style: none;
-    margin: auto 0 0;
+    margin: 0;
     padding: 0;
     display: flex;
     flex-wrap: wrap;
