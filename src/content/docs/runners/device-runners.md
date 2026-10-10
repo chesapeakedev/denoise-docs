@@ -3,41 +3,28 @@ title: Enroll runners
 description: Enroll a place that can run harness plus dn against a GitHub repository — a paired device, GitHub Actions, or exe.dev.
 ---
 
-This page covers enrollment: pairing a device, connecting exe.dev, and GitHub
-Actions workflow setup. For the runner model and provider summary, start with
-[Runners overview](/runners/overview/).
+Pair a device, connect exe.dev, or install GitHub Actions workflows from the
+milestone **Runners** dialog. For what a runner is, provider limits, and which
+doc to open next, see [Runners overview](/runners/overview/).
 
-## Providers
-
-| Provider       | Where it runs                                                              | Enroll                             | Operations                                     | Credentials                                      |
-| -------------- | -------------------------------------------------------------------------- | ---------------------------------- | ---------------------------------------------- | ------------------------------------------------ |
-| Device         | Paired macOS or Linux machine                                              | Pairing code + `dn runner connect` | Kickstart, land, sync, denoise-task, task-sync | Stay on the device                               |
-| GitHub Actions | Planning repository workflows                                              | Install/update `dn` workflows      | Kickstart with `--publish pr`                  | Repository secrets                               |
-| exe.dev        | Persistent VM from [dn-images](https://github.com/chesapeakedev/dn-images) | Connect `EXE_TOKEN` in **Runners** | Kickstart with `--publish pr`                  | Your exe.dev token plus harness keys you connect |
-
-Denoise never silently moves a job from one runner to another. Unavailable
-runners stay visible with a reason. Self-hosted GitHub Actions hardware is a
-separate advanced path: [Self-hosted runners](/runners/self-hosted-runners/).
-
-Docker is isolation **on a device or local CLI**, not a runner you enroll. See
-[Sandbox execution](/dn/sandbox/).
-
-The rest of this page covers **device** pairing, checkout registration,
-land/sync, and the local security boundary, then **exe.dev** enroll. GitHub
-Actions setup lives in the **Runners** dialog and
-[GitHub integration](/denoise/github-integration/). Kickstart picks among
-enrolled runners — see [Kickstart runtimes](/runners/kickstart-runtimes/).
-Contributor log locations for both providers:
+On this page: device pairing and checkout registration, Void local task-sync,
+kickstart/land/sync from the UI, agent preference, exe.dev connect, security, and
+troubleshooting. GitHub Actions template install is also in
+[GitHub integration](/denoise/github-integration/). Self-hosted Actions
+hardware is [Self-hosted runners](/runners/self-hosted-runners/). Logs:
 [Runner logs](/runners/runner-logs/).
 
-Device runners accept kickstart jobs, **land** jobs (`dn land` on the paired
-checkout), **sync** jobs (`dn sync` on the paired checkout; trunk quality gate),
-denoise-task jobs, and **task-sync** (Void ↔ `~/.dn/tasks/` relay). They do not
-run arbitrary commands or GitHub Actions workflows.
+## How to enroll each provider
 
-The close-out verbs match the CLI: Kickstart → Land → Sync → Done. See
-[Kickstart, land, sync, and done](/close-out/). Void **task-sync** is unrelated
-to trunk Sync.
+| Provider       | Where it runs                                                              | Enroll                             | Credentials                                      |
+| -------------- | -------------------------------------------------------------------------- | ---------------------------------- | ------------------------------------------------ |
+| Device         | Paired macOS or Linux machine                                              | Pairing code + `dn runner connect` | Harness and GitHub auth stay on the device       |
+| GitHub Actions | Planning repository workflows                                              | Install/update `dn` workflows      | Repository secrets                               |
+| exe.dev        | Persistent VM from [dn-images](https://github.com/chesapeakedev/dn-images) | Connect `EXE_TOKEN` in **Runners** | Your exe.dev token plus harness keys you connect |
+
+The sections below focus on **device** and **exe.dev**. Actions enrollment is
+mostly workflow files in the **Runners** dialog; see
+[GitHub integration](/denoise/github-integration/) for repository setup.
 
 ## Local task sync (The Void)
 
@@ -56,11 +43,11 @@ dn task show <id> --json
 dn kickstart --denoise-task ~/.dn/tasks/<id>.json --publish none
 ```
 
-Runner limits: **1** active device-or-exe.dev runner on Free, **10** on Denoise
-Pro (including org-seat Pro). GitHub Actions does not consume that slot. Pair
-from The Void **Devices** flow or from a GitHub-linked milestone in denoise
-(**Profile** → **Runners**). Profile settings point you to that milestone
-dialog; they do not create pairing codes.
+Device and exe.dev runners count toward your plan limit — see
+[Subscription & Pro](/denoise/subscription-and-pro/). GitHub Actions does not
+use that slot. Pair from The Void **Devices** or from a GitHub-linked milestone
+(**Runners**). Profile **Runners** links to the milestone dialog; it does not
+issue pairing codes.
 
 ## Pair and prepare a device
 
@@ -158,10 +145,7 @@ in B. You need GitHub read access to the issue repository and write access to
 the execution repository. The execution slug must already be registered and
 ready on the device.
 
-Device runners and exe.dev report progress with **NDJSON** over the same device
-job API. GitHub Actions uses the shared HTTP bootstrap. See
-[Kickstart runtimes](/runners/kickstart-runtimes/) and
-[Kickstart runtimes — Configure progress](/runners/kickstart-runtimes/#configure-progress-for-runners).
+Progress in the task panel vs runner logs: [Kickstart runtimes](/runners/kickstart-runtimes/).
 
 From the device, scripts can also queue work:
 
@@ -305,10 +289,11 @@ credential and config files are `0600`.
 
 ## Connect an exe.dev runner
 
-An exe.dev runner is the same Kickstart job queue as a paired device, on a
-persistent cloud VM. Denoise does not SSH into the pet. Connect uses `new`,
-`ls`, and `rm` only. The VM clones `/workspace/{owner}/{repo}` when it claims a
-job. Publish is `--publish pr`. Land and Sync stay on a device checkout.
+An exe.dev runner uses the same job queue as a paired device on a persistent
+cloud VM. Denoise does not SSH into the pet. Connect uses `new`, `ls`, and `rm`
+only. The VM clones `/workspace/{owner}/{repo}` when it claims a job. Publish is
+`--publish pr`. Land and Sync jobs still run on a registered device checkout,
+not on the VM — see [Kickstart, land, sync, and done](/close-out/).
 
 1. Open a GitHub-linked milestone and click **Runners**.
 2. Select **exe.dev**. Paste an `EXE_TOKEN` with `new`, `ls`, and `rm` scopes
