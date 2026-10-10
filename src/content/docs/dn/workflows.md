@@ -7,15 +7,17 @@ Use this reference when you know which stage of the work you need to run. For an
 issue-to-pull-request walkthrough, start with
 [Completing GitHub Issues](/dn/completing-github-issues/).
 
-| Command        | Purpose                                                |
-| -------------- | ------------------------------------------------------ |
-| `dn kickstart` | Plan and implement an issue or local specification     |
-| `dn meld`      | Create a durable plan from one or more sources         |
-| `dn loop`      | Implement an existing plan                             |
-| `dn land`      | Validate completed work and create local commits       |
-| `dn fixup`     | Apply pull-request review feedback                     |
-| `dn until`     | Repeat agent work until an independent verifier passes |
-| `dn sync`      | Rebase and publish intentional trunk changes           |
+| Command        | Purpose                                                     |
+| -------------- | ----------------------------------------------------------- |
+| `dn kickstart` | Plan and implement an issue or local specification          |
+| `dn meld`      | Create a durable plan from one or more sources              |
+| `dn loop`      | Implement an existing plan                                  |
+| `dn land`      | Validate completed work and create local commits            |
+| `dn fixup`     | Apply pull-request review feedback                          |
+| `dn until`     | Repeat agent work until an independent verifier passes      |
+| `dn ensure`    | Make a named `dn.json` recipe pass (fixer agent on failure) |
+| `dn read`      | Print a read-only review brief for a pull request           |
+| `dn sync`      | Rebase and publish intentional trunk changes                |
 
 ## `dn kickstart`
 
@@ -165,7 +167,10 @@ tick, equivalent to `one_shot: true` on a gambit.
 The config has a shared top-level `iterations` bound, which defaults to `10`,
 and an optional `timeout_ms`. Gambit zero is the primary and runs every
 iteration. Later gambits can be interval reviews or one-shot tails. Each action
-has exactly one of `prompt` or `script`. `secrets` lists environment variable
+uses exactly one of `url`, `content` (JSON `prompt` is an alias for `content`),
+or `script`: `url` fetches a goal document, `content` is an inline goal, and
+`script` runs a command. A Markdown gambit file uses its body as the generator.
+`secrets` lists environment variable
 names, never secret values.
 
 `metadata` values are substituted into prompts as `{{key}}` and prepended as a
@@ -309,13 +314,52 @@ unparseable verdicts continue the loop unless you pass `--strict-verdict`.
     "verdict_path": ".dn/until-verdict.json"
   },
   "metadata": { "audience": "dn CLI users" },
-  "max_iterations": 3
+  "iterations": 3
 }
 ```
 
 Avoid generator actions that only format code, prompt verifiers that rely on
 stdout containing only JSON, unbounded long-running loops, and secret values in
 the gambit file.
+
+### Import a goal from a GitHub issue
+
+```bash
+dn until import https://github.com/owner/repo/issues/123
+dn until import 123 --split
+```
+
+`dn until import` fetches an issue and writes a local goal file next to the
+current directory. The default is one Markdown file; `--split` writes a TOML
+config plus a neighboring Markdown body. Import is convert-only: it does not
+close the GitHub issue or start `dn until run`. Review an imported goal before
+running it.
+
+## `dn ensure`
+
+```bash
+dn ensure
+dn ensure lint
+dn ensure tests --no-fix
+```
+
+`dn ensure` runs a named recipe from `dn.json` (`ensure.<name>.argv`) and, on
+failure, launches a fixer agent before retrying. Kickstart and loop already run
+`dn ensure lint` after implementation, so use this command to re-run a recipe on
+its own or to list available recipes. `--no-fix` fails fast without the fixer
+agent. See [Kickstart, land, sync, and done](/close-out/) for where lint runs
+in the close-out loop.
+
+## `dn read`
+
+```bash
+dn read https://github.com/owner/repo/pull/123
+dn read 123 --json
+```
+
+`dn read` prints a read-only review brief for a pull request: changed files,
+review comments, and check status. It never writes to the workspace or GitHub,
+so agents can use it to plan a `dn fixup` without side effects.
 
 ## Milestone commands
 

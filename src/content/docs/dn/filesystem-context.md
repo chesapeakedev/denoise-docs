@@ -15,7 +15,7 @@ sandbox runs.
 | `plans/*.description.md`                                           | `dn meld --milestone`                  | User-value synthesis of a milestone                                                                                                       |
 | `plans/*.stack.md`, `plans/*.stack.json`                           | `dn init stack`                        | Prioritized milestone task queue                                                                                                          |
 | `AGENTS.md`                                                        | `dn init agents`; kickstart may update | Project conventions and commands for agents                                                                                               |
-| `.agents/skills/dn/`, `.claude/skills/dn/`, `.cursor/rules/dn.mdc` | `dn init agents --skill`               | Agent-native dn workflow instructions — see [Installation — Install dn as an agent skill](/dn/installation/#install-dn-as-an-agent-skill) |
+| `.agents/skills/dn/`, `.claude/skills/dn/`, `.cursor/skills/dn/`   | `dn init agents --skill`               | Agent-native dn workflow instructions — see [Installation — Install dn as an agent skill](/dn/installation/#install-dn-as-an-agent-skill) |
 
 For `dn init stack` command detail, see
 [Working with GitHub](/dn/github-commands/). For `dn init agents` and agent
@@ -105,6 +105,10 @@ Use `dn meld` to merge notes or issue context into `AGENTS.md`:
 ```bash
 dn meld research.md ops-notes.md --target AGENTS.md
 ```
+
+`--target` also accepts other Markdown paths (`README.md`, `CONTRIBUTING.md`,
+`plans/*.plan.md`) and GitHub specifiers such as `github:comment:120` for the
+checked-out repo.
 
 Use `dn context` to inspect which `AGENTS.md` (or `AGENTS.override.md`) files
 apply to a path — see [Experimental](/dn/task-list-and-sync/). To install native

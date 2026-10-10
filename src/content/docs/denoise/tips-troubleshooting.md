@@ -16,8 +16,9 @@ issues, and collaborator visibility predictable.
 2. **Use tags for GitHub labels** — Tags in the app become GitHub labels.
 3. **Keep descriptions detailed** — When converting tasks to issues, add
    detailed descriptions (they become the GitHub issue body).
-4. **Monitor sync status** — The header sync badge shows when you are **Online**
-   and syncing with GitHub.
+4. **Monitor sync status** — The header sync badge shows **Online** when cloud
+   sync over WebSocket is connected. It does not track GitHub issue sync —
+   use the refresh control on the milestone view for that.
 
    ![Header with Online sync badge](../../../assets/screenshots/header-signed-in.png)
 
@@ -120,7 +121,7 @@ issues, and collaborator visibility predictable.
 - Device jobs never fall back silently to GitHub Actions or managed VMs.
 - GitHub Actions stays on the planning repository. A device runner can execute
   in a different registered checkout when you have GitHub write access there.
-- Use `dn` **0.0.37** or newer for the device-runner protocol. See
+- Use `dn` **0.0.52** or newer for the device-runner protocol. See
   [Runners](/denoise/device-runners/) and
   [dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/).
 - exe.dev uses the same Kickstart job queue as a paired device. **Offline**

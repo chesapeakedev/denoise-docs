@@ -22,7 +22,7 @@ you confirm Kickstart.
 
 | Verb          | `dn` command    | Denoise control                      | What it does                                                                                                            |
 | ------------- | --------------- | ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
-| **Kickstart** | `dn kickstart`  | **Kickstart!**                       | Plan, implement, then `dn ensure lint` so a fixer agent can clear fmt/lint. Does not run tests. Does not push to trunk. |
+| **Kickstart** | `dn kickstart`  | **Kickstart**                       | Plan, implement, then `dn ensure lint` so a fixer agent can clear fmt/lint. Does not run tests. Does not push to trunk. |
 | **Land**      | `dn land`       | **Land** (device runner)             | Local commits. Does not push.                                                                                           |
 | **Sync**      | `dn sync`       | **Sync** (device runner, after Land) | Fail-fast lint + tests from `sync.preflight`, then rebase and push. No fixer agent.                                     |
 | **Done**      | close the issue | Status control (complete / reopen)   | Closes the GitHub issue. Not trunk publish.                                                                             |
@@ -35,7 +35,7 @@ Sync own commit and trunk.
 
 **Leave local** (device default, CLI `--publish none`):
 
-1. **Kickstart!** — implement, then ensure lint.
+1. **Kickstart** — implement, then ensure lint.
 2. Review the checkout.
 3. **Land** — commit locally. Denoise asks you to confirm.
 4. **Sync** — lint again (fail-fast), run tests, rebase onto trunk, push.
@@ -45,7 +45,7 @@ Sync own commit and trunk.
 
 **Open a pull request** (GitHub Actions, cloud, or device `pr`):
 
-1. **Kickstart!** — implement, then ensure lint, then open the PR.
+1. **Kickstart** — implement, then ensure lint, then open the PR.
 2. Host **CI** is the quality gate.
 3. **Done** — mark the GitHub issue complete.
 

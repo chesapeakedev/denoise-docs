@@ -9,18 +9,21 @@ syncs when you go online.
 
 ## Sign-in and sign-up
 
-Sign-in and sign-up happen on
+Sign-in and sign-up happen through the subscribe funnel on `/` and
 [denoise.cloud/subscribe](https://denoise.cloud/subscribe) (`/subscribe`), not
 on Profile.
 
 - Existing account: **Sign in** at the top of the page.
-- New Pro plan: **Sign in for free trial** or **Sign in to subscribe — $6/mo**.
-- Team plan: **Sign in for Team**.
+- New Pro plan: **Start 14-day free trial** when signed in
+  (**Sign in for free trial** when signed out), or **Sign in to subscribe —
+  $6/mo**.
+- Team plan: **Subscribe to Team**.
 - Free solo use: **Continue in The Void**.
 
-Those sign-in buttons start GitHub OAuth. Complete the flow in your browser, and
+The subscribe gate starts GitHub-only OAuth (`flow=oauth_only`). Complete the
+flow in your browser, and
 you are redirected back to the app with a session. Your session is stored in a
-cookie and validated by the server.
+cookie and validated by the server. A trial counts as Pro for workbench access.
 
 GitHub sign-in is required for
 [GitHub integration](/denoise/github-integration/) (linking milestones, syncing

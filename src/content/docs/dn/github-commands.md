@@ -44,8 +44,11 @@ dn issue show 123 --repo owner/repo
 dn issue show 123 --no-comments
 dn issue create --title "Bug" --body-file report.md
 dn issue create --repo owner/repo --title "Bug" --body-file report.md
+dn issue create --title "Bug" --milestone 42
 dn issue edit 123 --title "New title"
 dn issue edit 123 --add-label bug
+dn issue edit 123 --milestone https://github.com/owner/repo/milestone/42
+dn issue edit 123 --clear-milestone
 dn issue close 123
 dn issue close 123 --reason not_planned
 dn issue close 123 --comment "Fixed in #456"
@@ -61,7 +64,28 @@ dn issue relationship mark-duplicate 123 456
 
 Issue references accept a number (`123`), `#123`, or a full URL.
 `--repo owner/repo` sets the repository used for numeric refs and commands
-without an issue ref, such as `list` and `create`.
+without an issue ref, such as `list` and `create`. `dn issue show` includes
+relationship metadata (parent issue, sub-issues, blockers, duplicate-of) when
+GitHub exposes it. Those reads follow GitHub's GraphQL paging: at most ten
+related-issue references appear per edge unless the totals summary shows a
+larger count ("more not shown").
+
+## `dn milestone`
+
+Create, list, and publish GitHub milestones from a JSON plan:
+
+```bash
+dn milestone create --title "Q1 work"
+dn milestone create --title "Q1 work" --description-file milestone.md --due-on 2026-03-31
+dn milestone list --repo owner/repo --json
+dn milestone publish plans/auth-refactor.json --dry-run --json
+dn milestone publish plans/auth-refactor.json --repo owner/repo
+```
+
+`dn milestone publish` reads a version `1.0` JSON plan with `milestone` and
+`issues` fields, creates the milestone and its issues, then applies each
+issue's `blocked_by` relationship after all issues exist. Use `--dry-run` to
+validate the plan without making mutations.
 
 ## `dn glance`
 

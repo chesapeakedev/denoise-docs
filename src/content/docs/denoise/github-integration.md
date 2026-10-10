@@ -140,5 +140,5 @@ If sync conflicts occur, the most recent change wins.
 - [Kickstart runtimes](/denoise/kickstart-runtimes/) — Runtime matrix
 - [Runners](/denoise/device-runners/) — User-paired device kickstart and
   execution checkouts
-- [dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/) — Current CLI
+- [dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/) — CLI release history
   and runner guidance

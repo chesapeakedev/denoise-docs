@@ -31,5 +31,7 @@ event and installed filename remain compatibility details.
 
 ## Related
 
-- [dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/) — Current
-  recommended CLI and artifact status after this migration
+- [Task lists and sync](/dn/task-list-and-sync/) — Current `dn sync` behavior
+  after this migration
+- [dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/) — CLI release
+  history after this migration

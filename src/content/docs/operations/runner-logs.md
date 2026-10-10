@@ -42,6 +42,15 @@ The user service is launchd on macOS or systemd on Linux. Do not run
 dn runner doctor
 dn runner status
 
+# Tail the service log (macOS log file, Linux user journal)
+dn runner logs
+dn runner logs --follow
+```
+
+`dn runner logs` is the fastest path to serve stdout. When you need the raw
+files instead:
+
+```bash
 # macOS (launchd)
 tail -f ~/.dn/runner/runner.log
 tail -f ~/.dn/runner/runner.error.log

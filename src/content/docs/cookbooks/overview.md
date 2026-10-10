@@ -12,7 +12,7 @@ the guide for the harness you already use:
 | OpenCode       | `.agents/skills/dn/SKILL.md` | [Use dn with OpenCode](/cookbooks/opencode/)             |
 | Claude Code    | `.claude/skills/dn/SKILL.md` | [Use dn with Claude Code](/cookbooks/claude-code/)       |
 | Codex          | `.agents/skills/dn/SKILL.md` | [Use dn with Codex](/cookbooks/codex/)                   |
-| Cursor         | `.cursor/rules/dn.mdc`       | [Use dn with Cursor](/cookbooks/cursor/)                 |
+| Cursor         | `.cursor/skills/dn/SKILL.md` | [Use dn with Cursor](/cookbooks/cursor/)                 |
 | GitHub Copilot | `.agents/skills/dn/SKILL.md` | [Use dn with GitHub Copilot](/cookbooks/github-copilot/) |
 
 Each guide takes a GitHub issue through planning, implementation, verification,

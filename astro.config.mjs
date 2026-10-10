@@ -44,25 +44,6 @@ export default defineConfig({
           slug: "close-out",
         },
         {
-          label: "What's new",
-          items: [
-            {
-              label: "dn 0.0.37 and device runners",
-              slug: "whats-new/dn-0-0-37",
-            },
-          ],
-        },
-        { label: "Roadmap", slug: "roadmap" },
-        {
-          label: "Blog",
-          items: [
-            {
-              label: "Working Above Syntax",
-              slug: "blog/working-above-syntax",
-            },
-          ],
-        },
-        {
           label: "dn",
           items: [
             {
@@ -73,10 +54,6 @@ export default defineConfig({
               label: "Completing GitHub Issues",
               slug: "dn/completing-github-issues",
             },
-            {
-              label: "Kickstart, land, sync, and done",
-              slug: "close-out",
-            },
             { label: "Command reference", slug: "dn/workflows" },
             { label: "Sandbox execution", slug: "dn/sandbox" },
             {
@@ -85,45 +62,33 @@ export default defineConfig({
             },
             { label: "Working with GitHub", slug: "dn/github-commands" },
             {
-              label: "Experimental",
+              label: "Artifacts and Cursor",
+              slug: "dn/artifacts-cursor",
+            },
+            {
+              label: "Task lists and sync",
               slug: "dn/task-list-and-sync",
             },
-          ],
-        },
-        {
-          label: "Headless Use",
-          items: [
             {
-              label: "Headless Use",
-              slug: "dn/headless-use",
-            },
-            {
-              label: "Scheduled Workflows",
-              slug: "dn/scheduled-workflows",
-            },
-            { label: "GitHub token setup", slug: "dn/github-token-setup" },
-            {
-              label: "Progress reporting",
-              slug: "dn/progress-reporting",
-            },
-          ],
-        },
-        {
-          label: "Cookbooks",
-          items: [
-            { label: "Overview", slug: "cookbooks/overview" },
-            { label: "OpenCode", slug: "cookbooks/opencode" },
-            { label: "Claude Code", slug: "cookbooks/claude-code" },
-            { label: "Codex", slug: "cookbooks/codex" },
-            { label: "Cursor", slug: "cookbooks/cursor" },
-            { label: "GitHub Copilot", slug: "cookbooks/github-copilot" },
-            {
-              label: "Linear main with Sapling",
-              slug: "cookbooks/linear-main-sapling",
-            },
-            {
-              label: "Raspberry Pi runner",
-              slug: "cookbooks/raspberry-pi-runner",
+              label: "Headless and automation",
+              items: [
+                {
+                  label: "Headless setup",
+                  slug: "dn/headless-use",
+                },
+                {
+                  label: "Scheduled Workflows",
+                  slug: "dn/scheduled-workflows",
+                },
+                {
+                  label: "GitHub token setup",
+                  slug: "dn/github-token-setup",
+                },
+                {
+                  label: "Progress reporting",
+                  slug: "dn/progress-reporting",
+                },
+              ],
             },
           ],
         },
@@ -131,10 +96,6 @@ export default defineConfig({
           label: "denoise",
           items: [
             { label: "Getting started", slug: "denoise/getting-started" },
-            {
-              label: "Kickstart, land, sync, and done",
-              slug: "close-out",
-            },
             { label: "Authentication", slug: "denoise/authentication" },
             { label: "Features", slug: "denoise/features" },
             { label: "The Void", slug: "denoise/void" },
@@ -162,7 +123,26 @@ export default defineConfig({
           ],
         },
         {
-          label: "denoise Infra",
+          label: "Cookbooks",
+          items: [
+            { label: "Overview", slug: "cookbooks/overview" },
+            { label: "OpenCode", slug: "cookbooks/opencode" },
+            { label: "Claude Code", slug: "cookbooks/claude-code" },
+            { label: "Codex", slug: "cookbooks/codex" },
+            { label: "Cursor", slug: "cookbooks/cursor" },
+            { label: "GitHub Copilot", slug: "cookbooks/github-copilot" },
+            {
+              label: "Linear main with Sapling",
+              slug: "cookbooks/linear-main-sapling",
+            },
+            {
+              label: "Raspberry Pi runner",
+              slug: "cookbooks/raspberry-pi-runner",
+            },
+          ],
+        },
+        {
+          label: "Operations",
           items: [
             {
               label: "Self-hosted runners",
@@ -172,7 +152,30 @@ export default defineConfig({
               label: "Runner logs",
               slug: "operations/runner-logs",
             },
+            {
+              label: "Hung process triage",
+              slug: "operations/hung-process-triage",
+            },
+          ],
+        },
+        {
+          label: "What's new",
+          items: [
+            {
+              label: "dn 0.0.37 and device runners",
+              slug: "whats-new/dn-0-0-37",
+            },
             { label: "v0.0.34 migration", slug: "dn/v0034-migration" },
+          ],
+        },
+        { label: "Roadmap", slug: "roadmap" },
+        {
+          label: "Blog",
+          items: [
+            {
+              label: "Working Above Syntax",
+              slug: "blog/working-above-syntax",
+            },
           ],
         },
       ],

@@ -63,12 +63,13 @@ automatically. You do **not** create a `GITHUB_TOKEN` repository secret.
 
 Set the API key for your configured agent:
 
-| Agent      | Install flag                  | Repository secret   |
-| ---------- | ----------------------------- | ------------------- |
-| `opencode` | `dn init workflows` (default) | `OPENAI_API_KEY`    |
-| `claude`   | `--agent claude`              | `ANTHROPIC_API_KEY` |
-| `cursor`   | `--agent cursor`              | `CURSOR_API_KEY`    |
-| `codex`    | `--agent codex`               | `OPENAI_API_KEY`    |
+| Agent      | Install flag                  | Repository secret     |
+| ---------- | ----------------------------- | --------------------- |
+| `opencode` | `dn init workflows` (default) | `OPENAI_API_KEY`      |
+| `claude`   | `--agent claude`              | `ANTHROPIC_API_KEY`   |
+| `cursor`   | `--agent cursor`              | `CURSOR_API_KEY`      |
+| `codex`    | `--agent codex`               | `OPENAI_API_KEY`      |
+| `copilot`  | `--agent copilot`             | `COPILOT_GITHUB_TOKEN` |
 
 ```bash
 gh secret set OPENAI_API_KEY
@@ -370,6 +371,8 @@ dn kickstart --unattended 123
 | `--unattended` or `--ci` | Force unattended mode                  |
 | `--no-color`             | Disable ANSI colors                    |
 | `--color`                | Enable colors when stdout is not a TTY |
+| `--trace`                | Always live-stream agent harness output |
+| `--no-trace`             | Never live-stream agent harness output |
 
 | Variable      | Effect                                  |
 | ------------- | --------------------------------------- |
@@ -379,7 +382,9 @@ dn kickstart --unattended 123
 
 Agent-backed workflows in CI also use harness-specific variables such as
 `ANTHROPIC_API_KEY`, `CLAUDE_CODE_BARE=1` (set by workflows for Claude), and
-`CODEX_TIMEOUT_MS`. Agent selection in workflows comes from
+`CODEX_TIMEOUT_MS`. Long kickstart runs can set `PLAN_TIMEOUT_MS` and
+`IMPLEMENT_TIMEOUT_MS` (plan defaults to 10 minutes, implement to 20 minutes) —
+see [Progress reporting](/dn/progress-reporting/). Agent selection in workflows comes from
 `.github/dn/config.json`; see
 [Installation — Choose an agent](/dn/installation/#choose-an-agent).
 

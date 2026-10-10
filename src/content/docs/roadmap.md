@@ -20,11 +20,12 @@ describe direction, not a calendar. For a specific shipped release, start with
   [The Void](/denoise/void/).
 - **Developer device runners** — Pair a trusted checkout for Void task-sync and
   typed kickstart on local compute. See [Runners](/denoise/device-runners/).
-- **Hosted kickstart runtimes** — GitHub Actions (default), Cursor Cloud, and
-  exe.dev when configured. See
+- **Hosted kickstart runtimes** — GitHub Actions (default) and exe.dev when
+  configured, plus paired devices. Cursor Cloud remains a CLI-only path
+  (`dn kickstart --cursor-cloud`). See
   [Kickstart runtimes](/denoise/kickstart-runtimes/).
 - **Published dn container images** — Harness-tagged images for automation
-  environments (dn-images `v0.0.2`; CLI recommended at `0.0.37`). See
+  environments (dn-images `v0.0.2`; CLI recommended at `0.0.52`). See
   [dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/).
 
 ## In progress

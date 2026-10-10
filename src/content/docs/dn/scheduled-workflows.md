@@ -161,6 +161,7 @@ See [Headless Use — `dn.todo_loop`](/dn/headless-use/#dntodo_loop) and
 | No PR created                       | Workflow permissions and `pull-requests: write`; see [Headless Use — Troubleshooting](/dn/headless-use/#troubleshooting) |
 | Wrong milestone                     | Update the repository variable or pass `milestone` on `workflow_dispatch`                                                |
 | Schedule never runs                 | Default branch must contain the workflow file; GitHub disables schedules on inactive repos                               |
+| Long runs stall without phases      | Phase budgets apply (10 minutes plan, 20 minutes implement); see [Progress reporting](/dn/progress-reporting/)           |
 
 For milestone stack format and local `dn kickstart --milestone` usage, see
 [Completing GitHub Issues — Milestone queues](/dn/completing-github-issues/#milestone-queues)

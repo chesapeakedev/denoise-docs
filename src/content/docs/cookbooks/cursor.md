@@ -31,8 +31,8 @@ gh auth login
 dn init agents --skill --agent cursor
 ```
 
-This writes `.cursor/rules/dn.mdc`, Cursor's harness-native equivalent of the
-`dn` skill. Cursor makes the rule available to Agent based on its description.
+This writes `.cursor/skills/dn/SKILL.md`, Cursor's harness-native equivalent of the
+`dn` skill. Cursor makes the skill available to Agent based on its description.
 Commit it if the whole team should use the same workflow.
 
 Start a new Cursor Agent session from the repository root and request the rule

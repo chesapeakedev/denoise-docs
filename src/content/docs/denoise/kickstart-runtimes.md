@@ -1,9 +1,9 @@
 ---
 title: Kickstart runtimes
-description: Kickstart! picks a runner — GitHub Actions, a paired device, or exe.dev — not a parallel runtime type.
+description: Kickstart picks a runner — GitHub Actions, a paired device, or exe.dev — not a parallel runtime type.
 ---
 
-When you click **Kickstart!** on a task, denoise asks **which runner** should
+When you click **Kickstart** on a task, denoise asks **which runner** should
 execute. Every choice is an enrolled runner with a provider. Denoise does
 **not** run kickstart on the denoise application host.
 
@@ -35,7 +35,7 @@ Kickstart. Do not Kickstart again.
 
 CLI Docker (`dn kickstart --sandbox docker`) is local isolation on a machine you
 already have. It is not a denoise runner. Cursor Cloud is not in the public
-chooser.
+chooser; it remains a CLI-only path (`dn kickstart --cursor-cloud`).
 
 ## Progress fidelity
 

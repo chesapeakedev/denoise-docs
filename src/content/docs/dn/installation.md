@@ -17,7 +17,13 @@ curl -fsSL https://raw.githubusercontent.com/chesapeakedev/dn/main/scripts/insta
 To customize the install directory or pin a version:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/chesapeakedev/dn/main/scripts/install.sh | sh -s -- --install-dir /usr/local/bin --version v0.1.0
+curl -fsSL https://raw.githubusercontent.com/chesapeakedev/dn/main/scripts/install.sh | sh -s -- --install-dir /usr/local/bin --version v0.0.52
+```
+
+Or install with Homebrew:
+
+```bash
+brew install chesapeakedev/dn/dn
 ```
 
 ## Download a pre-built binary
@@ -44,8 +50,8 @@ sudo mv dn /usr/local/bin/dn
 
 Replace `dn-macos-arm64` with the binary name for your platform.
 
-On macOS, you may need to bypass Gatekeeper for unsigned release binaries —
-right-click the binary in Finder and choose **Open**, use **System Settings →
+On macOS, release binaries are signed and notarized. If Gatekeeper still flags
+a binary, right-click it in Finder and choose **Open**, use **System Settings →
 Privacy & Security → Open Anyway**, or run
 `xattr -d com.apple.quarantine $(which dn)`. Binaries built from source with
 `make install` are not blocked.
@@ -60,7 +66,7 @@ dn
 `dn --version` prints only the version, so scripts and CI can compare it with a
 required release.
 
-For current **dn 0.0.37** guidance, published artifact status, and developer
+For current **dn 0.0.52** guidance, published artifact status, and developer
 device runners, see
 [dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/). Pair a laptop
 with denoise using [Runners](/denoise/device-runners/).
@@ -83,7 +89,8 @@ make install
 # GitHub authentication
 
 `dn` needs a GitHub token for commands that access the GitHub API (`kickstart`,
-`meld`, `glance`, `peek`, `fixup`, and `issue` with issue URLs).
+`meld`, `glance`, `peek`, `fixup`, `read`, `workflows`, `milestone`, `runner`,
+and `issue` with issue URLs).
 
 ## Token resolution order
 
@@ -163,7 +170,7 @@ Most workflows also need:
 - Git or [Sapling](https://sapling-scm.com/) for commands that create branches,
   commits, or PRs
 - An agent harness for agent-backed workflows: [opencode](https://opencode.dev/)
-  by default, or Cursor, Claude Code, or Codex CLI
+  by default, or Cursor, Claude Code, Codex CLI, or GitHub Copilot CLI
 
 ## Basic setup commands
 
@@ -190,6 +197,8 @@ dn workflows validate --json
 dn tidy
 ```
 
+For guided first-run setup of project or user config, run `dn init wizard`.
+
 ### Choose an agent
 
 Agent-backed commands (`kickstart`, `meld`, `loop`, `land`, and others in the
@@ -206,11 +215,13 @@ writes `.github/dn/config.json` with the preferred agent for the repository:
 }
 ```
 
-Supported values are `opencode`, `cursor`, `claude`, and `codex`. GitHub Actions
+Supported values are `opencode`, `cursor`, `claude`, `codex`, and `copilot`.
+GitHub Actions
 workflows and denoise integrators read this file so automated runs use the same
 agent without passing `--agent` on every dispatch. Re-run
 `dn init workflows --agent <name>` or edit the file directly to change the
-default. See [Headless Use](/dn/headless-use/) for the matching repository
+default. For team-wide agent and sandbox policy, prefer a root `dn.json` with
+`schema_version: "2.0"` — see [Sandbox execution](/dn/sandbox/). See [Headless setup](/dn/headless-use/) for the matching repository
 secrets.
 
 **Single-run override.** Pass the global `--agent` flag when you want a
@@ -244,7 +255,7 @@ Repo-scope installs write:
 - `codex`, `opencode`: `.agents/skills/dn/SKILL.md` and
   `.agents/skills/dn/agents/openai.yaml`
 - `claude`: `.claude/skills/dn/SKILL.md`
-- `cursor`: `.cursor/rules/dn.mdc`
+- `cursor`: `.cursor/skills/dn/SKILL.md`
 
 User-scope installs write the same content under `~/.agents/` or `~/.claude/`.
 For per-repo `AGENTS.md` updates without the skill files, run `dn init agents`
@@ -252,24 +263,30 @@ without `--skill` — see [Filesystem Context](/dn/filesystem-context/#agentsmd)
 
 ## Command map
 
-| Need                | Commands                                                      | Reference                                                 |
-| ------------------- | ------------------------------------------------------------- | --------------------------------------------------------- |
-| Orchestrate agents  | `kickstart`, `meld`, `loop`, `land`, `until`, `fixup`, `sync` | [Completing GitHub Issues](/dn/completing-github-issues/) |
-| Working with GitHub | `init stack`, `issue`, `glance`                               | [Working with GitHub](/dn/github-commands/)               |
-| Headless Use        | `init workflows`, `workflows`                                 | [Headless Use](/dn/headless-use/)                         |
-| Experimental        | `context`, `peek`, `todo`, `tidy`, `sync`                     | [Experimental](/dn/task-list-and-sync/)                   |
+| Need                | Commands                                                                          | Reference                                                 |
+| ------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| Orchestrate agents  | `kickstart`, `meld`, `loop`, `land`, `until`, `fixup`, `ensure`, `sync`           | [Completing GitHub Issues](/dn/completing-github-issues/) |
+| Working with GitHub | `init stack`, `issue`, `milestone`, `glance`, `read`                              | [Working with GitHub](/dn/github-commands/)               |
+| Headless Use        | `init workflows`, `workflows`                                                     | [Headless setup](/dn/headless-use/)                       |
+| Runners and tasks   | `runner`, `task`                                                                  | [Runners](/denoise/device-runners/)                       |
+| Experimental        | `context`, `peek`, `todo`, `tidy`, `sync`                                         | [Task lists and sync](/dn/task-list-and-sync/)            |
+| Setup               | `init agents`, `init wizard`, `auth`, `completion`                                | [Installation](/dn/installation/)                         |
 
 ## Global flags
 
-You can pass global output flags after any subcommand:
+You can pass global flags after any subcommand:
 
 - `--unattended` or `--ci` - Force non-interactive, CI-friendly output.
 - `--no-color` - Disable ANSI colors.
 - `--color` - Enable colors even when stdout is not a TTY.
+- `--trace` / `--no-trace` - Force or suppress the live agent-harness stream.
+- `--context-file <path>` - Append a file to agent prompt context (repeatable).
+- `--agent <harness>` - Select the agent harness for one run.
+- `--sandbox <provider>` - Select the sandbox provider for one run.
 
 In CI, `dn` automatically enables unattended mode and sets `NO_COLOR` when it is
 not already set. See
-[Headless Use — Unattended output](/dn/headless-use/#unattended-output) for the
+[Headless setup — Unattended output](/dn/headless-use/#unattended-output) for the
 full behavior.
 
 ## Common argument formats

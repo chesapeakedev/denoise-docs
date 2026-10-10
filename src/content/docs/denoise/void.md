@@ -22,7 +22,8 @@ when you need milestones, GitHub-backed planning, and shared workspace features.
   task-sync.
 - **Ticketless kickstart** — Run kickstart from a local task document with
   `dn kickstart --denoise-task` and `publish: "none"` (no GitHub issue required
-  for free Void work).
+  for free Void work), or dispatch it from the browser Runners panel to a
+  paired runner with publish `none`, `pr`, or `direct`.
 - **Sign-in** — GitHub or Google auth is shared with denoise on
   `.denoise.cloud`. The Void itself has no subscribe funnel.
 
@@ -36,10 +37,10 @@ Pro-gated in The Void:
 | -------------------------- | -------------------------------- | -------------------------------------------------------------------------- |
 | **The Void** (Free)        | Solo local tasks                 | Void SPA, local `~/.dn/tasks/` sync, 1 device runner, ticketless kickstart |
 | **denoise** (Denoise Pro)  | Team planning and GitHub handoff | Roadmap, milestones, cloud sync, kickstart from the app, up to 10 runners  |
-| **Enterprise / org seats** | Teams with shared billing        | Same denoise app; Pro access via org seat; orgs & shared billing           |
+| **Denoise Team**           | Teams with shared billing        | Same denoise app; Pro access via org seat; orgs & shared billing           |
 
 Signing in at denoise.cloud without Pro lands on `/subscribe`. The gate offers
-**Continue free in The Void** for solo use. See
+**Continue in The Void** for solo use. See
 [Subscription & Pro](/denoise/subscription-and-pro/).
 
 ## Pair a device for local sync
@@ -95,7 +96,7 @@ app, see [Milestone details](/denoise/milestone-details/).
 - [Getting started](/denoise/getting-started/) — denoise team app layout and
   first milestone
 - [Subscription & Pro](/denoise/subscription-and-pro/) — Free Void vs Pro vs
-  Enterprise
+  Team
 - [Runners](/denoise/device-runners/) — pairing, task-sync, and runner limits
 - [Features](/denoise/features/) — Roadmap, milestones, and Pro automation in
   denoise

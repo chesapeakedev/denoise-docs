@@ -63,6 +63,21 @@ HTTP delivery is best-effort and does not fail the workflow. Recognizable API
 keys, bearer tokens, and token/secret assignments are redacted. With sandbox
 execution, captured agent-line events may flush after the sandbox command ends.
 
+## Phase timeouts
+
+Kickstart plan and implement phases each have a wall-clock limit: 10 minutes
+for plan (`PLAN_TIMEOUT_MS`, default `600000`) and 20 minutes for implement
+(`IMPLEMENT_TIMEOUT_MS`, default `1200000`). Per-harness overrides
+(`OPENCODE_TIMEOUT_MS`, `CODEX_TIMEOUT_MS`, `CURSOR_TIMEOUT_MS`,
+`CLAUDE_TIMEOUT_MS`, `COPILOT_TIMEOUT_MS`) apply when set.
+
+At 80% of a phase budget, `dn` emits a `phase.timeout_warning` event with the
+remaining milliseconds, so the progress panel can warn before the phase is
+killed. Denoise kickstart dispatches may set `client_payload.plan_timeout_ms`
+and `client_payload.implement_timeout_ms`; device runners and GitHub Actions
+export those as `PLAN_TIMEOUT_MS` / `IMPLEMENT_TIMEOUT_MS` before `dn kickstart`
+runs. A timeout ends the run with a structured `agent_timeout` failure.
+
 ## Correlate GitHub Actions
 
 Canonical dispatch payloads require `schema_version: "1.0"` and a

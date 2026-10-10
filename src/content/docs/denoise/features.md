@@ -148,8 +148,8 @@ On **Profile** (`/profile`), these panels sit together:
 
 - **Usage data** — Enable **Share anonymous first-party usage counters to help
   us improve the product**. Counts include events such as upgrade clicks and
-  milestone and task totals. When enabled, they are stored in the same KV store
-  as the rest of the app and included in the existing daily B2 backup.
+  milestone and task totals. When enabled, they are stored with the rest of the
+  app data (Postgres in production) and included in backups.
 - **Runner history detail** — Enable **Include redacted agent output** to store
   redacted agent output with future runs, so runner history can show what the
   agent was doing. Secrets are redacted before upload. Task and repository
@@ -160,8 +160,6 @@ On **Profile** (`/profile`), these panels sit together:
   button opens the same tour.
 
 ![Usage data, runner history detail, and Help on Profile](../../../assets/screenshots/account-usage-data-help.png)
-When enabled, counts are stored in the same KV store as the rest of the app and
-included in the existing daily B2 backup.
 
 ## Related
 
@@ -170,6 +168,6 @@ included in the existing daily B2 backup.
 - [Runners](/denoise/device-runners/) — Pair a device or connect exe.dev
 - [Kickstart runtimes](/denoise/kickstart-runtimes/) — Where kickstart runs
 - [Runner logs](/operations/runner-logs/) — Serve stdout for devices and exe.dev
-- [dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/) — Current CLI
+- [dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/) — CLI release history
   and runner guidance
 - [Roadmap](/roadmap/) — Shipped themes and planned work

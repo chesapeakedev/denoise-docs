@@ -19,7 +19,8 @@ and [Command reference](/dn/workflows/).
 
 Together they explore how agents can own more of the loop between "what should
 we work on?" and "the change is on the branch" — without replacing the durable
-plans, PRs, and handoffs documented elsewhere.
+plans, PRs, and handoffs documented elsewhere. Named quality recipes live in
+`dn.json` under `ensure` — see [`dn ensure`](/dn/workflows/#dn-ensure).
 
 These commands are experimental. Behavior and flags may change or be removed in
 future `dn` releases. Try them on real work and share what sticks; that feedback
@@ -76,6 +77,10 @@ When the ref is a GitHub issue, `dn` closes the issue with a comment. Use this
 after `dn land` (or after `--publish direct` when you want the issue closed) to
 keep the list and GitHub in sync. Attended `dn kickstart` does not mark todo
 items done on exit.
+
+This store is **not** `dn task` / `~/.dn/tasks/`. Task is the local document
+store that [The Void](/denoise/void/) syncs to a paired device; todo is the
+GitHub-issue and plan-path kickstart queue.
 
 ## `dn tidy`
 
@@ -142,7 +147,7 @@ When there is nothing to push, `dn sync` skips the push step and prints why.
 ### Prerequisites
 
 - **`make`** and a `lint` target in the repository `Makefile` (unless you pass
-  `--skip-lint`)
+  `--skip-preflight`)
 - **Git** and/or **Sapling** on `PATH`, depending on the checkout type
 - A configured remote that can fetch and push `main` (Git uses the tracked
   remote or `origin`; Sapling uses your existing `sl` remote config)

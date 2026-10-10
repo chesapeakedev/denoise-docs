@@ -1,6 +1,6 @@
 ---
 title: Sandbox execution
-description: Isolate local CLI agent phases with Docker or host execution. Denoise Kickstart! picks a runner, not a sandbox provider.
+description: Isolate local CLI agent phases with Docker or host execution. Denoise Kickstart picks a runner, not a sandbox provider.
 ---
 
 Sandbox settings control how a **local** `dn` process isolates agent phases on
@@ -8,7 +8,7 @@ the machine where you already have a checkout. Host execution is the default.
 Docker bind-mounts that checkout into a container from
 [dn-images](https://github.com/chesapeakedev/dn-images).
 
-This is **not** how denoise chooses where Kickstart! runs. Denoise assigns jobs
+This is **not** how denoise chooses where Kickstart runs. Denoise assigns jobs
 to a [runner](/denoise/device-runners/) (device, GitHub Actions, or exe.dev).
 See [Kickstart runtimes](/denoise/kickstart-runtimes/).
 
@@ -24,9 +24,14 @@ VM, clone inside it, and run `dn kickstart` there.
 | Docker        | Reproducible local tools and reduced blast radius | Bind-mounts the checkout             |
 | exe.dev (CLI) | Stronger remote isolation from a local checkout   | Syncs through a temporary Git branch |
 
-## Configure schema 1.1
+## Configure schema 1.1 and `dn.json` 2.0
 
-Add `sandbox` to `.github/dn/config.json`:
+Prefer a root `dn.json` with `schema_version: "2.0"` for team sandbox policy.
+Legacy `.github/dn/config.json` (schema `1.1`) remains supported when `dn.json`
+is absent, and the local CLI also merges personal defaults from
+`~/.dn/config.json` (GitHub Actions never does).
+
+Add `sandbox` to `dn.json` (or to `.github/dn/config.json` on schema `1.1`):
 
 ```json
 {
@@ -60,6 +65,8 @@ provisioning.
 ```bash
 dn kickstart --sandbox docker 123
 dn loop --sandbox docker plans/issue-123.plan.md
+dn until run --sandbox docker .github/dn/gambit.json
+dn ensure lint --sandbox docker
 dn --sandbox exe.dev kickstart 123
 DN_SANDBOX_PROVIDER=docker dn meld 123
 DN_SANDBOX_DRY_RUN=1 dn kickstart --sandbox docker 123
@@ -68,7 +75,8 @@ dn workflows validate
 
 `--sandbox none` forces host execution. `--sandbox` without a value reads the
 configured provider. The environment override applies only when the CLI flag is
-absent.
+absent. Sandbox execution covers agent workflows: `kickstart`, `loop`, `meld`,
+`until`, and `ensure`.
 
 ## Lifecycle and boundary
 

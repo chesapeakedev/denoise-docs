@@ -8,7 +8,7 @@ The `dn` CLI and the denoise task dialog share four close-out verbs:
 around that loop — pull-request kickstart, meld, fixup, and until.
 
 The `dn` CLI gives you a non-conversational assistant interface to the harnesses
-you already use. Use the CLI to orient your worfklow around durable plans,
+you already use. Use the CLI to orient your workflow around durable plans,
 lining up targets for `dn kickstart`. Use `dn meld` and manual review to create
 GitHub issues and markdown plan files that lean towards specification. Treat
 these as a contract between the team and your agents.
@@ -58,6 +58,13 @@ dn kickstart 123
 Cross-repository issues require `--allow-cross-repo` and must stay local with
 `--publish none`. A local Markdown file can replace the issue as source context,
 but it does not provide the GitHub issue linkage described on this page.
+Extra guidance for the planning agent goes in `--steer`, and extra files in
+repeatable `--context-file` flags:
+
+```bash
+dn kickstart 123 --steer "Prefer small modules; do not rename public exports"
+dn kickstart 123 --context-file notes.md --context-file src/parser.ts
+```
 
 ## Publish a pull request end to end
 
@@ -98,8 +105,13 @@ Leave-local kickstart implements then runs `dn ensure lint`. Land commits. Sync
 re-runs lint, runs tests, and publishes to trunk. Then mark the issue Done. See
 [Kickstart, land, sync, and done](/close-out/).
 
+When an IDE agent runs these steps for you, it asks before committing and keeps
+`plans/*.plan.md` out of the commit — `dn land` removes the plan on success.
+`dn sync` is a separate trunk-publication step, not part of the commit.
+
 Configure a gambit only when you still want a generator/verifier loop before
-land:
+land. For issue-shaped goals, `dn until import 123` converts the issue into a
+local goal file first — see [`dn until`](/dn/workflows/#dn-until):
 
 ```json
 {

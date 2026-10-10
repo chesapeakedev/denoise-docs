@@ -14,7 +14,7 @@ task. Start here when you are using the app UI rather than the `dn` CLI.
 | **denoise** (Pro)   | [denoise.cloud](https://denoise.cloud)           | Roadmap, milestones, GitHub sync, shared workspace, and kickstart from the app. |
 
 Signing in at denoise.cloud without Pro lands on `/subscribe`. Choose **Continue
-free in The Void** for solo use, or subscribe for the team app. See
+in The Void** for solo use, or subscribe for the team app. See
 [The Void](/denoise/void/) and
 [Subscription & Pro](/denoise/subscription-and-pro/).
 
@@ -43,16 +43,22 @@ menu for account settings.
 
 ## Authentication
 
-Sign-in and sign-up happen on
-[denoise.cloud/subscribe](https://denoise.cloud/subscribe) (`/subscribe`).
+Both `/` and `/subscribe` act as the subscribe funnel: signed-out and
+signed-in non-Pro users see plan marketing there, while Pro users go straight
+to the Roadmap.
 
 - Existing account: **Sign in** at the top of the page.
-- New Pro plan: **Sign in for free trial** or **Sign in to subscribe — $6/mo**.
-- Team plan: **Sign in for Team**.
+- New Pro plan: **Start 14-day free trial** when signed in
+  (**Sign in for free trial** when signed out), or **Sign in to subscribe —
+  $6/mo**.
+- Team plan: **Subscribe to Team** ($20/mo for 6 seats, then $2 per extra seat).
 - Free solo use, without a denoise subscription: **Continue in The Void**.
 
-Those sign-in buttons start GitHub OAuth. You return to the app with a session
-after GitHub finishes.
+Subscribe sign-in buttons start GitHub-only OAuth (`flow=oauth_only`, with an
+account picker for switching accounts). You return to the app with a session
+after GitHub finishes. Google sign-in is available elsewhere in the app shell
+for identity and sync, but GitHub auth is required for milestone and issue
+integration.
 
 ![Header while signed out, showing offline sync badge](../../../assets/screenshots/header-signed-out.png)
 
@@ -118,6 +124,6 @@ the Roadmap, the tour points at the progress strip and the status filters.
 - Use [Milestone details](/denoise/milestone-details/) for Runners, stack
   ranking, and per-task kickstart on GitHub-linked milestones.
 - Use [Subscription & Pro](/denoise/subscription-and-pro/) for Free vs Pro vs
-  Enterprise.
+  Team.
 - Use [Runners](/denoise/device-runners/) when you want Void task-sync or Pro
   kickstart on a trusted local checkout.

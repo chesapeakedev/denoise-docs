@@ -5,7 +5,7 @@ description: Enroll a place that can run harness plus dn against a GitHub reposi
 
 A **runner** is a place that can run an agent harness and `dn` against a GitHub
 repository. Denoise does not run kickstart on the application host. You enroll a
-runner once, then pick it from **Kickstart!** and the milestone **Runners**
+runner once, then pick it from **Kickstart** and the milestone **Runners**
 dialog.
 
 Pairing a laptop binds the device to **your signed-in account**, not to a
@@ -13,9 +13,9 @@ milestone. GitHub Actions is scoped to the planning repository. An exe.dev
 runner is account-scoped like a device and counts toward the same runner limit
 (1 on Free, 10 on Denoise Pro).
 
-Requires **dn 0.0.37** or newer on paired devices. See
-[dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/) for current CLI
-guidance.
+Requires **dn 0.0.52** or newer on paired devices. See
+[dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/) for CLI release
+history.
 
 ## Providers
 
@@ -35,7 +35,7 @@ Docker is isolation **on a device or local CLI**, not a runner you enroll. See
 The rest of this page covers **device** pairing, checkout registration,
 land/sync, and the local security boundary, then **exe.dev** enroll. GitHub
 Actions setup lives in the **Runners** dialog and
-[GitHub integration](/denoise/github-integration/). Kickstart! picks among
+[GitHub integration](/denoise/github-integration/). Kickstart picks among
 enrolled runners — see [Kickstart runtimes](/denoise/kickstart-runtimes/).
 Contributor log locations for both providers:
 [Runner logs](/operations/runner-logs/).
@@ -150,7 +150,7 @@ Return to the background loop with `dn runner start`. After upgrading `dn`, run
 
 ## Run kickstart, land, and sync
 
-In the milestone **Runners** dialog or the task **Kickstart!** confirm dialog,
+In the milestone **Runners** dialog or the task **Kickstart** confirm dialog,
 choose the named device and an **Execution checkout**. A busy device claims one
 job at a time. An offline device can retain a queued job for up to 24 hours and
 claim it after reconnecting.
@@ -187,7 +187,7 @@ can point at a different repository.
 
 ## Agent preference
 
-In **Settings → Runners**, each paired device has a **Preferred agent** control
+In **Profile → Runners**, each paired device has a **Preferred agent** control
 (OpenCode, Cursor, Claude Code, Codex, or GitHub Copilot when that CLI is
 installed on the device). Denoise stamps that preference on queued jobs.
 
@@ -239,6 +239,7 @@ then wait for the next heartbeat:
 dn runner status --json
 dn runner jobs --json
 dn runner doctor --json
+dn runner logs --follow
 dn runner install
 dn runner start
 dn runner stop

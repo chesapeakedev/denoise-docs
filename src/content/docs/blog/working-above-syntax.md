@@ -50,9 +50,9 @@ install the skill into the tool you already use:
 dn init agents --skill --agent <codex|claude|opencode|cursor>
 ```
 
-That writes a skill or rule the harness can load (for example
+That writes a skill the harness can load (for example
 `.agents/skills/dn/SKILL.md`, `.claude/skills/dn/SKILL.md`, or
-`.cursor/rules/dn.mdc`). You stay in the conversation and name the issue. The
+`.cursor/skills/dn/SKILL.md`). You stay in the conversation and name the issue. The
 skill runs `kickstart`, or `loop` when the plan already exists. Per-harness
 setup is in the [cookbooks](/cookbooks/overview/).
 

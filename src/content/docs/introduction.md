@@ -5,12 +5,12 @@ description: Documentation for denoise - a set of tools for managing agentic wor
 
 Welcome to the denoise documentation! This website contains everything you need
 to know about denoise to integrate into your workflow. Denoise is a set of tools
-for managing agentic workflows to create software factorires. The goal of the
+for managing agentic workflows to create software factories. The goal of the
 toolkit is to enable you as a developer to share a streamlined workflow with
 your agent(s) and teammates in async & real-time experiences, working one level
 above syntax.
 
-Denoise is isomorophic. A terminal & web experience share the same core
+Denoise is isomorphic. A terminal & web experience share the same core
 capabilities to automate pieces of the software development lifecycle. **dn** is
 the CLI for developers who work from the terminal & agent harnesses such as
 Cursor & Claude Code. **denoise** is the web app for product managers,
@@ -41,10 +41,10 @@ available automations without forcing everyone into the same tool:
 | Install and use dn                           | [Installation](/dn/installation/)                                                                                                                                                               |
 | Implement GitHub issues with dn and an agent | [Completing GitHub Issues](/dn/completing-github-issues/)                                                                                                                                       |
 | Automate in GitHub Actions                   | [Headless Use](/dn/headless-use/) → [OpenCode](/cookbooks/opencode/), [Claude Code](/cookbooks/claude-code/), [Codex](/cookbooks/codex/), or [Cursor](/cookbooks/cursor/)                       |
-| Connect denoise to dn Workflows              | [Milestone details](/denoise/milestone-details/) -> [GitHub integration](/denoise/github-integration/) -> [Headless Use — Denoise integrators](/dn/headless-use/#denoise-and-other-integrators) |
+| Connect denoise to dn Workflows              | [Getting started](/denoise/getting-started/) → [Milestone details](/denoise/milestone-details/) → [GitHub integration](/denoise/github-integration/) → [Kickstart runtimes](/denoise/kickstart-runtimes/) → [Headless setup](/dn/headless-use/#denoise-and-other-integrators) |
 | Free solo tasks in The Void                  | [The Void](/denoise/void/) → [Runners](/denoise/device-runners/)                                                                                                                                |
 | Denoise Pro and task kickstart               | [Subscription & Pro](/denoise/subscription-and-pro/) -> [Milestone details](/denoise/milestone-details/)                                                                                        |
-| dn 0.0.37 and device runners                 | [What's new](/whats-new/dn-0-0-37/) → [Runners](/denoise/device-runners/)                                                                                                                       |
+| Current dn CLI and device runners            | [What's new](/whats-new/dn-0-0-37/) → [Runners](/denoise/device-runners/)                                                                                                                       |
 | Public roadmap                               | [Roadmap](/roadmap/)                                                                                                                                                                            |
 
 ## Examples
