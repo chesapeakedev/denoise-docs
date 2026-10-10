@@ -36,7 +36,7 @@ When you use the app, **Install workflows** on the GitHub Actions card in
 dispatch uses that repository configuration; changing the agent alone does not
 update the repo until you install workflows again.
 
-See [Headless Use — Dispatch payloads](/dn/headless-use/#dispatch-payloads) for
+See [Headless Use — Dispatch payloads](/runners/headless-use/#dispatch-payloads) for
 dispatch payloads, permissions, and troubleshooting.
 
 ## Linking a milestone to GitHub
@@ -90,7 +90,7 @@ On a GitHub-linked milestone, Pro users can:
 - **Initialize stack** or **Refresh stack** from the overflow menu
 - Sort tasks with the **Kickstart order** chip
 - Open **Kickstart** on a task row and choose a runner (see
-  [Kickstart runtimes](/denoise/kickstart-runtimes/))
+  [Kickstart runtimes](/runners/kickstart-runtimes/))
 - Start **Daily kickstart** from the overflow menu when that workflow is
   available
 
@@ -110,7 +110,7 @@ Denoise dispatches the same workflow events exposed by `dn workflows dispatch`:
 
 See [Milestone details](/denoise/milestone-details/) for the full UI workflow,
 runner setup, and kickstart blockers. Live progress uses the shared HTTP
-bootstrap described in [Progress reporting](/dn/progress-reporting/).
+bootstrap described in [Progress reporting](/runners/progress-reporting/).
 
 The legacy `dn.prep_issue_plan` event remains compatible with the installed
 workflow, but new integrations use `dn.meld_issue_plan`.
@@ -137,8 +137,8 @@ If sync conflicts occur, the most recent change wins.
 - [Kickstart, land, sync, and done](/close-out/) — Shared Kickstart, Land, Sync,
   and Done verbs
 - [Milestone details](/denoise/milestone-details/) — Runners and kickstart
-- [Kickstart runtimes](/denoise/kickstart-runtimes/) — Runtime matrix
-- [Runners](/denoise/device-runners/) — User-paired device kickstart and
+- [Kickstart runtimes](/runners/kickstart-runtimes/) — Runtime matrix
+- [Runners](/runners/device-runners/) — User-paired device kickstart and
   execution checkouts
 - [dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/) — CLI release history
   and runner guidance

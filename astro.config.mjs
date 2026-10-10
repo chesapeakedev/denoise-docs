@@ -18,6 +18,20 @@ export default defineConfig({
     "/denoise/workbench": "/denoise/void/",
     "/operations/coming-soon": "/roadmap/",
     "/whats-new/dn-0-0-34": "/whats-new/dn-0-0-37/",
+    "/denoise/device-runners": "/runners/device-runners/",
+    "/denoise/kickstart-runtimes": "/runners/kickstart-runtimes/",
+    "/denoise/runners/overview": "/runners/overview/",
+    "/denoise/runners/device-runners": "/runners/device-runners/",
+    "/denoise/runners/kickstart-runtimes": "/runners/kickstart-runtimes/",
+    "/denoise/runners/runner-logs": "/runners/runner-logs/",
+    "/denoise/runners/self-hosted-runners": "/runners/self-hosted-runners/",
+    "/operations/self-hosted-runners": "/runners/self-hosted-runners/",
+    "/operations/runner-logs": "/runners/runner-logs/",
+    "/dn/progress-reporting": "/runners/progress-reporting/",
+    "/dn/headless-use": "/runners/headless-use/",
+    "/dn/scheduled-workflows": "/runners/scheduled-workflows/",
+    "/dn/github-token-setup": "/runners/github-token-setup/",
+    "/cookbooks/raspberry-pi-runner": "/runners/raspberry-pi-runner/",
   },
   image: {
     service: passthroughImageService(),
@@ -69,27 +83,6 @@ export default defineConfig({
               label: "Task lists and sync",
               slug: "dn/task-list-and-sync",
             },
-            {
-              label: "Headless and automation",
-              items: [
-                {
-                  label: "Headless setup",
-                  slug: "dn/headless-use",
-                },
-                {
-                  label: "Scheduled Workflows",
-                  slug: "dn/scheduled-workflows",
-                },
-                {
-                  label: "GitHub token setup",
-                  slug: "dn/github-token-setup",
-                },
-                {
-                  label: "Progress reporting",
-                  slug: "dn/progress-reporting",
-                },
-              ],
-            },
           ],
         },
         {
@@ -104,21 +97,49 @@ export default defineConfig({
               slug: "denoise/milestone-details",
             },
             {
-              label: "Kickstart runtimes",
-              slug: "denoise/kickstart-runtimes",
-            },
-            {
               label: "Subscription & Pro",
               slug: "denoise/subscription-and-pro",
             },
             { label: "GitHub integration", slug: "denoise/github-integration" },
             {
-              label: "Runners",
-              slug: "denoise/device-runners",
-            },
-            {
               label: "Tips & troubleshooting",
               slug: "denoise/tips-troubleshooting",
+            },
+          ],
+        },
+        {
+          label: "Runners",
+          items: [
+            { label: "Overview", slug: "runners/overview" },
+            { label: "Enroll runners", slug: "runners/device-runners" },
+            {
+              label: "Kickstart runtimes",
+              slug: "runners/kickstart-runtimes",
+            },
+            {
+              label: "Headless setup",
+              slug: "runners/headless-use",
+            },
+            {
+              label: "GitHub token setup",
+              slug: "runners/github-token-setup",
+            },
+            {
+              label: "Scheduled workflows",
+              slug: "runners/scheduled-workflows",
+            },
+            {
+              label: "Progress reporting",
+              slug: "runners/progress-reporting",
+            },
+            { label: "Runner logs", slug: "runners/runner-logs" },
+            {
+              label: "Self-hosted runners",
+              slug: "runners/self-hosted-runners",
+            },
+            {
+              label: "Raspberry Pi",
+              slug: "runners/raspberry-pi-runner",
             },
           ],
         },
@@ -135,23 +156,11 @@ export default defineConfig({
               label: "Linear main with Sapling",
               slug: "cookbooks/linear-main-sapling",
             },
-            {
-              label: "Raspberry Pi runner",
-              slug: "cookbooks/raspberry-pi-runner",
-            },
           ],
         },
         {
           label: "Operations",
           items: [
-            {
-              label: "Self-hosted runners",
-              slug: "operations/self-hosted-runners",
-            },
-            {
-              label: "Runner logs",
-              slug: "operations/runner-logs",
-            },
             {
               label: "Hung process triage",
               slug: "operations/hung-process-triage",

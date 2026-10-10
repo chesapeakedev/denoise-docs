@@ -71,7 +71,7 @@ gh pr view --web
 ```
 
 The remaining sections configure how `dn` invokes OpenCode directly, including
-unattended [Headless Use](/dn/headless-use/) workflows.
+unattended [Headless Use](/runners/headless-use/) workflows.
 
 ## How dn uses OpenCode configs
 
@@ -348,7 +348,7 @@ CI, use the explicit `provider` block with `{env:OPENAI_API_KEY}`.
 
 ## Local authentication
 
-For [device runners](/denoise/device-runners/#agent-preference) and interactive
+For [device runners](/runners/device-runners/#agent-preference) and interactive
 local use, configure a provider in OpenCode (TUI `/connect` or
 `~/.config/opencode/`) or export a provider API key on the machine that runs
 kickstart:
@@ -414,11 +414,11 @@ denoise and other integrators dispatch the same payload shapes from the UI.
 | Works locally, fails in CI   | Provider missing from phase config | Add provider to **both** `opencode.plan.json` and `opencode.implement.json`      |
 | OpenCode uses wrong model    | Stale root `opencode.json`         | Align `model` across all opencode config files                                   |
 | Plan phase edits wrong files | Plan permissions too open          | Restore deny `*` with allow only under `plans/`                                  |
-| Timeouts on long issues      | Large context / slow inference     | Check run logs; consider [self-hosted runners](/operations/self-hosted-runners/) |
+| Timeouts on long issues      | Large context / slow inference     | Check run logs; consider [self-hosted runners](/runners/self-hosted-runners/) |
 
 ## Related
 
-- [Headless Use](/dn/headless-use/) — workflow installation and dispatch
+- [Headless Use](/runners/headless-use/) — workflow installation and dispatch
 - [Claude Code](/cookbooks/claude-code/) — alternative agent harness
 - [Codex](/cookbooks/codex/) — alternative agent harness (same `OPENAI_API_KEY`
   secret)

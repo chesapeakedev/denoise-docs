@@ -6,7 +6,7 @@ description: Manage GitHub issues, milestones, and project activity from the dn 
 These commands use the GitHub API from your local machine. Authenticate with
 `gh auth login`, `dn auth`, or `GITHUB_TOKEN` before running them — see
 [Installation — GitHub authentication](/dn/installation/#github-authentication)
-and [GitHub Token Setup](/dn/github-token-setup/) when you need token details.
+and [GitHub Token Setup](/runners/github-token-setup/) when you need token details.
 
 ## `dn init stack`
 
@@ -28,7 +28,7 @@ instructions for agents. `dn kickstart --milestone 42` uses the first unchecked
 task as the next work item.
 
 To run stack generation in CI, see
-[Headless Use — Dispatch payloads](/dn/headless-use/#dispatch-payloads).
+[Headless Use — Dispatch payloads](/runners/headless-use/#dispatch-payloads).
 
 ## `dn issue`
 

@@ -13,8 +13,8 @@ checkout (device), then posts NDJSON progress.
 The Kickstart panel is phases from that progress ingest. It is not a full agent
 dump.
 
-User-facing enroll and recovery: [Runners](/denoise/device-runners/). Runtime
-picker behavior: [Kickstart runtimes](/denoise/kickstart-runtimes/).
+User-facing enroll and recovery: [Enroll runners](/runners/device-runners/). Runtime
+picker behavior: [Kickstart runtimes](/runners/kickstart-runtimes/).
 
 ## Identify the hop
 
@@ -133,7 +133,8 @@ Do not add `CHECK=` runbook targets unless you intend to keep them.
 
 ## Related
 
-- [Runners](/denoise/device-runners/)
-- [Kickstart runtimes](/denoise/kickstart-runtimes/)
-- [Self-hosted GitHub Actions runners](/operations/self-hosted-runners/)
+- [Runners overview](/runners/overview/)
+- [Enroll runners](/runners/device-runners/)
+- [Kickstart runtimes](/runners/kickstart-runtimes/)
+- [Self-hosted GitHub Actions runners](/runners/self-hosted-runners/)
 - [Hung process triage](/operations/hung-process-triage/)

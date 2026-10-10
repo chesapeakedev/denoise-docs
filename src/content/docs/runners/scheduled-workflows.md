@@ -13,7 +13,7 @@ Use daily kickstart when you want steady, automated progress through a
 prioritized backlog without dispatching `dn.kickstart_issue` by hand every day.
 
 Complete
-[Headless Use — Configure a repository](/dn/headless-use/#configure-a-repository)
+[Headless Use — Configure a repository](/runners/headless-use/#configure-a-repository)
 first. Scheduled workflows reuse the same `.github/dn/config.json`, agent
 secret, and OpenCode config as the other canonical workflows.
 
@@ -50,7 +50,7 @@ git push
 ```
 
 You can also refresh the stack from CI with
-[`dn.init_stack`](/dn/headless-use/#dninit_stack) dispatch events. The daily
+[`dn.init_stack`](/runners/headless-use/#dninit_stack) dispatch events. The daily
 workflow expects the stack file to exist on the default branch.
 
 3. **Repository variable** — scheduled runs read the milestone from
@@ -149,8 +149,8 @@ web using the same event shape as other tracked dispatches, including optional
 nested `progress` for live phase/step reporting when the progress base URL is
 configured.
 
-See [Headless Use — `dn.todo_loop`](/dn/headless-use/#dntodo_loop) and
-[Progress reporting](/dn/progress-reporting/).
+See [Headless Use — `dn.todo_loop`](/runners/headless-use/#dntodo_loop) and
+[Progress reporting](/runners/progress-reporting/).
 
 ## Troubleshooting
 
@@ -158,10 +158,10 @@ See [Headless Use — `dn.todo_loop`](/dn/headless-use/#dntodo_loop) and
 | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
 | Workflow skips or fails immediately | `DN_DAILY_KICKSTART_MILESTONE` is set; stack file exists on default branch                                               |
 | No unchecked items left             | Queue is complete — refresh with `dn init stack 42 --refresh` or dispatch `dn.init_stack`                                |
-| No PR created                       | Workflow permissions and `pull-requests: write`; see [Headless Use — Troubleshooting](/dn/headless-use/#troubleshooting) |
+| No PR created                       | Workflow permissions and `pull-requests: write`; see [Headless Use — Troubleshooting](/runners/headless-use/#troubleshooting) |
 | Wrong milestone                     | Update the repository variable or pass `milestone` on `workflow_dispatch`                                                |
 | Schedule never runs                 | Default branch must contain the workflow file; GitHub disables schedules on inactive repos                               |
-| Long runs stall without phases      | Phase budgets apply (10 minutes plan, 20 minutes implement); see [Progress reporting](/dn/progress-reporting/)           |
+| Long runs stall without phases      | Phase budgets apply (10 minutes plan, 20 minutes implement); see [Progress reporting](/runners/progress-reporting/)           |
 
 For milestone stack format and local `dn kickstart --milestone` usage, see
 [Completing GitHub Issues — Milestone queues](/dn/completing-github-issues/#milestone-queues)

@@ -9,8 +9,8 @@ Docker bind-mounts that checkout into a container from
 [dn-images](https://github.com/chesapeakedev/dn-images).
 
 This is **not** how denoise chooses where Kickstart runs. Denoise assigns jobs
-to a [runner](/denoise/device-runners/) (device, GitHub Actions, or exe.dev).
-See [Kickstart runtimes](/denoise/kickstart-runtimes/).
+to a [runner](/runners/overview/) (device, GitHub Actions, or exe.dev).
+See [Kickstart runtimes](/runners/kickstart-runtimes/).
 
 CLI `dn --sandbox exe.dev` still git-syncs from a laptop checkout into an
 exe.dev VM. Denoise exe.dev jobs do **not** use that path: they boot a dn-images

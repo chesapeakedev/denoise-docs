@@ -86,16 +86,16 @@ need them.
 
 **Background agents.** You are not in the chat. `dn init workflows` installs the
 canonical GitHub Actions templates. Scheduled
-[`dn.daily_kickstart`](/dn/scheduled-workflows/) runs
+[`dn.daily_kickstart`](/runners/scheduled-workflows/) runs
 `kickstart --publish pr --milestone … --once` against a committed queue.
-[`dn.todo_loop`](/dn/scheduled-workflows/#todo-loop-dntodo_loop) runs `loop` on
+[`dn.todo_loop`](/runners/scheduled-workflows/#todo-loop-dntodo_loop) runs `loop` on
 a standing plan. `dn until` ticks a goal without a human between generator and
 gate. `dn.kickstart_issue` is the on-demand dispatch of the same kickstart.
 
 **Device runners save money.** Pair a Mac or Linux machine you already have.
-Kickstart uses [local compute](/denoise/device-runners/) and the harness login
+Kickstart uses [local compute](/runners/device-runners/) and the harness login
 already on that device. Hosted runners — GitHub Actions minutes or an
-[exe.dev runner you connected](/denoise/kickstart-runtimes/) — bill a VM per
+[exe.dev runner you connected](/runners/kickstart-runtimes/) — bill a VM per
 job. A device runner keeps that spend on the laptop and subscription you already
 run. Denoise does not invent a price for either path; it lets you choose.
 
@@ -139,8 +139,8 @@ compute, not a slogan, and sovereignty itself as the capacity to choose and
 reconfigure — not a requirement to own every layer.
 
 denoise matches that shape. It does not run kickstart on the application host
-([Kickstart runtimes](/denoise/kickstart-runtimes/)). On a
-[device runner](/denoise/device-runners/), source, credentials, and compute stay
+([Kickstart runtimes](/runners/kickstart-runtimes/)). On a
+[device runner](/runners/device-runners/), source, credentials, and compute stay
 on the machine you already trust; denoise keeps repository slugs and readiness,
 not checkout paths. The high-sovereignty direction is denoise as a coordination
 server for a fleet of compute the team owns, using harnesses and models they

@@ -8,7 +8,7 @@ interface for an end-to-end `kickstart` run.
 
 ## Local authentication
 
-For [device runners](/denoise/device-runners/#agent-preference) and interactive
+For [device runners](/runners/device-runners/#agent-preference) and interactive
 local use, install Copilot CLI and sign in on the machine that runs kickstart:
 
 ```bash

@@ -59,7 +59,7 @@ gh pr view --web
 ```
 
 The remaining sections cover API-key use, permission controls, and unattended
-[Headless Use](/dn/headless-use/) workflows.
+[Headless Use](/runners/headless-use/) workflows.
 
 ## Overview
 
@@ -179,7 +179,7 @@ dn workflows validate --json
 
 ## Local authentication
 
-For [device runners](/denoise/device-runners/#agent-preference) and interactive
+For [device runners](/runners/device-runners/#agent-preference) and interactive
 local use, sign in with Claude Code on the machine that runs kickstart:
 
 ```bash
@@ -255,13 +255,13 @@ denoise and other integrators dispatch the same payload shapes from the UI.
 | `401` / authentication errors in CI           | Missing or wrong API key           | Re-set `ANTHROPIC_API_KEY` from the Anthropic Console                                                                                            |
 | Plan phase completes but no `plans/*.plan.md` | Edit approval blocked              | Confirm `CLAUDE_PERMISSION_MODE` is not `default`; try `acceptEdits` or `bypassPermissions`                                                      |
 | Works locally, fails in CI                    | Secret not scoped to repo          | Confirm secret name is `ANTHROPIC_API_KEY`                                                                                                       |
-| Timeouts on long issues                       | Large context / slow inference     | Increase `CLAUDE_TIMEOUT_MS`; consider [self-hosted runners](/operations/self-hosted-runners/)                                                   |
+| Timeouts on long issues                       | Large context / slow inference     | Increase `CLAUDE_TIMEOUT_MS`; consider [self-hosted runners](/runners/self-hosted-runners/)                                                   |
 
 For Anthropic's managed GitHub app and action, see
 [Claude Code GitHub Actions](https://docs.anthropic.com/en/docs/claude-code/github-actions).
 
 ## Related
 
-- [Headless Use](/dn/headless-use/) — templates, dispatch payloads, permissions
+- [Headless Use](/runners/headless-use/) — templates, dispatch payloads, permissions
 - [Completing GitHub Issues — Publish modes](/dn/completing-github-issues/#publish-modes)
 - [Claude Code headless mode](https://docs.anthropic.com/en/docs/claude-code/headless)

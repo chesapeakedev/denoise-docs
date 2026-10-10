@@ -13,7 +13,7 @@ structured execution controls.
 - [`dn land`](/dn/workflows/#dn-land) replaces archive and standalone test-plan
   flows.
 - [Sandbox schema 1.1](/dn/sandbox/) supports Docker and exe.dev.
-- [Progress events](/dn/progress-reporting/) correlate dispatch, execution, and
+- [Progress events](/runners/progress-reporting/) correlate dispatch, execution, and
   pull-request results.
 - `dn --version` prints script-friendly version output for CI checks.
 

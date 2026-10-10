@@ -28,11 +28,11 @@ issues, and collaborator visibility predictable.
    and configure secrets. Then **Initialize stack** from the overflow menu
    before you click **Kickstart** on a task. See
    [Milestone details](/denoise/milestone-details/). Choose where the run
-   executes in [Kickstart runtimes](/denoise/kickstart-runtimes/).
+   executes in [Kickstart runtimes](/runners/kickstart-runtimes/).
 7. **Expect coarse progress without a public base URL** — If live phase/step
    updates are missing for GitHub Actions, the denoise deploy may lack
    `KICKSTART_PROGRESS_BASE_URL`. See
-   [Progress reporting](/dn/progress-reporting/).
+   [Progress reporting](/runners/progress-reporting/).
 
 ### General
 
@@ -122,9 +122,9 @@ issues, and collaborator visibility predictable.
 - GitHub Actions stays on the planning repository. A device runner can execute
   in a different registered checkout when you have GitHub write access there.
 - Use `dn` **0.0.52** or newer for the device-runner protocol. See
-  [Runners](/denoise/device-runners/) and
+  [Runners](/runners/device-runners/) and
   [dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/).
 - exe.dev uses the same Kickstart job queue as a paired device. **Offline**
   means no heartbeat for 90 seconds; jobs still queue for 24 hours. If you
   deleted the pet at exe.dev, Create VM. Serve and production log locations:
-  [Runner logs](/operations/runner-logs/).
+  [Runner logs](/runners/runner-logs/).

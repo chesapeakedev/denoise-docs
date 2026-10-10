@@ -59,7 +59,7 @@ gh pr view --web
 ```
 
 The remaining sections cover API-key use, workspace trust, and unattended
-[Headless Use](/dn/headless-use/) workflows.
+[Headless Use](/runners/headless-use/) workflows.
 
 ## Overview
 
@@ -184,7 +184,7 @@ Secrets and variables → Actions**.
 
 ## Local authentication
 
-For [device runners](/denoise/device-runners/#agent-preference) and interactive
+For [device runners](/runners/device-runners/#agent-preference) and interactive
 local use, authenticate the Cursor CLI on the machine that runs kickstart:
 
 ```bash
@@ -280,7 +280,7 @@ wrap dn commands with extra flags when `CURSOR_API_KEY` is set.
 | Agent secret missing in validate              | Secret not created yet                    | `gh secret set CURSOR_API_KEY`; re-run `dn workflows validate --json`                          |
 | Cloud agent cannot access repo (service acct) | Team GitHub app not connected             | Connect Cursor GitHub app at team level in dashboard Integrations                              |
 | No PR created                                 | Workflow permissions                      | Enable `pull-requests: write` and **Allow GitHub Actions to create and approve pull requests** |
-| Timeouts on long issues                       | Large context / slow inference            | Check run logs; consider [self-hosted runners](/operations/self-hosted-runners/)               |
+| Timeouts on long issues                       | Large context / slow inference            | Check run logs; consider [self-hosted runners](/runners/self-hosted-runners/)               |
 
 For interactive local development, run `agent login` instead of setting
 `CURSOR_API_KEY`. For unattended CI, the environment variable is the supported
@@ -288,12 +288,12 @@ approach.
 
 ## Related
 
-- [Headless Use](/dn/headless-use/) — templates, dispatch payloads, permissions
+- [Headless Use](/runners/headless-use/) — templates, dispatch payloads, permissions
 - [OpenCode](/cookbooks/opencode/) — alternative agent harness
 - [Claude Code](/cookbooks/claude-code/) — alternative agent harness
 - [Codex](/cookbooks/codex/) — alternative agent harness
 - [Completing GitHub Issues](/dn/completing-github-issues/) — local and Cursor
   Cloud execution
-- [Self-hosted runners](/operations/self-hosted-runners/) — longer-running
+- [Self-hosted runners](/runners/self-hosted-runners/) — longer-running
   kickstart jobs
 - [Cursor CLI installation](https://cursor.com/docs/cli/installation)

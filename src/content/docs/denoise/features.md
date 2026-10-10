@@ -165,9 +165,9 @@ On **Profile** (`/profile`), these panels sit together:
 
 - [Kickstart, land, sync, and done](/close-out/) — Shared Kickstart, Land, Sync,
   and Done verbs
-- [Runners](/denoise/device-runners/) — Pair a device or connect exe.dev
-- [Kickstart runtimes](/denoise/kickstart-runtimes/) — Where kickstart runs
-- [Runner logs](/operations/runner-logs/) — Serve stdout for devices and exe.dev
+- [Runners](/runners/device-runners/) — Pair a device or connect exe.dev
+- [Kickstart runtimes](/runners/kickstart-runtimes/) — Where kickstart runs
+- [Runner logs](/runners/runner-logs/) — Serve stdout for devices and exe.dev
 - [dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/) — CLI release history
   and runner guidance
 - [Roadmap](/roadmap/) — Shipped themes and planned work

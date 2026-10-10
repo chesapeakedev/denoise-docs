@@ -69,7 +69,7 @@ required release.
 For current **dn 0.0.52** guidance, published artifact status, and developer
 device runners, see
 [dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/). Pair a laptop
-with denoise using [Runners](/denoise/device-runners/).
+with denoise using [Runners](/runners/device-runners/).
 
 ## Build from source
 
@@ -129,7 +129,7 @@ your workflows require:
 | `pull_requests: write`                    | `--publish pr` kickstart (creating branches and PRs) |
 
 For step-by-step PAT creation, see
-[GitHub Token Setup](/dn/github-token-setup/).
+[GitHub Token Setup](/runners/github-token-setup/).
 
 ### GitHub Actions
 
@@ -221,7 +221,7 @@ workflows and denoise integrators read this file so automated runs use the same
 agent without passing `--agent` on every dispatch. Re-run
 `dn init workflows --agent <name>` or edit the file directly to change the
 default. For team-wide agent and sandbox policy, prefer a root `dn.json` with
-`schema_version: "2.0"` — see [Sandbox execution](/dn/sandbox/). See [Headless setup](/dn/headless-use/) for the matching repository
+`schema_version: "2.0"` — see [Sandbox execution](/dn/sandbox/). See [Headless setup](/runners/headless-use/) for the matching repository
 secrets.
 
 **Single-run override.** Pass the global `--agent` flag when you want a
@@ -267,8 +267,8 @@ without `--skill` — see [Filesystem Context](/dn/filesystem-context/#agentsmd)
 | ------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------- |
 | Orchestrate agents  | `kickstart`, `meld`, `loop`, `land`, `until`, `fixup`, `ensure`, `sync`           | [Completing GitHub Issues](/dn/completing-github-issues/) |
 | Working with GitHub | `init stack`, `issue`, `milestone`, `glance`, `read`                              | [Working with GitHub](/dn/github-commands/)               |
-| Headless Use        | `init workflows`, `workflows`                                                     | [Headless setup](/dn/headless-use/)                       |
-| Runners and tasks   | `runner`, `task`                                                                  | [Runners](/denoise/device-runners/)                       |
+| Headless Use        | `init workflows`, `workflows`                                                     | [Headless setup](/runners/headless-use/)                       |
+| Runners and tasks   | `runner`, `task`                                                                  | [Runners](/runners/device-runners/)                       |
 | Experimental        | `context`, `peek`, `todo`, `tidy`, `sync`                                         | [Task lists and sync](/dn/task-list-and-sync/)            |
 | Setup               | `init agents`, `init wizard`, `auth`, `completion`                                | [Installation](/dn/installation/)                         |
 
@@ -286,7 +286,7 @@ You can pass global flags after any subcommand:
 
 In CI, `dn` automatically enables unattended mode and sets `NO_COLOR` when it is
 not already set. See
-[Headless setup — Unattended output](/dn/headless-use/#unattended-output) for the
+[Headless setup — Unattended output](/runners/headless-use/#unattended-output) for the
 full behavior.
 
 ## Common argument formats
@@ -302,4 +302,4 @@ fetch an issue from GitHub.
 
 For workflow details, see
 [Completing GitHub Issues](/dn/completing-github-issues/) and
-[Headless Use](/dn/headless-use/).
+[Headless Use](/runners/headless-use/).

@@ -125,5 +125,5 @@ the Roadmap, the tour points at the progress strip and the status filters.
   ranking, and per-task kickstart on GitHub-linked milestones.
 - Use [Subscription & Pro](/denoise/subscription-and-pro/) for Free vs Pro vs
   Team.
-- Use [Runners](/denoise/device-runners/) when you want Void task-sync or Pro
+- Use [Runners](/runners/device-runners/) when you want Void task-sync or Pro
   kickstart on a trusted local checkout.

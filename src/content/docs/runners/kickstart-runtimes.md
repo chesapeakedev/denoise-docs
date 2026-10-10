@@ -8,7 +8,7 @@ execute. Every choice is an enrolled runner with a provider. Denoise does
 **not** run kickstart on the denoise application host.
 
 Enroll runners in the milestone **Runners** dialog. See
-[Runners](/denoise/device-runners/) for pairing a device, installing GitHub
+[Enroll runners](/runners/device-runners/) for pairing a device, installing GitHub
 Actions workflows, and connecting exe.dev.
 
 ## Supported runners
@@ -50,10 +50,10 @@ chooser; it remains a CLI-only path (`dn kickstart --cursor-cloud`).
 
 Device and exe.dev kickstart both post NDJSON on the job progress route. Shared
 HTTP bootstrap (GitHub Actions) details:
-[Progress reporting](/dn/progress-reporting/).
+[Progress reporting](/runners/progress-reporting/).
 
 The Kickstart panel is phases, not a full agent dump. Serve stdout lives on the
-runner. See [Runner logs](/operations/runner-logs/).
+runner. See [Runner logs](/runners/runner-logs/).
 
 ## Notes
 
@@ -69,9 +69,10 @@ runner. See [Runner logs](/operations/runner-logs/).
 
 ## Related
 
-- [Runners](/denoise/device-runners/)
-- [Runner logs](/operations/runner-logs/)
+- [Runners overview](/runners/overview/)
+- [Enroll runners](/runners/device-runners/)
+- [Runner logs](/runners/runner-logs/)
 - [Milestone details — Kickstart a task](/denoise/milestone-details/#kickstart-a-task)
 - [Kickstart, land, sync, and done](/close-out/)
 - [Sandbox execution](/dn/sandbox/)
-- [Headless Use](/dn/headless-use/)
+- [Headless Use](/runners/headless-use/)

@@ -58,6 +58,7 @@ If your team publishes reviewed local commits directly to trunk, use
 before deployment.
 
 To keep agent execution on hardware you control, use
-[Run denoise jobs on a Raspberry Pi](/cookbooks/raspberry-pi-runner/). It
+[Run denoise jobs on a Raspberry Pi](/runners/raspberry-pi-runner/) in the
+Runners section. It
 prepares a 64-bit Pi, pairs it as a denoise device runner, and registers trusted
 repository checkouts.

@@ -79,7 +79,7 @@ commits.
 
 **Sync** in this loop is trunk publish (`dn sync` / **Sync** on a landed issue).
 Runner **task-sync** is the Void relay into `~/.dn/tasks/` on a paired laptop.
-See [Runners](/denoise/device-runners/) for the Void relay.
+See [Runners](/runners/device-runners/) for the Void relay.
 
 ## Next steps
 
@@ -87,5 +87,5 @@ See [Runners](/denoise/device-runners/) for the Void relay.
   meld, fixup, until)
 - [Milestone details](/denoise/milestone-details/) — task dialog controls
 - [Command reference](/dn/workflows/) — `dn land` and `dn sync` flags
-- [Kickstart runtimes](/denoise/kickstart-runtimes/) — where Kickstart runs
-- [Runners](/denoise/device-runners/) — pairing, Land, and Sync on a laptop
+- [Kickstart runtimes](/runners/kickstart-runtimes/) — where Kickstart runs
+- [Runners](/runners/device-runners/) — pairing, Land, and Sync on a laptop

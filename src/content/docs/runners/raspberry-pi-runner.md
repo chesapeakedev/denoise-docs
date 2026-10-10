@@ -222,6 +222,6 @@ runner credential.
   and thermal throttling.
 
 For runner protocol details, JSON output, state paths, and troubleshooting, see
-[Runners](/denoise/device-runners/). If you need arbitrary GitHub Actions
+[Runners](/runners/device-runners/). If you need arbitrary GitHub Actions
 workflows rather than typed denoise jobs, use
-[Self-hosted runners](/operations/self-hosted-runners/).
+[Self-hosted runners](/runners/self-hosted-runners/).

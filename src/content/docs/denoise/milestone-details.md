@@ -108,7 +108,7 @@ On a task row, **+** opens the label picker.
 Open **Runners** on a GitHub-linked Pro milestone. The dialog asks where
 kickstart should run: a paired device, **exe.dev**, or **GitHub Actions**. Each
 option has an **Implement in** checkout. See
-[Runners](/denoise/device-runners/).
+[Runners](/runners/device-runners/).
 
 ![Runners dialog with a paired local device](../../../assets/screenshots/milestone-runners-modal-local.png)
 
@@ -174,7 +174,7 @@ After a successful run, denoise loads stack scores for the milestone and
 **Kickstart order** can sort the task list.
 
 For payload details and CLI parity, see
-[Headless Use — Dispatch payloads](/dn/headless-use/#dispatch-payloads).
+[Headless Use — Dispatch payloads](/runners/headless-use/#dispatch-payloads).
 
 ## Stack order staleness
 
@@ -229,7 +229,7 @@ detailed the plan should be.
 
 Choose a paired device, **exe.dev**, or **GitHub Actions**, and an **Implement
 in** checkout. A device job stays on that machine. Docker sandbox is CLI-only on
-hosted denoise. See [Kickstart runtimes](/denoise/kickstart-runtimes/).
+hosted denoise. See [Kickstart runtimes](/runners/kickstart-runtimes/).
 
 ![Kickstart runner picker with a ready device](../../../assets/screenshots/milestone-kickstart-start-runner.png)
 
@@ -254,7 +254,7 @@ implement 20 minutes.
 
 The progress strip on the task row shows queued, planning, and implementing
 states. GitHub Actions runs can offer **Watch on GitHub**. See
-[Progress reporting](/dn/progress-reporting/).
+[Progress reporting](/runners/progress-reporting/).
 
 On a **leave-local** device run, Kickstart ends at Lint (`dn ensure lint`). Then
 **Land** commits on the device, **Sync** re-runs lint, runs tests, and publishes
@@ -285,9 +285,9 @@ For CLI-oriented planning and implementation depth, see
 
 - [Kickstart, land, sync, and done](/close-out/) — Shared Kickstart, Land, Sync,
   and Done verbs
-- [Kickstart runtimes](/denoise/kickstart-runtimes/) — Where kickstart runs and
+- [Kickstart runtimes](/runners/kickstart-runtimes/) — Where kickstart runs and
   how progress fidelity works
-- [Runners](/denoise/device-runners/) — Pair a device to your account and choose
+- [Runners](/runners/device-runners/) — Pair a device to your account and choose
   an execution checkout
 - [GitHub integration](/denoise/github-integration/) — Link milestones, sync
   issues, convert tasks to GitHub issues

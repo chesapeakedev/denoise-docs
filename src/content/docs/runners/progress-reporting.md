@@ -115,5 +115,5 @@ available, and emits failure or timeout as terminal events.
 
 ## Where each runtime reports
 
-See [Kickstart runtimes](/denoise/kickstart-runtimes/) for the supported matrix.
+See [Kickstart runtimes](/runners/kickstart-runtimes/) for the supported matrix.
 Denoise does **not** run kickstart on the application host.
