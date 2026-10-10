@@ -60,7 +60,8 @@ the sidebar `slug`. Default `docsLoader()` slugifies each path segment
 **Fix (pick one):**
 
 1. Set sidebar `slug` to the real collection id (validator prints it).
-2. Rename the file to avoid dots (e.g. `model-v1.md` instead of `model-v1.0.md`).
+2. Rename the file to avoid dots (e.g. `model-v1.md` instead of
+   `model-v1.0.md`).
 3. Customize `generateId` in `content.config.ts` to preserve dots
    ([Starlight 0.35](https://starlight.astro.build/reference/configuration/#configure-content-collections)).
 

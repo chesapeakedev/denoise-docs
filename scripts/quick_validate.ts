@@ -7,6 +7,7 @@ const ALLOWED_PROPERTIES = new Set([
   "license",
   "allowed-tools",
   "metadata",
+  "disable-model-invocation",
 ]);
 
 type Frontmatter = Record<string, unknown>;
@@ -252,6 +253,19 @@ async function validateSkill(skillPath: string): Promise<[boolean, string]> {
       false,
       `Description must be a string, got ${
         Array.isArray(description) ? "array" : typeof description
+      }`,
+    ];
+  }
+
+  const disableInvocation = frontmatter["disable-model-invocation"];
+  if (
+    disableInvocation !== undefined &&
+    typeof disableInvocation !== "boolean"
+  ) {
+    return [
+      false,
+      `disable-model-invocation must be a boolean, got ${
+        Array.isArray(disableInvocation) ? "array" : typeof disableInvocation
       }`,
     ];
   }
