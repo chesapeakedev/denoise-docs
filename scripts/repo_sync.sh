@@ -2,7 +2,8 @@
 # Copyright 2026 Chesapeake Computing
 # SPDX-License-Identifier: Apache-2.0
 #
-# Sync local Sapling stack with upstream: lint, pull --rebase, restack if needed, push drafts.
+# Legacy Sapling stack sync (lint, pull --rebase, restack, push drafts).
+# Prefer: make sync  (dn sync — Git or Sapling).
 
 set -e
 

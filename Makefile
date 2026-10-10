@@ -4,7 +4,7 @@ DENO_FMT_PATHS := astro.config.mjs src/app scripts src/content/docs .cursor/skil
 DENO_LINT_PATHS := src/app scripts
 SKILL_DIRS := $(wildcard .cursor/skills/*)
 
-.PHONY: dev_hot_reload dev_astro_watch dev_deno_serve clean clean_dev build fmt fmt_check lint check fix validate_skills sync_codex_skills sync check_deploy deploy deploy_deno
+.PHONY: dev_hot_reload dev_astro_watch dev_deno_serve clean clean_dev build fmt fmt_check lint check fix validate_skills sync_codex_skills repo_vcs sync check_deploy deploy deploy_deno
 
 # Intelligent hot reload: Astro build watcher + Deno server (restarts on server file changes)
 dev_hot_reload: clean_dev
@@ -51,6 +51,10 @@ lint: fmt_check
 	deno check $(DENO_ENTRYPOINT)
 	deno check scripts/quick_validate.ts
 
+# Report Git vs Sapling for this checkout (same rules as dn sync).
+repo_vcs:
+	@./scripts/detect_vcs.sh --json
+
 # Mirror .cursor/skills into .codex/skills for OpenAI Codex project discovery.
 sync_codex_skills:
 	@mkdir -p .codex/skills
@@ -59,6 +63,14 @@ sync_codex_skills:
 		rm -rf ".codex/skills/$$name"; \
 		cp -R "$$skill" ".codex/skills/$$name"; \
 		echo "Synced $$name -> .codex/skills/$$name"; \
+	done
+	@for old in .codex/skills/*; do \
+		[ -e "$$old" ] || continue; \
+		name=$$(basename "$$old"); \
+		if [ ! -d ".cursor/skills/$$name" ]; then \
+			rm -rf "$$old"; \
+			echo "Removed stale .codex/skills/$$name"; \
+		fi; \
 	done
 
 # Validate local skill packages.
@@ -118,6 +130,7 @@ check_deploy:
 deploy:
 	@./scripts/deploy.sh "${DEPLOY_HOST}" "${DEPLOY_DIR}"
 
+# Publish local commits to remote main (Git or Sapling — see dn sync).
 sync: ; dn sync
 publish: sync deploy
 
