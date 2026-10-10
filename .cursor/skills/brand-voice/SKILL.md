@@ -2,9 +2,10 @@
 name: brand-voice
 description: >-
   Apply the denoise-docs brand voice, editorial style, and documentation house
-  style. Use when writing, rewriting, reviewing, or organizing English docs,
-  wiki pages, Starlight content, headings, links, procedures, explanations,
-  docs navigation, style consistency, voice and tone, or reader-burden reduction.
+  style while writing or rewriting prose. Use when drafting or editing English
+  docs, Starlight content, headings, links, procedures, and navigation. For an
+  explicit tone or audience review pass on an existing page, use docs-review
+  instead.
 ---
 
 # Brand voice for denoise docs
@@ -33,14 +34,15 @@ Avoid:
 
 ## Reader model
 
-Before editing a page, identify the reader's likely intent:
+Before editing a page, pick one primary reader per section (see
+[docs-review](../docs-review/SKILL.md) for review passes):
 
-- **Developer using `dn`**: Wants commands, prerequisites, file locations, and
-  behavior details with minimal preamble.
-- **denoise app user**: Wants UI actions, sync/auth implications, and safe next
-  steps without needing implementation details.
-- **Operator/maintainer**: Wants diagnosis, commands, failure modes, and
-  recovery steps.
+- **dn user** (software developer): Commands, prerequisites, file locations, CLI
+  behavior, minimal preamble.
+- **denoise user** (product manager): UI actions, milestones and tasks, sync
+  implications, safe next steps without implementation detail.
+- **IT/devops**: Runners, Actions, secrets, hosting, schedules, logs—often a mix
+  of dn and denoise concerns; split by who acts first in the workflow.
 
 If a page serves multiple audiences, separate those paths with headings, tables,
 or short lead-in paragraphs. Do not make every reader parse every path.
@@ -108,9 +110,9 @@ When writing or revising docs:
 If facts are missing, leave a clear TODO only when the repo already uses TODOs
 for docs. Otherwise, state the known behavior narrowly and avoid speculation.
 
-## Review checklist
+## Before you ship a prose edit
 
-Before finishing a docs prose change, check:
+Quick self-check after writing (full page review: [docs-review](../docs-review/SKILL.md)):
 
 - The first paragraph establishes the page's purpose.
 - Headings match what a reader is trying to do or understand.
