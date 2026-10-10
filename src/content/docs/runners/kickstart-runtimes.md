@@ -37,23 +37,105 @@ CLI Docker (`dn kickstart --sandbox docker`) is local isolation on a machine you
 already have. It is not a denoise runner. Cursor Cloud is not in the public
 chooser; it remains a CLI-only path (`dn kickstart --cursor-cloud`).
 
-## Progress fidelity
+## What you see during kickstart
 
-- **Detailed** — Phase and step events stream into the task progress panel.
-  Leave-local kickstart uses **Resolve → Plan → Implement → Lint**
-  (`dn ensure
-  lint`). Publish is not part of that job; Land then Sync own
-  commit and trunk. See [Kickstart, land, sync, and done](/close-out/).
-- **Coarse** — Queued / running / succeeded / failed only. Common for GitHub
-  Actions when the denoise deploy has no public `KICKSTART_PROGRESS_BASE_URL`.
-  Land and Sync on a device runner are coarse.
+The Kickstart area on a task is a **phase timeline**, not a full agent log. Serve
+stdout and harness output stay on the runner — see [Runner logs](/runners/runner-logs/).
 
-Device and exe.dev kickstart both post NDJSON on the job progress route. Shared
-HTTP bootstrap (GitHub Actions) details:
-[Progress reporting](/runners/progress-reporting/).
+When detailed progress is enabled, the panel updates as the run moves through
+kickstart phases. Leave-local kickstart on a device uses **Resolve → Plan →
+Implement → Lint** (`dn ensure lint`). Publish is not part of that job; Land
+then Sync own commit and trunk. See [Kickstart, land, sync, and done](/close-out/).
 
-The Kickstart panel is phases, not a full agent dump. Serve stdout lives on the
-runner. See [Runner logs](/runners/runner-logs/).
+When only coarse progress is available (typical for GitHub Actions without a
+public progress base URL), you see queued, running, and finished states — not
+step-by-step phases. Land and Sync on a device runner stay coarse even when
+kickstart was detailed.
+
+If a run succeeds but no pull request link appears on the task, the job may have
+published without opening a PR. Check the planning repository or ask whoever
+manages runners before assuming a link is missing.
+
+Near the end of a long plan or implement phase, the panel may show a timeout
+warning before the phase is stopped.
+
+## Configure progress for runners
+
+`dn` reports kickstart progress to denoise when a run is correlated and a
+delivery mode is set. Denoise issues a **per-invocation** bearer token for HTTP
+delivery. Do not add a standing `DN_PROGRESS_TOKEN` repository secret for every
+target repo — tokens are short-lived and scoped to one invocation.
+
+### HTTP (GitHub Actions and managed web runners)
+
+When denoise has `KICKSTART_PROGRESS_BASE_URL` configured, kickstart workflows
+receive:
+
+| Field / env             | Meaning                                              |
+| ----------------------- | ---------------------------------------------------- |
+| `DN_DISPATCH_ID`        | Invocation correlation ID                            |
+| `DN_PROGRESS=http`      | POST events to the ingest URL                        |
+| `DN_PROGRESS_URL`       | Denoise `/api/kickstart/invocations/<id>/events` URL |
+| `DN_PROGRESS_TOKEN`     | Bearer token for that invocation only                |
+| `DN_PROGRESS_VERBOSE=1` | Optional redacted agent line events                  |
+
+GitHub Actions receive the same values under `client_payload.progress` (`mode`,
+`url`, `token`). `dn workflows exec` exports them into the job environment so
+kickstart can report phases without a repo-wide progress secret.
+
+Without `KICKSTART_PROGRESS_BASE_URL`, GitHub Actions kickstart still runs but
+the denoise panel stays **coarse**. exe.dev and Cursor Cloud managed launches
+need the public base URL for detailed progress; exe.dev stays unavailable in the
+picker until it is set.
+
+Cursor Cloud normally dispatches and exits. When correlation and HTTP progress
+are both configured, `dn` waits for completion and surfaces failure, timeout, or
+a PR link when the run provides one.
+
+### NDJSON (device and exe.dev job API)
+
+Paired devices and exe.dev VMs post progress on the device job route using
+`DN_PROGRESS=ndjson` (one JSON event per line on stderr). HTTP delivery is
+best-effort and does not fail the workflow. Event shapes and versioning live in
+the open-source `dn` repositories if you need to parse logs.
+
+## Phase timeouts
+
+Kickstart plan and implement phases each have a wall-clock limit: 10 minutes for
+plan (`PLAN_TIMEOUT_MS`, default `600000`) and 20 minutes for implement
+(`IMPLEMENT_TIMEOUT_MS`, default `1200000`). Per-harness overrides
+(`OPENCODE_TIMEOUT_MS`, `CODEX_TIMEOUT_MS`, `CURSOR_TIMEOUT_MS`,
+`CLAUDE_TIMEOUT_MS`, `COPILOT_TIMEOUT_MS`) apply when set.
+
+Denoise kickstart dispatches may set `client_payload.plan_timeout_ms` and
+`client_payload.implement_timeout_ms`; device runners and GitHub Actions export
+those as `PLAN_TIMEOUT_MS` / `IMPLEMENT_TIMEOUT_MS` before `dn kickstart` runs. A
+timeout ends the run with a structured failure.
+
+## Match GitHub Actions runs to a dispatch
+
+Headless dispatches should send `schema_version: "1.0"` and a caller-generated
+`dispatch_id`:
+
+```bash
+echo '{"schema_version":"1.0","dispatch_id":"'"$(uuidgen)"'","issue_number":123}' \
+  | dn workflows dispatch dn.kickstart_issue --repo owner/repo --json --wait
+```
+
+GitHub's dispatch API does not return a workflow run ID. Installed templates put
+the dispatch ID in the run name so you can match progress and logs to the right
+job. Overlapping runs make time-based matching unsafe.
+
+## When progress stays empty
+
+On the task, confirm the run reached **running** and the runner badge is not
+**Offline**. For device and exe.dev jobs, use [Runner logs](/runners/runner-logs/)
+for serve output.
+
+For HTTP progress from Actions, confirm the job received `DN_DISPATCH_ID`,
+`DN_PROGRESS=http`, `DN_PROGRESS_URL`, and `DN_PROGRESS_TOKEN`. Verify the URL
+and token in the workflow environment without logging the token value. See
+[Headless setup](/runners/headless-use/) for workflow installation and dispatch.
 
 ## Notes
 
@@ -75,4 +157,4 @@ runner. See [Runner logs](/runners/runner-logs/).
 - [Milestone details — Kickstart a task](/denoise/milestone-details/#kickstart-a-task)
 - [Kickstart, land, sync, and done](/close-out/)
 - [Sandbox execution](/dn/sandbox/)
-- [Headless Use](/runners/headless-use/)
+- [Headless setup](/runners/headless-use/)

@@ -27,7 +27,8 @@ export default defineConfig({
     "/denoise/runners/self-hosted-runners": "/runners/self-hosted-runners/",
     "/operations/self-hosted-runners": "/runners/self-hosted-runners/",
     "/operations/runner-logs": "/runners/runner-logs/",
-    "/dn/progress-reporting": "/runners/progress-reporting/",
+    "/dn/progress-reporting": "/runners/kickstart-runtimes/#configure-progress-for-runners",
+    "/runners/progress-reporting": "/runners/kickstart-runtimes/#configure-progress-for-runners",
     "/dn/headless-use": "/runners/headless-use/",
     "/dn/scheduled-workflows": "/runners/scheduled-workflows/",
     "/dn/github-token-setup": "/runners/github-token-setup/",
@@ -127,10 +128,6 @@ export default defineConfig({
             {
               label: "Scheduled workflows",
               slug: "runners/scheduled-workflows",
-            },
-            {
-              label: "Progress reporting",
-              slug: "runners/progress-reporting",
             },
             { label: "Runner logs", slug: "runners/runner-logs" },
             {

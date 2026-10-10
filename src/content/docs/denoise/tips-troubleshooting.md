@@ -32,7 +32,7 @@ issues, and collaborator visibility predictable.
 7. **Expect coarse progress without a public base URL** — If live phase/step
    updates are missing for GitHub Actions, the denoise deploy may lack
    `KICKSTART_PROGRESS_BASE_URL`. See
-   [Progress reporting](/runners/progress-reporting/).
+   [Kickstart runtimes — When progress stays empty](/runners/kickstart-runtimes/#when-progress-stays-empty).
 
 ### General
 

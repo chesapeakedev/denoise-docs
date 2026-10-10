@@ -59,11 +59,10 @@ documented on [Kickstart runtimes](/runners/kickstart-runtimes/).
 | Goal | Page |
 | ---- | ---- |
 | Pair a laptop, connect exe.dev, install Actions workflows | [Enroll runners](/runners/device-runners/) |
-| Choose a runner at Kickstart; progress and badges | [Kickstart runtimes](/runners/kickstart-runtimes/) |
+| Choose a runner, progress fidelity, and the task panel | [Kickstart runtimes](/runners/kickstart-runtimes/) |
 | Install `dn` workflows and repository dispatch | [Headless setup](/runners/headless-use/) |
 | `GITHUB_TOKEN` and API access for Actions | [GitHub token setup](/runners/github-token-setup/) |
 | Daily kickstart and todo loop on a schedule | [Scheduled workflows](/runners/scheduled-workflows/) |
-| HTTP and NDJSON progress into denoise | [Progress reporting](/runners/progress-reporting/) |
 | Serve stdout when jobs queue or stall | [Runner logs](/runners/runner-logs/) |
 | Run `dn` workflows on your own GitHub Actions hardware | [Self-hosted runners](/runners/self-hosted-runners/) |
 | Low-power always-on device | [Raspberry Pi runner](/runners/raspberry-pi-runner/) |

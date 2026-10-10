@@ -161,7 +161,7 @@ ready on the device.
 Device runners and exe.dev report progress with **NDJSON** over the same device
 job API. GitHub Actions uses the shared HTTP bootstrap. See
 [Kickstart runtimes](/runners/kickstart-runtimes/) and
-[Progress reporting](/runners/progress-reporting/).
+[Kickstart runtimes — Configure progress](/runners/kickstart-runtimes/#configure-progress-for-runners).
 
 From the device, scripts can also queue work:
 

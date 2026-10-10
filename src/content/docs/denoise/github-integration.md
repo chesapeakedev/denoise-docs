@@ -110,7 +110,7 @@ Denoise dispatches the same workflow events exposed by `dn workflows dispatch`:
 
 See [Milestone details](/denoise/milestone-details/) for the full UI workflow,
 runner setup, and kickstart blockers. Live progress uses the shared HTTP
-bootstrap described in [Progress reporting](/runners/progress-reporting/).
+bootstrap described in [Kickstart runtimes — Configure progress](/runners/kickstart-runtimes/#configure-progress-for-runners).
 
 The legacy `dn.prep_issue_plan` event remains compatible with the installed
 workflow, but new integrations use `dn.meld_issue_plan`.

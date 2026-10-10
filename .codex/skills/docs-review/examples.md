@@ -2,7 +2,8 @@
 
 ## Progress reporting — misplaced contributor section
 
-**Section:** `## Render progress in denoise` in `runners/progress-reporting.md`
+**Section (historical):** integrator-style progress copy — now merged into
+`runners/kickstart-runtimes.md` under **What you see during kickstart**.
 
 | Check | Result |
 | --- | --- |

@@ -278,7 +278,7 @@ The workflow runs the repository todo loop on a stable automation branch and
 opens or advances one recurring pull request for that plan. Requires
 `plans/todo.plan.md` (or the path configured for the repo). Denoise can start
 todo loop from the web with the same `repository_dispatch` event. Progress
-bootstrap details: [Progress reporting](/runners/progress-reporting/).
+bootstrap details: [Kickstart runtimes — Configure progress](/runners/kickstart-runtimes/#configure-progress-for-runners).
 
 ## Dispatch and manage workflows from the CLI
 
@@ -339,8 +339,8 @@ installed templates. Choose a kickstart runtime in the task dialog — see
 Every dispatch ID is copied into `DN_DISPATCH_ID` and the correlated workflow
 run name. Use `--wait` or match that run name exactly; do not associate
 overlapping runs by creation time. See
-[Progress reporting](/runners/progress-reporting/) for the shared HTTP bootstrap,
-NDJSON on device runners, redaction, and PR URL fields.
+[Kickstart runtimes](/runners/kickstart-runtimes/) for progress fidelity, HTTP
+bootstrap, and NDJSON on device runners.
 
 Compatibility paths (still supported, separate from dispatch):
 
@@ -384,7 +384,7 @@ Agent-backed workflows in CI also use harness-specific variables such as
 `ANTHROPIC_API_KEY`, `CLAUDE_CODE_BARE=1` (set by workflows for Claude), and
 `CODEX_TIMEOUT_MS`. Long kickstart runs can set `PLAN_TIMEOUT_MS` and
 `IMPLEMENT_TIMEOUT_MS` (plan defaults to 10 minutes, implement to 20 minutes) —
-see [Progress reporting](/runners/progress-reporting/). Agent selection in workflows comes from
+see [Kickstart runtimes — Phase timeouts](/runners/kickstart-runtimes/#phase-timeouts). Agent selection in workflows comes from
 `.github/dn/config.json`; see
 [Installation — Choose an agent](/dn/installation/#choose-an-agent).
 

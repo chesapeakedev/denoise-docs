@@ -245,7 +245,7 @@ local workspace. Without progress configuration, the run is durable
 fire-and-forget. With `DN_DISPATCH_ID` and `DN_PROGRESS` set, `dn` waits,
 reports progress, and returns the pull request URL or terminal failure. In
 denoise, that bootstrap is issued per invocation — see
-[Progress reporting](/runners/progress-reporting/) and
+[Kickstart runtimes](/runners/kickstart-runtimes/) and
 [Kickstart runtimes](/runners/kickstart-runtimes/). Also see
 [Headless Use](/runners/headless-use/) for CI dispatch and
 [Sandbox execution](/dn/sandbox/) for Docker and exe.dev.

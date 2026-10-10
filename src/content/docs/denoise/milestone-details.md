@@ -254,7 +254,7 @@ implement 20 minutes.
 
 The progress strip on the task row shows queued, planning, and implementing
 states. GitHub Actions runs can offer **Watch on GitHub**. See
-[Progress reporting](/runners/progress-reporting/).
+[Kickstart runtimes — Configure progress](/runners/kickstart-runtimes/#configure-progress-for-runners).
 
 On a **leave-local** device run, Kickstart ends at Lint (`dn ensure lint`). Then
 **Land** commits on the device, **Sync** re-runs lint, runs tests, and publishes

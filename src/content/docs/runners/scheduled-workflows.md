@@ -150,7 +150,7 @@ nested `progress` for live phase/step reporting when the progress base URL is
 configured.
 
 See [Headless Use — `dn.todo_loop`](/runners/headless-use/#dntodo_loop) and
-[Progress reporting](/runners/progress-reporting/).
+[Kickstart runtimes — Phase timeouts](/runners/kickstart-runtimes/#phase-timeouts).
 
 ## Troubleshooting
 
@@ -161,7 +161,7 @@ See [Headless Use — `dn.todo_loop`](/runners/headless-use/#dntodo_loop) and
 | No PR created                       | Workflow permissions and `pull-requests: write`; see [Headless Use — Troubleshooting](/runners/headless-use/#troubleshooting) |
 | Wrong milestone                     | Update the repository variable or pass `milestone` on `workflow_dispatch`                                                |
 | Schedule never runs                 | Default branch must contain the workflow file; GitHub disables schedules on inactive repos                               |
-| Long runs stall without phases      | Phase budgets apply (10 minutes plan, 20 minutes implement); see [Progress reporting](/runners/progress-reporting/)           |
+| Long runs stall without phases      | Phase budgets apply (10 minutes plan, 20 minutes implement); see [Kickstart runtimes — Phase timeouts](/runners/kickstart-runtimes/#phase-timeouts)           |
 
 For milestone stack format and local `dn kickstart --milestone` usage, see
 [Completing GitHub Issues — Milestone queues](/dn/completing-github-issues/#milestone-queues)
