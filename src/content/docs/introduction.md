@@ -1,51 +1,32 @@
 ---
 title: Introduction
-description: Documentation for denoise - a set of tools for managing agentic workflows to create software factories.
+description: Documentation for denoise, a system for spreading agentic work across your team.
 ---
-
-Welcome to the denoise documentation! This website contains everything you need
-to know about denoise to integrate into your workflow. Denoise is a set of tools
-for managing agentic workflows to create software factories. The goal of the
-toolkit is to enable you as a developer to share a streamlined workflow with
-your agent(s) and teammates in async & real-time experiences, working one level
-above syntax.
-
-Denoise is isomorphic. A terminal & web experience share the same core
-capabilities to automate pieces of the software development lifecycle. **dn** is
-the CLI for developers who work from the terminal & agent harnesses such as
-Cursor & Claude Code. **denoise** is the web app for product managers,
-designers, and others who prefer a visual, collaborative experience for
-building. [Kickstart, land, sync, and done](/close-out/) use the same four verbs
-in both.
-
-Everyone builds. Cross-functional teams stay aligned on project planning and
-available automations without forcing everyone into the same tool:
-
-- **dn** - The CLI for GitHub issue workflows, agent-backed planning and
-  implementation, repository agent context, and automation dispatch.
-- **dn skill** - First-class integration with the most popular harnesses, such
-  as Claude Code, Cursor, Codex, and opencode
-- **The Void** - Free solo task list that syncs to a paired laptop via `dn` (no
-  cloud todo store; no milestones)
-- **denoise** - Collaborative planning app (Denoise Pro) for milestones, GitHub
-  sync, and orchestrating agent automation alongside the terminal
 
 ![denoise Roadmap with a progress bar and milestone list](../../assets/screenshots/roadmap.png)
 
+Welcome to the denoise documentation! Denoise is a set of tools for spreading
+agentic work across your team. The goal of the toolkit is to enable you as a
+developer to share a streamlined workflow with your agent(s) and teammates in
+async & real-time experiences.
+
+Everyone builds with Denoise. A terminal & web experience share the same core
+capabilities to automate pieces of the software development lifecycle.
+Cross-functional teams stay aligned on project planning and available
+automations without forcing everyone into the same UX:
+
+- **dn** - The CLI experience for developers
+- **Denoise** - A web app experience for everyone else
+
+
 ## Quick links
 
-| Need                                         | Start here                                                                                                                                                                                      |
-| -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Kickstart at four altitudes                  | [Working Above Syntax](/blog/working-above-syntax/)                                                                                                                                             |
-| Close work in dn and denoise                 | [Kickstart, land, sync, and done](/close-out/)                                                                                                                                                  |
-| Install and use dn                           | [Installation](/dn/installation/)                                                                                                                                                               |
-| Implement GitHub issues with dn and an agent | [Completing GitHub Issues](/dn/completing-github-issues/)                                                                                                                                       |
-| Automate in GitHub Actions                   | [Headless Use](/runners/headless-use/) → [OpenCode](/cookbooks/opencode/), [Claude Code](/cookbooks/claude-code/), [Codex](/cookbooks/codex/), or [Cursor](/cookbooks/cursor/)                       |
-| Connect denoise to dn Workflows              | [Getting started](/denoise/getting-started/) → [Milestone details](/denoise/milestone-details/) → [GitHub integration](/denoise/github-integration/) → [Runners overview](/runners/overview/) → [Headless setup](/runners/headless-use/#denoise-and-other-integrators) |
-| Free solo tasks in The Void                  | [The Void](/denoise/void/) → [Runners overview](/runners/overview/)                                                                                                                                |
-| Denoise Pro and task kickstart               | [Subscription & Pro](/denoise/subscription-and-pro/) -> [Milestone details](/denoise/milestone-details/)                                                                                        |
-| Current dn CLI and device runners            | [What's new](/whats-new/dn-0-0-37/) → [Runners overview](/runners/overview/)                                                                                                                       |
-| Public roadmap                               | [Roadmap](/roadmap/)                                                                                                                                                                            |
+| Need                                         | Start here                                                                                                                                                                                                                                                             |
+| -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Kickstart at four altitudes                  | [Working Above Syntax](/blog/working-above-syntax/)                                                                                                                                                                                                                    |
+| Close work in dn and denoise                 | [Kickstart, land, sync, and done](/close-out/)                                                                                                                                                                                                                         |
+| Implement GitHub issues with dn and an agent | [Completing GitHub Issues](/dn/completing-github-issues/)                                                                                                                                                                                                              |
+| Denoise Pro and task kickstart               | [Subscription & Pro](/denoise/subscription-and-pro/) -> [Milestone details](/denoise/milestone-details/)                                                                                                                                                               |
 
 ## Examples
 
