@@ -293,7 +293,7 @@ An exe.dev runner uses the same job queue as a paired device on a persistent
 cloud VM. Denoise does not SSH into the pet. Connect uses `new`, `ls`, and `rm`
 only. The VM clones `/workspace/{owner}/{repo}` when it claims a job. Publish is
 `--publish pr`. Land and Sync jobs still run on a registered device checkout,
-not on the VM — see [Kickstart, land, sync, and done](/close-out/).
+not on the VM — see [Kickstart](/kickstart/).
 
 1. Open a GitHub-linked milestone and click **Runners**.
 2. Select **exe.dev**. Paste an `EXE_TOKEN` with `new`, `ls`, and `rm` scopes

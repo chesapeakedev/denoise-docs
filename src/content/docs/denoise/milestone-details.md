@@ -259,7 +259,7 @@ states. GitHub Actions runs can offer **Watch on GitHub**. See
 On a **leave-local** device run, Kickstart ends at Lint (`dn ensure lint`). Then
 **Land** commits on the device, **Sync** re-runs lint, runs tests, and publishes
 to trunk, and **Done** closes the GitHub issue. See
-[Kickstart, land, sync, and done](/close-out/). On the pull-request path, host
+[Kickstart](/kickstart/). On the pull-request path, host
 CI is the gate.
 
 <video autoplay loop muted playsinline class="demo-video" aria-label="Kickstart a task from the milestone view through plan review and a pull request">
@@ -283,8 +283,7 @@ For CLI-oriented planning and implementation depth, see
 
 ## Next steps
 
-- [Kickstart, land, sync, and done](/close-out/) — Shared Kickstart, Land, Sync,
-  and Done verbs
+- [Kickstart](/kickstart/) — How kickstart turns a task into a plan and implementation
 - [Kickstart runtimes](/runners/kickstart-runtimes/) — Where kickstart runs and
   how progress fidelity works
 - [Runners](/runners/device-runners/) — Pair a device to your account and choose

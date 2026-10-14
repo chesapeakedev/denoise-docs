@@ -104,7 +104,7 @@ Denoise dispatches the same workflow events exposed by `dn workflows dispatch`:
 - `dn.kickstart_issue` — Run plan plus implementation from **Kickstart** on a
   task row. After a leave-local device run, **Land** and **Sync** queue
   `dn.land` and `dn.sync` on that checkout. See
-  [Kickstart, land, sync, and done](/close-out/).
+  [Kickstart](/kickstart/).
 - `dn.todo_loop` — Advance the repository todo plan on a stable automation
   branch (GitHub Actions).
 
@@ -134,8 +134,7 @@ If sync conflicts occur, the most recent change wins.
 
 ## Related
 
-- [Kickstart, land, sync, and done](/close-out/) — Shared Kickstart, Land, Sync,
-  and Done verbs
+- [Kickstart](/kickstart/) — How kickstart turns a task into a plan and implementation
 - [Milestone details](/denoise/milestone-details/) — Runners and kickstart
 - [Kickstart runtimes](/runners/kickstart-runtimes/) — Runtime matrix
 - [Runners](/runners/device-runners/) — User-paired device kickstart and

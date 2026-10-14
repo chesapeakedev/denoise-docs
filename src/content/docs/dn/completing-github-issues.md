@@ -3,9 +3,9 @@ title: Completing GitHub Issues
 description: Understand the different flows to complete work in GitHub with dn
 ---
 
-The `dn` CLI and the denoise task dialog share four close-out verbs:
-[Kickstart, land, sync, and done](/close-out/). This page covers CLI variants
-around that loop — pull-request kickstart, meld, fixup, and until.
+For an overview of kickstart in the `dn` CLI and denoise, start with
+[Kickstart](/kickstart/). This page covers CLI variants for GitHub issues —
+pull-request kickstart, meld, fixup, and until.
 
 The `dn` CLI gives you a non-conversational assistant interface to the harnesses
 you already use. Use the CLI to orient your workflow around durable plans,
@@ -103,7 +103,7 @@ dn sync
 
 Leave-local kickstart implements then runs `dn ensure lint`. Land commits. Sync
 re-runs lint, runs tests, and publishes to trunk. Then mark the issue Done. See
-[Kickstart, land, sync, and done](/close-out/).
+[Kickstart](/kickstart/).
 
 When an IDE agent runs these steps for you, it asks before committing and keeps
 `plans/*.plan.md` out of the commit — `dn land` removes the plan on success.
@@ -222,7 +222,7 @@ CI must use `pr` or `direct` because a local-only workspace disappears with the
 runner. Use `direct` only when you intentionally want to bypass pull-request
 review. `dn sync` publishes trunk after Land on the leave-local path; it is not
 part of the pull-request path. See
-[Kickstart, land, sync, and done](/close-out/).
+[Kickstart](/kickstart/).
 
 ## Run remotely or in CI
 

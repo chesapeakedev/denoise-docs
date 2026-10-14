@@ -45,7 +45,7 @@ stdout and harness output stay on the runner — see [Runner logs](/runners/runn
 When detailed progress is enabled, the panel updates as the run moves through
 kickstart phases. Leave-local kickstart on a device uses **Resolve → Plan →
 Implement → Lint** (`dn ensure lint`). Publish is not part of that job; Land
-then Sync own commit and trunk. See [Kickstart, land, sync, and done](/close-out/).
+then Sync own commit and trunk. See [Kickstart](/kickstart/).
 
 When only coarse progress is available (typical for GitHub Actions without a
 public progress base URL), you see queued, running, and finished states — not
@@ -155,6 +155,6 @@ and token in the workflow environment without logging the token value. See
 - [Enroll runners](/runners/device-runners/)
 - [Runner logs](/runners/runner-logs/)
 - [Milestone details — Kickstart a task](/denoise/milestone-details/#kickstart-a-task)
-- [Kickstart, land, sync, and done](/close-out/)
+- [Kickstart](/kickstart/)
 - [Sandbox execution](/dn/sandbox/)
 - [Headless setup](/runners/headless-use/)

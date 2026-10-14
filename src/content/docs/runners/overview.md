@@ -44,7 +44,7 @@ task-sync (Void ↔ `~/.dn/tasks/` relay). They do not run arbitrary shell
 commands or unrelated GitHub Actions workflows.
 
 Kickstart → Land → Sync → Done matches the close-out flow in denoise and the
-CLI. See [Kickstart, land, sync, and done](/close-out/). Void task-sync is
+CLI. See [Kickstart](/kickstart/). Void task-sync is
 unrelated to trunk Sync.
 
 When you click **Kickstart**, denoise asks which enrolled runner should

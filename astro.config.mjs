@@ -32,6 +32,7 @@ export default defineConfig({
     "/dn/headless-use": "/runners/headless-use/",
     "/dn/scheduled-workflows": "/runners/scheduled-workflows/",
     "/dn/github-token-setup": "/runners/github-token-setup/",
+    "/close-out": "/kickstart/",
     "/cookbooks/raspberry-pi-runner": "/runners/raspberry-pi-runner/",
   },
   image: {
@@ -55,8 +56,8 @@ export default defineConfig({
       sidebar: [
         { label: "Introduction", slug: "introduction" },
         {
-          label: "Kickstart, land, sync, and done",
-          slug: "close-out",
+          label: "Kickstart",
+          slug: "kickstart",
         },
         {
           label: "dn",

@@ -40,7 +40,7 @@ milestone view workflow.
 - **Task kickstart (Pro)** — **Kickstart** on a task row opens kickstart setup
   (summary, runner, and plan detail). On a leave-local device run, **Land** then
   **Sync** finish the same loop as the CLI. See
-  [Kickstart, land, sync, and done](/close-out/).
+  [Kickstart](/kickstart/).
 
 ## Task management
 
@@ -163,8 +163,7 @@ On **Profile** (`/profile`), these panels sit together:
 
 ## Related
 
-- [Kickstart, land, sync, and done](/close-out/) — Shared Kickstart, Land, Sync,
-  and Done verbs
+- [Kickstart](/kickstart/) — How kickstart turns a task into a plan and implementation
 - [Runners](/runners/device-runners/) — Pair a device or connect exe.dev
 - [Kickstart runtimes](/runners/kickstart-runtimes/) — Where kickstart runs
 - [Runner logs](/runners/runner-logs/) — Serve stdout for devices and exe.dev
