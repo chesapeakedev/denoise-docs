@@ -32,14 +32,6 @@ If you prefer to avoid installation scripts, pre-built binaries are on the
 [latest `dn` release](https://github.com/chesapeakedev/dn/releases/latest).
 Download the binary for your platform and place it in your `PATH`:
 
-| Platform              | Binary               |
-| --------------------- | -------------------- |
-| macOS (Apple Silicon) | `dn-macos-arm64`     |
-| macOS (Intel)         | `dn-macos-x64`       |
-| Linux (x86_64)        | `dn-linux-x64`       |
-| Linux (ARM64)         | `dn-linux-arm64`     |
-| Windows (x64)         | `dn-windows-x64.exe` |
-
 Example for macOS (Apple Silicon):
 
 ```bash
@@ -47,8 +39,6 @@ curl -L -o dn https://github.com/chesapeakedev/dn/releases/latest/download/dn-ma
 chmod +x dn
 sudo mv dn /usr/local/bin/dn
 ```
-
-Replace `dn-macos-arm64` with the binary name for your platform.
 
 On macOS, release binaries are signed and notarized. If Gatekeeper still flags
 a binary, right-click it in Finder and choose **Open**, use **System Settings →
@@ -61,29 +51,6 @@ Confirm the installed version and command list:
 ```bash
 dn --version
 dn
-```
-
-`dn --version` prints only the version, so scripts and CI can compare it with a
-required release.
-
-For current **dn 0.0.52** guidance, published artifact status, and developer
-device runners, see
-[dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/). Pair a laptop
-with denoise using [Runners](/runners/device-runners/).
-
-## Build from source
-
-Building from a repository clone requires:
-
-- [Deno](https://deno.com/) (>= 2.6.3) installed and available in `PATH`
-- `make`
-
-Clone, build, and install:
-
-```bash
-git clone https://github.com/chesapeakedev/dn.git
-cd dn
-make install
 ```
 
 # GitHub authentication
@@ -100,18 +67,14 @@ and `issue` with issue URLs).
 2. **GitHub CLI** — if `gh` is installed and authenticated, `dn` shells out to
    `gh auth token`
 
-### Interactive: GitHub CLI
-
-Install the [GitHub CLI](https://cli.github.com/) and authenticate:
+For interactive use casese, install the [GitHub CLI](https://cli.github.com/) and authenticate:
 
 ```bash
 gh auth login
 ```
 
-No environment variable or configuration needed — `dn` detects `gh`
+No environment variable or configuration needed. `dn` detects `gh`
 automatically.
-
-### Non-interactive: environment variable
 
 For CI, scripts, and automation, set `GITHUB_TOKEN`:
 
@@ -149,55 +112,6 @@ permissions:
   pull-requests: write
   issues: write
 ```
-
-`dn auth` is not suitable for CI — always use environment variables or injected
-secrets.
-
-### Troubleshooting
-
-**"No GitHub token found"** — Run `gh auth login` or set `GITHUB_TOKEN`.
-
-**"Bad credentials" / 401** — The token may be expired or revoked. Re-run
-`gh auth login` or generate a new PAT.
-
-**"Resource not accessible by integration"** — The token lacks the required
-scope. Check the scope table above and update your PAT or workflow permissions.
-
-# Run your first command
-
-Most workflows also need:
-
-- Git or [Sapling](https://sapling-scm.com/) for commands that create branches,
-  commits, or PRs
-- An agent harness for agent-backed workflows: [opencode](https://opencode.dev/)
-  by default, or Cursor, Claude Code, Codex CLI, or GitHub Copilot CLI
-
-## Basic setup commands
-
-```bash
-# Authenticate for GitHub-backed commands
-gh auth login
-
-# Teach your agent how to use dn
-dn init agents --skill --agent opencode
-
-# Plan and implement an issue locally
-dn kickstart https://github.com/owner/repo/issues/123
-
-# Plan first, then implement and close out after review
-dn meld 123 --plan-name my-feature
-dn loop --plan-file plans/my-feature.plan.md
-dn land plans/my-feature.plan.md
-
-# Install canonical workflows for denoise and other integrators
-dn init workflows --agent opencode
-dn workflows validate --json
-
-# Refresh the local prioritized task list
-dn tidy
-```
-
-For guided first-run setup of project or user config, run `dn init wizard`.
 
 ### Choose an agent
 
@@ -260,46 +174,3 @@ Repo-scope installs write:
 User-scope installs write the same content under `~/.agents/` or `~/.claude/`.
 For per-repo `AGENTS.md` updates without the skill files, run `dn init agents`
 without `--skill` — see [Filesystem Context](/dn/filesystem-context/#agentsmd).
-
-## Command map
-
-| Need                | Commands                                                                          | Reference                                                 |
-| ------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------- |
-| Orchestrate agents  | `kickstart`, `meld`, `loop`, `land`, `until`, `fixup`, `ensure`, `sync`           | [Completing GitHub Issues](/dn/completing-github-issues/) |
-| Working with GitHub | `init stack`, `issue`, `milestone`, `glance`, `read`                              | [Working with GitHub](/dn/github-commands/)               |
-| Headless Use        | `init workflows`, `workflows`                                                     | [Headless setup](/runners/headless-use/)                       |
-| Runners and tasks   | `runner`, `task`                                                                  | [Runners](/runners/device-runners/)                       |
-| Experimental        | `context`, `peek`, `todo`, `tidy`, `sync`                                         | [Task lists and sync](/dn/task-list-and-sync/)            |
-| Setup               | `init agents`, `init wizard`, `auth`, `completion`                                | [Installation](/dn/installation/)                         |
-
-## Global flags
-
-You can pass global flags after any subcommand:
-
-- `--unattended` or `--ci` - Force non-interactive, CI-friendly output.
-- `--no-color` - Disable ANSI colors.
-- `--color` - Enable colors even when stdout is not a TTY.
-- `--trace` / `--no-trace` - Force or suppress the live agent-harness stream.
-- `--context-file <path>` - Append a file to agent prompt context (repeatable).
-- `--agent <harness>` - Select the agent harness for one run.
-- `--sandbox <provider>` - Select the sandbox provider for one run.
-
-In CI, `dn` automatically enables unattended mode and sets `NO_COLOR` when it is
-not already set. See
-[Headless setup — Unattended output](/runners/headless-use/#unattended-output) for the
-full behavior.
-
-## Common argument formats
-
-Several workflow commands accept flexible issue or source arguments:
-
-- Full GitHub issue URL: `https://github.com/owner/repo/issues/123`
-- Issue number in the current repository: `123`
-- Local markdown file path: `docs/spec.md` or `plans/feature.md`
-
-When a markdown path is given, `dn` uses the file as local context and does not
-fetch an issue from GitHub.
-
-For workflow details, see
-[Completing GitHub Issues](/dn/completing-github-issues/) and
-[Headless Use](/runners/headless-use/).
