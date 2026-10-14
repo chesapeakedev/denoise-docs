@@ -139,5 +139,4 @@ If sync conflicts occur, the most recent change wins.
 - [Kickstart runtimes](/runners/kickstart-runtimes/) — Runtime matrix
 - [Runners](/runners/device-runners/) — User-paired device kickstart and
   execution checkouts
-- [dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/) — CLI release history
-  and runner guidance
+- [`dn` release notes](https://github.com/chesapeakedev/dn/releases)

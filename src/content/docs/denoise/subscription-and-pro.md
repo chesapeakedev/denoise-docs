@@ -85,5 +85,4 @@ see [GitHub integration](/denoise/github-integration/) and
 - [Tips & troubleshooting](/denoise/tips-troubleshooting/) — When Pro-gated
   actions are disabled
 - [Runners](/runners/device-runners/) — Runner limits on Free vs Pro
-- [dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/) — CLI release history
-  and runner guidance
+- [Runners](/runners/overview/) — runner setup and guidance

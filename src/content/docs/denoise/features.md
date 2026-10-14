@@ -167,6 +167,5 @@ On **Profile** (`/profile`), these panels sit together:
 - [Runners](/runners/device-runners/) — Pair a device or connect exe.dev
 - [Kickstart runtimes](/runners/kickstart-runtimes/) — Where kickstart runs
 - [Runner logs](/runners/runner-logs/) — Serve stdout for devices and exe.dev
-- [dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/) — CLI release history
-  and runner guidance
+- [`dn` release notes](https://github.com/chesapeakedev/dn/releases)
 - [Roadmap](/roadmap/) — Shipped themes and planned work

@@ -4,8 +4,8 @@ description: Public denoise and dn themes — shipped, in progress, and planned 
 ---
 
 This page groups public product themes for denoise and **dn**. Status labels
-describe direction, not a calendar. For a specific shipped release, start with
-[What's new](/whats-new/dn-0-0-37/).
+describe direction, not a calendar. For version-by-version changes, see the
+[`dn` release notes](https://github.com/chesapeakedev/dn/releases).
 
 ## Shipped
 
@@ -25,8 +25,7 @@ describe direction, not a calendar. For a specific shipped release, start with
   (`dn kickstart --cursor-cloud`). See
   [Kickstart runtimes](/runners/kickstart-runtimes/).
 - **Published dn container images** — Harness-tagged images for automation
-  environments (dn-images `v0.0.2`; CLI recommended at `0.0.52`). See
-  [dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/).
+  environments. See [dn-images releases](https://github.com/chesapeakedev/dn-images/releases).
 
 ## In progress
 
@@ -69,5 +68,5 @@ shapes what ships first.
 
 ## Related
 
-- [What's new — dn 0.0.37](/whats-new/dn-0-0-37/)
+- [`dn` release notes](https://github.com/chesapeakedev/dn/releases)
 - [Introduction](/introduction/)

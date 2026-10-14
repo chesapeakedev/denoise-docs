@@ -68,7 +68,7 @@ Return to the background loop with `dn runner start`. After upgrading `dn`, run
 `dn runner install` so the unit file uses the current binary.
 
 Hung macOS processes (kickstart or Deno not exiting):
-[Hung process triage](/operations/hung-process-triage/).
+Use the process inspection steps on this page to investigate a hung runner.
 
 ## exe.dev VM
 
@@ -137,4 +137,4 @@ Do not add `CHECK=` runbook targets unless you intend to keep them.
 - [Enroll runners](/runners/device-runners/)
 - [Kickstart runtimes](/runners/kickstart-runtimes/)
 - [Self-hosted GitHub Actions runners](/runners/self-hosted-runners/)
-- [Hung process triage](/operations/hung-process-triage/)
+- [Headless setup](/runners/headless-use/)

@@ -17,7 +17,9 @@ export default defineConfig({
     "/dn/cursor-github-actions": "/cookbooks/cursor/",
     "/denoise/workbench": "/denoise/void/",
     "/operations/coming-soon": "/roadmap/",
-    "/whats-new/dn-0-0-34": "/whats-new/dn-0-0-37/",
+    "/operations/hung-process-triage": "/runners/runner-logs/",
+    "/whats-new/dn-0-0-34": "https://github.com/chesapeakedev/dn/releases",
+    "/whats-new/dn-0-0-37": "https://github.com/chesapeakedev/dn/releases",
     "/denoise/device-runners": "/runners/device-runners/",
     "/denoise/kickstart-runtimes": "/runners/kickstart-runtimes/",
     "/denoise/runners/overview": "/runners/overview/",
@@ -154,25 +156,6 @@ export default defineConfig({
               label: "Linear main with Sapling",
               slug: "cookbooks/linear-main-sapling",
             },
-          ],
-        },
-        {
-          label: "Operations",
-          items: [
-            {
-              label: "Hung process triage",
-              slug: "operations/hung-process-triage",
-            },
-          ],
-        },
-        {
-          label: "What's new",
-          items: [
-            {
-              label: "dn 0.0.37 and device runners",
-              slug: "whats-new/dn-0-0-37",
-            },
-            { label: "v0.0.34 migration", slug: "dn/v0034-migration" },
           ],
         },
         { label: "Roadmap", slug: "roadmap" },

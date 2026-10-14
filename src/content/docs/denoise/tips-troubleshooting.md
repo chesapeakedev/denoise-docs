@@ -123,7 +123,7 @@ issues, and collaborator visibility predictable.
   in a different registered checkout when you have GitHub write access there.
 - Use `dn` **0.0.52** or newer for the device-runner protocol. See
   [Runners](/runners/device-runners/) and
-  [dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/).
+  [`dn` release notes](https://github.com/chesapeakedev/dn/releases).
 - exe.dev uses the same Kickstart job queue as a paired device. **Offline**
   means no heartbeat for 90 seconds; jobs still queue for 24 hours. If you
   deleted the pet at exe.dev, Create VM. Serve and production log locations:

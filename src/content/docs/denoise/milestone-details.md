@@ -294,5 +294,4 @@ For CLI-oriented planning and implementation depth, see
   kickstart actions are disabled
 - [Subscription & Pro](/denoise/subscription-and-pro/) — Pro requirements for
   automation from the app
-- [dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/) — CLI release history
-  and runner guidance
+- [`dn` release notes](https://github.com/chesapeakedev/dn/releases)

@@ -34,7 +34,7 @@ like a device and counts toward the same runner limit — see
 consume that slot.
 
 Requires dn 0.0.52 or newer on paired devices. Release history:
-[dn 0.0.37 and developer device runners](/whats-new/dn-0-0-37/).
+[`dn` release notes](https://github.com/chesapeakedev/dn/releases).
 
 ## What runners do
 
