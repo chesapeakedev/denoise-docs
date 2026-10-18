@@ -1,11 +1,12 @@
 ---
 title: Authentication
-description: How sign-in works and how the offline/online toggle interacts with authentication.
+description: How sign-in works and what the header sync badge reports.
 ---
 
-The app supports optional sign-in and an **Offline / Online** sync badge in the
-header. You can use denoise without logging in; authentication determines what
-syncs when you go online.
+The app supports optional sign-in. A sync badge in the header shows whether
+denoise is connected to the server (**Offline**, **Online**, or **Syncing…**).
+The badge is view-only. You can use denoise without logging in; authentication
+determines what syncs while the app is connected.
 
 ## Sign-in and sign-up
 
@@ -14,16 +15,15 @@ Sign-in and sign-up happen through the subscribe funnel on `/` and
 on Profile.
 
 - Existing account: **Sign in** at the top of the page.
-- New Pro plan: **Start 14-day free trial** when signed in
-  (**Sign in for free trial** when signed out), or **Sign in to subscribe —
-  $6/mo**.
+- New Pro plan: **Start 14-day free trial** when signed in (**Sign in for free
+  trial** when signed out), or **Sign in to subscribe — $6/mo**.
 - Team plan: **Subscribe to Team**.
 - Free solo use: **Continue in The Void**.
 
 The subscribe gate starts GitHub-only OAuth (`flow=oauth_only`). Complete the
-flow in your browser, and
-you are redirected back to the app with a session. Your session is stored in a
-cookie and validated by the server. A trial counts as Pro for workbench access.
+flow in your browser, and you are redirected back to the app with a session.
+Your session is stored in a cookie and validated by the server. A trial counts
+as Pro for workbench access.
 
 GitHub sign-in is required for
 [GitHub integration](/denoise/github-integration/) (linking milestones, syncing
@@ -66,27 +66,23 @@ You can use denoise without signing in. In that case:
 - GitHub integration (link milestone, create issue, sync with GitHub) is not
   available.
 
-So “offline-first” applies either way: the app works locally first; sign-in and
-the online sync badge add cloud sync and collaboration.
+The app works locally first. Sign-in adds cloud sync and collaboration when the
+badge shows **Online**.
 
-## Offline / Online sync badge
+## Sync badge
 
-The header shows a sync badge with three possible states:
+The header sync badge is view-only. It reports whether the app is connected to
+the server.
 
-| State        | Meaning                                                                   |
-| ------------ | ------------------------------------------------------------------------- |
-| **Offline**  | No cloud sync. All data is stored only in IndexedDB on this device.       |
-| **Syncing…** | You chose Online; the app is connecting to the server (or will time out). |
-| **Online**   | Connected to the server. Todos for the current list sync to the cloud.    |
+| State        | Meaning                      |
+| ------------ | ---------------------------- |
+| **Offline**  | Not connected to the server. |
+| **Syncing…** | Connecting to the server.    |
+| **Online**   | Connected to the server.     |
 
 ![Header while signed out, showing Offline sync badge](../../../assets/screenshots/header-signed-out.png)
 
 ![Header while signed in with Online sync badge](../../../assets/screenshots/header-signed-in.png)
-
-When you switch from Offline to Online, a confirmation asks: “Do you want to
-sync your todos across devices?” If you confirm, the app tries to open a
-WebSocket to the server. Whether it reaches **Online** depends on authentication
-and what you have selected.
 
 ## How authentication and the sync badge interact
 
@@ -112,7 +108,7 @@ and what you have selected.
     open, there is no list id, so the WebSocket never connects and the badge
     will stay **Offline** (or show **Syncing…** then fall back to **Offline**
     after a few seconds).\
-    If you **open a milestone** from the Roadmap, the list id is that
+    If you **open a milestone** from the workspace, the list id is that
     milestone’s id. The server accepts the connection as an anonymous user and
     syncs todos for that list to the cloud. So you get real-time todo sync for
     that one list only, without a stable account or cross-device identity.
@@ -130,4 +126,5 @@ milestone only; no milestone sync and no persistent identity across devices.
 | Yes        | Online  | Full sync: milestones and todos, multi-device and collaboration. |
 
 For full cloud sync, cross-device use, and GitHub integration, sign in (GitHub
-for GitHub features, or Google for identity and sync) and switch to **Online**.
+for GitHub features, or Google for identity and sync). The badge shows
+**Online** when the app is connected to the server.

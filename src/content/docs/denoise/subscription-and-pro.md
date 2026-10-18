@@ -4,7 +4,7 @@ description: Free Void vs Denoise Pro vs Denoise Team — what each plan unlocks
 ---
 
 **The Void** is free for solo local tasks. **Denoise Pro** unlocks the denoise
-team app — milestones, roadmap, GitHub sync, and agent-backed automation from
+team app — milestones, workspace, GitHub sync, and agent-backed automation from
 the UI. **Denoise Team** adds org seats and shared billing.
 
 ## Free vs Pro vs Team
@@ -22,14 +22,14 @@ Denoise Pro is **$6/month** with a **14-day free trial**. Denoise Team is
 billing for the live price.
 
 Signing in at denoise.cloud without Pro lands on `/subscribe`. The gate shows
-the plan table and **Continue in The Void** for solo use. The Void host has
-no subscribe funnel.
+the plan table and **Continue in The Void** for solo use. The Void host has no
+subscribe funnel.
 
 ## What Pro includes
 
 Pro turns denoise into a command center for shipping work:
 
-- **Roadmap and milestones** — Collaborative planning with cloud sync (not
+- **Workspace and milestones** — Collaborative planning with cloud sync (not
   available on Free Void alone).
 - **Task kickstart** — Dispatch `dn.kickstart_issue` from a task with
   **Kickstart** in the task detail dialog; follow progress and pull requests
@@ -48,8 +48,8 @@ Pro turns denoise into a command center for shipping work:
 
 Pro is required for GitHub-backed automation from the denoise app: installing
 workflow templates, running `dn.init_stack`, kickstart ordering, and
-**Kickstart** on tasks. See [Milestone details](/denoise/milestone-details/)
-for setup steps.
+**Kickstart** on tasks. See [Milestone details](/denoise/milestone-details/) for
+setup steps.
 
 ## Manage your plan
 

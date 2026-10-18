@@ -7,16 +7,16 @@ description: The Void for free solo tasks; denoise for milestones, focus timer, 
 
 Denoise is a planning stack for small software teams. **The Void** covers free
 solo tasks that stay on a paired laptop. **denoise** (Denoise Pro) is the
-collaborative Roadmap and milestone app with GitHub sync and dn-powered
+collaborative workspace and milestone app with GitHub sync and dn-powered
 automation.
 
-In the team app, the default experience is **Roadmap-first**: open the Roadmap
-to see milestones, then open a milestone to manage its tasks. A progress bar at
-the top shows how many tasks are completed. See
+In the team app, the default experience is **workspace-first**: open the
+workspace to see milestones, then open a milestone to manage its tasks. A
+progress bar at the top shows how many tasks are completed. See
 [Getting started](/denoise/getting-started/) for Free vs Pro entry points and
 [The Void](/denoise/void/) for the free product.
 
-![Roadmap with progress bar, workspace selector, and milestone list](../../../assets/screenshots/roadmap.png)
+![Workspace with progress bar, workspace selector, and milestone list](../../../assets/screenshots/roadmap.png)
 
 [Denoise Pro](/denoise/subscription-and-pro/) adds task kickstart, repository
 initialization, and workflow dispatch from the app UI on GitHub-linked
@@ -27,8 +27,8 @@ milestone view workflow.
 
 - **The Void (Free)** — Solo local tasks via void.denoise.cloud; sync to
   `~/.dn/tasks/` on a paired device runner.
-- **Roadmap and milestones (Pro)** — Group tasks into projects; track progress
-  from the Roadmap home with cloud sync.
+- **Workspace and milestones (Pro)** — Group tasks into projects; track progress
+  from the workspace home with cloud sync.
 - **Focus timer** — Track focused work sessions from the header **Focus** button
   in denoise.
 - **Sign-in with GitHub or Google** — Shared auth across denoise and The Void;
@@ -39,15 +39,14 @@ milestone view workflow.
   updates back to GitHub.
 - **Task kickstart (Pro)** — **Kickstart** on a task row opens kickstart setup
   (summary, runner, and plan detail). On a leave-local device run, **Land** then
-  **Sync** finish the same loop as the CLI. See
-  [Kickstart](/kickstart/).
+  **Sync** finish the same loop as the CLI. See [Kickstart](/kickstart/).
 
 ## Task management
 
 Tasks live on the **milestone view** (`/milestone/:id`). Open a milestone from
-the Roadmap to reach them. Click **Add task** to open **Add work**, then choose
-a Denoise task or a GitHub issue. A Denoise task takes a title, labels, and a
-markdown description.
+the workspace to reach them. Click **Add task** to open **Add work**, then
+choose a Denoise task or a GitHub issue. A Denoise task takes a title, labels,
+and a markdown description.
 
 ![Add task dialog with title, labels, and description](../../../assets/screenshots/milestone-add-task-modal-denoise.png)
 
@@ -90,20 +89,19 @@ hours).
 
 Milestones help you organize tasks into groups or projects:
 
-1. On the **Roadmap**, click **New milestone**.
+1. On the **workspace**, click **New milestone**.
 2. Enter a name, choose a **Kickstart publish default** (**Pull request** or
    **Direct to trunk**), and add an optional description and due date. Then
    click **Create**.
-3. Open the milestone from the roadmap list to add and manage tasks.
+3. Open the milestone from the workspace to add and manage tasks.
 
 ![Create Milestone dialog with name, kickstart publish default, description, and due date](../../../assets/screenshots/create-milestone.png)
 
-![Roadmap milestone rows with status, Build, and progress rings](../../../assets/screenshots/roadmap-milestone-list.png)
+![Workspace milestone rows with status, Build, and progress rings](../../../assets/screenshots/roadmap-milestone-list.png)
 
-Use the **Workspace** selector on the Roadmap to scope milestones by
-organization when you belong to multiple workspaces.
+Use the workspace selector when you belong to more than one organization.
 
-![Workspace selector on the Roadmap](../../../assets/screenshots/roadmap-workspace-select.png)
+![Workspace selector](../../../assets/screenshots/roadmap-workspace-select.png)
 
 ### Milestone persistence
 
@@ -112,15 +110,15 @@ restores that view so you can pick up where you left off.
 
 ### Filtering milestones
 
-On the Roadmap, use the status chips (**Active**, **All**, **Open**, **In
+On the workspace, use the status chips (**Active**, **All**, **Open**, **In
 Flight**, **Completed**, **Closed**, **Overdue**) and the **Due date** sort to
 narrow the milestone list.
 
 ## Collaboration
 
 Share a milestone from the header overflow menu (**Share**). That opens **Manage
-Participants**. Shared milestones sync tasks in real time when you are
-**Online** and signed in.
+Participants**. Shared milestones sync tasks in real time when the sync badge
+shows **Online** and you are signed in.
 
 ![Milestone overflow menu with Share](../../../assets/screenshots/milestone-view-menu.png)
 
@@ -130,8 +128,9 @@ Task visibility:
 - Tasks in shared milestones are visible to milestone participants.
 - Use **Publish** on a private task to make it visible to collaborators.
 
-Collaborators need sign-in and **Online** mode to see shared milestone updates.
-See [Authentication](/denoise/authentication/) for sync requirements.
+Collaborators need to be signed in, with the sync badge showing **Online**, to
+see shared milestone updates. See [Authentication](/denoise/authentication/) for
+sync requirements.
 
 ## The Void
 
@@ -163,7 +162,8 @@ On **Profile** (`/profile`), these panels sit together:
 
 ## Related
 
-- [Kickstart](/kickstart/) — How kickstart turns a task into a plan and implementation
+- [Kickstart](/kickstart/) — How kickstart turns a task into a plan and
+  implementation
 - [Runners](/runners/device-runners/) — Pair a device or connect exe.dev
 - [Kickstart runtimes](/runners/kickstart-runtimes/) — Where kickstart runs
 - [Runner logs](/runners/runner-logs/) — Serve stdout for devices and exe.dev

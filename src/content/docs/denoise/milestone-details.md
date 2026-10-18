@@ -12,7 +12,7 @@ Before DN automation is available on a milestone:
 
 - Sign in with **GitHub** (not Google alone). See
   [Authentication](/denoise/authentication/).
-- Switch to **Online** mode in the header.
+- The header sync badge shows **Online** (the app is connected to the server).
 - Link the milestone to a GitHub repository and milestone. See
   [GitHub integration — Linking a milestone](/denoise/github-integration/#linking-a-milestone-to-github).
 - Have [Denoise Pro](/denoise/subscription-and-pro/) or an organization Pro
@@ -23,7 +23,7 @@ workflows and dispatch GitHub Actions events.
 
 ## Page layout
 
-Open a milestone from the **Roadmap** to reach the milestone view
+Open a milestone from the **workspace** to reach the milestone view
 (`/milestone/:id`). The page includes:
 
 - **Header** — Status pill and title, then **Add task**, **Import issues**, copy
@@ -128,7 +128,7 @@ GitHub Actions setup is on that card, not a separate button row:
 
 2. **Install workflows.** Installs or refreshes the `dn` workflow files. The
    card lists `dn.init_stack`, `dn.meld_issue_plan`, and `dn.kickstart_issue` as
-   installed or not installed. Requires **Online** mode.
+   installed or not installed. The header sync badge must show **Online**.
 3. **Configure secrets** or **Open Actions** on the same card when the agent
    needs a repository secret.
 
@@ -161,7 +161,7 @@ setup.
 
 Requirements:
 
-- **Online** mode
+- Header sync badge shows **Online**
 - A runner that can run `dn.init_stack` (device ready, or GitHub Actions
   workflows installed)
 - Pro subscription
@@ -258,9 +258,8 @@ states. GitHub Actions runs can offer **Watch on GitHub**. See
 
 On a **leave-local** device run, Kickstart ends at Lint (`dn ensure lint`). Then
 **Land** commits on the device, **Sync** re-runs lint, runs tests, and publishes
-to trunk, and **Done** closes the GitHub issue. See
-[Kickstart](/kickstart/). On the pull-request path, host
-CI is the gate.
+to trunk, and **Done** closes the GitHub issue. See [Kickstart](/kickstart/). On
+the pull-request path, host CI is the gate.
 
 <video autoplay loop muted playsinline class="demo-video" aria-label="Kickstart a task from the milestone view through plan review and a pull request">
   <source src="/demos/kickstart-task.mp4" type="video/mp4" />
@@ -283,7 +282,8 @@ For CLI-oriented planning and implementation depth, see
 
 ## Next steps
 
-- [Kickstart](/kickstart/) — How kickstart turns a task into a plan and implementation
+- [Kickstart](/kickstart/) — How kickstart turns a task into a plan and
+  implementation
 - [Kickstart runtimes](/runners/kickstart-runtimes/) — Where kickstart runs and
   how progress fidelity works
 - [Runners](/runners/device-runners/) — Pair a device to your account and choose

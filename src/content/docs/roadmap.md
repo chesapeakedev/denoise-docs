@@ -13,7 +13,7 @@ describe direction, not a calendar. For version-by-version changes, see the
   `land`), GitHub workflows, and headless dispatch. See
   [Completing GitHub Issues](/dn/completing-github-issues/) and
   [Headless Use](/runners/headless-use/).
-- **denoise Pro** — Collaborative Roadmap, milestones, GitHub sync, and
+- **denoise Pro** — Collaborative workspace, milestones, GitHub sync, and
   kickstart from the app. See [Getting started](/denoise/getting-started/) and
   [Subscription & Pro](/denoise/subscription-and-pro/).
 - **The Void** — Free solo task list with local `~/.dn/tasks/` sync. See
@@ -25,7 +25,8 @@ describe direction, not a calendar. For version-by-version changes, see the
   (`dn kickstart --cursor-cloud`). See
   [Kickstart runtimes](/runners/kickstart-runtimes/).
 - **Published dn container images** — Harness-tagged images for automation
-  environments. See [dn-images releases](https://github.com/chesapeakedev/dn-images/releases).
+  environments. See
+  [dn-images releases](https://github.com/chesapeakedev/dn-images/releases).
 
 ## In progress
 

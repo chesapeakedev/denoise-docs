@@ -7,7 +7,7 @@ description: Free solo task list that syncs to your paired laptop via dn. No clo
 [void.denoise.cloud](https://void.denoise.cloud) (also served at `/void` on the
 denoise host). It is a fast task list for personal work that stays on your
 paired laptop. Denoise does not keep a long-term cloud todo store for free
-tasks, and The Void has no milestones or shared roadmap.
+tasks, and The Void has no milestones or shared workspace.
 
 Use The Void when you want local tasks and optional `dn` kickstart on your own
 machine. Use the [denoise team app](/denoise/getting-started/) (Denoise Pro)
@@ -22,8 +22,8 @@ when you need milestones, GitHub-backed planning, and shared workspace features.
   task-sync.
 - **Ticketless kickstart** — Run kickstart from a local task document with
   `dn kickstart --denoise-task` and `publish: "none"` (no GitHub issue required
-  for free Void work), or dispatch it from the browser Runners panel to a
-  paired runner with publish `none`, `pr`, or `direct`.
+  for free Void work), or dispatch it from the browser Runners panel to a paired
+  runner with publish `none`, `pr`, or `direct`.
 - **Sign-in** — GitHub or Google auth is shared with denoise on
   `.denoise.cloud`. The Void itself has no subscribe funnel.
 
@@ -33,11 +33,11 @@ Pro-gated in The Void:
 
 ## Free vs Pro vs team
 
-| Product                    | Who it is for                    | What you get                                                               |
-| -------------------------- | -------------------------------- | -------------------------------------------------------------------------- |
-| **The Void** (Free)        | Solo local tasks                 | Void SPA, local `~/.dn/tasks/` sync, 1 device runner, ticketless kickstart |
-| **denoise** (Denoise Pro)  | Team planning and GitHub handoff | Roadmap, milestones, cloud sync, kickstart from the app, up to 10 runners  |
-| **Denoise Team**           | Teams with shared billing        | Same denoise app; Pro access via org seat; orgs & shared billing           |
+| Product                   | Who it is for                    | What you get                                                                |
+| ------------------------- | -------------------------------- | --------------------------------------------------------------------------- |
+| **The Void** (Free)       | Solo local tasks                 | Void SPA, local `~/.dn/tasks/` sync, 1 device runner, ticketless kickstart  |
+| **denoise** (Denoise Pro) | Team planning and GitHub handoff | Workspace, milestones, cloud sync, kickstart from the app, up to 10 runners |
+| **Denoise Team**          | Teams with shared billing        | Same denoise app; Pro access via org seat; orgs & shared billing            |
 
 Signing in at denoise.cloud without Pro lands on `/subscribe`. The gate offers
 **Continue in The Void** for solo use. See
@@ -98,5 +98,5 @@ app, see [Milestone details](/denoise/milestone-details/).
 - [Subscription & Pro](/denoise/subscription-and-pro/) — Free Void vs Pro vs
   Team
 - [Runners](/runners/device-runners/) — pairing, task-sync, and runner limits
-- [Features](/denoise/features/) — Roadmap, milestones, and Pro automation in
+- [Features](/denoise/features/) — Workspace, milestones, and Pro automation in
   denoise

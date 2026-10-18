@@ -16,9 +16,9 @@ issues, and collaborator visibility predictable.
 2. **Use tags for GitHub labels** — Tags in the app become GitHub labels.
 3. **Keep descriptions detailed** — When converting tasks to issues, add
    detailed descriptions (they become the GitHub issue body).
-4. **Monitor sync status** — The header sync badge shows **Online** when cloud
-   sync over WebSocket is connected. It does not track GitHub issue sync —
-   use the refresh control on the milestone view for that.
+4. **Read the sync badge** — The header badge is view-only. **Online** means the
+   app is connected to the server. It does not track GitHub issue sync — use the
+   refresh control on the milestone view for that.
 
    ![Header with Online sync badge](../../../assets/screenshots/header-signed-in.png)
 
@@ -36,7 +36,7 @@ issues, and collaborator visibility predictable.
 
 ### General
 
-1. Use milestones for projects to group related tasks on the Roadmap.
+1. Use milestones for projects to group related tasks on the workspace.
 2. Use tags to categorize tasks across milestones.
 3. Set due dates to track deadlines.
 4. Mark urgent tasks for high-priority items.
@@ -48,9 +48,9 @@ issues, and collaborator visibility predictable.
 
 - Ensure the task is in a milestone
 - Ensure the milestone is linked to GitHub (look for the GitHub indicator on the
-  roadmap card)
+  milestone card)
 
-  ![Roadmap milestone rows with status, Build, and progress rings](../../../assets/screenshots/roadmap-milestone-list.png)
+  ![Workspace milestone rows with status, Build, and progress rings](../../../assets/screenshots/roadmap-milestone-list.png)
 
 - Ensure the task isn't already a GitHub issue
 
@@ -58,8 +58,8 @@ issues, and collaborator visibility predictable.
 
 - **Not signed in with GitHub** — GitHub integration requires GitHub auth, not
   Google alone. See [Authentication](/denoise/authentication/).
-- **Offline mode** — Switch to **Online** via the header sync badge. Workflow
-  install and kickstart dispatch require a server connection.
+- **Badge shows Offline** — Workflow install and kickstart dispatch need a
+  server connection. The sync badge only reports that status.
 - **Milestone not linked to GitHub** — Link the milestone to a GitHub repository
   and milestone first. See
   [GitHub integration — Linking a milestone](/denoise/github-integration/#linking-a-milestone-to-github).

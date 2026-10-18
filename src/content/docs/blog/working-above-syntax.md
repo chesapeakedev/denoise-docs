@@ -52,8 +52,8 @@ dn init agents --skill --agent <codex|claude|opencode|cursor>
 
 That writes a skill the harness can load (for example
 `.agents/skills/dn/SKILL.md`, `.claude/skills/dn/SKILL.md`, or
-`.cursor/skills/dn/SKILL.md`). You stay in the conversation and name the issue. The
-skill runs `kickstart`, or `loop` when the plan already exists. Per-harness
+`.cursor/skills/dn/SKILL.md`). You stay in the conversation and name the issue.
+The skill runs `kickstart`, or `loop` when the plan already exists. Per-harness
 setup is in the [cookbooks](/cookbooks/overview/).
 
 **Off your plate:** leaving the editor to type kickstart; teaching the harness
@@ -88,9 +88,10 @@ need them.
 canonical GitHub Actions templates. Scheduled
 [`dn.daily_kickstart`](/runners/scheduled-workflows/) runs
 `kickstart --publish pr --milestone … --once` against a committed queue.
-[`dn.todo_loop`](/runners/scheduled-workflows/#todo-loop-dntodo_loop) runs `loop` on
-a standing plan. `dn until` ticks a goal without a human between generator and
-gate. `dn.kickstart_issue` is the on-demand dispatch of the same kickstart.
+[`dn.todo_loop`](/runners/scheduled-workflows/#todo-loop-dntodo_loop) runs
+`loop` on a standing plan. `dn until` ticks a goal without a human between
+generator and gate. `dn.kickstart_issue` is the on-demand dispatch of the same
+kickstart.
 
 **Device runners save money.** Pair a Mac or Linux machine you already have.
 Kickstart uses [local compute](/runners/device-runners/) and the harness login
@@ -114,7 +115,7 @@ After you can pick harnesses and runners, the bottleneck is who is allowed to
 sit above syntax. A CLI, a skill, and a pairing flow still assume someone who
 lives in those tools.
 
-denoise puts **Kickstart!** on a shared Roadmap: milestones, GitHub-linked
+denoise puts **Kickstart!** on a shared workspace: milestones, GitHub-linked
 tasks, collaborators, and a runtime picker — including device runners — for the
 callers that actually run `dn kickstart`. See
 [Getting started](/denoise/getting-started/), [Features](/denoise/features/),

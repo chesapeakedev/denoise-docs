@@ -9,7 +9,8 @@ has canonical `dn` workflows installed, trigger planning and kickstart
 automation from the UI.
 
 Most automation features require [Denoise Pro](/denoise/subscription-and-pro/)
-and **Online** mode. GitHub sign-in and repository access are required; see
+and a server connection (the header sync badge shows **Online**). GitHub sign-in
+and repository access are required; see
 [Authentication](/denoise/authentication/).
 
 For Runners, stack ranking, kickstart ordering, and per-task kickstart on the
@@ -36,15 +37,15 @@ When you use the app, **Install workflows** on the GitHub Actions card in
 dispatch uses that repository configuration; changing the agent alone does not
 update the repo until you install workflows again.
 
-See [Headless Use — Dispatch payloads](/runners/headless-use/#dispatch-payloads) for
-dispatch payloads, permissions, and troubleshooting.
+See [Headless Use — Dispatch payloads](/runners/headless-use/#dispatch-payloads)
+for dispatch payloads, permissions, and troubleshooting.
 
 ## Linking a milestone to GitHub
 
 To connect a milestone in the app to a GitHub milestone:
 
-1. Create or select a milestone on the **Roadmap**, or use **Import from
-   GitHub** on the Roadmap to pull existing GitHub milestones.
+1. Create or select a milestone on the **workspace**, or use **Import from
+   GitHub** on the workspace to pull existing GitHub milestones.
 2. Edit the milestone and choose to link a GitHub milestone when prompted.
 3. Select the organization or user, repository, and open milestone in the GitHub
    Milestone Wizard.
@@ -54,10 +55,10 @@ To connect a milestone in the app to a GitHub milestone:
   <source src="/demos/milestone-wizard.mp4" type="video/mp4" />
 </video>
 
-Once linked, denoise shows a GitHub indicator on the roadmap card and syncs
+Once linked, denoise shows a GitHub indicator on the milestone card and syncs
 issues from GitHub.
 
-![Roadmap milestone rows with status, Build, and progress rings](../../../assets/screenshots/roadmap-milestone-list.png)
+![Workspace milestone rows with status, Build, and progress rings](../../../assets/screenshots/roadmap-milestone-list.png)
 
 ## Automatic issue sync
 
@@ -103,14 +104,14 @@ Denoise dispatches the same workflow events exposed by `dn workflows dispatch`:
   exposed as a separate milestone-page button today).
 - `dn.kickstart_issue` — Run plan plus implementation from **Kickstart** on a
   task row. After a leave-local device run, **Land** and **Sync** queue
-  `dn.land` and `dn.sync` on that checkout. See
-  [Kickstart](/kickstart/).
+  `dn.land` and `dn.sync` on that checkout. See [Kickstart](/kickstart/).
 - `dn.todo_loop` — Advance the repository todo plan on a stable automation
   branch (GitHub Actions).
 
 See [Milestone details](/denoise/milestone-details/) for the full UI workflow,
 runner setup, and kickstart blockers. Live progress uses the shared HTTP
-bootstrap described in [Kickstart runtimes — Configure progress](/runners/kickstart-runtimes/#configure-progress-for-runners).
+bootstrap described in
+[Kickstart runtimes — Configure progress](/runners/kickstart-runtimes/#configure-progress-for-runners).
 
 The legacy `dn.prep_issue_plan` event remains compatible with the installed
 workflow, but new integrations use `dn.meld_issue_plan`.
@@ -134,7 +135,8 @@ If sync conflicts occur, the most recent change wins.
 
 ## Related
 
-- [Kickstart](/kickstart/) — How kickstart turns a task into a plan and implementation
+- [Kickstart](/kickstart/) — How kickstart turns a task into a plan and
+  implementation
 - [Milestone details](/denoise/milestone-details/) — Runners and kickstart
 - [Kickstart runtimes](/runners/kickstart-runtimes/) — Runtime matrix
 - [Runners](/runners/device-runners/) — User-paired device kickstart and
