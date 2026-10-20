@@ -1,41 +1,52 @@
 ---
 title: Authentication
-description: How sign-in works and what the header sync badge reports.
+description: GitHub sign-in, the subscription gate, repository access, and the sync badge.
 ---
 
-The app supports optional sign-in. A sync badge in the header shows whether
-denoise is connected to the server (**Offline**, **Online**, or **Syncing…**).
-The badge is view-only. You can use denoise without logging in; authentication
-determines what syncs while the app is connected.
+Unauthenticated visitors to denoise.cloud are redirected to the **subscription
+page** (`/` and `/subscribe`). Users with Denoise Pro (or an org seat) go
+straight into the app. For the Free vs Pro product choice and first-task
+walkthrough, see [Getting started](/denoise/getting-started/).
 
-## Sign-in and sign-up
+All denoise subscriptions are tied to a GitHub account. Creating an account,
+starting a trial, or opening a Team organization requires GitHub authentication.
 
-Sign-in and sign-up happen through the subscribe funnel on `/` and
-[denoise.cloud/subscribe](https://denoise.cloud/subscribe) (`/subscribe`), not
-on Profile.
+## Options on the subscription page
 
-- Existing account: **Sign in** at the top of the page.
-- New Pro plan: **Start 14-day free trial** when signed in (**Sign in for free
-  trial** when signed out), or **Sign in to subscribe — $6/mo**.
-- Team plan: **Subscribe to Team**.
-- Free solo use: **Continue in The Void**.
+From the subscription page you can:
 
-The subscribe gate starts GitHub-only OAuth (`flow=oauth_only`). Complete the
-flow in your browser, and you are redirected back to the app with a session.
-Your session is stored in a cookie and validated by the server. A trial counts
-as Pro for workbench access.
+- **Sign in** at the top of the page to open an existing Pro account.
+- Start a free Pro trial (the recommended option on the page).
+- Create a **Team** account — that creates an organization you can add users to
+  (includes 6 seats). See [Subscription & Pro](/denoise/subscription-and-pro/)
+  for plan details and live pricing.
+- **Continue in The Void** for free solo use without a denoise subscription.
+
+Sign-in starts GitHub-only OAuth (`flow=oauth_only`, with an account picker when
+you need to switch accounts). After GitHub finishes, you return to the app with
+a session cookie validated by the server. A trial counts as Pro for workbench
+access.
+
+Auth cookies are shared across denoise.cloud and void.denoise.cloud, so the same
+session works on both hosts.
+
+The only free product surface without a subscription is
+[The Void](/denoise/void/) — a solo task list with local `~/.dn/tasks/` sync,
+not the denoise workspace, milestones, or team collaboration. Open it from
+**Continue in The Void**, or go directly to
+[void.denoise.cloud](https://void.denoise.cloud).
+
+## GitHub App and repository access
 
 GitHub sign-in is required for
-[GitHub integration](/denoise/github-integration/) (linking milestones, syncing
-issues, converting tasks to issues, and dn workflow dispatch).
+[GitHub integration](/denoise/github-integration/) — linking milestones, syncing
+issues, converting tasks to issues, and dn workflow dispatch.
 
-### GitHub App and repository access
+Sign-in uses a **GitHub App** (user-to-server). On first sign-in you may see
+GitHub’s app installation or authorization screen, depending on how denoise is
+deployed. You choose which repositories and organizations denoise can access.
 
-GitHub sign-in uses a **GitHub App** (user-to-server). On first sign-in you may
-see GitHub’s app installation or authorization screen, depending on how denoise
-is deployed. You choose which repositories and organizations denoise can access.
-
-After sign-in, manage access from **Profile**:
+After sign-in, manage access from **Profile** (click the avatar in the header):
 
 | Action                  | When to use                                                                                                  |
 | ----------------------- | ------------------------------------------------------------------------------------------------------------ |
@@ -56,23 +67,11 @@ Repository access must include any repo you link to a milestone. If linking or
 sync fails with a permissions error, use **Update repos & orgs** and confirm the
 target repository is granted access.
 
-## Using the app without signing in
-
-You can use denoise without signing in. In that case:
-
-- All data stays **local** (IndexedDB). Tasks and milestones are stored only on
-  your device.
-- You can create and edit tasks, use milestones, and use the focus timer.
-- GitHub integration (link milestone, create issue, sync with GitHub) is not
-  available.
-
-The app works locally first. Sign-in adds cloud sync and collaboration when the
-badge shows **Online**.
-
 ## Sync badge
 
-The header sync badge is view-only. It reports whether the app is connected to
-the server.
+The header shows a sync badge (**Offline**, **Online**, or **Syncing…**). It is
+view-only and reports whether the app is connected to the server — it does not
+turn sync on or off.
 
 | State        | Meaning                      |
 | ------------ | ---------------------------- |
@@ -80,51 +79,32 @@ the server.
 | **Syncing…** | Connecting to the server.    |
 | **Online**   | Connected to the server.     |
 
-![Header while signed out, showing Offline sync badge](../../../assets/screenshots/header-signed-out.png)
-
 ![Header while signed in with Online sync badge](../../../assets/screenshots/header-signed-in.png)
 
-## How authentication and the sync badge interact
+When you are signed in with Pro (or an org seat) and the badge shows **Online**:
 
-### When you are signed in (GitHub or Google)
+- **Milestone sync** — Milestones (create, update, delete, share) sync to the
+  server and are available on other devices and to collaborators.
+- **Todo sync** — Todos for the current milestone sync in real time. Data is
+  stored in the cloud (Deno KV) and keyed by your user id or milestone id.
 
-- **Online** works fully:
-  - **Milestone sync** — Your milestones (create, update, delete, share) sync to
-    the server and are available on other devices and to collaborators.
-  - **Todo sync** — Todos for the current milestone sync in real time. Data is
-    stored in the cloud (Deno KV) and keyed by your user id or milestone id.
-- **Offline** — Everything is local only; no server connection.
-
-### When you are not signed in
-
-- **Offline** — Same as above: everything is local.
-- **Online** — Behavior is limited:
-  - **Milestone sync is not available.** The server requires authentication for
-    uploading or requesting milestones. So you cannot sync milestones across
-    devices or use sharing when not signed in.
-  - **Todo sync** can still work **only when a milestone is open.**\
-    The app needs a “list id” to connect (either your user id or a milestone
-    id). When you’re not signed in, there is no user id. If no milestone is
-    open, there is no list id, so the WebSocket never connects and the badge
-    will stay **Offline** (or show **Syncing…** then fall back to **Offline**
-    after a few seconds).\
-    If you **open a milestone** from the workspace, the list id is that
-    milestone’s id. The server accepts the connection as an anonymous user and
-    syncs todos for that list to the cloud. So you get real-time todo sync for
-    that one list only, without a stable account or cross-device identity.
-
-In short: **online without signing in** = todo sync for the currently open
-milestone only; no milestone sync and no persistent identity across devices.
+When the badge shows **Offline**, that browser session has no server connection.
+Collaboration, GitHub-backed automation, and cross-device sync need **Online**;
+the status will only be offline if you have lost internet connection or the
+denoise servers are down.
 
 ## Summary
 
-| Signed in? | Badge   | Result                                                           |
-| ---------- | ------- | ---------------------------------------------------------------- |
-| No         | Offline | Local only; no server.                                           |
-| No         | Online  | Todo sync only when a milestone is open; no milestone sync.      |
-| Yes        | Offline | Local only; no server.                                           |
-| Yes        | Online  | Full sync: milestones and todos, multi-device and collaboration. |
+| Access                        | What you get                                                    |
+| ----------------------------- | --------------------------------------------------------------- |
+| Not signed in / no Pro        | Subscription page; **Continue in The Void** for free solo tasks |
+| Signed in + Pro + **Online**  | Full sync: milestones and todos, multi-device and collaboration |
+| Signed in + Pro + **Offline** | Local only; no server                                           |
 
-For full cloud sync, cross-device use, and GitHub integration, sign in (GitHub
-for GitHub features, or Google for identity and sync). The badge shows
-**Online** when the app is connected to the server.
+## Related
+
+- [Getting started](/denoise/getting-started/) — product choice and first task
+- [Subscription & Pro](/denoise/subscription-and-pro/) — Free vs Pro vs Team
+- [The Void](/denoise/void/) — free solo tasks without a denoise subscription
+- [GitHub integration](/denoise/github-integration/) — milestones, issues, and
+  workflow dispatch

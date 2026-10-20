@@ -31,14 +31,14 @@ dn init workflows --agent opencode
 
 This writes:
 
-| Path                                       | Purpose                                                                                |
-| ------------------------------------------ | -------------------------------------------------------------------------------------- |
-| `.github/dn/config.json`                   | Repo-wide agent (`opencode`, `cursor`, `claude`, or `codex`)                           |
-| `.github/workflows/dn-init-stack.yml`      | Milestone stack generation                                                             |
-| `.github/workflows/dn-prep-issue-plan.yml` | Meld plan phase; filename retained temporarily for compatibility                       |
-| `.github/workflows/dn-kickstart-issue.yml` | Full kickstart (plan + implement)                                                      |
+| Path                                       | Purpose                                                                                     |
+| ------------------------------------------ | ------------------------------------------------------------------------------------------- |
+| `.github/dn/config.json`                   | Repo-wide agent (`opencode`, `cursor`, `claude`, or `codex`)                                |
+| `.github/workflows/dn-init-stack.yml`      | Milestone stack generation                                                                  |
+| `.github/workflows/dn-prep-issue-plan.yml` | Meld plan phase; filename retained temporarily for compatibility                            |
+| `.github/workflows/dn-kickstart-issue.yml` | Full kickstart (plan + implement)                                                           |
 | `.github/workflows/dn-daily-kickstart.yml` | Scheduled milestone queue runner — see [Scheduled Workflows](/runners/scheduled-workflows/) |
-| `.github/workflows/dn-todo-loop.yml`       | Todo plan loop (`schedule`, `workflow_dispatch`, `repository_dispatch`)                |
+| `.github/workflows/dn-todo-loop.yml`       | Todo plan loop (`schedule`, `workflow_dispatch`, `repository_dispatch`)                     |
 
 Set the agent once in `.github/dn/config.json`:
 
@@ -63,12 +63,12 @@ automatically. You do **not** create a `GITHUB_TOKEN` repository secret.
 
 Set the API key for your configured agent:
 
-| Agent      | Install flag                  | Repository secret     |
-| ---------- | ----------------------------- | --------------------- |
-| `opencode` | `dn init workflows` (default) | `OPENAI_API_KEY`      |
-| `claude`   | `--agent claude`              | `ANTHROPIC_API_KEY`   |
-| `cursor`   | `--agent cursor`              | `CURSOR_API_KEY`      |
-| `codex`    | `--agent codex`               | `OPENAI_API_KEY`      |
+| Agent      | Install flag                  | Repository secret      |
+| ---------- | ----------------------------- | ---------------------- |
+| `opencode` | `dn init workflows` (default) | `OPENAI_API_KEY`       |
+| `claude`   | `--agent claude`              | `ANTHROPIC_API_KEY`    |
+| `cursor`   | `--agent cursor`              | `CURSOR_API_KEY`       |
+| `codex`    | `--agent codex`               | `OPENAI_API_KEY`       |
 | `copilot`  | `--agent copilot`             | `COPILOT_GITHUB_TOKEN` |
 
 ```bash
@@ -278,7 +278,8 @@ The workflow runs the repository todo loop on a stable automation branch and
 opens or advances one recurring pull request for that plan. Requires
 `plans/todo.plan.md` (or the path configured for the repo). Denoise can start
 todo loop from the web with the same `repository_dispatch` event. Progress
-bootstrap details: [Kickstart runtimes — Configure progress](/runners/kickstart-runtimes/#configure-progress-for-runners).
+bootstrap details:
+[Kickstart runtimes — Configure progress](/runners/kickstart-runtimes/#configure-progress-for-runners).
 
 ## Dispatch and manage workflows from the CLI
 
@@ -328,9 +329,9 @@ For kickstart with `publish: pr`, also enable **Allow GitHub Actions to create
 and approve pull requests** under **Settings → Actions → General → Workflow
 permissions**.
 
-## denoise and other integrators
+## Denoise and other integrators
 
-denoise dispatches the same payload shapes through its backend GitHub App. The
+Denoise dispatches the same payload shapes through its backend GitHub App. The
 milestone dashboard can trigger `dn.init_stack`, `dn.meld_issue_plan`,
 `dn.kickstart_issue`, and `dn.todo_loop` on linked repositories that have
 installed templates. Choose a kickstart runtime in the task dialog — see
@@ -366,13 +367,13 @@ Force unattended behavior in a local terminal with `--unattended` or `--ci`:
 dn kickstart --unattended 123
 ```
 
-| Flag                     | Effect                                 |
-| ------------------------ | -------------------------------------- |
-| `--unattended` or `--ci` | Force unattended mode                  |
-| `--no-color`             | Disable ANSI colors                    |
-| `--color`                | Enable colors when stdout is not a TTY |
+| Flag                     | Effect                                  |
+| ------------------------ | --------------------------------------- |
+| `--unattended` or `--ci` | Force unattended mode                   |
+| `--no-color`             | Disable ANSI colors                     |
+| `--color`                | Enable colors when stdout is not a TTY  |
 | `--trace`                | Always live-stream agent harness output |
-| `--no-trace`             | Never live-stream agent harness output |
+| `--no-trace`             | Never live-stream agent harness output  |
 
 | Variable      | Effect                                  |
 | ------------- | --------------------------------------- |
@@ -384,8 +385,9 @@ Agent-backed workflows in CI also use harness-specific variables such as
 `ANTHROPIC_API_KEY`, `CLAUDE_CODE_BARE=1` (set by workflows for Claude), and
 `CODEX_TIMEOUT_MS`. Long kickstart runs can set `PLAN_TIMEOUT_MS` and
 `IMPLEMENT_TIMEOUT_MS` (plan defaults to 10 minutes, implement to 20 minutes) —
-see [Kickstart runtimes — Phase timeouts](/runners/kickstart-runtimes/#phase-timeouts). Agent selection in workflows comes from
-`.github/dn/config.json`; see
+see
+[Kickstart runtimes — Phase timeouts](/runners/kickstart-runtimes/#phase-timeouts).
+Agent selection in workflows comes from `.github/dn/config.json`; see
 [Installation — Choose an agent](/dn/installation/#choose-an-agent).
 
 ## Exit codes

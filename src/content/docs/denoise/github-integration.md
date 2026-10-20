@@ -84,7 +84,7 @@ for a linked milestone.
 
 ## DN automation from the milestone view
 
-On a GitHub-linked milestone, Pro users can:
+On a GitHub-linked milestone you can:
 
 - Open **Runners** and install dn workflows for GitHub Actions, or choose a
   paired device or exe.dev

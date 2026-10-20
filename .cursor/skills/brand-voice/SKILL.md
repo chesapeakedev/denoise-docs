@@ -112,7 +112,8 @@ for docs. Otherwise, state the known behavior narrowly and avoid speculation.
 
 ## Before you ship a prose edit
 
-Quick self-check after writing (full page review: [docs-review](../docs-review/SKILL.md)):
+Quick self-check after writing (full page review:
+[docs-review](../docs-review/SKILL.md)):
 
 - The first paragraph establishes the page's purpose.
 - Headings match what a reader is trying to do or understand.

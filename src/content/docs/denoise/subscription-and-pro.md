@@ -22,44 +22,38 @@ Denoise Pro is **$6/month** with a **14-day free trial**. Denoise Team is
 billing for the live price.
 
 Signing in at denoise.cloud without Pro lands on `/subscribe`. The gate shows
-the plan table and **Continue in The Void** for solo use. The Void host has no
-subscribe funnel.
+the plan table and **Continue in The Void** for solo use.
 
 ## What Pro includes
 
-Pro turns denoise into a command center for shipping work:
+Pro unlocks the denoise team app and the automation around it:
 
-- **Workspace and milestones** — Collaborative planning with cloud sync (not
-  available on Free Void alone).
-- **Task kickstart** — Dispatch `dn.kickstart_issue` from a task with
-  **Kickstart** in the task detail dialog; follow progress and pull requests
-  from the milestone view. The app chooser runs on GitHub Actions, a paired
-  developer device, or exe.dev. The CLI separately supports Cursor Cloud runs
-  via `dn kickstart --cursor-cloud` — see
-  [Completing GitHub Issues](/dn/completing-github-issues/#run-remotely-or-in-ci).
-- **Richer collaboration** — Shared context around milestones and tasks so
-  everyone sees the same picture.
-- **Automation and integrations** — DN setup actions on the milestone view and
-  per-task kickstart dispatch as features ship.
-- **Void GitHub import** — Import or close GitHub issues from The Void (Pro
-  required).
-- **Priority consideration** — Feedback and early access to new productivity
-  features.
-
-Pro is required for GitHub-backed automation from the denoise app: installing
-workflow templates, running `dn.init_stack`, kickstart ordering, and
-**Kickstart** on tasks. See [Milestone details](/denoise/milestone-details/) for
-setup steps.
+- **Workspace and milestones** — Plan projects in the web app with cloud sync.
+  See [Getting started](/denoise/getting-started/) and
+  [Features](/denoise/features/).
+- **Task kickstart** — Start agent planning and implementation from a task in
+  the milestone view. See [Milestone details](/denoise/milestone-details/) and
+  [Kickstart](/kickstart/).
+- **Collaboration** — Share milestones and keep tasks visible to participants.
+  See [Features — Collaboration](/denoise/features/#collaboration).
+- **GitHub-backed automation** — Link milestones, install `dn` workflows, rank
+  issues, and dispatch kickstart from the app. See
+  [GitHub integration](/denoise/github-integration/) and
+  [Milestone details](/denoise/milestone-details/).
+- **Void GitHub import** — Import or close GitHub issues from The Void. See
+  [The Void](/denoise/void/).
+- **Early access** — Priority feedback channels and early access to new
+  productivity features as they ship.
 
 ## Manage your plan
 
 1. Open [denoise.cloud/subscribe](https://denoise.cloud/subscribe) and sign in,
    or start a trial or subscription from that page.
-2. After you have a session, open **Profile** from the avatar menu. Under **Plan
-   & billing**, view your current plan or upgrade.
-
-After Stripe Checkout, the app polls until billing status updates (webhooks can
-lag briefly). A success toast confirms when Pro is active.
+2. After you finish checkout, denoise confirms when Pro is active. If the app
+   still shows the free plan for a moment, wait and refresh — the update can
+   take a few seconds.
+3. Later, click the avatar in the header to open **Profile**. Under **Plan &
+   billing**, view your current plan or upgrade.
 
 ## Organization and Team
 

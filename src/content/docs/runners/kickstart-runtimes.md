@@ -8,8 +8,8 @@ execute. Every choice is an enrolled runner with a provider. Denoise does
 **not** run kickstart on the denoise application host.
 
 Enroll runners in the milestone **Runners** dialog. See
-[Enroll runners](/runners/device-runners/) for pairing a device, installing GitHub
-Actions workflows, and connecting exe.dev.
+[Enroll runners](/runners/device-runners/) for pairing a device, installing
+GitHub Actions workflows, and connecting exe.dev.
 
 ## Supported runners
 
@@ -39,8 +39,9 @@ chooser; it remains a CLI-only path (`dn kickstart --cursor-cloud`).
 
 ## What you see during kickstart
 
-The Kickstart area on a task is a **phase timeline**, not a full agent log. Serve
-stdout and harness output stay on the runner — see [Runner logs](/runners/runner-logs/).
+The Kickstart area on a task is a **phase timeline**, not a full agent log.
+Serve stdout and harness output stay on the runner — see
+[Runner logs](/runners/runner-logs/).
 
 When detailed progress is enabled, the panel updates as the run moves through
 kickstart phases. Leave-local kickstart on a device uses **Resolve → Plan →
@@ -109,8 +110,8 @@ plan (`PLAN_TIMEOUT_MS`, default `600000`) and 20 minutes for implement
 
 Denoise kickstart dispatches may set `client_payload.plan_timeout_ms` and
 `client_payload.implement_timeout_ms`; device runners and GitHub Actions export
-those as `PLAN_TIMEOUT_MS` / `IMPLEMENT_TIMEOUT_MS` before `dn kickstart` runs. A
-timeout ends the run with a structured failure.
+those as `PLAN_TIMEOUT_MS` / `IMPLEMENT_TIMEOUT_MS` before `dn kickstart` runs.
+A timeout ends the run with a structured failure.
 
 ## Match GitHub Actions runs to a dispatch
 
@@ -129,8 +130,8 @@ job. Overlapping runs make time-based matching unsafe.
 ## When progress stays empty
 
 On the task, confirm the run reached **running** and the runner badge is not
-**Offline**. For device and exe.dev jobs, use [Runner logs](/runners/runner-logs/)
-for serve output.
+**Offline**. For device and exe.dev jobs, use
+[Runner logs](/runners/runner-logs/) for serve output.
 
 For HTTP progress from Actions, confirm the job received `DN_DISPATCH_ID`,
 `DN_PROGRESS=http`, `DN_PROGRESS_URL`, and `DN_PROGRESS_TOKEN`. Verify the URL

@@ -20,8 +20,8 @@ Use this skill for a **review pass** on one page (or one section) in
   editing the skill, run `make sync_codex_skills` (also runs in `make check`).
 - **Invoke in Codex:** ask for a docs review and name this skill (`docs-review`)
   or the page path (for example `runners/progress-reporting.md`).
-- **Repo / VCS:** use [repo-workflow](../repo-workflow/SKILL.md) (`make repo_vcs`
-  then the matching CLI for commits).
+- **Repo / VCS:** use [repo-workflow](../repo-workflow/SKILL.md)
+  (`make repo_vcs` then the matching CLI for commits).
 
 Default scope: **review and recommend**. Rewrite prose only when the user asks
 to apply fixes.
@@ -41,15 +41,15 @@ or **denoise**. Symptoms:
 
 Use exactly one primary reader per section—not all three in the same block.
 
-| Tag | Who | Docs should answer |
-| --- | --- | --- |
-| **dn user** | Software developers using `dn` locally or in automation | Commands, flags, repos, harness setup, CLI behavior, what to run and what output means |
-| **denoise user** | Product managers using denoise in the browser | Milestones, tasks, Kickstart, Runners UI, what you see, safe next steps in the app |
-| **IT/devops** | Infra and platform (often both of the above) | Runners, GitHub Actions, secrets, self-hosted hardware, schedules, logs, availability, cost |
+| Tag              | Who                                                     | Docs should answer                                                                          |
+| ---------------- | ------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| **dn user**      | Software developers using `dn` locally or in automation | Commands, flags, repos, harness setup, CLI behavior, what to run and what output means      |
+| **denoise user** | Product managers using denoise in the browser           | Milestones, tasks, Kickstart, Runners UI, what you see, safe next steps in the app          |
+| **IT/devops**    | Infra and platform (often both of the above)            | Runners, GitHub Actions, secrets, self-hosted hardware, schedules, logs, availability, cost |
 
-When a section serves **IT/devops** and **dn users** equally, pick the reader who
-**acts first** in that workflow (usually IT/devops for enroll/hosting, dn user for
-day-to-day CLI). Split with headings if both need full detail.
+When a section serves **IT/devops** and **dn users** equally, pick the reader
+who **acts first** in that workflow (usually IT/devops for enroll/hosting, dn
+user for day-to-day CLI). Split with headings if both need full detail.
 
 **Not a reader:** contributor or implementer guidance (event schemas, UI
 rendering rules, dedupe). Verdict **move to repo**, not a fourth tag.
@@ -73,16 +73,16 @@ Apply to each section and sentence:
    where to go if it fails).
 
 **Observable vs implementable** — Describe outcomes in the product ("the task
-panel shows phases") not instructions to build denoise ("map
-`invocation.failed` to failure state").
+panel shows phases") not instructions to build denoise ("map `invocation.failed`
+to failure state").
 
 ## Single-page workflow
 
 1. **State the page contract** — One sentence: "After reading this, a [dn user |
    denoise user | IT/devops] can ___." (Name a secondary reader only if the page
    explicitly hands off.)
-2. **Section audit** — For each `##` heading: reader tag + verdict
-   **keep** | **trim** | **move to repo** | **merge elsewhere**.
+2. **Section audit** — For each `##` heading: reader tag + verdict **keep** |
+   **trim** | **move to repo** | **merge elsewhere**.
 3. **Voice scan** — Flag contributor/spec imperatives and suggest rewrites for
    the tagged reader or deletion.
 4. **Emphasis scan** — List bold/code that does not change the next action.
@@ -101,23 +101,28 @@ Deliver findings in this shape (adjust depth to page size):
 
 ```markdown
 ## Page contract
+
 [one sentence]
 
 ## Summary
+
 [2–4 bullets: overall audience fit]
 
 ## Findings
 
 ### [Section heading]
+
 - **Reader:** dn user | denoise user | IT/devops | misplaced (contributor spec)
 - **Verdict:** keep | trim | move | merge
 - **Issue:** [tone / necessity / emphasis]
 - **Suggestion:** [concrete rewrite direction or "delete; link to X"]
 
 ## Quick wins
+
 [ordered list of highest-impact edits]
 
 ## Deferred
+
 [topics that need repo verification or a separate pass]
 ```
 
@@ -149,8 +154,8 @@ More examples: [examples.md](examples.md).
 
 ## Relationship to other skills
 
-| Skill | When |
-| --- | --- |
-| **brand-voice** | Writing or rewriting prose during normal edits |
-| **docs-review** | Explicit review pass on audience, tone, necessity |
-| **astro-starlight-playwright-guardrails** | Sidebar, links, build after structural changes |
+| Skill                                     | When                                              |
+| ----------------------------------------- | ------------------------------------------------- |
+| **brand-voice**                           | Writing or rewriting prose during normal edits    |
+| **docs-review**                           | Explicit review pass on audience, tone, necessity |
+| **astro-starlight-playwright-guardrails** | Sidebar, links, build after structural changes    |

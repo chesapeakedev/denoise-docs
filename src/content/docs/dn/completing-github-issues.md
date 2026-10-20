@@ -57,9 +57,9 @@ dn kickstart 123
 
 Cross-repository issues require `--allow-cross-repo` and must stay local with
 `--publish none`. A local Markdown file can replace the issue as source context,
-but it does not provide the GitHub issue linkage described on this page.
-Extra guidance for the planning agent goes in `--steer`, and extra files in
-repeatable `--context-file` flags:
+but it does not provide the GitHub issue linkage described on this page. Extra
+guidance for the planning agent goes in `--steer`, and extra files in repeatable
+`--context-file` flags:
 
 ```bash
 dn kickstart 123 --steer "Prefer small modules; do not rename public exports"
@@ -221,8 +221,7 @@ is high, or another person needs to approve the plan before code changes begin.
 CI must use `pr` or `direct` because a local-only workspace disappears with the
 runner. Use `direct` only when you intentionally want to bypass pull-request
 review. `dn sync` publishes trunk after Land on the leave-local path; it is not
-part of the pull-request path. See
-[Kickstart](/kickstart/).
+part of the pull-request path. See [Kickstart](/kickstart/).
 
 ## Run remotely or in CI
 

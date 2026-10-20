@@ -25,39 +25,42 @@ milestone view workflow.
 
 ## Core features
 
-- **The Void (Free)** — Solo local tasks via void.denoise.cloud; sync to
-  `~/.dn/tasks/` on a paired device runner.
-- **Workspace and milestones (Pro)** — Group tasks into projects; track progress
-  from the workspace home with cloud sync.
-- **Focus timer** — Track focused work sessions from the header **Focus** button
-  in denoise.
-- **Sign-in with GitHub or Google** — Shared auth across denoise and The Void;
-  enable cloud sync and identity-backed workflows in the team app.
-- **Collaboration (Pro)** — Share milestones with collaborators; control task
-  visibility with publish/private settings.
-- **GitHub issue sync (Pro)** — Link milestones, import issues, and push task
-  updates back to GitHub.
-- **Task kickstart (Pro)** — **Kickstart** on a task row opens kickstart setup
-  (summary, runner, and plan detail). On a leave-local device run, **Land** then
-  **Sync** finish the same loop as the CLI. See [Kickstart](/kickstart/).
+- **The Void (Free)** — Solo local tasks that sync to a paired laptop. See
+  [The Void](/denoise/void/).
+- **Workspace and milestones (Pro)** — Group tasks into milestones and track
+  progress from the workspace. See [Getting started](/denoise/getting-started/).
+- **Focus timer** — Start a focused work session from **Focus** in the header.
+  See [Focus timer](#focus-timer).
+- **Collaboration (Pro)** — Share milestones and control who sees tasks. See
+  [Collaboration](#collaboration).
+- **GitHub issue sync (Pro)** — Link milestones and keep tasks in sync with
+  GitHub issues. See [GitHub integration](/denoise/github-integration/).
+- **Task kickstart (Pro)** — Start agent planning and implementation from a
+  task. See [Milestone details](/denoise/milestone-details/) and
+  [Kickstart](/kickstart/).
+- **Organizations (Team)** — Org seats and shared billing so teammates get Pro
+  through an assigned seat. See
+  [Subscription & Pro — Organization and Team](/denoise/subscription-and-pro/#organization-and-team).
 
 ## Task management
 
-Tasks live on the **milestone view** (`/milestone/:id`). Open a milestone from
-the workspace to reach them. Click **Add task** to open **Add work**, then
-choose a Denoise task or a GitHub issue. A Denoise task takes a title, labels,
-and a markdown description.
-
-![Add task dialog with title, labels, and description](../../../assets/screenshots/milestone-add-task-modal-denoise.png)
+Tasks live on the **milestone view**. Open a milestone from your workspace to
+reach them.
 
 ![Milestone task list with GitHub-linked issues](../../../assets/screenshots/milestone-view.png)
 
-- **Complete or reopen** — Toggle task completion from the task row.
-- **Edit** — Update task title and description in the task detail dialog.
-- **Delete** — Remove tasks you no longer need.
-- **Tags** — Organize tasks; GitHub-linked tags sync as labels.
-- **Due dates** — Track deadlines.
-- **Urgent flag** — Mark tasks that need priority attention.
+_Milestone view — Denoise tasks and GitHub-imported issues in one list._
+
+Click **Add task** to open the new task modal, then choose a new Denoise task or
+an existing GitHub issue. A Denoise task takes a title, labels, and a markdown
+description.
+
+![Add task dialog with title, labels, and description](../../../assets/screenshots/milestone-add-task-modal-denoise.png)
+
+Each task appears as a row in the milestone list. From the row you can mark the
+task complete or reopen it. Click the row to open the task detail dialog, where
+you can edit the title and description, delete the task, or set tags, a due
+date, and an urgent flag. Tags on GitHub-linked tasks sync as GitHub labels.
 
 ### Filtering tasks
 
@@ -67,8 +70,12 @@ issues.
 
 ![Milestone progress bar, status filters, Kickstart order, and GitHub refresh](../../../assets/screenshots/milestone-status-filters-refresh.png)
 
-**Kickstart order** — Click the **Kickstart order** chip to sort by kickstart
-plan priority (Pro). Free users see a locked chip with Pro upgrade details.
+On a GitHub-linked milestone, **Initialize stack** from the overflow menu ranks
+issues and enables **Kickstart order**. See
+[Milestone details — Initialize or refresh the stack](/denoise/milestone-details/#initialize-or-refresh-the-stack).
+
+**Kickstart order** — Click the **Kickstart order** chip to sort tasks by that
+stack priority.
 
 **Hide completed tasks** — Click the eye icon in the filter row to hide
 completed tasks. When enabled, only incomplete tasks are shown.
@@ -103,11 +110,6 @@ Use the workspace selector when you belong to more than one organization.
 
 ![Workspace selector](../../../assets/screenshots/roadmap-workspace-select.png)
 
-### Milestone persistence
-
-Your last opened milestone is saved. When you return to a milestone, denoise
-restores that view so you can pick up where you left off.
-
 ### Filtering milestones
 
 On the workspace, use the status chips (**Active**, **All**, **Open**, **In
@@ -117,20 +119,25 @@ narrow the milestone list.
 ## Collaboration
 
 Share a milestone from the header overflow menu (**Share**). That opens **Manage
-Participants**. Shared milestones sync tasks in real time when the sync badge
-shows **Online** and you are signed in.
+Participants**, where you add people who can open the milestone. Shared
+milestones sync in real time when the sync badge shows **Online** and you are
+signed in.
 
 ![Milestone overflow menu with Share](../../../assets/screenshots/milestone-view-menu.png)
 
-Task visibility:
+Sharing the milestone is what invites collaborators. Per-task privacy is
+separate:
 
-- Tasks in personal milestones default to **private** (visible only to you).
-- Tasks in shared milestones are visible to milestone participants.
-- Use **Publish** on a private task to make it visible to collaborators.
+- In a personal milestone (no participants), new tasks default to **private** —
+  only you see them.
+- In a shared milestone, new tasks are visible to participants by default.
+- If a task is still private, open its overflow menu and choose **Publish** so
+  participants can see it. **Unpublish** hides it from them again (owner only).
 
-Collaborators need to be signed in, with the sync badge showing **Online**, to
-see shared milestone updates. See [Authentication](/denoise/authentication/) for
-sync requirements.
+Collaborators can be added by searching for their Github user within the
+collaborator search once they have created a denoise account. The user must be
+signed into the matching account to view milestones they have been added as a
+collaborator on.
 
 ## The Void
 

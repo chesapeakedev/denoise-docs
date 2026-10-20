@@ -196,5 +196,7 @@ your workstation and
 
 - [GitHub Actions: About self-hosted runners](https://docs.github.com/en/actions/hosting-your-own-runners/about-self-hosted-runners)
 - [GitHub Actions: Adding self-hosted runners](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/adding-self-hosted-runners)
-- [Headless Use](/runners/headless-use/) — `dn` workflow installation and dispatch
-- [Scheduled Workflows](/runners/scheduled-workflows/) — daily milestone kickstart
+- [Headless Use](/runners/headless-use/) — `dn` workflow installation and
+  dispatch
+- [Scheduled Workflows](/runners/scheduled-workflows/) — daily milestone
+  kickstart

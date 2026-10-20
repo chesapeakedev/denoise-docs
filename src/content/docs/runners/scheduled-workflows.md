@@ -50,8 +50,8 @@ git push
 ```
 
 You can also refresh the stack from CI with
-[`dn.init_stack`](/runners/headless-use/#dninit_stack) dispatch events. The daily
-workflow expects the stack file to exist on the default branch.
+[`dn.init_stack`](/runners/headless-use/#dninit_stack) dispatch events. The
+daily workflow expects the stack file to exist on the default branch.
 
 3. **Repository variable** — scheduled runs read the milestone from
    `DN_DAILY_KICKSTART_MILESTONE`:
@@ -137,7 +137,7 @@ gh workflow run dn-daily-kickstart.yml --repo owner/repo
 | Runs per invocation | One (`--once`)                         | One issue per dispatch                   |
 | Typical use         | Daily backlog drain                    | On-demand or integrator-driven kickstart |
 
-denoise and other tools dispatch `dn.kickstart_issue` for per-task automation.
+Denoise and other tools dispatch `dn.kickstart_issue` for per-task automation.
 Scheduled kickstart is for repositories that maintain a committed milestone
 queue and want one PR per day without external dispatch.
 
@@ -154,14 +154,14 @@ See [Headless Use — `dn.todo_loop`](/runners/headless-use/#dntodo_loop) and
 
 ## Troubleshooting
 
-| Symptom                             | Check                                                                                                                    |
-| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| Workflow skips or fails immediately | `DN_DAILY_KICKSTART_MILESTONE` is set; stack file exists on default branch                                               |
-| No unchecked items left             | Queue is complete — refresh with `dn init stack 42 --refresh` or dispatch `dn.init_stack`                                |
-| No PR created                       | Workflow permissions and `pull-requests: write`; see [Headless Use — Troubleshooting](/runners/headless-use/#troubleshooting) |
-| Wrong milestone                     | Update the repository variable or pass `milestone` on `workflow_dispatch`                                                |
-| Schedule never runs                 | Default branch must contain the workflow file; GitHub disables schedules on inactive repos                               |
-| Long runs stall without phases      | Phase budgets apply (10 minutes plan, 20 minutes implement); see [Kickstart runtimes — Phase timeouts](/runners/kickstart-runtimes/#phase-timeouts)           |
+| Symptom                             | Check                                                                                                                                               |
+| ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Workflow skips or fails immediately | `DN_DAILY_KICKSTART_MILESTONE` is set; stack file exists on default branch                                                                          |
+| No unchecked items left             | Queue is complete — refresh with `dn init stack 42 --refresh` or dispatch `dn.init_stack`                                                           |
+| No PR created                       | Workflow permissions and `pull-requests: write`; see [Headless Use — Troubleshooting](/runners/headless-use/#troubleshooting)                       |
+| Wrong milestone                     | Update the repository variable or pass `milestone` on `workflow_dispatch`                                                                           |
+| Schedule never runs                 | Default branch must contain the workflow file; GitHub disables schedules on inactive repos                                                          |
+| Long runs stall without phases      | Phase budgets apply (10 minutes plan, 20 minutes implement); see [Kickstart runtimes — Phase timeouts](/runners/kickstart-runtimes/#phase-timeouts) |
 
 For milestone stack format and local `dn kickstart --milestone` usage, see
 [Completing GitHub Issues — Milestone queues](/dn/completing-github-issues/#milestone-queues)

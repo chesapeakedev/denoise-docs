@@ -3,9 +3,9 @@ title: Kickstart
 description: Learn how kickstart turns an issue or local specification into a plan and implementation.
 ---
 
-Kickstart is the core command across `dn` and denoise for taking a plan and creating an
-implementation. From a repository checkout, run `dn kickstart` with an issue
-number or a local specification:
+Kickstart is the core command across `dn` and denoise for taking a plan and
+creating an implementation. From a repository checkout, run `dn kickstart` with
+an issue number or a local specification:
 
 ```bash
 # a github issue
@@ -16,11 +16,10 @@ dn kickstart 123
 
 # a local plan file
 dn kickstart docs/spec.md
-
 ```
 
-In denoise, choose Kickstart on a task or issue in a milestone. The
-task needs an available runner. See [Kickstart runtimes](/runners/kickstart-runtimes/) for
+In denoise, choose Kickstart on a task or issue in a milestone. The task needs
+an available runner. See [Kickstart runtimes](/runners/kickstart-runtimes/) for
 runner choices and prerequisites.
 
 ## What kickstart does

@@ -70,8 +70,8 @@ request** or **Direct to trunk**), description, and due date.
 
 The strip under the header shows tasks completed and a progress bar. Filter with
 **All**, **Open**, and **Completed**. **Kickstart order** sorts by stack
-priority (Pro). The eye icon hides completed tasks. The refresh icon pulls the
-latest GitHub issues.
+priority after you initialize or refresh the stack. The eye icon hides completed
+tasks. The refresh icon pulls the latest GitHub issues.
 
 ![Milestone progress bar, status filters, Kickstart order, and GitHub refresh](../../../assets/screenshots/milestone-status-filters-refresh.png)
 
@@ -189,9 +189,8 @@ align plan data with the current issue set.
 ## Kickstart order and task badges
 
 After stack initialization (or when kickstart plan metadata is present from
-sync), Pro users can sort tasks by kickstart plan priority. Click the
-**Kickstart order** chip in the filter row to toggle between manual order and
-kickstart priority order.
+sync), click the **Kickstart order** chip in the filter row to toggle between
+manual order and kickstart priority order.
 
 <video autoplay loop muted playsinline class="demo-video" aria-label="Kickstart order — toggle to sort tasks by kickstart plan priority">
   <source src="/demos/kickstart-order.mp4" type="video/mp4" />
@@ -215,9 +214,6 @@ Approving the plan moves the row to implementation.
 A published run shows the GitHub mark, a **PR** link, and **Kickstart again**.
 
 ![Completed kickstart row with a pull request and Kickstart again](../../../assets/screenshots/milestone-kickstart-complete-buttons.png)
-
-Free users see a locked **Kickstart order** chip that explains the Pro
-requirement.
 
 ## Kickstart a task
 

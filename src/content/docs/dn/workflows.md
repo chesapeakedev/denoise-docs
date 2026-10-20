@@ -94,8 +94,7 @@ reviews current workspace changes, and uses the selected agent to group them
 into logical conventional commits. On success, it removes the plan file. Land
 targets one plan at a time; for per-issue publish without stacking local
 kickstarts, use `dn kickstart --publish pr|direct` instead. These verbs match
-the denoise task dialog; quality lives on sync. See
-[Kickstart](/kickstart/).
+the denoise task dialog; quality lives on sync. See [Kickstart](/kickstart/).
 
 `--single` creates one deterministic commit without an agent. `--dry-run`
 previews the operation without committing, deleting a plan, or changing GitHub.
@@ -171,8 +170,7 @@ iteration. Later gambits can be interval reviews or one-shot tails. Each action
 uses exactly one of `url`, `content` (JSON `prompt` is an alias for `content`),
 or `script`: `url` fetches a goal document, `content` is an inline goal, and
 `script` runs a command. A Markdown gambit file uses its body as the generator.
-`secrets` lists environment variable
-names, never secret values.
+`secrets` lists environment variable names, never secret values.
 
 `metadata` values are substituted into prompts as `{{key}}` and prepended as a
 context block.

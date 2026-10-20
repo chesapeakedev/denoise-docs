@@ -8,10 +8,10 @@ milestone **Runners** dialog. For what a runner is, provider limits, and which
 doc to open next, see [Runners overview](/runners/overview/).
 
 On this page: device pairing and checkout registration, Void local task-sync,
-kickstart/land/sync from the UI, agent preference, exe.dev connect, security, and
-troubleshooting. GitHub Actions template install is also in
-[GitHub integration](/denoise/github-integration/). Self-hosted Actions
-hardware is [Self-hosted runners](/runners/self-hosted-runners/). Logs:
+kickstart/land/sync from the UI, agent preference, exe.dev connect, security,
+and troubleshooting. GitHub Actions template install is also in
+[GitHub integration](/denoise/github-integration/). Self-hosted Actions hardware
+is [Self-hosted runners](/runners/self-hosted-runners/). Logs:
 [Runner logs](/runners/runner-logs/).
 
 ## How to enroll each provider
@@ -145,7 +145,8 @@ in B. You need GitHub read access to the issue repository and write access to
 the execution repository. The execution slug must already be registered and
 ready on the device.
 
-Progress in the task panel vs runner logs: [Kickstart runtimes](/runners/kickstart-runtimes/).
+Progress in the task panel vs runner logs:
+[Kickstart runtimes](/runners/kickstart-runtimes/).
 
 From the device, scripts can also queue work:
 

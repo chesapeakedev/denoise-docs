@@ -31,9 +31,9 @@ gh auth login
 dn init agents --skill --agent cursor
 ```
 
-This writes `.cursor/skills/dn/SKILL.md`, Cursor's harness-native equivalent of the
-`dn` skill. Cursor makes the skill available to Agent based on its description.
-Commit it if the whole team should use the same workflow.
+This writes `.cursor/skills/dn/SKILL.md`, Cursor's harness-native equivalent of
+the `dn` skill. Cursor makes the skill available to Agent based on its
+description. Commit it if the whole team should use the same workflow.
 
 Start a new Cursor Agent session from the repository root and request the rule
 by name:
@@ -280,7 +280,7 @@ wrap dn commands with extra flags when `CURSOR_API_KEY` is set.
 | Agent secret missing in validate              | Secret not created yet                    | `gh secret set CURSOR_API_KEY`; re-run `dn workflows validate --json`                          |
 | Cloud agent cannot access repo (service acct) | Team GitHub app not connected             | Connect Cursor GitHub app at team level in dashboard Integrations                              |
 | No PR created                                 | Workflow permissions                      | Enable `pull-requests: write` and **Allow GitHub Actions to create and approve pull requests** |
-| Timeouts on long issues                       | Large context / slow inference            | Check run logs; consider [self-hosted runners](/runners/self-hosted-runners/)               |
+| Timeouts on long issues                       | Large context / slow inference            | Check run logs; consider [self-hosted runners](/runners/self-hosted-runners/)                  |
 
 For interactive local development, run `agent login` instead of setting
 `CURSOR_API_KEY`. For unattended CI, the environment variable is the supported
@@ -288,7 +288,8 @@ approach.
 
 ## Related
 
-- [Headless Use](/runners/headless-use/) — templates, dispatch payloads, permissions
+- [Headless Use](/runners/headless-use/) — templates, dispatch payloads,
+  permissions
 - [OpenCode](/cookbooks/opencode/) — alternative agent harness
 - [Claude Code](/cookbooks/claude-code/) — alternative agent harness
 - [Codex](/cookbooks/codex/) — alternative agent harness

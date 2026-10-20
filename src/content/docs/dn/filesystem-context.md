@@ -8,14 +8,14 @@ reproducible context. The files support planning, implementation, and handoff;
 base images provide the toolchain and version-control environment for Docker
 sandbox runs.
 
-| Path                                                               | Typical source                         | Role                                                                                                                                      |
-| ------------------------------------------------------------------ | -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `plans/*.plan.md`                                                  | `kickstart`, `meld`, `loop`            | Issue context, plan, acceptance criteria                                                                                                  |
-| `plans/*.continuation.plan.md`                                     | `kickstart`, `loop`                    | Remaining work after a partial run                                                                                                        |
-| `plans/*.description.md`                                           | `dn meld --milestone`                  | User-value synthesis of a milestone                                                                                                       |
-| `plans/*.stack.md`, `plans/*.stack.json`                           | `dn init stack`                        | Prioritized milestone task queue                                                                                                          |
-| `AGENTS.md`                                                        | `dn init agents`; kickstart may update | Project conventions and commands for agents                                                                                               |
-| `.agents/skills/dn/`, `.claude/skills/dn/`, `.cursor/skills/dn/`   | `dn init agents --skill`               | Agent-native dn workflow instructions — see [Installation — Install dn as an agent skill](/dn/installation/#install-dn-as-an-agent-skill) |
+| Path                                                             | Typical source                         | Role                                                                                                                                      |
+| ---------------------------------------------------------------- | -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `plans/*.plan.md`                                                | `kickstart`, `meld`, `loop`            | Issue context, plan, acceptance criteria                                                                                                  |
+| `plans/*.continuation.plan.md`                                   | `kickstart`, `loop`                    | Remaining work after a partial run                                                                                                        |
+| `plans/*.description.md`                                         | `dn meld --milestone`                  | User-value synthesis of a milestone                                                                                                       |
+| `plans/*.stack.md`, `plans/*.stack.json`                         | `dn init stack`                        | Prioritized milestone task queue                                                                                                          |
+| `AGENTS.md`                                                      | `dn init agents`; kickstart may update | Project conventions and commands for agents                                                                                               |
+| `.agents/skills/dn/`, `.claude/skills/dn/`, `.cursor/skills/dn/` | `dn init agents --skill`               | Agent-native dn workflow instructions — see [Installation — Install dn as an agent skill](/dn/installation/#install-dn-as-an-agent-skill) |
 
 For `dn init stack` command detail, see
 [Working with GitHub](/dn/github-commands/). For `dn init agents` and agent

@@ -40,7 +40,8 @@ issues, and collaborator visibility predictable.
 2. Use tags to categorize tasks across milestones.
 3. Set due dates to track deadlines.
 4. Mark urgent tasks for high-priority items.
-5. Use **Publish** to make tasks visible to collaborators (default is private).
+5. After you share a milestone, use **Publish** on any private task so
+   participants can see it.
 
 ## Troubleshooting
 

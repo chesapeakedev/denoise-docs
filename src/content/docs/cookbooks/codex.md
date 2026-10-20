@@ -234,7 +234,7 @@ gh run list --repo owner/repo --event repository_dispatch
 gh run view <run-id> --log
 ```
 
-denoise and other integrators dispatch the same payload shapes from the UI.
+Denoise and other integrators dispatch the same payload shapes from the UI.
 
 ## Troubleshooting
 
@@ -246,11 +246,12 @@ denoise and other integrators dispatch the same payload shapes from the UI.
 | Agent secret missing in validate | Secret not created yet             | `gh secret set OPENAI_API_KEY`; re-run `dn workflows validate --json`                                          |
 | Sandbox or permission errors     | Codex sandbox restrictions         | Check run logs; confirm `workspace-write` sandbox can reach needed paths                                       |
 | No PR created                    | Workflow permissions               | Enable `pull-requests: write` and **Allow GitHub Actions to create and approve pull requests**                 |
-| Timeouts on long issues          | Large context / slow inference     | Increase `CODEX_TIMEOUT_MS`; consider [self-hosted runners](/runners/self-hosted-runners/)                  |
+| Timeouts on long issues          | Large context / slow inference     | Increase `CODEX_TIMEOUT_MS`; consider [self-hosted runners](/runners/self-hosted-runners/)                     |
 
 ## Related
 
-- [Headless Use](/runners/headless-use/) — templates, dispatch payloads, permissions
+- [Headless Use](/runners/headless-use/) — templates, dispatch payloads,
+  permissions
 - [OpenCode](/cookbooks/opencode/) — alternative harness using the same
   `OPENAI_API_KEY` secret name
 - [Completing GitHub Issues — Publish modes](/dn/completing-github-issues/#publish-modes)

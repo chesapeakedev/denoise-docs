@@ -13,8 +13,8 @@ checkout (device), then posts NDJSON progress.
 The Kickstart panel is phases from that progress ingest. It is not a full agent
 dump.
 
-User-facing enroll and recovery: [Enroll runners](/runners/device-runners/). Runtime
-picker behavior: [Kickstart runtimes](/runners/kickstart-runtimes/).
+User-facing enroll and recovery: [Enroll runners](/runners/device-runners/).
+Runtime picker behavior: [Kickstart runtimes](/runners/kickstart-runtimes/).
 
 ## Identify the hop
 
@@ -67,8 +67,8 @@ State lives under `~/.dn/runner/` (`credential.json`, `config.json`, logs).
 Return to the background loop with `dn runner start`. After upgrading `dn`, run
 `dn runner install` so the unit file uses the current binary.
 
-Hung macOS processes (kickstart or Deno not exiting):
-Use the process inspection steps on this page to investigate a hung runner.
+Hung macOS processes (kickstart or Deno not exiting): Use the process inspection
+steps on this page to investigate a hung runner.
 
 ## exe.dev VM
 

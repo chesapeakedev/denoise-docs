@@ -115,7 +115,7 @@ After you can pick harnesses and runners, the bottleneck is who is allowed to
 sit above syntax. A CLI, a skill, and a pairing flow still assume someone who
 lives in those tools.
 
-denoise puts **Kickstart!** on a shared workspace: milestones, GitHub-linked
+Denoise puts **Kickstart!** on a shared workspace: milestones, GitHub-linked
 tasks, collaborators, and a runtime picker — including device runners — for the
 callers that actually run `dn kickstart`. See
 [Getting started](/denoise/getting-started/), [Features](/denoise/features/),
@@ -139,7 +139,7 @@ inference runs. That piece treats **compute sovereignty** as control over
 compute, not a slogan, and sovereignty itself as the capacity to choose and
 reconfigure — not a requirement to own every layer.
 
-denoise matches that shape. It does not run kickstart on the application host
+Denoise matches that shape. It does not run kickstart on the application host
 ([Kickstart runtimes](/runners/kickstart-runtimes/)). On a
 [device runner](/runners/device-runners/), source, credentials, and compute stay
 on the machine you already trust; denoise keeps repository slugs and readiness,

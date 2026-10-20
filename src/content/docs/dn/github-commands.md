@@ -6,7 +6,8 @@ description: Manage GitHub issues, milestones, and project activity from the dn 
 These commands use the GitHub API from your local machine. Authenticate with
 `gh auth login`, `dn auth`, or `GITHUB_TOKEN` before running them — see
 [Installation — GitHub authentication](/dn/installation/#github-authentication)
-and [GitHub Token Setup](/runners/github-token-setup/) when you need token details.
+and [GitHub Token Setup](/runners/github-token-setup/) when you need token
+details.
 
 ## `dn init stack`
 
@@ -83,9 +84,9 @@ dn milestone publish plans/auth-refactor.json --repo owner/repo
 ```
 
 `dn milestone publish` reads a version `1.0` JSON plan with `milestone` and
-`issues` fields, creates the milestone and its issues, then applies each
-issue's `blocked_by` relationship after all issues exist. Use `--dry-run` to
-validate the plan without making mutations.
+`issues` fields, creates the milestone and its issues, then applies each issue's
+`blocked_by` relationship after all issues exist. Use `--dry-run` to validate
+the plan without making mutations.
 
 ## `dn glance`
 

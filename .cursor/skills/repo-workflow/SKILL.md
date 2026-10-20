@@ -25,16 +25,17 @@ make repo_vcs
 Example output:
 
 ```json
-{"vcs":"git","root":"/path/to/denoise-docs"}
+{ "vcs": "git", "root": "/path/to/denoise-docs" }
 ```
 
-| `vcs` | Meaning |
-| ----- | ------- |
+| `vcs`     | Meaning                                                                          |
+| --------- | -------------------------------------------------------------------------------- |
 | `sapling` | Repository root has a **`.sl`** directory (`dn` and this script choose Sapling). |
-| `git` | No `.sl` at root; **`.git`** at root (plain Git checkout). |
-| `unknown` | Not a recognized checkout; do not guess. |
+| `git`     | No `.sl` at root; **`.git`** at root (plain Git checkout).                       |
+| `unknown` | Not a recognized checkout; do not guess.                                         |
 
-Rules (same as [Task lists and sync — `dn sync`](/dn/task-list-and-sync/#dn-sync)):
+Rules (same as
+[Task lists and sync — `dn sync`](/dn/task-list-and-sync/#dn-sync)):
 
 - **`.sl` at root wins** over `.git` in dual-metadata trees.
 - **`sl` on PATH does not imply Sapling** — only `.sl` metadata does.
@@ -45,16 +46,16 @@ the reported `vcs`.
 
 ## 2. Shared commands (VCS-agnostic)
 
-| Goal | Command |
-| ---- | ------- |
-| Lint, skill validation, production build | `make check` |
-| Format tracked paths | `make fmt` or `make fix` |
-| Sync local work to remote `main` | `make sync` (`dn sync`) |
-| Verify SSH before Pi deploy | `make check_deploy` |
-| Build and deploy docs to the Pi | `make deploy` |
-| Sync then deploy | `make publish` |
-| Deploy to Deno Deploy | `make deploy_deno` |
-| Astro rebuild + Deno preview | `make dev_hot_reload` |
+| Goal                                      | Command                  |
+| ----------------------------------------- | ------------------------ |
+| Lint, skill validation, production build  | `make check`             |
+| Format tracked paths                      | `make fmt` or `make fix` |
+| Sync local work to remote `main`          | `make sync` (`dn sync`)  |
+| Verify SSH before Pi deploy               | `make check_deploy`      |
+| Build and deploy docs to the Pi           | `make deploy`            |
+| Sync then deploy                          | `make publish`           |
+| Deploy to Deno Deploy                     | `make deploy_deno`       |
+| Astro rebuild + Deno preview              | `make dev_hot_reload`    |
 | Mirror `.cursor/skills` → `.codex/skills` | `make sync_codex_skills` |
 
 Always use **`make sync`** to publish to `main`; do not hand-roll `git pull` /
@@ -70,14 +71,14 @@ Use non-interactive commands. Pass explicit paths for focused commits.
 
 Run from the JSON `root` (or `sl root`).
 
-| Task | Command |
-| ---- | ------- |
-| Status | `sl status` |
-| Diff | `sl diff` |
-| Stage adds/deletes | `sl addremove [paths…]` |
-| Commit | `sl commit -m "Message" [paths…]` |
-| Recent history | `sl log -r . -T "{node\|short} {desc\|firstline}\n"` |
-| Show commit | `sl show` |
+| Task               | Command                                              |
+| ------------------ | ---------------------------------------------------- |
+| Status             | `sl status`                                          |
+| Diff               | `sl diff`                                            |
+| Stage adds/deletes | `sl addremove [paths…]`                              |
+| Commit             | `sl commit -m "Message" [paths…]`                    |
+| Recent history     | `sl log -r . -T "{node\|short} {desc\|firstline}\n"` |
+| Show commit        | `sl show`                                            |
 
 Avoid unless the user explicitly requests: `sl split`, `sl histedit`,
 `sl rebase --interactive`, `sl fold`, `sl absorb`, `sl amend`.
@@ -86,13 +87,13 @@ Avoid unless the user explicitly requests: `sl split`, `sl histedit`,
 
 Run from the JSON `root` (`git rev-parse --show-toplevel` should match).
 
-| Task | Command |
-| ---- | ------- |
-| Status | `git status` |
-| Diff | `git diff` |
-| Stage | `git add [paths…]` (include `-A` or explicit paths as needed) |
-| Commit | `git commit -m "Message"` (stage first; or `git commit -m "…" -- paths` where supported) |
-| Recent history | `git log -3 --oneline` |
+| Task           | Command                                                                                  |
+| -------------- | ---------------------------------------------------------------------------------------- |
+| Status         | `git status`                                                                             |
+| Diff           | `git diff`                                                                               |
+| Stage          | `git add [paths…]` (include `-A` or explicit paths as needed)                            |
+| Commit         | `git commit -m "Message"` (stage first; or `git commit -m "…" -- paths` where supported) |
+| Recent history | `git log -3 --oneline`                                                                   |
 
 Avoid unless the user explicitly requests: `git rebase -i`, `git commit --amend`
 (except when user rules allow amend).

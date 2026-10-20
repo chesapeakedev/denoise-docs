@@ -40,8 +40,8 @@ chmod +x dn
 sudo mv dn /usr/local/bin/dn
 ```
 
-On macOS, release binaries are signed and notarized. If Gatekeeper still flags
-a binary, right-click it in Finder and choose **Open**, use **System Settings →
+On macOS, release binaries are signed and notarized. If Gatekeeper still flags a
+binary, right-click it in Finder and choose **Open**, use **System Settings →
 Privacy & Security → Open Anyway**, or run
 `xattr -d com.apple.quarantine $(which dn)`. Binaries built from source with
 `make install` are not blocked.
@@ -67,7 +67,8 @@ and `issue` with issue URLs).
 2. **GitHub CLI** — if `gh` is installed and authenticated, `dn` shells out to
    `gh auth token`
 
-For interactive use casese, install the [GitHub CLI](https://cli.github.com/) and authenticate:
+For interactive use casese, install the [GitHub CLI](https://cli.github.com/)
+and authenticate:
 
 ```bash
 gh auth login
@@ -130,13 +131,12 @@ writes `.github/dn/config.json` with the preferred agent for the repository:
 ```
 
 Supported values are `opencode`, `cursor`, `claude`, `codex`, and `copilot`.
-GitHub Actions
-workflows and denoise integrators read this file so automated runs use the same
-agent without passing `--agent` on every dispatch. Re-run
+GitHub Actions workflows and denoise integrators read this file so automated
+runs use the same agent without passing `--agent` on every dispatch. Re-run
 `dn init workflows --agent <name>` or edit the file directly to change the
 default. For team-wide agent and sandbox policy, prefer a root `dn.json` with
-`schema_version: "2.0"` — see [Sandbox execution](/dn/sandbox/). See [Headless setup](/runners/headless-use/) for the matching repository
-secrets.
+`schema_version: "2.0"` — see [Sandbox execution](/dn/sandbox/). See
+[Headless setup](/runners/headless-use/) for the matching repository secrets.
 
 **Single-run override.** Pass the global `--agent` flag when you want a
 different harness for one local command:

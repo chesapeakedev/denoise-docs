@@ -403,17 +403,17 @@ gh run list --repo owner/repo --event repository_dispatch
 gh run view <run-id> --log
 ```
 
-denoise and other integrators dispatch the same payload shapes from the UI.
+Denoise and other integrators dispatch the same payload shapes from the UI.
 
 ## Troubleshooting
 
-| Symptom                      | Likely cause                       | Fix                                                                              |
-| ---------------------------- | ---------------------------------- | -------------------------------------------------------------------------------- |
-| `401` / unauthorized         | Missing or wrong token             | Re-set `OPENAI_API_KEY`                                                          |
-| Model not found (DeepInfra)  | Wrong model string                 | Use `deepinfra/moonshotai/Kimi-K2.7-Code` in config                              |
-| Works locally, fails in CI   | Provider missing from phase config | Add provider to **both** `opencode.plan.json` and `opencode.implement.json`      |
-| OpenCode uses wrong model    | Stale root `opencode.json`         | Align `model` across all opencode config files                                   |
-| Plan phase edits wrong files | Plan permissions too open          | Restore deny `*` with allow only under `plans/`                                  |
+| Symptom                      | Likely cause                       | Fix                                                                           |
+| ---------------------------- | ---------------------------------- | ----------------------------------------------------------------------------- |
+| `401` / unauthorized         | Missing or wrong token             | Re-set `OPENAI_API_KEY`                                                       |
+| Model not found (DeepInfra)  | Wrong model string                 | Use `deepinfra/moonshotai/Kimi-K2.7-Code` in config                           |
+| Works locally, fails in CI   | Provider missing from phase config | Add provider to **both** `opencode.plan.json` and `opencode.implement.json`   |
+| OpenCode uses wrong model    | Stale root `opencode.json`         | Align `model` across all opencode config files                                |
+| Plan phase edits wrong files | Plan permissions too open          | Restore deny `*` with allow only under `plans/`                               |
 | Timeouts on long issues      | Large context / slow inference     | Check run logs; consider [self-hosted runners](/runners/self-hosted-runners/) |
 
 ## Related
