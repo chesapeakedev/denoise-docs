@@ -1,7 +1,7 @@
 ---
-
-## title: Getting started
+title: Getting started
 description: Choose The Void for free solo tasks, or sign in to denoise for team planning.
+---
 
 Use this page to choose the right product surface, sign in, and create a first
 task. Start here when you are using the app UI rather than the `dn` CLI.
