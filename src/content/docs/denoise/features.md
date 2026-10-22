@@ -106,9 +106,15 @@ Milestones help you organize tasks into groups or projects:
 
 ![Workspace milestone rows with status, Build, and progress rings](../../../assets/screenshots/roadmap-milestone-list.png)
 
-Use the workspace selector when you belong to more than one organization.
+Use the workspace selector when you belong to more than one organization. Open
+the menu beside **Workspace** and choose **Personal** or an organization. The
+milestone list updates to that workspace.
 
-![Workspace selector](../../../assets/screenshots/roadmap-workspace-select.png)
+![Workspace selector with personal and organization workspaces](../../../assets/screenshots/roadmap-workspace-select.png)
+
+<video autoplay loop muted playsinline class="demo-video" aria-label="Switch workspace — open the menu and choose Personal or an organization">
+  <source src="/demos/switch-workspace.mp4" type="video/mp4" />
+</video>
 
 ### Filtering milestones
 
