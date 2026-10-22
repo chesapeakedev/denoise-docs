@@ -181,4 +181,4 @@ On **Profile** (`/profile`), these panels sit together:
 - [Kickstart runtimes](/runners/kickstart-runtimes/) — Where kickstart runs
 - [Runner logs](/runners/runner-logs/) — Serve stdout for devices and exe.dev
 - [`dn` release notes](https://github.com/chesapeakedev/dn/releases)
-- [Roadmap](/roadmap/) — Shipped themes and planned work
+- [Roadmap](/roadmap/) — What we intend to build next
