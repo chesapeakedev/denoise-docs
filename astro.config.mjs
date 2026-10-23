@@ -11,7 +11,8 @@ export default defineConfig({
     "/dn/plan-lifecycle": "/dn/completing-github-issues/",
     "/dn/workflows": "/dn/command-reference/",
     "/dn/github-commands": "/dn/command-reference/",
-    "/dn/artifacts-cursor": "/dn/filesystem-context/#kickstart-workspace-artifacts",
+    "/dn/artifacts-cursor":
+      "/dn/filesystem-context/#kickstart-workspace-artifacts",
     "/dn/sandbox": "/runners/sandbox/",
     "/dn/until": "/dn/command-reference/#dn-until",
     "/dn/land": "/dn/command-reference/#dn-land",

@@ -92,10 +92,10 @@ each workflow (or job). Templates from `dn init workflows` ship the right
 defaults; edit them only when you fork a workflow or your org enforces stricter
 defaults.
 
-| Installed workflow | Typical `permissions` |
-| ------------------ | --------------------- |
+| Installed workflow                                                                          | Typical `permissions`                                                                                                            |
+| ------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | `dn-kickstart-issue.yml`, `dn-init-stack.yml`, `dn-daily-kickstart.yml`, `dn-todo-loop.yml` | `contents: write`, `pull-requests: write`, `issues: write` (`dn-kickstart-issue.yml` also sets `id-token: write` for the action) |
-| `dn-prep-issue-plan.yml` (`dn.meld_issue_plan`) | `contents: read`, `issues: write` only — meld plans from issues and does not open PRs in this job |
+| `dn-prep-issue-plan.yml` (`dn.meld_issue_plan`)                                             | `contents: read`, `issues: write` only — meld plans from issues and does not open PRs in this job                                |
 
 Kickstart-style jobs need all three write scopes because they read issues, push
 branches (`contents`), and open or update pull requests. Plan-only meld does not
@@ -223,8 +223,8 @@ and GitHub integration setup on exe.dev — see
 [Sandbox providers — Set up exe.dev](/runners/sandbox/#set-up-exedev).
 
 VCS publish (branch, commit, PR) still runs on the host after workspace
-sync-out. See [Sandbox providers](/runners/sandbox/) for configuration, sync modes,
-Docker image notes, and exe.dev troubleshooting.
+sync-out. See [Sandbox providers](/runners/sandbox/) for configuration, sync
+modes, Docker image notes, and exe.dev troubleshooting.
 
 ## Workflow templates
 
@@ -422,8 +422,9 @@ Agent-backed workflows in CI also use harness-specific variables such as
 `ANTHROPIC_API_KEY`, `CLAUDE_CODE_BARE=1` (set by workflows for Claude), and
 `CODEX_TIMEOUT_MS`. Long kickstart runs can set `PLAN_TIMEOUT_MS` and
 `IMPLEMENT_TIMEOUT_MS` (plan defaults to 10 minutes, implement to 20 minutes) —
-see [Kickstart runtimes — Phase timeouts](/runners/kickstart-runtimes/#phase-timeouts). Agent selection in workflows comes from
-`.github/dn/config.json`; see
+see
+[Kickstart runtimes — Phase timeouts](/runners/kickstart-runtimes/#phase-timeouts).
+Agent selection in workflows comes from `.github/dn/config.json`; see
 [Command reference — Choose an agent](/dn/command-reference/#choose-an-agent).
 
 ## Exit codes

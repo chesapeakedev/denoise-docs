@@ -80,8 +80,8 @@ CURSOR_ENABLED=1 dn kickstart https://github.com/owner/repo/issues/123
 
 For day-to-day Cursor use, prefer `dn init agents --skill --agent cursor` and
 `dn --agent cursor kickstart` as in [Use dn from Cursor](#use-dn-from-cursor)
-above. The `--cursor` rule path is for teams that want kickstart documented as an
-always-on Cursor rule without installing the full dn skill.
+above. The `--cursor` rule path is for teams that want kickstart documented as
+an always-on Cursor rule without installing the full dn skill.
 
 ## Overview
 

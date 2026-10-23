@@ -5,10 +5,10 @@ description: Try early dn commands that streamline triage, task queues, kickstar
 
 `dn` targets the parts of the software development lifecycle that still slow
 teams down after you adopt agents: choosing the next issue, keeping GitHub and a
-local queue aligned, and landing work without
-extra ceremony. The commands here are **experiments** toward that goal — smaller
-workflows you can use today alongside [kickstart](/dn/completing-github-issues/)
-and [Command reference](/dn/command-reference/).
+local queue aligned, and landing work without extra ceremony. The commands here
+are **experiments** toward that goal — smaller workflows you can use today
+alongside [kickstart](/dn/completing-github-issues/) and
+[Command reference](/dn/command-reference/).
 
 | Focus            | Commands               | What it changes                                                              |
 | ---------------- | ---------------------- | ---------------------------------------------------------------------------- |

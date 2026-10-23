@@ -98,8 +98,8 @@ For step-by-step PAT creation, see
 [GitHub Token Setup](/runners/github-token-setup/).
 
 The scopes above apply when you pass your own token in scripts or local
-automation. For **`secrets.GITHUB_TOKEN`**, workflow `permissions`, and installed
-`dn` templates in GitHub Actions, see
+automation. For **`secrets.GITHUB_TOKEN`**, workflow `permissions`, and
+installed `dn` templates in GitHub Actions, see
 [Headless setup — GitHub Actions token and permissions](/runners/headless-use/#github-actions-token-and-permissions).
 
 Pick a harness and repository default in

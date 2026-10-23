@@ -4,8 +4,8 @@ description: Recognize failed or unsatisfying denoise kickstart runs and hand wo
 ---
 
 Kickstart can plan and implement from a milestone task, but it does not replace
-engineering judgment. A run can fail before it opens a pull request, stop after a
-weak plan, or produce a PR that still needs design, tests, or scope changes.
+engineering judgment. A run can fail before it opens a pull request, stop after
+a weak plan, or produce a PR that still needs design, tests, or scope changes.
 Product managers often kickstart first; software engineers routinely finish,
 correct, or replace that work.
 
@@ -15,17 +15,17 @@ GitHub Actions will succeed on every attempt.
 
 ## What “success” and “needs an engineer” look like
 
-| Outcome | Typical signals in denoise | Usually enough for the product owner? |
-| ------- | -------------------------- | ------------------------------------- |
-| **Good enough to review** | PR link on the task row, CI running or green on GitHub | Often yes — review the PR like any other |
-| **Plan only, not implemented** | **Review plan** appeared; you did not approve, or the run stopped after planning | No — needs engineering or a revised issue |
-| **Implementation incomplete** | Row stuck in **Implementing**, timeout, or **Kickstart again** with no PR | No |
-| **Published but wrong** | PR exists but scope, quality, or approach is off | No — engineer takeover on branch or new plan |
-| **Never started** | Queued for a long time, **Cancel**, or runner **Offline** / **Needs setup** | No — fix runner or hand issue to someone with a working checkout |
+| Outcome                        | Typical signals in denoise                                                       | Usually enough for the product owner?                            |
+| ------------------------------ | -------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| **Good enough to review**      | PR link on the task row, CI running or green on GitHub                           | Often yes — review the PR like any other                         |
+| **Plan only, not implemented** | **Review plan** appeared; you did not approve, or the run stopped after planning | No — needs engineering or a revised issue                        |
+| **Implementation incomplete**  | Row stuck in **Implementing**, timeout, or **Kickstart again** with no PR        | No                                                               |
+| **Published but wrong**        | PR exists but scope, quality, or approach is off                                 | No — engineer takeover on branch or new plan                     |
+| **Never started**              | Queued for a long time, **Cancel**, or runner **Offline** / **Needs setup**      | No — fix runner or hand issue to someone with a working checkout |
 
 Treat **Kickstart again** as a retry, not proof the first run succeeded. Each
-attempt should start from an updated issue, plan, or branch state — not from hope
-that the next run will “just work.”
+attempt should start from an updated issue, plan, or branch state — not from
+hope that the next run will “just work.”
 
 ## For product managers: spot the handoff early
 
@@ -44,8 +44,9 @@ request.
 - A PR opened but CI is red, the diff touches unrelated areas, or acceptance
   criteria in the issue are still unmet.
 - You chose **Review locally before publishing** and the changes live on a
-  **paired device** you do not use yourself — only someone with that checkout can
-  **Land**, **Sync**, and **Done** from the task dialog (see [Kickstart](/kickstart/)).
+  **paired device** you do not use yourself — only someone with that checkout
+  can **Land**, **Sync**, and **Done** from the task dialog (see
+  [Kickstart](/kickstart/)).
 - The issue was vague and kickstart exposed ambiguity (multiple valid designs,
   missing API contracts, unclear permissions).
 
@@ -71,26 +72,26 @@ same kickstart blindly.
 
 ### 1. Locate artifacts
 
-| Source | What to open |
-| ------ | ------------ |
-| Task row **PR** link | Branch and diff on GitHub |
-| GitHub issue | Original intent, PM comments, test plan sections |
-| GitHub Actions | Workflow run for `dn.kickstart_issue` when the app used Actions — see [Headless use — Troubleshooting](/runners/headless-use/#troubleshooting) |
-| Device or exe.dev runner | Registered checkout; `plans/*.plan.md` and continuation files after leave-local runs |
-| No PR, failed publish | Issue body and labels only — you may need a fresh branch from `main` |
+| Source                   | What to open                                                                                                                                   |
+| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| Task row **PR** link     | Branch and diff on GitHub                                                                                                                      |
+| GitHub issue             | Original intent, PM comments, test plan sections                                                                                               |
+| GitHub Actions           | Workflow run for `dn.kickstart_issue` when the app used Actions — see [Headless use — Troubleshooting](/runners/headless-use/#troubleshooting) |
+| Device or exe.dev runner | Registered checkout; `plans/*.plan.md` and continuation files after leave-local runs                                                           |
+| No PR, failed publish    | Issue body and labels only — you may need a fresh branch from `main`                                                                           |
 
 For queued jobs with no phases, start with [Runner logs](/runners/runner-logs/).
 
 ### 2. Choose a recovery path
 
-| Situation | Practical next step |
-| --------- | ------------------- |
-| PR exists, feedback is review-shaped | Check out the branch; use [`dn fixup`](/dn/command-reference/#dn-fixup) or normal PR review |
-| Plan is wrong but issue is fixable | [`dn meld`](/dn/command-reference/#plan-with-meld) → edit `plans/*.plan.md` → [`dn loop`](/dn/command-reference/#implement-with-loop) |
-| Kickstart left partial checklist items | Same plan file or `*.continuation.plan.md`; `dn loop` on the plan |
-| No trustworthy plan | Re-meld from the issue; or narrow the issue and kickstart locally with `--publish none` before a new PR |
-| Publish failed after push | Inspect remote branch and GitHub permissions; see Headless troubleshooting (**No PR created**) |
-| You own quality gates | [`dn until`](/dn/command-reference/#dn-until) or repo CI, then [`dn land`](/dn/command-reference/#dn-land) for leave-local work |
+| Situation                              | Practical next step                                                                                                                   |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| PR exists, feedback is review-shaped   | Check out the branch; use [`dn fixup`](/dn/command-reference/#dn-fixup) or normal PR review                                           |
+| Plan is wrong but issue is fixable     | [`dn meld`](/dn/command-reference/#plan-with-meld) → edit `plans/*.plan.md` → [`dn loop`](/dn/command-reference/#implement-with-loop) |
+| Kickstart left partial checklist items | Same plan file or `*.continuation.plan.md`; `dn loop` on the plan                                                                     |
+| No trustworthy plan                    | Re-meld from the issue; or narrow the issue and kickstart locally with `--publish none` before a new PR                               |
+| Publish failed after push              | Inspect remote branch and GitHub permissions; see Headless troubleshooting (**No PR created**)                                        |
+| You own quality gates                  | [`dn until`](/dn/command-reference/#dn-until) or repo CI, then [`dn land`](/dn/command-reference/#dn-land) for leave-local work       |
 
 The split workflow (plan review separate from implementation) is documented in
 [Completing GitHub Issues — Choose the right handoff](/dn/completing-github-issues/#choose-the-right-handoff).
@@ -114,7 +115,8 @@ and human review still define merge readiness — see
 ### Runner or dispatch never completes
 
 Symptoms: **Queued**, **Offline** runner, or kickstart disabled on the setup
-page. Follow [Tips & troubleshooting — Runners or kickstart actions are disabled](/denoise/tips-troubleshooting/#runners-or-kickstart-actions-are-disabled)
+page. Follow
+[Tips & troubleshooting — Runners or kickstart actions are disabled](/denoise/tips-troubleshooting/#runners-or-kickstart-actions-are-disabled)
 and [Runner logs](/runners/runner-logs/). GitHub Actions paths need installed
 workflows and secrets — not only a green milestone in denoise.
 
@@ -153,9 +155,12 @@ should not treat “PR opened” as “feature shipped.”
 
 ## Related pages
 
-- [Milestone details](/denoise/milestone-details/) — Kickstart UI, plan review, publish choices
+- [Milestone details](/denoise/milestone-details/) — Kickstart UI, plan review,
+  publish choices
 - [Kickstart](/kickstart/) — Publish modes and leave-local Land / Sync / Done
-- [Command reference](/dn/command-reference/) — `meld`, `loop`, `land`, `fixup`, `until`
-- [Completing GitHub Issues](/dn/completing-github-issues/) — CLI handoff patterns
+- [Command reference](/dn/command-reference/) — `meld`, `loop`, `land`, `fixup`,
+  `until`
+- [Completing GitHub Issues](/dn/completing-github-issues/) — CLI handoff
+  patterns
 - [Runner logs](/runners/runner-logs/) — Device and exe.dev diagnosis
 - [Headless use](/runners/headless-use/) — GitHub Actions kickstart failures

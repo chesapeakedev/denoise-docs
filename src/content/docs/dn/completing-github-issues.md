@@ -97,8 +97,8 @@ After the pull request is open, see
 Use the explicit `meld → loop → land` lifecycle when the implementation approach
 needs its own review boundary.
 
-Plan with [`dn meld`](/dn/command-reference/#plan-with-meld), then implement with
-[`dn loop`](/dn/command-reference/#implement-with-loop).
+Plan with [`dn meld`](/dn/command-reference/#plan-with-meld), then implement
+with [`dn loop`](/dn/command-reference/#implement-with-loop).
 
 This path is useful when an issue combines several concerns, implementation risk
 is high, or another person needs to approve the plan before code changes begin.
