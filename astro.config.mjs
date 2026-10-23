@@ -11,6 +11,8 @@ export default defineConfig({
     "/dn/plan-lifecycle": "/dn/completing-github-issues/",
     "/dn/workflows": "/dn/command-reference/",
     "/dn/github-commands": "/dn/command-reference/",
+    "/dn/artifacts-cursor": "/dn/filesystem-context/#kickstart-workspace-artifacts",
+    "/dn/sandbox": "/runners/sandbox/",
     "/dn/until": "/dn/command-reference/#dn-until",
     "/dn/land": "/dn/command-reference/#dn-land",
     "/dn/opencode": "/cookbooks/opencode/",
@@ -82,14 +84,9 @@ export default defineConfig({
               slug: "dn/filesystem-context",
             },
             {
-              label: "Artifacts and Cursor",
-              slug: "dn/artifacts-cursor",
-            },
-            {
               label: "Landing",
               slug: "dn/task-list-and-sync",
             },
-            { label: "Sandbox execution", slug: "dn/sandbox" },
           ],
         },
         {
@@ -127,6 +124,7 @@ export default defineConfig({
               label: "Kickstart runtimes",
               slug: "runners/kickstart-runtimes",
             },
+            { label: "Sandbox execution", slug: "runners/sandbox" },
             {
               label: "Headless setup",
               slug: "runners/headless-use",
