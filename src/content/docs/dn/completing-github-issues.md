@@ -89,121 +89,16 @@ In pull-request mode, `kickstart`:
 This path has the fewest manual steps. It is useful for well-scoped issues when
 the branch and pull request provide enough isolation for review.
 
-## Complete and verify work locally
-
-Run `kickstart` without a publish mode to keep the plan and changes in the
-current workspace. Attended kickstart exits after success — it does not close
-the GitHub issue or ask whether to continue:
-
-```bash
-dn kickstart 123
-dn land --issue-testplan
-dn sync
-```
-
-Leave-local kickstart implements then runs `dn ensure lint`. Land commits. Sync
-re-runs lint, runs tests, and publishes to trunk. Then mark the issue Done. See
-[Kickstart](/kickstart/).
-
-When an IDE agent runs these steps for you, it asks before committing and keeps
-`plans/*.plan.md` out of the commit — `dn land` removes the plan on success.
-`dn sync` is a separate trunk-publication step, not part of the commit.
-
-Configure a gambit only when you still want a generator/verifier loop before
-land. For issue-shaped goals, `dn until import 123` converts the issue into a
-local goal file first — see [`dn until`](/dn/workflows/#dn-until):
-
-```json
-{
-  "gambits": [
-    {
-      "name": "issue-ready",
-      "metadata": { "issue": "123" },
-      "generator": {
-        "prompt": "Finish the local implementation for issue {{issue}}. Resolve failures reported by the verifier without expanding the issue scope."
-      },
-      "verifier": { "script": "make precommit" }
-    }
-  ],
-  "iterations": 5,
-  "timeout_ms": 3600000
-}
-```
-
-Replace `make precommit` with the repository's merge gate. `until` repeats the
-generator and verifier within the configured budget, leaving all work local.
-Review the resulting diff before running `land`.
-
-`land` validates the completed plan, groups the workspace changes into local
-commits, and removes the plan. It targets **one plan at a time** (explicit path,
-`PLAN`, or newest `plans/*.plan.md`). Do not stack multiple local kickstarts
-before landing — use `--publish pr|direct` when you want each issue published
-without a separate land step. `--issue-testplan` also upserts a concise
-`## Test Plan` checklist on the linked issue. It does not push, open a pull
-request, or close the issue.
-
-Push the resulting feature branch or bookmark with your usual VCS workflow, then
-open the pull request:
-
-```bash
-gh pr create
-```
-
-Use this path when you want automated retries against an objective local gate,
-followed by local code and commit review before publication. See the
-[`dn until`](/dn/workflows/#dn-until) and [`dn land`](/dn/workflows/#dn-land)
-command reference sections for gambit options, dry runs, and recovery behavior.
+After the pull request is open, see
+[Continue after the pull request opens](/dn/command-reference/#continue-after-the-pull-request-opens).
 
 ## Review the plan before implementation
 
 Use the explicit `meld → loop → land` lifecycle when the implementation approach
 needs its own review boundary.
 
-### Plan with `meld`
-
-`dn meld` accepts one issue, several issues, local Markdown, or a mixture:
-
-```bash
-dn meld 123 --plan-name issue-123
-dn meld 123 127 architecture.md --output plans/merged-context.md
-dn meld --list planning-sources.txt
-dn meld --update-issue 123
-```
-
-The planner writes a durable `plans/*.plan.md` file containing source context,
-implementation steps, and checklist acceptance criteria. Review and edit that
-file before implementation. Because the contract is a file, the work can move
-between OpenCode, Claude Code, Cursor, and Codex or resume in a later session.
-When you provide `--output`, `meld` also preserves the normalized merged source
-context.
-
-### Implement with `loop`
-
-```bash
-dn loop plans/issue-123.plan.md
-dn loop 123
-PLAN=plans/issue-123.plan.md dn loop
-```
-
-`loop` implements one existing plan. It does not create a plan, commit, push, or
-open a pull request. If work remains, it updates the checklist and writes a
-`*.continuation.plan.md` file. Review the current state and rerun the same plan;
-the checked items are the restart point.
-
-### Land and open the pull request
-
-After the checklist and implementation are complete, run the repository gambit
-to resolve remaining merge-gate failures, then land the plan:
-
-```bash
-dn until run .github/dn/gambit.json
-dn land --issue-testplan plans/issue-123.plan.md
-gh pr create
-```
-
-`land` creates local commits. Push the feature branch or bookmark with your
-usual VCS workflow before `gh pr create` if it does not already have an
-upstream.
+Plan with [`dn meld`](/dn/command-reference/#plan-with-meld), then implement with
+[`dn loop`](/dn/command-reference/#implement-with-loop).
 
 This path is useful when an issue combines several concerns, implementation risk
 is high, or another person needs to approve the plan before code changes begin.
@@ -222,32 +117,6 @@ CI must use `pr` or `direct` because a local-only workspace disappears with the
 runner. Use `direct` only when you intentionally want to bypass pull-request
 review. `dn sync` publishes trunk after Land on the leave-local path; it is not
 part of the pull-request path. See [Kickstart](/kickstart/).
-
-## Run remotely or in CI
-
-The same end-to-end pull-request path works in a persistent remote runner or
-ephemeral CI job:
-
-```bash
-dn kickstart --publish pr 123
-```
-
-For Cursor Cloud, add its remote execution options:
-
-```bash
-export CURSOR_API_KEY='...'
-dn kickstart --cursor-cloud --publish pr --ref main 123
-```
-
-Cursor Cloud uses a remote clone on a Cursor-managed VM and does not modify the
-local workspace. Without progress configuration, the run is durable
-fire-and-forget. With `DN_DISPATCH_ID` and `DN_PROGRESS` set, `dn` waits,
-reports progress, and returns the pull request URL or terminal failure. In
-denoise, that bootstrap is issued per invocation — see
-[Kickstart runtimes](/runners/kickstart-runtimes/) and
-[Kickstart runtimes](/runners/kickstart-runtimes/). Also see
-[Headless Use](/runners/headless-use/) for CI dispatch and
-[Sandbox execution](/dn/sandbox/) for Docker and exe.dev.
 
 ## Milestone queues
 
@@ -276,21 +145,3 @@ dn meld --milestone "Q3 reliability"
 
 This writes a user-value-focused milestone description. It does not replace the
 prioritized stack created by `dn init stack`.
-
-## Continue after the pull request opens
-
-When review feedback arrives, apply it in the pull request workspace:
-
-```bash
-dn fixup https://github.com/owner/repo/pull/123
-```
-
-`fixup` fetches the pull request description and review comments, then plans and
-implements the requested changes locally.
-
-For interrupted work before publication:
-
-- If no matching plan exists, run `dn meld <issue>`.
-- If a plan has unchecked criteria, rerun `dn loop` on that plan.
-- If pull request publication fails after the branch was pushed, inspect the
-  remote branch and retry after resolving any conflicting update.

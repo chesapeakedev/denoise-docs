@@ -17,7 +17,9 @@ curl -fsSL https://raw.githubusercontent.com/chesapeakedev/dn/main/scripts/insta
 To customize the install directory or pin a version:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/chesapeakedev/dn/main/scripts/install.sh | sh -s -- --install-dir /usr/local/bin --version v0.0.52
+curl -fsSL \
+  https://raw.githubusercontent.com/chesapeakedev/dn/main/scripts/install.sh \
+  | sh -s -- --install-dir /usr/local/bin --version v0.0.52
 ```
 
 Or install with Homebrew:
@@ -105,7 +107,20 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-Ensure the workflow has the permissions it needs:
+Set `permissions` on each workflow job to match what that template does. Installed
+canonical files from `dn init workflows` already include the right block — you
+only need to edit it when you fork a workflow or tighten org defaults.
+
+| Installed workflow | Typical `permissions` |
+| ------------------ | --------------------- |
+| `dn-kickstart-issue.yml`, `dn-init-stack.yml`, `dn-daily-kickstart.yml` | `contents: write`, `pull-requests: write`, `issues: write` (`dn-kickstart-issue.yml` also sets `id-token: write` for the action) |
+| `dn-prep-issue-plan.yml` (`dn.meld_issue_plan`) | `contents: read`, `issues: write` only — meld plans from issues and does not open PRs in this job |
+
+Kickstart-style jobs need all three write scopes because they read issues, push
+branches (`contents`), and open or update pull requests. Plan-only meld does not
+need `pull-requests: write` or `contents: write`.
+
+Example for kickstart-style automation:
 
 ```yaml
 permissions:
@@ -114,39 +129,13 @@ permissions:
   issues: write
 ```
 
-### Choose an agent
+The PAT table above applies to **scripts and local CI** where you supply your
+own token: grant only what those commands use. In **GitHub Actions**, the job
+uses `GITHUB_TOKEN` scoped by each workflow's `permissions` block, not your PAT
+scopes.
 
-Agent-backed commands (`kickstart`, `meld`, `loop`, `land`, and others in the
-[command map](#command-map)) run through an agent harness. OpenCode is the
-default when nothing else is configured.
-
-**Repository default.** The `dn init workflows --agent <name>` command above
-writes `.github/dn/config.json` with the preferred agent for the repository:
-
-```json
-{
-  "schema_version": "1.0",
-  "agent": "opencode"
-}
-```
-
-Supported values are `opencode`, `cursor`, `claude`, `codex`, and `copilot`.
-GitHub Actions workflows and denoise integrators read this file so automated
-runs use the same agent without passing `--agent` on every dispatch. Re-run
-`dn init workflows --agent <name>` or edit the file directly to change the
-default. For team-wide agent and sandbox policy, prefer a root `dn.json` with
-`schema_version: "2.0"` — see [Sandbox execution](/dn/sandbox/). See
-[Headless setup](/runners/headless-use/) for the matching repository secrets.
-
-**Single-run override.** Pass the global `--agent` flag when you want a
-different harness for one local command:
-
-```bash
-dn --agent codex meld 123
-dn --agent claude kickstart --awp 123
-```
-
-Run `dn <command> --help` for command-specific options.
+Pick a harness and repository default in
+[Command reference — Choose an agent](/dn/command-reference/#choose-an-agent).
 
 ### Install dn as an agent skill
 

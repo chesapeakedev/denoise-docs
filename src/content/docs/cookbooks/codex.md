@@ -37,7 +37,7 @@ new skill, and commit the files if the whole team should use them.
 
 `dn context check` also reads inherited guidance from `CODEX_HOME` (or
 `~/.codex`) `AGENTS.md` when estimating context size. See
-[Experimental — Context check](/dn/task-list-and-sync/).
+[Filesystem Context — `dn context`](/dn/filesystem-context/#dn-context).
 
 Start Codex from the repository root and mention the skill explicitly:
 

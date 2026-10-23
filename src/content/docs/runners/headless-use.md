@@ -385,10 +385,9 @@ Agent-backed workflows in CI also use harness-specific variables such as
 `ANTHROPIC_API_KEY`, `CLAUDE_CODE_BARE=1` (set by workflows for Claude), and
 `CODEX_TIMEOUT_MS`. Long kickstart runs can set `PLAN_TIMEOUT_MS` and
 `IMPLEMENT_TIMEOUT_MS` (plan defaults to 10 minutes, implement to 20 minutes) —
-see
-[Kickstart runtimes — Phase timeouts](/runners/kickstart-runtimes/#phase-timeouts).
-Agent selection in workflows comes from `.github/dn/config.json`; see
-[Installation — Choose an agent](/dn/installation/#choose-an-agent).
+see [Kickstart runtimes — Phase timeouts](/runners/kickstart-runtimes/#phase-timeouts). Agent selection in workflows comes from
+`.github/dn/config.json`; see
+[Command reference — Choose an agent](/dn/command-reference/#choose-an-agent).
 
 ## Exit codes
 

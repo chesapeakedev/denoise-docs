@@ -1,24 +1,25 @@
 ---
 title: Filesystem Context
-description: Repository files and base images that give dn durable context for planning, implementation, and agent handoff.
+description: Repository files, dn.json policy, and base images that give dn durable context for planning, implementation, and agent handoff.
 ---
 
 `dn` uses repository files and project base images to give agents durable,
-reproducible context. The files support planning, implementation, and handoff;
-base images provide the toolchain and version-control environment for Docker
-sandbox runs.
+reproducible context. Most teams meet **`plans/`** first — kickstart and meld
+create plan files you can read and edit. **`dn.json`** comes next when you want
+the same lint, test, sync, and sandbox rules for every agent run in the repo.
 
-| Path                                                             | Typical source                         | Role                                                                                                                                      |
-| ---------------------------------------------------------------- | -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `plans/*.plan.md`                                                | `kickstart`, `meld`, `loop`            | Issue context, plan, acceptance criteria                                                                                                  |
-| `plans/*.continuation.plan.md`                                   | `kickstart`, `loop`                    | Remaining work after a partial run                                                                                                        |
-| `plans/*.description.md`                                         | `dn meld --milestone`                  | User-value synthesis of a milestone                                                                                                       |
-| `plans/*.stack.md`, `plans/*.stack.json`                         | `dn init stack`                        | Prioritized milestone task queue                                                                                                          |
-| `AGENTS.md`                                                      | `dn init agents`; kickstart may update | Project conventions and commands for agents                                                                                               |
-| `.agents/skills/dn/`, `.claude/skills/dn/`, `.cursor/skills/dn/` | `dn init agents --skill`               | Agent-native dn workflow instructions — see [Installation — Install dn as an agent skill](/dn/installation/#install-dn-as-an-agent-skill) |
+| Path                                                               | Typical source                         | Role                                                                                                                                      |
+| ------------------------------------------------------------------ | -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `plans/*.plan.md`                                                  | `kickstart`, `meld`, `loop`            | Issue context, plan, acceptance criteria                                                                                                  |
+| `plans/*.continuation.plan.md`                                     | `kickstart`, `loop`                    | Remaining work after a partial run                                                                                                        |
+| `plans/*.description.md`                                           | `dn meld --milestone`                  | User-value synthesis of a milestone                                                                                                       |
+| `plans/*.stack.md`, `plans/*.stack.json`                           | `dn init stack`                        | Prioritized milestone task queue                                                                                                          |
+| `dn.json`                                                          | You or `dn init wizard`                | Repo-wide agent, quality recipes, sync preflight, sandbox policy                                                                          |
+| `AGENTS.md`                                                        | `dn init agents`; kickstart may update | Project conventions and commands for agents                                                                                               |
+| `.agents/skills/dn/`, `.claude/skills/dn/`, `.cursor/skills/dn/`   | `dn init agents --skill`               | Agent-native dn workflow instructions — see [Installation — Install dn as an agent skill](/dn/installation/#install-dn-as-an-agent-skill) |
 
 For `dn init stack` command detail, see
-[Working with GitHub](/dn/github-commands/). For `dn init agents` and agent
+[Command reference — `dn init stack`](/dn/command-reference/#dn-init-stack). For `dn init agents` and agent
 skill setup, see
 [Installation — Install dn as an agent skill](/dn/installation/#install-dn-as-an-agent-skill).
 
@@ -85,6 +86,68 @@ In `--publish pr` or `--publish direct` mode, `dn` deletes the plan file when
 all acceptance criteria are complete. Close local work into commits with
 `dn land`; it removes the completed plan on success.
 
+## `dn.json`
+
+`dn.json` at the repository root is the **team contract** for how `dn` runs in
+that checkout. It does not replace plan files — plans hold *what* to build;
+`dn.json` holds *how* to verify and publish work consistently.
+
+`dn` walks upward from the workspace root to find `dn.json`. Commit it so
+kickstart, loop, land, sync, and ensure behave the same for every contributor
+and runner. Personal overrides can live in `~/.dn/config.json`; GitHub Actions
+workflows use `.github/dn/config.json` when no root `dn.json` exists. Prefer
+`schema_version: "2.0"` on `dn.json` for agent and sandbox policy — see
+[Command reference — Choose an agent](/dn/command-reference/#choose-an-agent)
+and [Sandbox execution](/dn/sandbox/#configure-schema-11-and-dnjson-20).
+
+### What to put in `dn.json` first
+
+| Block | Used by | Purpose |
+| ----- | ------- | ------- |
+| `ensure.<name>` | `dn ensure`, kickstart, loop (after implement) | Named quality recipes — frozen `argv` arrays, no shell |
+| `sync.preflight` | `dn sync` | Commands that must pass before rebase and trunk publish |
+| `sandbox` | `kickstart`, `loop`, `meld`, `until`, `ensure` with `--sandbox` | Docker or host isolation policy |
+| `agent` (schema `2.0`) | Default harness when `--agent` is omitted | Same idea as `.github/dn/config.json` for local runs |
+
+Start with **`ensure`** once you know which commands gate your repo (often lint
+and tests). Add **`sync.preflight`** when engineers use `dn sync` to land on
+trunk. Add **`sandbox`** when you need reproducible toolchains in Docker — see
+[Project base images](#project-base-images) and [Sandbox execution](/dn/sandbox/).
+
+Example minimal file:
+
+```json
+{
+  "schema_version": "2.0",
+  "agent": "opencode",
+  "ensure": {
+    "lint": {
+      "argv": ["make", "lint"],
+      "intent": "Format and lint the repository"
+    },
+    "tests": {
+      "argv": ["make", "tests"],
+      "intent": "Run unit tests"
+    }
+  },
+  "sync": {
+    "preflight": [["make", "lint"], ["make", "tests"]]
+  }
+}
+```
+
+Run `dn ensure` with no arguments to list recipe names defined in the file. See
+[`dn ensure`](/dn/command-reference/#dn-ensure) and
+[`dn sync`](/dn/command-reference/#dn-sync) (and
+[Landing — `dn sync`](/dn/task-list-and-sync/#dn-sync) for Git/Sapling behavior).
+
+Kickstart and loop invoke `dn ensure lint` after implementation when that recipe
+exists. They do not replace your CI merge gate — they give agents a shared local
+bar before handoff.
+
+Use `dn init wizard --project` for a guided first `dn.json`, or copy patterns
+from a repo that already ships one.
+
 ## AGENTS.md
 
 `dn init agents` adds or updates `AGENTS.md` at the repository root with dn
@@ -110,9 +173,25 @@ dn meld research.md ops-notes.md --target AGENTS.md
 `plans/*.plan.md`) and GitHub specifiers such as `github:comment:120` for the
 checked-out repo.
 
-Use `dn context` to inspect which `AGENTS.md` (or `AGENTS.override.md`) files
-apply to a path — see [Experimental](/dn/task-list-and-sync/). To install native
-skill or rule files for your agent harness, see
+### `dn context`
+
+Inspects the inherited `AGENTS.md` chain for a file or directory:
+
+```bash
+dn context check cli/main.ts
+dn context check cli/main.ts --max-bytes 65536
+dn context check cli/main.ts --json
+dn context check cli/main.ts --claude-tokens
+```
+
+The command walks from global Codex context through the repository path,
+preferring `AGENTS.override.md` over `AGENTS.md` in each directory, then reports
+the full byte size and the subset that fits inside the configured byte budget.
+
+`--claude-tokens` requires `ANTHROPIC_API_KEY` and estimates token usage for the
+included context.
+
+To install native skill or rule files for your agent harness, see
 [Installation — Install dn as an agent skill](/dn/installation/#install-dn-as-an-agent-skill).
 
 ## Milestone stack files

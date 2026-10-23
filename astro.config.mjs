@@ -9,8 +9,10 @@ export default defineConfig({
     "/dn/usage": "/dn/completing-github-issues/",
     "/dn/overview": "/dn/completing-github-issues/",
     "/dn/plan-lifecycle": "/dn/completing-github-issues/",
-    "/dn/until": "/dn/workflows/#dn-until",
-    "/dn/land": "/dn/workflows/#dn-land",
+    "/dn/workflows": "/dn/command-reference/",
+    "/dn/github-commands": "/dn/command-reference/",
+    "/dn/until": "/dn/command-reference/#dn-until",
+    "/dn/land": "/dn/command-reference/#dn-land",
     "/dn/opencode": "/cookbooks/opencode/",
     "/dn/claude": "/cookbooks/claude-code/",
     "/dn/codex": "/cookbooks/codex/",
@@ -74,21 +76,20 @@ export default defineConfig({
               label: "Completing GitHub Issues",
               slug: "dn/completing-github-issues",
             },
-            { label: "Command reference", slug: "dn/workflows" },
-            { label: "Sandbox execution", slug: "dn/sandbox" },
+            { label: "Command reference", slug: "dn/command-reference" },
             {
               label: "Filesystem Context",
               slug: "dn/filesystem-context",
             },
-            { label: "Working with GitHub", slug: "dn/github-commands" },
             {
               label: "Artifacts and Cursor",
               slug: "dn/artifacts-cursor",
             },
             {
-              label: "Task lists and sync",
+              label: "Landing",
               slug: "dn/task-list-and-sync",
             },
+            { label: "Sandbox execution", slug: "dn/sandbox" },
           ],
         },
         {
@@ -101,6 +102,10 @@ export default defineConfig({
             {
               label: "Milestone details",
               slug: "denoise/milestone-details",
+            },
+            {
+              label: "When kickstart needs an engineer",
+              slug: "denoise/kickstart-handoff",
             },
             {
               label: "Subscription & Pro",

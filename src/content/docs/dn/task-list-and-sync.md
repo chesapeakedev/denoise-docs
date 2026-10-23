@@ -1,48 +1,29 @@
 ---
-title: Experimental
-description: Try early dn commands that streamline triage, agent context, task queues, and repo sync across the SDLC.
+title: Landing
+description: Try early dn commands that streamline triage, task queues, kickstart intake, and repo sync so agent work lands on the branch.
 ---
 
 `dn` targets the parts of the software development lifecycle that still slow
-teams down after you adopt agents: choosing the next issue, loading the right
-context, keeping GitHub and a local queue aligned, and landing work without
+teams down after you adopt agents: choosing the next issue, keeping GitHub and a
+local queue aligned, and landing work without
 extra ceremony. The commands here are **experiments** toward that goal — smaller
 workflows you can use today alongside [kickstart](/dn/completing-github-issues/)
-and [Command reference](/dn/workflows/).
+and [Command reference](/dn/command-reference/).
 
 | Focus            | Commands               | What it changes                                                              |
 | ---------------- | ---------------------- | ---------------------------------------------------------------------------- |
 | **Triage**       | `peek`, `tidy`, `todo` | Surfaces ranked next work and keeps a personal task list in sync with GitHub |
-| **Context**      | `context`              | Shows which `AGENTS.md` files apply before an agent edits a path             |
 | **Agent intake** | no-ticket `kickstart`  | Lets an agent pick from your queue when you run `dn kickstart` with no issue |
 | **Repo hygiene** | `sync`                 | Rebases onto remote `main` and publishes local commits — Git or Sapling      |
 
 Together they explore how agents can own more of the loop between "what should
 we work on?" and "the change is on the branch" — without replacing the durable
 plans, PRs, and handoffs documented elsewhere. Named quality recipes live in
-`dn.json` under `ensure` — see [`dn ensure`](/dn/workflows/#dn-ensure).
+`dn.json` under `ensure` — see [`dn ensure`](/dn/command-reference/#dn-ensure).
 
 These commands are experimental. Behavior and flags may change or be removed in
 future `dn` releases. Try them on real work and share what sticks; that feedback
 decides what graduates into stable `dn` commands.
-
-## `dn context`
-
-Inspects the inherited `AGENTS.md` chain for a file or directory:
-
-```bash
-dn context check cli/main.ts
-dn context check cli/main.ts --max-bytes 65536
-dn context check cli/main.ts --json
-dn context check cli/main.ts --claude-tokens
-```
-
-The command walks from global Codex context through the repository path,
-preferring `AGENTS.override.md` over `AGENTS.md` in each directory, then reports
-the full byte size and the subset that fits inside the configured byte budget.
-
-`--claude-tokens` requires `ANTHROPIC_API_KEY` and estimates token usage for the
-included context.
 
 ## `dn peek`
 
