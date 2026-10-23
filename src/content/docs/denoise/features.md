@@ -175,6 +175,8 @@ On **Profile** (`/profile`), these panels sit together:
 
 ## Related
 
+- [When kickstart needs an engineer](/denoise/kickstart-handoff/) — Recover from
+  failed or unsatisfying runs and hand off to developers
 - [Kickstart](/kickstart/) — How kickstart turns a task into a plan and
   implementation
 - [Runners](/runners/device-runners/) — Pair a device or connect exe.dev

@@ -7,6 +7,9 @@ Use this page when denoise is connected to GitHub but sync, issue creation, or
 milestone linking does not behave as expected. The tips keep app data, GitHub
 issues, and collaborator visibility predictable.
 
+When kickstart finishes but the result is wrong — or never produces a PR — see
+[When kickstart needs an engineer](/denoise/kickstart-handoff/).
+
 ## Tips and best practices
 
 ### GitHub integration

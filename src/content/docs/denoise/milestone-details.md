@@ -278,6 +278,8 @@ For CLI-oriented planning and implementation depth, see
 
 ## Next steps
 
+- [When kickstart needs an engineer](/denoise/kickstart-handoff/) — Failed runs,
+  weak plans, and handing work to developers
 - [Kickstart](/kickstart/) — How kickstart turns a task into a plan and
   implementation
 - [Kickstart runtimes](/runners/kickstart-runtimes/) — Where kickstart runs and
