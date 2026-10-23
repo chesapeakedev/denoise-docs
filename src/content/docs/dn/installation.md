@@ -97,42 +97,10 @@ your workflows require:
 For step-by-step PAT creation, see
 [GitHub Token Setup](/runners/github-token-setup/).
 
-### GitHub Actions
-
-In GitHub Actions, `secrets.GITHUB_TOKEN` is automatically available. Pass it as
-an environment variable:
-
-```yaml
-env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-```
-
-Set `permissions` on each workflow job to match what that template does. Installed
-canonical files from `dn init workflows` already include the right block — you
-only need to edit it when you fork a workflow or tighten org defaults.
-
-| Installed workflow | Typical `permissions` |
-| ------------------ | --------------------- |
-| `dn-kickstart-issue.yml`, `dn-init-stack.yml`, `dn-daily-kickstart.yml` | `contents: write`, `pull-requests: write`, `issues: write` (`dn-kickstart-issue.yml` also sets `id-token: write` for the action) |
-| `dn-prep-issue-plan.yml` (`dn.meld_issue_plan`) | `contents: read`, `issues: write` only — meld plans from issues and does not open PRs in this job |
-
-Kickstart-style jobs need all three write scopes because they read issues, push
-branches (`contents`), and open or update pull requests. Plan-only meld does not
-need `pull-requests: write` or `contents: write`.
-
-Example for kickstart-style automation:
-
-```yaml
-permissions:
-  contents: write
-  pull-requests: write
-  issues: write
-```
-
-The PAT table above applies to **scripts and local CI** where you supply your
-own token: grant only what those commands use. In **GitHub Actions**, the job
-uses `GITHUB_TOKEN` scoped by each workflow's `permissions` block, not your PAT
-scopes.
+The scopes above apply when you pass your own token in scripts or local
+automation. For **`secrets.GITHUB_TOKEN`**, workflow `permissions`, and installed
+`dn` templates in GitHub Actions, see
+[Headless setup — GitHub Actions token and permissions](/runners/headless-use/#github-actions-token-and-permissions).
 
 Pick a harness and repository default in
 [Command reference — Choose an agent](/dn/command-reference/#choose-an-agent).

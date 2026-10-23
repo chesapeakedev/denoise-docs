@@ -157,5 +157,5 @@ and token in the workflow environment without logging the token value. See
 - [Runner logs](/runners/runner-logs/)
 - [Milestone details — Kickstart a task](/denoise/milestone-details/#kickstart-a-task)
 - [Kickstart](/kickstart/)
-- [Sandbox execution](/dn/sandbox/)
+- [Sandbox execution](/runners/sandbox/)
 - [Headless setup](/runners/headless-use/)

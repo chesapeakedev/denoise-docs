@@ -17,7 +17,8 @@ exposed.
 For **normal use**, prefer **GitHub CLI** (`gh auth login`) or **browser auth**
 (`dn auth`); no PAT or env var needed. Use a PAT when:
 
-- Running in CI (e.g. GitHub Actions: `GITHUB_TOKEN` is provided automatically)
+- Running in GitHub Actions — see
+  [Headless setup — GitHub Actions token and permissions](/runners/headless-use/#github-actions-token-and-permissions)
 - Running in scripts or headless environments
 - You cannot use `gh` or browser login
 

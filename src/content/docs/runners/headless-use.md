@@ -50,7 +50,7 @@ Set the agent once in `.github/dn/config.json`:
 ```
 
 Use schema `1.1` when the repository also configures a sandbox. See
-[Sandbox execution](/dn/sandbox/) for the provider, workspace, sync, and
+[Sandbox execution](/runners/sandbox/) for the provider, workspace, sync, and
 provider-specific fields.
 
 Re-run `dn init workflows --agent <name>` or edit this file to change agents
@@ -77,9 +77,46 @@ gh secret set OPENAI_API_KEY
 
 Workflows pass all agent API key secrets; unset secrets are ignored.
 
-Agent-specific setup lives in the harness cookbooks:
-[OpenCode](/cookbooks/opencode/), [Claude Code](/cookbooks/claude-code/),
-[Codex](/cookbooks/codex/), or [Cursor](/cookbooks/cursor/).
+### GitHub Actions token and permissions
+
+Canonical workflow YAML already passes the job token into `dn`:
+
+```yaml
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
+You do **not** create a `GITHUB_TOKEN` repository secret — GitHub injects
+`secrets.GITHUB_TOKEN` per job. Scope that token with a `permissions` block on
+each workflow (or job). Templates from `dn init workflows` ship the right
+defaults; edit them only when you fork a workflow or your org enforces stricter
+defaults.
+
+| Installed workflow | Typical `permissions` |
+| ------------------ | --------------------- |
+| `dn-kickstart-issue.yml`, `dn-init-stack.yml`, `dn-daily-kickstart.yml`, `dn-todo-loop.yml` | `contents: write`, `pull-requests: write`, `issues: write` (`dn-kickstart-issue.yml` also sets `id-token: write` for the action) |
+| `dn-prep-issue-plan.yml` (`dn.meld_issue_plan`) | `contents: read`, `issues: write` only — meld plans from issues and does not open PRs in this job |
+
+Kickstart-style jobs need all three write scopes because they read issues, push
+branches (`contents`), and open or update pull requests. Plan-only meld does not
+need `pull-requests: write` or `contents: write`.
+
+Example for kickstart-style automation:
+
+```yaml
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+```
+
+For kickstart with `publish: pr`, also enable **Allow GitHub Actions to create
+and approve pull requests** under **Settings → Actions → General → Workflow
+permissions**.
+
+[PAT scopes](/runners/github-token-setup/) apply when **you** supply a token in
+scripts or local CI. In GitHub Actions, the job token is limited by each
+workflow's `permissions` block, not your personal token scopes.
 
 ### 3. Validate locally
 
@@ -183,10 +220,10 @@ To run kickstart or loop inside Docker or exe.dev, set `schema_version: "1.1"`
 and a `sandbox` block in `.github/dn/config.json`. Docker sandbox in CI requires
 a Docker socket on the runner. exe.dev requires an `EXE_TOKEN` repository secret
 and GitHub integration setup on exe.dev — see
-[Sandbox providers — Set up exe.dev](/dn/sandbox/#set-up-exedev).
+[Sandbox providers — Set up exe.dev](/runners/sandbox/#set-up-exedev).
 
 VCS publish (branch, commit, PR) still runs on the host after workspace
-sync-out. See [Sandbox providers](/dn/sandbox/) for configuration, sync modes,
+sync-out. See [Sandbox providers](/runners/sandbox/) for configuration, sync modes,
 Docker image notes, and exe.dev troubleshooting.
 
 ## Workflow templates

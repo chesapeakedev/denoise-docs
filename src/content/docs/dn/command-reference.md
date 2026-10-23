@@ -47,7 +47,7 @@ GitHub Actions workflows and denoise integrators read this file so automated run
 use the same agent without passing `--agent` on every dispatch. Re-run
 `dn init workflows --agent <name>` or edit the file directly to change the
 default. For team-wide agent and sandbox policy, prefer a root `dn.json` with
-`schema_version: "2.0"` — see [Sandbox execution](/dn/sandbox/). See
+`schema_version: "2.0"` — see [Sandbox execution](/runners/sandbox/). See
 [Headless setup](/runners/headless-use/) for the matching repository secrets.
 
 **Single-run override.** Pass the global `--agent` flag when you want a

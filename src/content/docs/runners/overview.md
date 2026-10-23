@@ -25,7 +25,7 @@ on those pages. For device and exe.dev operation, see
 Denoise never silently moves a job to another runner. Unavailable runners stay
 visible with a reason. Docker (`dn kickstart --sandbox docker`) is isolation on
 a machine you already have — not an enrolled runner. See
-[Sandbox execution](/dn/sandbox/).
+[Sandbox execution](/runners/sandbox/).
 
 Pairing a device binds it to your signed-in account, not to one milestone.
 GitHub Actions is scoped to the planning repository. exe.dev is account-scoped
