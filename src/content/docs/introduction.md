@@ -5,10 +5,9 @@ description: Documentation for denoise, a system for spreading agentic work acro
 
 ![denoise workspace with a progress bar and milestone list](../../assets/screenshots/roadmap.png)
 
-Welcome to the denoise documentation! Denoise is a set of tools for spreading
-agentic work across your team. The goal of the toolkit is to enable you as a
-developer to share a streamlined workflow with your agent(s) and teammates in
-async & real-time experiences.
+Denoise is a set of tools for spreading agentic work across your team. The goal
+of the toolkit is to enable you as a developer to share a streamlined workflow
+with your agent(s) and teammates in async & real-time experiences.
 
 Everyone builds with Denoise. A terminal & web experience share the same core
 capabilities to automate pieces of the software development lifecycle.

@@ -1,12 +1,11 @@
 ---
 import Default from "@astrojs/starlight/components/Hero.astro";
-import { Icon } from "@astrojs/starlight/components";
 import denoiseLogo from "../assets/denoise-logo.png";
 
 const PAGE_TITLE_ID = "_top";
 const isHomepage = Astro.locals.starlightRoute.id === "";
 const { data } = Astro.locals.starlightRoute.entry;
-const { title = data.title, tagline, actions = [] } = data.hero || {};
+const { title = data.title, tagline } = data.hero || {};
 ---
 
 {
@@ -25,34 +24,6 @@ const { title = data.title, tagline, actions = [] } = data.hero || {};
           <h1 id={PAGE_TITLE_ID} data-page-title set:html={title} />
         </div>
         {tagline && <div class="home-hero__blurb" set:html={tagline} />}
-        {actions.length > 0 && (
-          <div class="home-hero__actions">
-            {actions.map(
-              ({
-                attrs: { class: className, ...attrs } = {},
-                icon,
-                link: href,
-                text,
-                variant = "primary",
-              }) => (
-                <a
-                  href={href}
-                  class:list={[
-                    "sl-link-button",
-                    "not-content",
-                    variant,
-                    className,
-                  ]}
-                  {...attrs}
-                >
-                  {text}
-                  {icon?.name && <Icon name={icon.name} size="1.5rem" />}
-                  {icon?.html && <Fragment set:html={icon.html} />}
-                </a>
-              ),
-            )}
-          </div>
-        )}
       </div>
     </div>
   ) : (
@@ -64,7 +35,7 @@ const { title = data.title, tagline, actions = [] } = data.hero || {};
   @layer starlight.core {
     .home-hero {
       position: relative;
-      padding-block: clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 3vw, 2.5rem);
+      padding-block: clamp(1.25rem, 3vw, 2rem) clamp(0.5rem, 1.5vw, 1rem);
       animation: home-hero-enter 0.45s ease-out both;
     }
 
@@ -72,8 +43,8 @@ const { title = data.title, tagline, actions = [] } = data.hero || {};
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 1.25rem;
-      max-width: 42rem;
+      gap: 0.85rem;
+      width: 100%;
     }
 
     .home-hero__brand {
@@ -120,6 +91,22 @@ const { title = data.title, tagline, actions = [] } = data.hero || {};
       margin-top: 0.75rem;
     }
 
+    .home-hero__blurb :global(a) {
+      color: var(--sl-color-gray-1);
+      text-decoration: underline;
+      text-decoration-color: color-mix(
+        in srgb,
+        var(--sl-color-gray-3) 70%,
+        transparent
+      );
+      text-underline-offset: 0.15em;
+    }
+
+    .home-hero__blurb :global(a:hover) {
+      color: var(--sl-color-accent-high);
+      text-decoration-color: currentColor;
+    }
+
     .home-hero__blurb :global(strong),
     .home-hero__blurb :global(code) {
       color: var(--sl-color-white);
@@ -129,67 +116,6 @@ const { title = data.title, tagline, actions = [] } = data.hero || {};
     .home-hero__blurb :global(code) {
       font-size: 0.92em;
       font-weight: 500;
-    }
-
-    .home-hero__actions {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 0.75rem 1.25rem;
-      margin-top: 0.25rem;
-    }
-
-    .home-hero__actions :global(.sl-link-button) {
-      align-items: center;
-      border: 1px solid transparent;
-      border-radius: 999rem;
-      display: inline-flex;
-      font-size: var(--sl-text-sm);
-      gap: 0.5em;
-      line-height: 1.1875;
-      outline-offset: 0.25rem;
-      padding: 0.4375rem 1.125rem;
-      text-decoration: none;
-    }
-
-    .home-hero__actions :global(.sl-link-button.primary) {
-      background: var(--sl-color-text-accent);
-      border-color: var(--sl-color-text-accent);
-      color: var(--sl-color-black);
-    }
-
-    .home-hero__actions :global(.sl-link-button.secondary) {
-      border-color: var(--sl-color-gray-4);
-      color: var(--sl-color-white);
-    }
-
-    .home-hero__actions :global(.sl-link-button.secondary:hover) {
-      border-color: var(--sl-color-accent);
-      color: var(--sl-color-accent-high);
-    }
-
-    .home-hero__actions :global(.sl-link-button.minimal) {
-      color: var(--sl-color-gray-2);
-      padding-inline: 0;
-    }
-
-    .home-hero__actions :global(.sl-link-button.minimal:hover) {
-      color: var(--sl-color-white);
-    }
-
-    .home-hero__actions :global(.sl-link-button svg) {
-      flex-shrink: 0;
-    }
-
-    @media (min-width: 50rem) {
-      .home-hero__actions :global(.sl-link-button) {
-        font-size: var(--sl-text-base);
-        padding: 0.75rem 1.25rem;
-      }
-
-      .home-hero__actions :global(.sl-link-button.minimal) {
-        padding-inline: 0;
-      }
     }
   }
 

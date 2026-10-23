@@ -21,7 +21,7 @@ const segments = [
   {
     title: "Product Manager",
     description:
-      "Plan your project, build from the browser, and keep the team in sync from GitHub",
+      "Plan your project, build from the browser, and keep the team in sync",
     links: [
       { title: "Getting started", href: "/denoise/getting-started/" },
       { title: "GitHub integration", href: "/denoise/github-integration/" },
@@ -64,13 +64,10 @@ const moreLinks = [
 ];
 ---
 
-<section class="home-segments not-content" aria-labelledby="home-segments-heading">
-  <div class="home-segments__intro">
-    <h2 id="home-segments-heading">Start by role</h2>
-    <p>
-      Jump to high-value pages for Software Engineers, Product Managers, or DevOps.
-    </p>
-  </div>
+<section class="home-segments not-content" aria-label="Start by role">
+  <p class="home-segments__demo-jump">
+    <a href="/#see-the-web-in-action">Watch the demo</a>
+  </p>
 
   <div class="home-segments__grid">
     {
@@ -107,23 +104,45 @@ const moreLinks = [
   .home-segments {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-    margin-block: 0.5rem 2.5rem;
+    gap: 1rem;
+    margin-block: 0 2.5rem;
     animation: home-segment-enter 0.5s ease-out 0.08s both;
   }
 
-  .home-segments__intro h2 {
-    margin: 0 0 0.5rem;
-    font-size: var(--sl-text-2xl);
-    font-weight: 600;
-    color: var(--sl-color-white);
+  .home-segments__demo-jump {
+    margin: 0;
+    text-align: right;
+    font-size: var(--sl-text-sm);
   }
 
-  .home-segments__intro p {
-    margin: 0;
-    max-width: 40rem;
-    color: var(--sl-color-gray-2);
-    font-size: var(--sl-text-base);
+  .home-segments__demo-jump a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-height: 2rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 999rem;
+    border: 1px solid var(--sl-color-gray-5);
+    background: color-mix(in srgb, var(--sl-color-black) 35%, transparent);
+    color: var(--sl-color-gray-1);
+    line-height: 1.25;
+    text-decoration: none;
+    transition:
+      border-color 0.15s ease,
+      color 0.15s ease,
+      background-color 0.15s ease;
+  }
+
+  .home-segments__demo-jump a:hover {
+    border-color: var(--sl-color-accent);
+    color: var(--sl-color-accent-high);
+    background: color-mix(in srgb, var(--sl-color-accent-low) 35%, transparent);
+  }
+
+  .home-segments__demo-jump a::after {
+    content: " ↓";
+    font-size: 0.9em;
   }
 
   .home-segments__grid {
