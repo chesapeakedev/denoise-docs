@@ -61,6 +61,28 @@ gh pr view --web
 The remaining sections cover API-key use, workspace trust, and unattended
 [Headless Use](/runners/headless-use/) workflows.
 
+## Kickstart subagent rule
+
+When you pass **`--cursor`** or set **`CURSOR_ENABLED=1`**, kickstart can write
+**`.cursor/rules/kickstart.mdc`** with `alwaysApply: true`. The rule documents
+how Cursor agents invoke kickstart as a subagent (usage examples and workflow
+notes). Plan files in `plans/` remain the source of truth for checklists and
+progress — commit them when you want history. See
+[Filesystem Context — Kickstart workspace artifacts](/dn/filesystem-context/#kickstart-workspace-artifacts)
+for plan and `AGENTS.md` updates on every successful run.
+
+```bash
+dn kickstart --cursor https://github.com/owner/repo/issues/123
+
+# Or
+CURSOR_ENABLED=1 dn kickstart https://github.com/owner/repo/issues/123
+```
+
+For day-to-day Cursor use, prefer `dn init agents --skill --agent cursor` and
+`dn --agent cursor kickstart` as in [Use dn from Cursor](#use-dn-from-cursor)
+above. The `--cursor` rule path is for teams that want kickstart documented as an
+always-on Cursor rule without installing the full dn skill.
+
 ## Overview
 
 ```text

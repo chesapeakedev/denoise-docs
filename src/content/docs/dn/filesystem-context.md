@@ -16,6 +16,7 @@ the same lint, test, sync, and sandbox rules for every agent run in the repo.
 | `plans/*.stack.md`, `plans/*.stack.json`                           | `dn init stack`                        | Prioritized milestone task queue                                                                                                          |
 | `dn.json`                                                          | You or `dn init wizard`                | Repo-wide agent, quality recipes, sync preflight, sandbox policy                                                                          |
 | `AGENTS.md`                                                        | `dn init agents`; kickstart may update | Project conventions and commands for agents                                                                                               |
+| `.cursor/rules/kickstart.mdc`                                      | kickstart with `--cursor`              | Optional Cursor subagent rule — see [Use dn with Cursor](/cookbooks/cursor/#kickstart-subagent-rule)                                        |
 | `.agents/skills/dn/`, `.claude/skills/dn/`, `.cursor/skills/dn/`   | `dn init agents --skill`               | Agent-native dn workflow instructions — see [Installation — Install dn as an agent skill](/dn/installation/#install-dn-as-an-agent-skill) |
 
 For `dn init stack` command detail, see
@@ -98,7 +99,7 @@ and runner. Personal overrides can live in `~/.dn/config.json`; GitHub Actions
 workflows use `.github/dn/config.json` when no root `dn.json` exists. Prefer
 `schema_version: "2.0"` on `dn.json` for agent and sandbox policy — see
 [Command reference — Choose an agent](/dn/command-reference/#choose-an-agent)
-and [Sandbox execution](/dn/sandbox/#configure-schema-11-and-dnjson-20).
+and [Sandbox execution](/runners/sandbox/#configure-schema-11-and-dnjson-20).
 
 ### What to put in `dn.json` first
 
@@ -112,7 +113,7 @@ and [Sandbox execution](/dn/sandbox/#configure-schema-11-and-dnjson-20).
 Start with **`ensure`** once you know which commands gate your repo (often lint
 and tests). Add **`sync.preflight`** when engineers use `dn sync` to land on
 trunk. Add **`sandbox`** when you need reproducible toolchains in Docker — see
-[Project base images](#project-base-images) and [Sandbox execution](/dn/sandbox/).
+[Project base images](#project-base-images) and [Sandbox execution](/runners/sandbox/).
 
 Example minimal file:
 
@@ -148,6 +149,37 @@ bar before handoff.
 Use `dn init wizard --project` for a guided first `dn.json`, or copy patterns
 from a repo that already ships one.
 
+## Kickstart workspace artifacts
+
+After a successful kickstart implementation, `dn` updates files in the workspace.
+Failures in optional steps are logged as warnings and do not stop the workflow.
+
+### Plan file updates
+
+The implement phase updates the **Acceptance Criteria** checklist in the active
+`plans/*.plan.md` file. The plan stays in `plans/` for reference. For incomplete
+plans, kickstart or loop writes `*.continuation.plan.md` — see
+[Plan continuation](#plan-continuation).
+
+### Lint (non-blocking)
+
+kickstart runs project linting when it can detect a command:
+
+- **Deno** — `deno task check` or `deno fmt && deno lint`
+- **Node.js** — `npm run lint`
+- Other stacks — project-specific lint when detected
+
+Lint failures are warnings only; they do not fail the kickstart run. Use
+[`dn ensure`](/dn/command-reference/#dn-ensure) or CI for a hard gate.
+
+### AGENTS.md refresh
+
+On success, kickstart may generate or update root `AGENTS.md` with detected
+project type (Deno, Node.js, Python, Rust, Go), build commands from
+`deno.json` / `package.json`, lint and test commands, while preserving custom
+sections you added manually. That keeps agent context aligned with the repo
+without replacing hand-written guidance.
+
 ## AGENTS.md
 
 `dn init agents` adds or updates `AGENTS.md` at the repository root with dn
@@ -158,10 +190,9 @@ in this repo.
 dn init agents
 ```
 
-After a successful kickstart run, dn may also refresh `AGENTS.md` with detected
-project type, build commands, and lint/test commands while preserving custom
-sections you added manually. See [Artifacts & Cursor](/dn/artifacts-cursor/) for
-what kickstart writes at the end of a run.
+Kickstart-driven updates are described under
+[Kickstart workspace artifacts](#kickstart-workspace-artifacts). Use `dn init
+agents` when you want dn workflow instructions without running kickstart first.
 
 Use `dn meld` to merge notes or issue context into `AGENTS.md`:
 
