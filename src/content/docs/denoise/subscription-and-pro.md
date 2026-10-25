@@ -17,7 +17,7 @@ the UI. **Denoise Team** adds org seats and shared billing.
 | Shared agent & human workspace                 | No              | Yes                    | Yes                    |
 | Orgs & shared billing                          | No              | No                     | Yes                    |
 
-Denoise Pro is **$6/month** with a **14-day free trial**. Denoise Team is
+Denoise Pro is **$10/month** with a **14-day free trial**. Denoise Team is
 **$20/month** for 6 seats plus **$2 per additional seat**. See in-app Plan &
 billing for the live price.
 
