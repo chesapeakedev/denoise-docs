@@ -12,7 +12,7 @@ alongside [kickstart](/dn/completing-github-issues/) and
 
 | Focus            | Commands               | What it changes                                                              |
 | ---------------- | ---------------------- | ---------------------------------------------------------------------------- |
-| **Triage**       | `peek`, `tidy`, `todo` | Surfaces ranked next work and keeps a personal task list in sync with GitHub |
+| **Triage**       | `peek`, `tidy`, `task` | Surfaces ranked next work and keeps a personal task list in sync with GitHub |
 | **Agent intake** | no-ticket `kickstart`  | Lets an agent pick from your queue when you run `dn kickstart` with no issue |
 | **Repo hygiene** | `sync`                 | Rebases onto remote `main` and publishes local commits — Git or Sapling      |
 
@@ -40,28 +40,35 @@ dn peek --verbose --no-urls
 `peek` uses GitHub GraphQL issue paging only. It does not invoke the LLM-based
 kickstart readiness scorer.
 
-## `dn todo`
+## `dn task`
 
-Manages the user-level task list at `~/.dn/todo.md`:
+Manages the unified list at `~/.dn/todo.md`: native Void tasks (embedded JSON,
+synced via task-sync) and the kickstart queue (GitHub issues and plan paths).
 
 ```bash
-# Mark the first unchecked item done
-dn todo done
+dn task list
+dn task show <id|ref>
+dn task upsert --file task.json
+dn task delete <id>
 
-# Mark a specific ref done
-dn todo done 42
-dn todo done https://github.com/owner/repo/issues/42
-dn todo done plans/auth.plan.md
+# Mark queue items done (closes GitHub issue when applicable)
+dn task done
+dn task done 42
+dn task done https://github.com/owner/repo/issues/42
+dn task done plans/auth.plan.md
+
+# Inspect runner pairing / file lock (Void sync)
+dn task sync status
 ```
 
 When the ref is a GitHub issue, `dn` closes the issue with a comment. Use this
 after `dn land` (or after `--publish direct` when you want the issue closed) to
-keep the list and GitHub in sync. Attended `dn kickstart` does not mark todo
+keep the list and GitHub in sync. Attended `dn kickstart` does not mark queue
 items done on exit.
 
-This store is **not** `dn task` / `~/.dn/tasks/`. Task is the local document
-store that [The Void](/denoise/void/) syncs to a paired device; todo is the
-GitHub-issue and plan-path kickstart queue.
+Void task-sync relays **native tasks only** to the browser; kickstart queue lines
+stay on your laptop. See [The Void](/denoise/void/) and
+[device runners](/runners/device-runners/#local-task-sync-void-free-plan).
 
 ## `dn tidy`
 
@@ -87,7 +94,7 @@ first item.
 
 Attended kickstart exits after a successful run. It does not mark the queue item
 done or ask to continue. Review the changes, run `dn land` when you are ready to
-commit, then `dn todo done` to check the item off and close the GitHub issue if
+commit, then `dn task done` to check the item off and close the GitHub issue if
 applicable. For per-issue publish without a separate land step, use
 `--publish pr` or `--publish direct`.
 

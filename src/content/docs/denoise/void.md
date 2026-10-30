@@ -16,7 +16,8 @@ when you need milestones, GitHub-backed planning, and shared workspace features.
 ## What The Void includes
 
 - **Local tasks** — Create and edit tasks in the browser; with a paired device
-  runner they persist under `~/.dn/tasks/` on that laptop.
+  runner they persist in `~/.dn/todo.md` on that laptop (native task blocks;
+  kickstart queue lines stay device-local).
 - **Device pairing** — Pair one free-plan runner (Pro allows more) so tasks
   relay through denoise as short-lived envelopes, then land on disk via
   task-sync.
@@ -35,7 +36,7 @@ Pro-gated in The Void:
 
 | Product                   | Who it is for                    | What you get                                                                |
 | ------------------------- | -------------------------------- | --------------------------------------------------------------------------- |
-| **The Void** (Free)       | Solo local tasks                 | Void SPA, local `~/.dn/tasks/` sync, 1 device runner, ticketless kickstart  |
+| **The Void** (Free)       | Solo local tasks                 | Void SPA, `~/.dn/todo.md` task-sync, 1 device runner, ticketless kickstart  |
 | **denoise** (Denoise Pro) | Team planning and GitHub handoff | Workspace, milestones, cloud sync, kickstart from the app, up to 10 runners |
 | **Denoise Team**          | Teams with shared billing        | Same denoise app; Pro access via org seat; orgs & shared billing            |
 
@@ -55,8 +56,9 @@ Signing in at denoise.cloud without Pro lands on `/subscribe`. The gate offers
    ```
 
 3. Approve the pairing in the browser.
-4. Confirm sync status in The Void — when a runner is online, tasks persist
-   under `~/.dn/tasks/` on that device.
+4. Confirm sync status in The Void — when a runner is online, native tasks
+   persist in `~/.dn/todo.md` on that device. Choose a registered checkout in
+   the runner panel before you queue kickstart work.
 
 Inspect local tasks without the network:
 
@@ -65,9 +67,9 @@ dn task list
 dn task show <id> --json
 ```
 
-This store is **not** `dn todo` / `~/.dn/todo.md`. Todo remains the GitHub-issue
-and plan-path kickstart queue. For pairing, readiness, and security boundaries,
-see [Runners](/runners/device-runners/).
+This file holds both Void native tasks and the kickstart queue. Task-sync to the
+browser includes **native tasks only**; queue lines are not uploaded to Void.
+See [Runners](/runners/device-runners/).
 
 ## Adding and managing tasks
 
@@ -77,14 +79,14 @@ see [Runners](/runners/device-runners/).
    vs Delete when Pro import is available.
 
 Without a paired runner, tasks still work in the browser session; pair a device
-to persist them under `~/.dn/tasks/` and to run local kickstart.
+to persist native tasks in `~/.dn/todo.md` and to run local kickstart.
 
 ## Kickstart from a local task
 
 With a paired runner and a task document on disk:
 
 ```bash
-dn kickstart --denoise-task ~/.dn/tasks/<id>.json --publish none
+dn kickstart --denoise-task <task-id> --publish none
 ```
 
 Free Void kickstart uses `publish: "none"` because there is no GitHub issue to

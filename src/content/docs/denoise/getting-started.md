@@ -68,7 +68,7 @@ authentication, see [Authentication](/denoise/authentication/).
 
 1. Open [void.denoise.cloud](https://void.denoise.cloud).
 2. Optionally sign in and pair a device runner so tasks land under
-   `~/.dn/tasks/` on your laptop.
+   `~/.dn/todo.md` on your laptop.
 3. Type a task title and add it.
 
 See [The Void](/denoise/void/) for local sync and ticketless kickstart.

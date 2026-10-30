@@ -148,7 +148,7 @@ collaborator on.
 ## The Void
 
 [The Void](/denoise/void/) is the free solo task list. Tasks sync to a paired
-laptop under `~/.dn/tasks/` via device runners; denoise does not keep a
+laptop under `~/.dn/todo.md` via device runners; denoise does not keep a
 long-term cloud todo store for free tasks. There are no milestones in The Void.
 
 See the dedicated page for pairing, Free vs Pro distinctions, and ticketless

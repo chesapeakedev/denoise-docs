@@ -31,7 +31,7 @@ Auth cookies are shared across denoise.cloud and void.denoise.cloud, so the same
 session works on both hosts.
 
 The only free product surface without a subscription is
-[The Void](/denoise/void/) — a solo task list with local `~/.dn/tasks/` sync,
+[The Void](/denoise/void/) — a solo task list with local `~/.dn/todo.md` sync,
 not the denoise workspace, milestones, or team collaboration. Open it from
 **Continue in The Void**, or go directly to
 [void.denoise.cloud](https://void.denoise.cloud).

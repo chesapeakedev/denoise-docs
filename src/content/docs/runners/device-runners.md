@@ -30,17 +30,17 @@ mostly workflow files in the **Runners** dialog; see
 
 Denoise does not store free-plan task bodies long-term. When
 [The Void](/denoise/void/) creates or edits a ticketless task, denoise relays a
-short-lived envelope to the paired runner. `dn runner serve` writes task
-documents under `~/.dn/tasks/<id>.json` on the laptop.
-
-This is **not** `dn todo` / `~/.dn/todo.md`. Todo remains the GitHub-issue and
-plan-path kickstart queue. Local tasks are portable documents for ticketless
-Void work and `denoise-task` kickstart.
+short-lived envelope to the paired runner. `dn runner serve` merges native
+`DenoiseTaskDocument` payloads into `~/.dn/todo.md` on the laptop. The same file
+also holds the kickstart queue (GitHub issues and plan paths). Task-sync relays
+**native tasks only** to Void; queue lines stay on the device.
 
 ```bash
 dn task list
 dn task show <id> --json
-dn kickstart --denoise-task ~/.dn/tasks/<id>.json --publish none
+dn task done
+dn kickstart --denoise-task <task-id> --publish none
+dn task sync status
 ```
 
 Device and exe.dev runners count toward your plan limit — see

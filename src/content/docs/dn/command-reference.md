@@ -102,12 +102,11 @@ help for now.
 
 ### Triage, queues, and local tasks
 
-| Subcommand | Purpose                                           | Doc depth | Where                                                                                         |
-| ---------- | ------------------------------------------------- | --------- | --------------------------------------------------------------------------------------------- |
-| `peek`     | Heuristic next-issue ranking (no LLM)             | full      | [Landing — `dn peek`](/dn/task-list-and-sync/#dn-peek)                                        |
-| `todo`     | Prioritized list at `~/.dn/todo.md`               | full      | [Landing — `dn todo`](/dn/task-list-and-sync/#dn-todo)                                        |
-| `tidy`     | Refresh todo list; groom config and harness files | full      | [Landing — `dn tidy`](/dn/task-list-and-sync/#dn-tidy); [§ `dn tidy` extras](#dn-tidy-extras) |
-| `task`     | Local Denoise task JSON (`~/.dn/tasks/`)          | summary   | [§ `dn task`](#dn-task)                                                                       |
+| Subcommand | Purpose | Doc depth | Where |
+| ---------- | ------- | --------- | ----- |
+| `peek` | Heuristic next-issue ranking (no LLM) | full | [Landing — `dn peek`](/dn/task-list-and-sync/#dn-peek) |
+| `task` | Unified list at `~/.dn/todo.md` (Void native + kickstart queue) | full | [Landing — `dn task`](/dn/task-list-and-sync/#dn-task) |
+| `tidy` | Refresh task list; groom config and harness files | full | [Landing — `dn tidy`](/dn/task-list-and-sync/#dn-tidy); [§ `dn tidy` extras](#dn-tidy-extras) |
 
 ### Infrastructure and design docs
 
@@ -738,17 +737,20 @@ dn rfc complete rfcs/012-session-persistence.md
 
 ## `dn task`
 
-Local Denoise task documents (Void sync), not the GitHub queue in
-`~/.dn/todo.md`:
+Unified task list at `~/.dn/todo.md`: native Void tasks (embedded JSON, synced
+via task-sync) and the kickstart queue (issues and plan paths).
 
 ```bash
 dn task list
-dn task show <id>
+dn task show <id|ref>
 dn task upsert --file task.json
 dn task delete <id>
+dn task done
+dn task sync status
 ```
 
-Pair with `dn kickstart --denoise-task` — see [The Void](/denoise/void/).
+Pair with `dn kickstart --denoise-task` — see [The Void](/denoise/void/) and
+[Landing — `dn task`](/dn/task-list-and-sync/#dn-task).
 
 ## `dn tidy` extras
 

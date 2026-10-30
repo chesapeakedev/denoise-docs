@@ -40,7 +40,7 @@ Requires dn 0.0.52 or newer on paired devices. Release history:
 
 Device runners accept kickstart jobs, land jobs on the registered checkout, sync
 jobs (trunk quality gate on that checkout), denoise-task jobs, and task-sync
-(Void ↔ `~/.dn/tasks/` relay). They do not run arbitrary shell commands or
+(Void ↔ `~/.dn/todo.md` native task relay). They do not run arbitrary shell commands or
 unrelated GitHub Actions workflows.
 
 Kickstart → Land → Sync → Done matches the close-out flow in denoise and the

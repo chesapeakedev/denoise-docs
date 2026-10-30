@@ -12,7 +12,7 @@ the UI. **Denoise Team** adds org seats and shared billing.
 | Capability                                     | Free (The Void) | Denoise Pro            | Denoise Team           |
 | ---------------------------------------------- | --------------- | ---------------------- | ---------------------- |
 | Access to The Void                             | Yes             | Yes                    | Yes                    |
-| Local tasks via paired runner (`~/.dn/tasks/`) | Yes (1 runner)  | Yes (up to 10 runners) | Yes (up to 10 runners) |
+| Local tasks via paired runner (`~/.dn/todo.md`) | Yes (1 runner)  | Yes (up to 10 runners) | Yes (up to 10 runners) |
 | Plan in web & handoff to agents                | No              | Yes                    | Yes                    |
 | Shared agent & human workspace                 | No              | Yes                    | Yes                    |
 | Orgs & shared billing                          | No              | No                     | Yes                    |
