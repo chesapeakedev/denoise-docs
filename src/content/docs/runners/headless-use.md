@@ -425,7 +425,7 @@ Agent-backed workflows in CI also use harness-specific variables such as
 see
 [Kickstart runtimes — Phase timeouts](/runners/kickstart-runtimes/#phase-timeouts).
 Agent selection in workflows comes from `.github/dn/config.json`; see
-[Command reference — Choose an agent](/dn/command-reference/#choose-an-agent).
+[Filesystem Context — Choose an agent](/dn/filesystem-context/#choose-an-agent).
 
 ## Exit codes
 

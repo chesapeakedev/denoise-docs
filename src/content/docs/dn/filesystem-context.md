@@ -87,6 +87,58 @@ In `--publish pr` or `--publish direct` mode, `dn` deletes the plan file when
 all acceptance criteria are complete. Close local work into commits with
 `dn land`; it removes the completed plan on success.
 
+## Choose an agent
+
+Agent-backed commands (`kickstart`, `meld`, `loop`, `land`, and others listed in
+the [command reference](/dn/command-reference/) run through
+an agent harness. OpenCode is the default when nothing else is configured.
+
+Supported harness names are `opencode`, `cursor`, `claude`, `codex`, and
+`copilot`. You can pass an optional model or thinking level with
+`harness:model` (same form as `dn --help`).
+
+### Where defaults live
+
+| Source | Typical use | Set with |
+| ------ | ----------- | -------- |
+| `.github/dn/config.json` | GitHub Actions and other headless runs when no root `dn.json` overrides | `dn init workflows --agent <name>` |
+| Root `dn.json` (`schema_version: "2.0"`, `agent` field) | Same agent for every local `dn` run in the repo | Edit `dn.json` or `dn init wizard --project` |
+| `~/.dn/config.json` | Personal default across repositories | `dn init wizard --user` or edit the file |
+| `DN_AGENT` or `--agent` | One invocation only | Environment or global flag — see [Global options and environment](/dn/command-reference/#global-options-and-environment) |
+
+Prefer a committed root **`dn.json`** when the team wants one file for agent
+policy, quality recipes, sync preflight, and sandbox settings. The `agent`
+field plays the same role as `.github/dn/config.json` for local runs; see
+[`dn.json`](#dnjson) below. Sandbox policy also belongs in `dn.json` — see
+[Sandbox execution](/runners/sandbox/).
+
+### GitHub Actions default (`.github/dn/config.json`)
+
+Canonical workflows read this file so dispatches do not need `--agent` on every
+run:
+
+```json
+{
+  "schema_version": "1.0",
+  "agent": "opencode"
+}
+```
+
+Re-run `dn init workflows --agent <name>` or edit the file, then commit.
+Repository secrets for each harness are in
+[Headless use — Set repository secrets](/runners/headless-use/#2-set-repository-secrets).
+
+### Single-run override
+
+```bash
+dn --agent codex meld 123
+dn --agent claude kickstart --awp 123
+```
+
+On paired device runners, Denoise can stamp a preferred agent while local
+`DN_AGENT`, harness `*_ENABLED` toggles, or `~/.dn/config.json` still win — see
+[Device runners — Agent preference](/runners/device-runners/#agent-preference).
+
 ## `dn.json`
 
 `dn.json` at the repository root is the **team contract** for how `dn` runs in
@@ -98,8 +150,8 @@ kickstart, loop, land, sync, and ensure behave the same for every contributor
 and runner. Personal overrides can live in `~/.dn/config.json`; GitHub Actions
 workflows use `.github/dn/config.json` when no root `dn.json` exists. Prefer
 `schema_version: "2.0"` on `dn.json` for agent and sandbox policy — see
-[Command reference — Choose an agent](/dn/command-reference/#choose-an-agent)
-and [Sandbox execution](/runners/sandbox/#configure-schema-11-and-dnjson-20).
+[Choose an agent](#choose-an-agent) and
+[Sandbox execution](/runners/sandbox/#configure-schema-11-and-dnjson-20).
 
 ### What to put in `dn.json` first
 

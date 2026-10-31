@@ -90,7 +90,7 @@ This path has the fewest manual steps. It is useful for well-scoped issues when
 the branch and pull request provide enough isolation for review.
 
 After the pull request is open, see
-[Continue after the pull request opens](/dn/command-reference/#continue-after-the-pull-request-opens).
+[After the pull request opens](/dn/command-reference/#dn-fixup).
 
 ## Review the plan before implementation
 
@@ -98,7 +98,7 @@ Use the explicit `meld → loop → land` lifecycle when the implementation appr
 needs its own review boundary.
 
 Plan with [`dn meld`](/dn/command-reference/#plan-with-meld), then implement
-with [`dn loop`](/dn/command-reference/#implement-with-loop).
+with [`dn loop`](/dn/command-reference/#dn-loop).
 
 This path is useful when an issue combines several concerns, implementation risk
 is high, or another person needs to approve the plan before code changes begin.

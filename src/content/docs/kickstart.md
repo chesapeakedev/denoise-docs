@@ -46,8 +46,7 @@ Review the plan and implementation before treating the work as complete.
 Kickstart from denoise can fail or produce work that still needs an engineer —
 see [When kickstart needs an engineer](/denoise/kickstart-handoff/). For the
 GitHub issue workflow, including PR review and publication details, see
-[Completing GitHub Issues](/dn/completing-github-issues/). For the command
-options, see the
-[`dn kickstart` reference](/dn/command-reference/#dn-kickstart). For local
-commits and trunk publication, see [`dn land`](/dn/command-reference/#dn-land)
-and [`dn sync`](/dn/command-reference/#dn-sync).
+[Completing GitHub Issues](/dn/completing-github-issues/). For flags and nested
+commands, run `dn kickstart --help`. For local commits and trunk publication,
+see [`dn land`](/dn/command-reference/#dn-land) and
+[`dn sync`](/dn/command-reference/#dn-sync).

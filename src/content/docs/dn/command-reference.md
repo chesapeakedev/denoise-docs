@@ -1,77 +1,22 @@
 ---
 title: Command reference
-description: Complete dn subcommand inventory aligned with dn --help, plus workflow-focused usage detail.
+description: Complete dn command inventory
 ---
 
-Use this page to look up any `dn` subcommand. The inventory below mirrors
-top-level `dn --help` so you can see which commands have narrative docs on this
-site and which still rely on `dn <subcommand> --help` alone — useful when
-auditing half-finished CLI ideas.
+This page mirrors `dn --help` with short usage notes per subcommand. Global
+flags and environment variables are in
+[Global options and environment](#global-options-and-environment). Agent defaults
+are in [Filesystem Context — Choose an agent](/dn/filesystem-context/#choose-an-agent).
 
-For an issue-to-pull-request walkthrough, start with
-[Completing GitHub Issues](/dn/completing-github-issues/). Run
-`dn <subcommand> --help` for flags and nested commands not repeated here.
-
-## Global options
-
-These apply before any subcommand:
-
-| Option                              | Purpose                                                                                           |
-| ----------------------------------- | ------------------------------------------------------------------------------------------------- |
-| `--agent <harness[:model]>`         | Harness (`opencode`, `cursor`, `claude`, `codex`, `copilot`) and optional model or thinking level |
-| `--sandbox <none\|docker\|exe.dev>` | Sandbox provider; omit the value to read `dn.json`                                                |
-| `--context-file <path>`             | Include a file in agent prompt context (repeatable)                                               |
-| `--unattended`                      | Disable interactive output affordances                                                            |
-| `--trace` / `--no-trace`            | Stream or suppress live agent stdout/stderr (CI defaults to trace)                                |
-| `--no-color` / `--color`            | Control ANSI color                                                                                |
-| `--version`, `-V`                   | Print version and exit                                                                            |
-
-## Choose an agent
-
-Agent-backed commands (`kickstart`, `meld`, `loop`, `land`, and others in the
-[command inventory](#command-inventory)) run through an agent harness. OpenCode
-is the default when nothing else is configured.
-
-**Repository default.** `dn init workflows --agent <name>` writes
-`.github/dn/config.json` with the preferred agent for the repository:
-
-```json
-{
-  "schema_version": "1.0",
-  "agent": "opencode"
-}
-```
-
-Supported values are `opencode`, `cursor`, `claude`, `codex`, and `copilot`.
-GitHub Actions workflows and denoise integrators read this file so automated
-runs use the same agent without passing `--agent` on every dispatch. Re-run
-`dn init workflows --agent <name>` or edit the file directly to change the
-default. For team-wide agent and sandbox policy, prefer a root `dn.json` with
-`schema_version: "2.0"` — see [Sandbox execution](/runners/sandbox/). See
-[Headless setup](/runners/headless-use/) for the matching repository secrets.
-
-**Single-run override.** Pass the global `--agent` flag when you want a
-different harness for one local command:
-
-```bash
-dn --agent codex meld 123
-dn --agent claude kickstart --awp 123
-```
-
-Run `dn <command> --help` for command-specific options.
-
-## Command inventory
-
-Each row matches a top-level subcommand from `dn --help`. **Doc depth** is a
-rough guide for audits: **full** sections on this page or a linked guide;
-**summary** only a short section or sibling page; **help** means rely on CLI
-help for now.
+Commands that call GitHub need a token from `gh auth login`, `dn auth`, or
+`GITHUB_TOKEN`. See
+[Installation — GitHub authentication](/dn/installation/#github-authentication).
 
 ### Planning, implementation, and close-out
 
 | Subcommand  | Purpose                                   | Doc depth | Where                                                                         |
 | ----------- | ----------------------------------------- | --------- | ----------------------------------------------------------------------------- |
-| `kickstart` | Plan and implement an issue or local spec | full      | [§ `dn kickstart`](#dn-kickstart)                                             |
+| `kickstart` | Plan and implement an issue or local spec | full      | [Kickstart](/kickstart/)                                                      |
 | `meld`      | Plan from one or more sources             | full      | [§ `dn meld`](#dn-meld)                                                       |
 | `loop`      | Implement an existing plan                | full      | [§ `dn loop`](#dn-loop)                                                       |
 | `land`      | Close out work into VCS commits           | full      | [§ `dn land`](#dn-land)                                                       |
@@ -126,187 +71,165 @@ help for now.
 | `dn ensure`                            | Named quality recipe from `dn.json`         |
 | `dn sync`                              | Intentional trunk publish (not the PR path) |
 
-## `dn kickstart`
-
-```bash
-dn kickstart 123
-dn kickstart docs/spec.md
-dn kickstart --publish pr 123
-dn --agent codex kickstart 123
-dn kickstart --sandbox docker 123
-```
-
-`kickstart` plans and implements a GitHub issue or local Markdown specification.
-Its publish mode controls where the workflow stops:
-
-| Mode         | Flag                       | Result                                 |
-| ------------ | -------------------------- | -------------------------------------- |
-| Local        | `--publish none` (default) | Changes and plan stay in the workspace |
-| Pull request | `--publish pr` or `--awp`  | Branch/bookmark, commit, push, and PR  |
-| Direct       | `--publish direct`         | Commit and push to the default branch  |
-
-Use a feature branch or bookmark for local work that will become a pull request.
-See [Completing GitHub Issues](/dn/completing-github-issues/) for review
-boundaries, milestone queues, and publication details.
-
 ## `dn meld`
 
-### Plan with `meld`
-
-`dn meld` accepts one issue, several issues, local Markdown, or a mixture:
+`meld` builds a plan before anyone implements. Combine issue text, specs, and
+notes into `plans/*.plan.md`, edit the file, then run `dn loop` or kickstart on
+it.
 
 ```bash
 dn meld 123 --plan-name issue-123
 dn meld 123 127 architecture.md --output plans/merged-context.md
-dn meld --list planning-sources.txt
+dn meld --list planning-sources.txt --plan-name merged-queue
 dn meld --update-issue 123
+dn meld research.md --target AGENTS.md
+dn meld --milestone 42
 ```
 
-The planner writes a durable `plans/*.plan.md` file containing source context,
-implementation steps, and checklist acceptance criteria. Review and edit that
-file before implementation. Because the contract is a file, the work can move
-between OpenCode, Claude Code, Cursor, and Codex or resume in a later session.
-When you provide `--output`, `meld` also preserves the normalized merged source
-context. `--update-issue` publishes the resulting plan to the selected GitHub
-issue.
+`--plan-name` names the plan file in scripts. `--list` reads many sources from a
+file (one issue number, URL, or `.md` path per line). `--output` saves merged
+input markdown before the planner runs. `--update-issue` fills empty issue
+template sections on GitHub. `--target` sends planner output to a markdown path
+or GitHub comment instead of the default plan file. `--milestone` writes a
+milestone description from open issues.
+
+```text title="planning-sources.txt"
+123
+127
+docs/architecture.md
+research/field-notes.md
+https://github.com/owner/repo/issues/456
+```
 
 ## `dn loop`
 
-### Implement with `loop`
+`loop` is the implement step after planning. You need a plan from `meld`, from
+kickstart before implement, or a file under `plans/`. Each run is one agent pass;
+it does not merge sources or write a new plan.
 
 ```bash
 dn loop plans/issue-123.plan.md
 dn loop 123
+dn loop --publish pr plans/issue-123.plan.md
+dn loop --steer "Focus on tests and error paths" plans/issue-123.plan.md
 PLAN=plans/issue-123.plan.md dn loop
 ```
 
-`loop` implements one existing plan. It does not create a plan, commit, push, or
-open a pull request. If work remains, it updates the checklist and writes a
-`*.continuation.plan.md` file. Review the current state and rerun the same plan;
-the checked items are the restart point.
+Pass a plan path, an issue number, or set `PLAN`. With no argument, `dn` uses
+the newest `*.plan.md` in `plans/`. For an issue, `dn` prefers a matching plan
+in `plans/` and otherwise implements from the issue body.
+
+When the run finishes, `dn` reads the acceptance checklist. If every item is
+checked, implement is finished. With `--publish none` (the default), review the
+workspace and run `dn land` to commit. If items stay open, `loop` updates the
+plan, may add a `*.continuation.plan.md`, and exits. Run `loop` again on the
+same plan; checked items mark progress.
+
+Use `--publish pr` or `--publish direct` to commit, push, and open a PR or
+update the default branch in the same run when you do not want a separate
+`land` step. Use `--steer` to append operator guidance to the implement prompt.
+Use `--allow-cross-repo` when the issue URL targets another repository.
 
 ## `dn land`
 
-`land` closes completed plan-backed work into durable local VCS state. It does
-not publish trunk or open a pull request.
-
-### Inputs and behavior
+Run `land` after `loop` or local kickstart when the plan checklist is complete
+and you want local commits. Pass a `plans/*.plan.md` path, an RFC path (see
+`dn land --help`), or omit the path and let `dn` discover a plan.
 
 ```bash
 dn land
 dn land plans/issue-123.plan.md
+dn land --issue-testplan plans/issue-123.plan.md
 dn land --single plans/issue-123.plan.md
 dn land plans/issue-123.plan.md --dry-run
 ```
 
-`land` discovers or accepts a `plans/*.plan.md` file, verifies its checklist,
-reviews current workspace changes, and uses the selected agent to group them
-into logical conventional commits. On success, it removes the plan file. Land
-targets one plan at a time; for per-issue publish without stacking local
-kickstarts, use `dn kickstart --publish pr|direct` instead. These verbs match
-the denoise task dialog; quality lives on sync. See [Kickstart](/kickstart/).
+`land` checks the plan's acceptance criteria, then either an agent groups your
+workspace diff into conventional commits or `--single` writes one deterministic
+commit from the plan title and overview. A successful run removes the plan file.
+For commit, push, and pull request in one step on an issue, use
+`dn kickstart --publish pr` or `dn loop --publish pr` instead of land-first
+local work. See [Kickstart](/kickstart/) for publish modes.
 
-`--single` creates one deterministic commit without an agent. `--dry-run`
-previews the operation without committing, deleting a plan, or changing GitHub.
+`--dry-run` previews commits and plan removal without writing. `--issue-testplan`
+upserts a `## Test Plan` checklist on the GitHub issue linked from the plan
+(URL, `issue-123.plan.md` filename, or `#123` in the body) before committing;
+`--test-plan <path>` adds local context for that step only. Trunk publish and
+repo preflight belong on [`dn sync`](#dn-sync), after you push a branch or
+bookmark the usual way.
 
-### Publish an issue test plan
-
-```bash
-dn land --issue-testplan plans/issue-123.plan.md
-dn land --issue-testplan --dry-run
-```
-
-`--issue-testplan` generates a concise `## Test Plan` checklist and upserts it
-on the linked GitHub issue before committing. Issue discovery checks a full URL
-in the plan, an `issue-123.plan.md` filename, or a `#123` reference. A local
-`--test-plan <path>` provides extra commit context but does not update GitHub.
-
-If the issue body is absent or returned as null, `land` treats it as empty and
-creates the section. Authentication, permission, or issue-resolution failures
-stop the update instead of modifying an uncertain issue.
-
-### Outputs and recovery
-
-Local outputs are commits or bookmarks and plan-file removal. The only GitHub
-change is the optional issue test-plan upsert. Push the resulting feature branch
-or bookmark and create a pull request with your usual VCS workflow. Use
-`dn sync` only for intentional trunk publication. Quality checks live on sync
-(`sync.preflight`). See [`dn sync`](/dn/command-reference/#dn-sync) for the
-preflight and publication behavior.
-
-If commit creation fails after removing a plan, `land` attempts to restore it.
-Inspect VCS state, restore or complete any partial commit, and rerun `land` with
-the same plan. Use `--dry-run` first when plan discovery or issue linkage is
-uncertain.
+If commit creation fails after the plan was removed, `land` tries to restore the
+plan; inspect VCS state and rerun, or `--dry-run` first when plan or issue
+resolution is unclear.
 
 ## `dn fixup`
+
+Use `fixup` on the PR branch when review comments need code changes. It loads
+the PR description and review threads, plans the edits, and implements them in
+the current checkout. It does not open or merge the PR; commit and push when you
+are satisfied.
 
 ```bash
 dn fixup https://github.com/owner/repo/pull/123
 dn --agent cursor fixup https://github.com/owner/repo/pull/123
 ```
 
-`fixup` fetches the pull-request description and review comments, plans the
-requested changes, and implements them in the current workspace.
+Pass `--context-file` for extra material in the agent prompt. Set `PR_URL` instead
+of a positional URL in scripts.
 
-## Continue after the pull request opens
+### Before the pull request exists
 
-When review feedback arrives, apply it in the pull request workspace:
+If work stopped before publication:
 
-```bash
-dn fixup https://github.com/owner/repo/pull/123
-```
-
-`fixup` fetches the pull request description and review comments, then plans and
-implements the requested changes locally.
-
-For interrupted work before publication:
-
-- If no matching plan exists, run `dn meld <issue>`.
-- If a plan has unchecked criteria, rerun `dn loop` on that plan — see
-  [Implement with `loop`](#implement-with-loop).
-- If pull request publication fails after the branch was pushed, inspect the
-  remote branch and retry after resolving any conflicting update.
+- No plan yet: `dn meld <issue>`.
+- Plan with open checklist items: rerun [`dn loop`](#dn-loop) on that plan.
+- Branch pushed but PR missing: inspect the remote branch and retry kickstart or
+  `loop --publish pr` after fixing conflicts.
 
 ## `dn until`
 
-`until` runs a bounded generator/verifier loop from a JSON config called a
-gambit. Use it when a goal has an independent done check, such as the
-repository's merge gate. For issue-shaped work, first use `kickstart` or `meld`
-and `loop`, then use `until` to resolve remaining verification failures.
+`until` repeats an implement step and re-runs your verifier until the primary
+check passes or `iterations` is exhausted. Define the work in a gambit file
+(JSON, TOML, or Markdown). Prefer a script verifier (`make precommit`,
+`deno task check`, a focused test command) whenever exit code 0 means done. Use
+a prompt verifier only when no command captures the rubric.
 
-Use a script verifier whenever a command can decide whether the goal is done
-with exit code 0. Reserve prompt verifiers for rubric-style goals without a
-shell check.
-
-### Run and validate a gambit
+Plan and implement GitHub issues with `meld`, `loop`, or kickstart first. Use
+`until` when the tree is close but the merge gate or a test script still fails.
 
 ```bash
 dn until validate .github/dn/gambit.json
 dn until run .github/dn/gambit.json
 dn until run .github/dn/gambit.json --once
 dn until run .github/dn/gambit.json --strict-verdict
-dn --agent claude until run .github/dn/gambit.json --sandbox docker
+dn until import 123
+dn until import https://github.com/owner/repo/issues/123 --split
 ```
 
-`validate` parses the config and prints the gambit count. `run` executes gambits
-in order under one sandbox lifecycle. `--once` forces one generator → verifier
-tick, equivalent to `one_shot: true` on a gambit.
+`validate` parses the file and prints how many gambits loaded. `run` repeats
+the primary gambit (index 0) until its verifier reports done, up to top-level
+`iterations` (default `10`) and optional `timeout_ms`. `--once` caps the run at
+one primary iteration. That is not the same as `one_shot: true` on a later
+gambit, which runs a tail pass after the primary verifier already succeeded.
+`--strict-verdict` fails the run when a prompt verifier skips or corrupts the
+verdict file instead of retrying. `import` writes a local goal from an issue;
+edit it before `run`. With `--split`, import emits TOML plus a separate Markdown
+body.
 
-The config has a shared top-level `iterations` bound, which defaults to `10`,
-and an optional `timeout_ms`. Gambit zero is the primary and runs every
-iteration. Later gambits can be interval reviews or one-shot tails. Each action
-uses exactly one of `url`, `content` (JSON `prompt` is an alias for `content`),
-or `script`: `url` fetches a goal document, `content` is an inline goal, and
-`script` runs a command. A Markdown gambit file uses its body as the generator.
-`secrets` lists environment variable names, never secret values.
+The first gambit is always primary; it cannot set `one_shot`. Additional gambits
+use `interval` (with `align`, `at`, or `phase`) for satellite passes, or
+`one_shot: true` for a single tail after primary success. Each generator or
+verifier action uses exactly one of `url`, `content` (JSON `prompt` is an alias),
+or `script`. A `.md` gambit file uses the file body as the generator goal.
+List secret names in `secrets`; never store values in the file. `metadata` replaces
+`{{key}}` in prompts.
 
-`metadata` values are substituted into prompts as `{{key}}` and prepended as a
-context block.
+Interval verifier failures are logged and the primary loop continues. Primary and
+one-shot tail verifier failures stop the run.
 
 ### Make the merge gate pass
 
-Use the project's full merge gate so the loop stops when the change is landable:
+Point the primary verifier at the same commands your team runs before merge:
 
 ```json
 {
@@ -331,13 +254,14 @@ Use the project's full merge gate so the loop stops when the change is landable:
 dn until run .github/dn/gambit.json
 ```
 
-Replace `make precommit` with the repository's merge gate, such as
-`deno task check` or `npm test && npm run lint`.
+Swap `make precommit` for your gate, for example `deno task check` or
+`npm test && npm run lint`.
 
-### Add a one-shot final review
+### One-shot tail after a narrow gate
 
-Chain gambits when a focused feature gate should pass first and a broader
-cleanup should run once:
+The first gambit stays primary until its verifier passes. A second gambit with
+`one_shot: true` runs once afterward, for example to run the full merge gate
+after a narrow test passed:
 
 ```json
 {
@@ -370,11 +294,13 @@ cleanup should run once:
 }
 ```
 
-### Schedule interval reviews
+### Interval reviews
 
-One `dn loop` run is one implementation pass against a plan. `dn until` repeats
-a primary generator/verifier pass within an iteration budget and can schedule
-satellite reviews:
+Satellite gambits use `interval` as a fraction of top-level `iterations`. Each
+interval fires `floor(iterations * interval)` times, capped by `iterations`.
+Set `align` to `start`, `end`, or `spread`, or list explicit 1-based `at`
+indices. `phase` runs the satellite before or after the primary pass on that
+tick.
 
 ```json
 {
@@ -413,57 +339,60 @@ satellite reviews:
 }
 ```
 
-An interval fires `floor(iterations * interval)` times, capped at the iteration
-count. `align` places those runs at the `start`, `end`, or across the full run.
-Use explicit 1-based `at` indices when exact iterations matter. `phase` chooses
-whether a satellite runs before or after the primary pass.
+### Prompt verifier
 
-Interval verifier failures are soft: they are recorded while the primary loop
-continues. Primary and one-shot tail failures are hard gates.
+When no script captures done, the verifier prompt must record a verdict. `until`
+checks, in order:
 
-### Use a prompt verifier
+1. A verdict file (default `.dn/until-verdict.json`, or `verifier.verdict_path`)
+   containing `{"done": true}`.
+2. JSON in stdout with `"done": true`.
+3. Optional `verifier.done_when.stdout_contains` as a weaker fallback.
 
-When no script can decide whether the goal is done, use a prompt verifier.
-`until` checks for completion in this order:
-
-1. A verdict file, defaulting to `.dn/until-verdict.json` or set with
-   `verifier.verdict_path`, containing `{"done": true}`.
-2. Extractable JSON in standard output containing `"done": true`.
-3. Optional `verifier.done_when.stdout_contains`, as a weaker fallback.
-
-`until` injects verdict-file instructions into the verifier prompt. Missing or
-unparseable verdicts continue the loop unless you pass `--strict-verdict`.
+`until` adds verdict-file instructions to the verifier prompt. Without
+`--strict-verdict`, a missing or unparseable verdict triggers another primary
+iteration.
 
 ```json
 {
-  "generator": { "prompt": "Improve the docs tone for {{audience}}" },
-  "verifier": {
-    "prompt": "Judge whether the docs meet the rubric for {{audience}}.",
-    "verdict_path": ".dn/until-verdict.json"
-  },
-  "metadata": { "audience": "dn CLI users" },
+  "gambits": [
+    {
+      "name": "docs-tone",
+      "metadata": { "audience": "dn CLI users" },
+      "generator": { "prompt": "Improve the docs tone for {{audience}}" },
+      "verifier": {
+        "prompt": "Judge whether the docs meet the rubric for {{audience}}.",
+        "verdict_path": ".dn/until-verdict.json"
+      }
+    }
+  ],
   "iterations": 3
 }
 ```
 
-Avoid generator actions that only format code, prompt verifiers that rely on
-stdout containing only JSON, unbounded long-running loops, and secret values in
-the gambit file.
+Do not use generators that only reformat code, prompt verifiers that require
+stdout to contain only JSON, or unbounded scripts with no timeout. Keep secrets
+out of the gambit file.
 
-### Import a goal from a GitHub issue
+### Import a goal from GitHub
+
+`dn until import` fetches an issue and writes a goal beside the current
+directory. Default output is one Markdown file. With `--split`, you get TOML
+config and a neighboring Markdown body. Import does not close the issue or start
+`run`.
 
 ```bash
 dn until import https://github.com/owner/repo/issues/123
 dn until import 123 --split
 ```
 
-`dn until import` fetches an issue and writes a local goal file next to the
-current directory. The default is one Markdown file; `--split` writes a TOML
-config plus a neighboring Markdown body. Import is convert-only: it does not
-close the GitHub issue or start `dn until run`. Review an imported goal before
-running it.
-
 ## `dn ensure`
+
+Recipes in root `dn.json` under `ensure.<name>` run frozen `argv` lists (no
+shell). Kickstart and loop already call `dn ensure lint` after implement when
+that recipe exists. Use `dn ensure` with no name to list recipes, or pass a name
+to rerun one gate. On failure, `dn` runs a fixer agent unless you pass
+`--no-fix`.
 
 ```bash
 dn ensure
@@ -471,37 +400,22 @@ dn ensure lint
 dn ensure tests --no-fix
 ```
 
-`dn ensure` runs a named recipe from `dn.json` (`ensure.<name>.argv`) and, on
-failure, launches a fixer agent before retrying. Kickstart and loop already run
-`dn ensure lint` after implementation, so use this command to re-run a recipe on
-its own or to list available recipes. `--no-fix` fails fast without the fixer
-agent. See [Kickstart](/kickstart/) for the kickstart overview.
-
 ## `dn read`
+
+`read` prints a pull request brief (files, review comments, checks) without
+writing to the workspace or GitHub. Use it before `fixup` when you want context
+for you or an agent. `--json` suits scripts.
 
 ```bash
 dn read https://github.com/owner/repo/pull/123
 dn read 123 --json
 ```
 
-`dn read` prints a read-only review brief for a pull request: changed files,
-review comments, and check status. It never writes to the workspace or GitHub,
-so agents can use it to plan a `dn fixup` without side effects.
-
-The following commands use the GitHub API from your local machine. Authenticate
-with `gh auth login`, `dn auth`, or `GITHUB_TOKEN` before running them — see
-[Installation — GitHub authentication](/dn/installation/#github-authentication)
-and [GitHub Token Setup](/runners/github-token-setup/) when you need token
-details.
-
 ## `dn init stack`
 
-Creates a prioritized task list from a GitHub milestone:
-
-1. Fetches the milestone and its open issues from GitHub.
-2. Scores each issue for kickstart readiness.
-3. Writes `plans/{owner}_{repo}_{milestone-number}.stack.md` and `.stack.json`.
-4. Prints instructions for committing the generated files.
+Build a ranked kickstart queue from a GitHub milestone. Output lands in
+`plans/{owner}_{repo}_{milestone}.stack.md` and `.stack.json`. Commit those
+files if the team should share the queue.
 
 ```bash
 dn init stack 42
@@ -509,16 +423,16 @@ dn init stack https://github.com/owner/repo/milestone/3
 dn init stack 42 --refresh
 ```
 
-The generated stack file includes prioritized tasks, disqualified issues, and
-instructions for agents. `dn kickstart --milestone 42` uses the first unchecked
-task as the next work item.
-
-To run stack generation in CI, see
-[Headless Use — Dispatch payloads](/runners/headless-use/#dispatch-payloads).
+`--refresh` updates an existing stack from GitHub. `dn kickstart --milestone 42`
+takes the next unchecked row. For CI dispatch, see
+[Headless use — Dispatch payloads](/runners/headless-use/#dispatch-payloads).
 
 ## `dn issue`
 
-Provides CRUD operations for GitHub issues from the terminal:
+Script issue CRUD and GitHub's relationship fields from the terminal. Set
+`--repo owner/repo` when numeric refs should target another repository than the
+checkout. Use `relationship` subcommands for blockers, sub-issues, and
+duplicates.
 
 ```bash
 dn issue list
@@ -548,17 +462,17 @@ dn issue relationship reprioritize sub-issue 123 789 --after 456
 dn issue relationship mark-duplicate 123 456
 ```
 
-Issue references accept a number (`123`), `#123`, or a full URL.
-`--repo owner/repo` sets the repository used for numeric refs and commands
-without an issue ref, such as `list` and `create`. `dn issue show` includes
-relationship metadata (parent issue, sub-issues, blockers, duplicate-of) when
-GitHub exposes it. Those reads follow GitHub's GraphQL paging: at most ten
-related-issue references appear per edge unless the totals summary shows a
-larger count ("more not shown").
+Issue references accept `123`, `#123`, or a full URL. `issue show` prints
+relationship metadata when GitHub exposes it (parent, sub-issues, blockers,
+duplicate-of). GraphQL paging limits related-issue lists to ten references per
+edge unless the summary reports more.
 
 ## `dn milestone`
 
-Create, list, and publish GitHub milestones from a JSON plan:
+Create milestones, list open ones, or publish a bulk issue plan from JSON.
+`publish` reads a version `1.0` file with `milestone` and `issues`, creates the
+milestone and issues, then applies each `blocked_by` link after every issue
+exists. Run `publish` with `--dry-run --json` to validate without writes.
 
 ```bash
 dn milestone create --title "Q1 work"
@@ -568,26 +482,15 @@ dn milestone publish plans/auth-refactor.json --dry-run --json
 dn milestone publish plans/auth-refactor.json --repo owner/repo
 ```
 
-`dn milestone publish` reads a version `1.0` JSON plan with `milestone` and
-`issues` fields, creates the milestone and its issues, then applies each issue's
-`blocked_by` relationship after all issues exist. Use `--dry-run` to validate
-the plan without making mutations.
+dn milestone publish plans/auth-refactor.json --repo owner/repo
+```
 
 ## `dn glance`
 
-Prints a velocity report for the **current GitHub repository** — issues opened,
-issues closed, and commits on the default branch — over a rolling time window.
-
-`dn glance` does **not** read your local git history. It resolves `owner/repo`
-from the checkout's `origin` remote (Git or Sapling) or from `GITHUB_REPOSITORY`
-in CI, then fetches all metrics through the **GitHub API**. You need GitHub
-authentication (`gh auth login`, `dn auth`, or `GITHUB_TOKEN`) with permission
-to read the repository. See
-[Installation — GitHub authentication](/dn/installation/#github-authentication).
-
-Run it from a repository checkout whose default remote points at
-`github.com/owner/repo`. A bare clone with no remote, or a non-GitHub host, will
-not work.
+`glance` reports issue and commit velocity for the repository tied to your
+checkout's `origin` remote (or `GITHUB_REPOSITORY` in CI). It uses the GitHub
+API, not local git history. Run it from a clone whose default remote is
+`github.com/owner/repo`.
 
 ```bash
 dn glance
@@ -595,30 +498,17 @@ dn glance --days 14
 dn glance --compact --no-urls
 ```
 
-For each run, `dn` compares the last **N** days (default 7) against the **prior
-N** days of equal length and prints:
+Each run compares the last **N** days (default 7) to the prior **N** days:
+open and close rates, commit count, label groupings, recent items, and per-user
+share. `--days` sets the window. `--compact` tightens spacing. `--no-urls`
+drops issue and commit links from the report.
 
-- **Summary** — open, close, and commit counts with per-day rates, trend
-  direction vs the prior window, and net issue flow (backlog grew or burned
-  down)
-- **Issues opened** — grouped by primary label; recent items are highlighted
-- **Issues closed** — same grouping
-- **Commits** — up to ten recent commits with SHA, subject, and link
-- **Activity by user** — share of opens, closes, and commits in the window
-
-| Flag             | Effect                                            |
-| ---------------- | ------------------------------------------------- |
-| `-d`, `--days N` | Window length in days (default `7`)               |
-| `--compact`      | Fewer blank lines between sections                |
-| `--no-urls`      | Omit issue and commit URLs (titles and SHAs only) |
-
-Use `dn peek` when you want ranked suggestions for what to work on next; use
-`dn glance` when you want a trend snapshot of recent project activity. See
-[Landing — `dn peek`](/dn/task-list-and-sync/#dn-peek).
+Use [`dn peek`](/dn/task-list-and-sync/#dn-peek) to rank what to work on next;
+use `glance` for a recent activity snapshot.
 
 ## Milestone workflow
 
-Milestone-shaped work spans several commands:
+Typical milestone sequence:
 
 ```bash
 dn meld --milestone 42
@@ -627,15 +517,18 @@ dn kickstart --milestone 42 --once
 dn kickstart --publish pr --milestone 42 --complete
 ```
 
-`dn meld --milestone` writes a user-value-focused milestone description.
-`dn init stack` creates a prioritized execution queue — see
-[§ `dn init stack`](#dn-init-stack). `dn milestone create`, `list`, and
-`publish` manage milestones and bulk issue plans — see
-[§ `dn milestone`](#dn-milestone). `--once` processes one unchecked stack item;
-`--complete` processes all remaining items and requires `--publish pr` or
-`--publish direct`.
+`meld --milestone` drafts a user-value description. `init stack` builds the
+ranked queue ([`dn init stack`](#dn-init-stack)). `milestone create`, `list`, and
+`publish` handle bulk plans ([`dn milestone`](#dn-milestone)). On kickstart,
+`--once` drains one stack row; `--complete` drains the rest and requires
+`--publish pr` or `--publish direct`.
 
 ## `dn sync`
+
+`sync` rebases onto remote trunk and pushes when local commits remain. Use it
+when you intend to land on trunk, not as the last step of a PR workflow.
+Preflight runs `sync.preflight` argv lists from `dn.json` unless you pass
+`--skip-preflight`.
 
 ```bash
 dn sync
@@ -643,18 +536,13 @@ dn sync --workspace-root /path/to/checkout
 dn sync --skip-preflight
 ```
 
-`sync` rebases the checkout onto remote `main` and publishes local commits that
-remain afterward. It is an explicit trunk-publication command, not the final
-step of an issue-to-pull-request workflow. Preflight is fail-fast lint + tests
-from `dn.json` `sync.preflight`; `--skip-preflight` is a CLI escape hatch.
-Denoise never sends it. These verbs match the denoise task dialog; quality lives
-on sync. See [`dn sync`](/dn/command-reference/#dn-sync). See
-[Landing — `dn sync`](/dn/task-list-and-sync/#dn-sync) for VCS detection,
-prerequisites, and the exact Git and Sapling operations.
+Git and Sapling detection, prerequisites, and exact rebase behavior are in
+[Landing — `dn sync`](/dn/task-list-and-sync/#dn-sync).
 
 ## `dn auth`
 
-Complementary GitHub sign-in when you do not use GitHub CLI:
+Device-flow GitHub login when you are not using `gh auth login`. Prefer `gh`;
+`dn` already reads `gh auth token` when the CLI is installed.
 
 ```bash
 dn auth
@@ -662,36 +550,36 @@ dn auth status
 dn auth logout
 ```
 
-`dn` reads `gh auth token` automatically when `gh` is installed. Prefer
-`gh auth login`. Use `dn auth` for the device flow, or set `GITHUB_TOKEN` in CI.
-See
-[Installation — GitHub authentication](/dn/installation/#github-authentication).
+See [Installation — GitHub authentication](/dn/installation/#github-authentication).
 
 ## `dn init`
+
+First-run repository setup: milestone stack files, workflow templates, root
+`AGENTS.md`, or guided config.
 
 ```bash
 dn init stack 42
 dn init build
-dn init workflows
+dn init workflows --agent opencode
 dn init agents
-dn init wizard
+dn init wizard --project
 ```
 
 | Subcommand  | Role                                                                                        |
 | ----------- | ------------------------------------------------------------------------------------------- |
-| `stack`     | Milestone → `plans/*.stack.md` queue — [§ `dn init stack`](#dn-init-stack)                  |
+| `stack`     | Milestone queue in `plans/*.stack.md` ([`dn init stack`](#dn-init-stack))                   |
 | `build`     | Install `.github/dn/config.json` and canonical workflow YAML files                          |
-| `workflows` | Same template install path as `init build` (agent via `--agent`)                            |
-| `agents`    | Create or refresh root `AGENTS.md` — [Filesystem Context](/dn/filesystem-context/#agentsmd) |
-| `wizard`    | Guided first-run project or user config (`--project`, `--yes`)                              |
+| `workflows` | Same as `build`; pass `--agent` for harness in config                                       |
+| `agents`    | Create or refresh root `AGENTS.md` ([Filesystem Context](/dn/filesystem-context/#agentsmd)) |
+| `wizard`    | Guided project or user config (`--project`, `--yes`)                                        |
 
-Use `dn workflows list`, `validate`, and `update` after install — see
-[§ `dn workflows`](#dn-workflows).
+After install, run [`dn workflows`](#dn-workflows) `list`, `validate`, and
+`update`.
 
 ## `dn workflows`
 
-Manage and run dn GitHub Actions workflows (distinct from this documentation
-page slug):
+Install, validate, dispatch, or run the canonical GitHub Actions workflows (not
+this documentation site).
 
 ```bash
 dn workflows list
@@ -702,11 +590,15 @@ dn workflows dispatch dn.kickstart_issue --repo owner/repo --json
 dn workflows exec dn.init_stack
 ```
 
-`install` and `update` sync canonical templates; `dispatch` and `exec` run them
-in GitHub Actions. See [Headless use](/runners/headless-use/) for dispatch
-payloads, `--wait`, and runner-side `exec`.
+`install` and `update` sync templates from the `dn` release. `validate --json`
+checks secrets and workflow shape. `dispatch` sends `repository_dispatch` events;
+`exec` runs a workflow job locally on a runner. Payloads and `--wait` are in
+[Headless use](/runners/headless-use/).
 
 ## `dn release`
+
+Tag and release notes on GitHub from the terminal. Pass `--repo` / `-R` when the
+checkout is not the target repository.
 
 ```bash
 dn release list
@@ -716,12 +608,12 @@ dn release edit v1.2.3 --draft
 dn release delete v1.2.3
 ```
 
-GitHub release CRUD from the terminal. Use `dn release <subcommand> --help` for
-flags such as `--repo` / `-R` overrides.
+Run `dn release <subcommand> --help` for draft flags and asset options.
 
 ## `dn rfc`
 
-Manage design RFCs in the repository:
+Track design RFCs as markdown in the repo: create, review, accept, complete.
+[`dn land`](#dn-land) can commit finished RFC work like plan files.
 
 ```bash
 dn rfc init
@@ -732,13 +624,13 @@ dn rfc status rfcs/012-session-persistence.md accepted
 dn rfc complete rfcs/012-session-persistence.md
 ```
 
-`dn land` can close out RFC paths as well as plan files — see
-[§ `dn land`](#dn-land). `dn glance --json` includes RFC fields when present.
+`glance --json` includes RFC fields when the repo defines them.
 
 ## `dn task`
 
-Unified task list at `~/.dn/todo.md`: native Void tasks (embedded JSON, synced
-via task-sync) and the kickstart queue (issues and plan paths).
+Local Denoise task documents under `~/.dn/tasks/` (JSON), separate from the
+kickstart issue queue in `~/.dn/todo.md`. Void task-sync and
+`dn kickstart --denoise-task` use these files.
 
 ```bash
 dn task list
@@ -749,13 +641,13 @@ dn task done
 dn task sync status
 ```
 
-Pair with `dn kickstart --denoise-task` — see [The Void](/denoise/void/) and
+See [The Void](/denoise/void/) and
 [Landing — `dn task`](/dn/task-list-and-sync/#dn-task).
 
 ## `dn tidy` extras
 
-[Landing](/dn/task-list-and-sync/#dn-tidy) documents issue refresh for
-`~/.dn/todo.md`. Additional `tidy` modes groom configuration and harness files:
+[`dn tidy`](/dn/task-list-and-sync/#dn-tidy) refreshes `~/.dn/todo.md` from open
+issues. These subcommands groom harness and config files:
 
 ```bash
 dn tidy agent --check
@@ -767,11 +659,13 @@ dn tidy runner --json
 dn tidy --all --with-backlog --json
 ```
 
-`dn tidy agent` currently targets OpenCode phase config files.
+`--check` and `--fix` on `tidy agent` validate OpenCode phase configs.
+`--json` on config, workflows, context, and runner aids scripting.
 
 ## `dn runner`
 
-Operate this machine as Denoise runner infrastructure:
+Register this machine as a Denoise device runner: pair with a code, serve jobs,
+inspect health.
 
 ```bash
 dn runner connect <code>
@@ -786,11 +680,59 @@ Device jobs use the registered checkout and local agent credentials. See
 [Runners overview](/runners/overview/) and
 [Device runners](/runners/device-runners/).
 
+## Global options and environment
+
+Place global options before the subcommand: `dn [global options] <subcommand>`.
+A flag overrides the matching environment variable.
+
+### Agent (`--agent`, `DN_AGENT`)
+
+Harness for agent-backed commands on this invocation (`opencode`, `claude`,
+`codex:gpt-5.4`, same forms as `dn --help`).
+
+- **Flag:** `--agent <harness[:model]>`
+- **Environment:** `DN_AGENT`
+
+File-based defaults: [Filesystem Context — Choose an agent](/dn/filesystem-context/#choose-an-agent).
+
+### Context files (`--context-file`)
+
+Extra prompt context for this run. Repeat for multiple paths. No env equivalent.
+
+- **Flag:** `--context-file <path>` (repeatable)
+
+### Unattended mode (`--unattended`)
+
+Turn off interactive prompts. Also enabled in CI and when stdout is not a TTY.
+Subcommands may still require `--yes` or `DN_YES=1`; that is not global.
+
+- **Flag:** `--unattended`
+
+[Headless use — Unattended output](/runners/headless-use/#unattended-output) covers CI color, trace, and publish defaults.
+
+### Agent trace (`--trace`, `--no-trace`, `DN_AGENT_TRACE`)
+
+Live agent harness output. Attended TTY defaults to `--no-trace`; CI defaults to `--trace`.
+
+- **Flags:** `--trace`, `--no-trace`
+- **Environment:** `DN_AGENT_TRACE=1` or `0`
+
+### Color (`--color`, `--no-color`)
+
+- **Flags:** `--no-color`, `--color`
+- **Environment:** `NO_COLOR`, `FORCE_COLOR`, `TERM=dumb`
+
+### Version
+
+- **Flags:** `--version`, `-V`
+
 ## `dn completion`
 
+Install shell completion for subcommands and flags:
+
 ```bash
-eval "$(dn completion bash)"   # ~/.bashrc
-eval "$(dn completion zsh)"    # ~/.zshrc after compinit
+eval "$(dn completion bash)"
+eval "$(dn completion zsh)"
 ```
 
-Prints a completion script for subcommands, nested commands, and known flags.
+Add the line to `~/.bashrc` or your zsh config after `compinit`.

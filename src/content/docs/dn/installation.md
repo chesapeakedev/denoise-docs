@@ -103,7 +103,7 @@ installed `dn` templates in GitHub Actions, see
 [Headless setup — GitHub Actions token and permissions](/runners/headless-use/#github-actions-token-and-permissions).
 
 Pick a harness and repository default in
-[Command reference — Choose an agent](/dn/command-reference/#choose-an-agent).
+[Filesystem Context — Choose an agent](/dn/filesystem-context/#choose-an-agent).
 
 ### Install dn as an agent skill
 

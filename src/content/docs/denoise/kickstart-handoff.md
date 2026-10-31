@@ -87,7 +87,7 @@ For queued jobs with no phases, start with [Runner logs](/runners/runner-logs/).
 | Situation                              | Practical next step                                                                                                                   |
 | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
 | PR exists, feedback is review-shaped   | Check out the branch; use [`dn fixup`](/dn/command-reference/#dn-fixup) or normal PR review                                           |
-| Plan is wrong but issue is fixable     | [`dn meld`](/dn/command-reference/#plan-with-meld) → edit `plans/*.plan.md` → [`dn loop`](/dn/command-reference/#implement-with-loop) |
+| Plan is wrong but issue is fixable     | [`dn meld`](/dn/command-reference/#plan-with-meld) → edit `plans/*.plan.md` → [`dn loop`](/dn/command-reference/#dn-loop) |
 | Kickstart left partial checklist items | Same plan file or `*.continuation.plan.md`; `dn loop` on the plan                                                                     |
 | No trustworthy plan                    | Re-meld from the issue; or narrow the issue and kickstart locally with `--publish none` before a new PR                               |
 | Publish failed after push              | Inspect remote branch and GitHub permissions; see Headless troubleshooting (**No PR created**)                                        |
