@@ -81,6 +81,7 @@ export default defineConfig({
               slug: "dn/completing-github-issues",
             },
             { label: "Command reference", slug: "dn/command-reference" },
+            { label: "GitHub context", slug: "dn/github-context" },
             {
               label: "Filesystem Context",
               slug: "dn/filesystem-context",

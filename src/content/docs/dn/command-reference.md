@@ -18,7 +18,7 @@ Plan, implement, land, and retry until verifiers pass.
 
 | Subcommand  | Purpose                                   | Doc depth | Where                                                                         |
 | ----------- | ----------------------------------------- | --------- | ----------------------------------------------------------------------------- |
-| `kickstart` | Plan and implement an issue or local spec | full      | [Kickstart](/kickstart/)                                                      |
+| `kickstart` | Plan and implement an issue or local spec | full      | [Kickstart](/kickstart/), [options](#dn-kickstart) |
 | `meld`      | Plan from one or more sources             | full      | [`dn meld`](#dn-meld)                                                       |
 | `loop`      | Implement an existing plan                | full      | [`dn loop`](#dn-loop)                                                       |
 | `land`      | Close out work into VCS commits           | full      | [`dn land`](#dn-land)                                                       |
@@ -31,13 +31,13 @@ Issues, pull requests, milestones, releases, GitHub Actions, and activity on Git
 
 | Subcommand  | Purpose                                   | Doc depth | Where                             |
 | ----------- | ----------------------------------------- | --------- | --------------------------------- |
-| `issue`     | Manage issues and relationships           | full      | [`dn issue`](#dn-issue)         |
-| `read`      | Read-only PR review brief                 | full      | [`dn read`](#dn-read)             |
-| `fixup`     | Address PR feedback locally               | full      | [`dn fixup`](#dn-fixup)           |
-| `milestone` | Create, list, publish milestones          | full      | [`dn milestone`](#dn-milestone) |
-| `glance`    | Project velocity overview                 | full      | [`dn glance`](#dn-glance)       |
-| `release`   | Create, list, view, edit, delete releases | summary   | [`dn release`](#dn-release)     |
-| `workflows` | Install, validate, dispatch GitHub Actions | summary   | [`dn workflows`](#dn-workflows), [Headless use](/runners/headless-use/) |
+| `issue`     | Manage issues and relationships           | full      | [GitHub context](/dn/github-context/#issues-and-relationships) |
+| `read`      | Read-only PR review brief                 | full      | [GitHub context](/dn/github-context/#pull-requests-and-review) |
+| `fixup`     | Address PR feedback locally               | full      | [GitHub context](/dn/github-context/#pull-requests-and-review) |
+| `milestone` | Create, list, publish milestones          | full      | [GitHub context](/dn/github-context/#milestones-and-queues) |
+| `glance`    | Project velocity overview                 | full      | [GitHub context](/dn/github-context/#releases-activity-and-actions) |
+| `release`   | Create, list, view, edit, delete releases | summary   | [GitHub context](/dn/github-context/#releases-activity-and-actions) |
+| `workflows` | Install, validate, dispatch GitHub Actions | summary   | [GitHub context](/dn/github-context/#releases-activity-and-actions), [Headless use](/runners/headless-use/) |
 
 ### Setup, context, and automation
 
@@ -73,6 +73,38 @@ Device runners and design RFCs tracked in the repository.
 | ---------- | ------------------------------------------- | --------- | ------------------------------------------------------------------- |
 | `runner`   | Pair this machine as Denoise infrastructure | summary   | [`dn runner`](#dn-runner), [Runners overview](/runners/overview/) |
 | `rfc`      | Request-for-comments documents in the repo  | summary   | [`dn rfc`](#dn-rfc)                                               |
+
+## `dn kickstart`
+
+`kickstart` accepts a GitHub issue, local Markdown spec, denoise task, or a
+queued item. The workflow and publish modes are covered in the [Kickstart
+guide](/kickstart/); this section lists the CLI flags that shape the run.
+
+| Flag | Effect |
+| --- | --- |
+| `<issue\|path>` | Optional issue number/URL or local Markdown path. Omit to select from a queue. |
+| `--awp` | Alias for `--publish pr`. |
+| `--publish <none\|pr\|direct>` | Keep changes local (default), open a pull request, or commit and push to the default branch. |
+| `--allow-cross-repo`, `-A` | Allow an issue from another repository; unavailable with AWP publishing. |
+| `--steer <prompt>` | Add operator guidance to plan and implementation prompts. |
+| `--verbosity <low\|medium\|high>` | Set plan prompt detail; defaults to `medium`. |
+| `--skip-plan` | Skip plan generation and implement the target directly. |
+| `--plan-only` | Generate the plan and stop before implementation. |
+| `--skip-review` | Skip the configured second review pass. |
+| `--milestone <number\|URL>` | Select the milestone stack queue. |
+| `--saved-plan <name>` | Use the named saved plan artifact. |
+| `--workspace-root <path>` | Set the workspace root used by the workflow. |
+| `--once` | Run and complete one unchecked milestone stack item, then exit. Requires `--milestone`. |
+| `--complete` | Process all remaining milestone stack items. Requires `--milestone` and `--publish pr` or `--publish direct`. |
+| `--denoise-task <file>` | Use a task JSON file as ticketless input. |
+| `--cursor-cloud` | Run with Cursor Cloud Agent. |
+| `--ref <git-ref>` | Select the remote ref for Cursor Cloud Agent. |
+| `--sandbox <none\|docker\|exe.dev>` | Select the agent workflow sandbox. |
+| `--agent <name>` | Select the agent harness; see [Choose an agent](/dn/filesystem-context/#choose-an-agent). |
+| `--context-file <path>` | Add a file to agent context. |
+
+`--once` and `--complete` are mutually exclusive. Queue handling, plan review,
+and publish behavior are described in the [Kickstart guide](/kickstart/).
 
 ## `dn meld`
 
@@ -441,199 +473,6 @@ dn sync
 dn sync --workspace-root /path/to/checkout
 dn sync --skip-preflight
 ```
-
-## `dn issue`
-
-Script issue CRUD and GitHub's relationship fields from the terminal. Set
-`--repo owner/repo` when numeric refs should target another repository than the
-checkout. Use `relationship` subcommands for blockers, sub-issues, and
-duplicates.
-
-```bash
-dn issue list
-dn issue list --repo owner/repo
-dn issue list --state closed --limit 10
-dn issue list --label bug
-dn issue show 123
-dn issue show 123 --repo owner/repo
-dn issue show 123 --no-comments
-dn issue create --title "Bug" --body-file report.md
-dn issue create --repo owner/repo --title "Bug" --body-file report.md
-dn issue create --title "Bug" --milestone 42
-dn issue edit 123 --title "New title"
-dn issue edit 123 --add-label bug
-dn issue edit 123 --milestone https://github.com/owner/repo/milestone/42
-dn issue edit 123 --clear-milestone
-dn issue close 123
-dn issue close 123 --reason not_planned
-dn issue close 123 --comment "Fixed in #456"
-dn issue reopen 123
-dn issue comment 123 --body-file update.md
-dn issue comment 123 --body-stdin
-dn issue relationship list 123
-dn issue relationship add blocked-by 123 456
-dn issue relationship add sub-issue 123 789
-dn issue relationship reprioritize sub-issue 123 789 --after 456
-dn issue relationship mark-duplicate 123 456
-```
-
-Issue references accept `123`, `#123`, or a full URL. `issue show` prints
-relationship metadata when GitHub exposes it (parent, sub-issues, blockers,
-duplicate-of). GraphQL paging limits related-issue lists to ten references per
-edge unless the summary reports more.
-
-## `dn read`
-
-`read` prints a pull request brief (files, review comments, checks) without
-writing to the workspace or GitHub. Use it before `fixup` when you want context
-for you or an agent. `--json` suits scripts.
-
-```bash
-dn read https://github.com/owner/repo/pull/123
-dn read 123 --json
-```
-
-## `dn fixup`
-
-Use `fixup` on the PR branch when review comments need code changes. It loads
-the PR description and review threads, plans the edits, and implements them in
-the current checkout. It does not open or merge the PR; commit and push when you
-are satisfied.
-
-```bash
-dn fixup https://github.com/owner/repo/pull/123
-dn --agent cursor fixup https://github.com/owner/repo/pull/123
-```
-
-Pass `--context-file` for extra material in the agent prompt. Set `PR_URL` instead
-of a positional URL in scripts.
-
-### Before the pull request exists
-
-If work stopped before publication:
-
-- No plan yet: `dn meld <issue>`.
-- Plan with open checklist items: rerun [`dn loop`](#dn-loop) on that plan.
-- Branch pushed but PR missing: inspect the remote branch and retry kickstart or
-  `loop --publish pr` after fixing conflicts.
-
-## `dn milestone`
-
-Create milestones, list open ones, or publish a bulk issue plan from JSON.
-`publish` reads a version `1.0` file with `milestone` and `issues`, creates the
-milestone and issues, then applies each `blocked_by` link after every issue
-exists. Run `publish` with `--dry-run --json` to validate without writes.
-
-```bash
-dn milestone create --title "Q1 work"
-dn milestone create --title "Q1 work" --description-file milestone.md --due-on 2026-03-31
-dn milestone list --repo owner/repo --json
-dn milestone publish plans/auth-refactor.json --dry-run --json
-dn milestone publish plans/auth-refactor.json --repo owner/repo
-```
-
-## `dn glance`
-
-`glance` reports issue and commit velocity for the repository tied to your
-checkout's `origin` remote (or `GITHUB_REPOSITORY` in CI). It uses the GitHub
-API, not local git history. Run it from a clone whose default remote is
-`github.com/owner/repo`.
-
-```bash
-dn glance
-dn glance --days 14
-dn glance --compact --no-urls
-```
-
-Each run compares the last **N** days (default 7) to the prior **N** days:
-open and close rates, commit count, label groupings, recent items, and per-user
-share. `--days` sets the window. `--compact` tightens spacing. `--no-urls`
-drops issue and commit links from the report.
-
-Use [`dn peek`](#dn-peek) to rank what to work on next;
-use `glance` for a recent activity snapshot.
-
-## `dn peek`
-
-Suggests next open issues with a fixed heuristic scoring model. In conversation,
-this gives an agent a concrete way to propose what it should work on next:
-
-```bash
-dn peek
-dn peek --limit 5
-dn peek --fetch 200
-dn peek --verbose --no-urls
-```
-
-`peek` uses GitHub GraphQL issue paging only. It does not invoke the LLM-based
-kickstart readiness scorer.
-
-## Milestone workflow
-
-Typical milestone sequence:
-
-```bash
-dn meld --milestone 42
-dn init stack 42
-dn kickstart --milestone 42 --once
-dn kickstart --publish pr --milestone 42 --complete
-```
-
-`meld --milestone` drafts a user-value description. `init stack` builds the
-ranked queue ([`dn init stack`](#dn-init-stack)). `milestone create`, `list`, and
-`publish` handle bulk plans ([`dn milestone`](#dn-milestone)). On kickstart,
-`--once` drains one stack row; `--complete` drains the rest and requires
-`--publish pr` or `--publish direct`.
-
-## `dn release`
-
-Tag and release notes on GitHub from the terminal. Pass `--repo` / `-R` when the
-checkout is not the target repository.
-
-```bash
-dn release list
-dn release view v1.2.3
-dn release create v1.2.3 --title "Release" --notes-file notes.md
-dn release edit v1.2.3 --draft
-dn release delete v1.2.3
-```
-
-Run `dn release <subcommand> --help` for draft flags and asset options.
-
-## `dn workflows`
-
-Install, validate, dispatch, or run the canonical GitHub Actions workflows (not
-this documentation site).
-
-```bash
-dn workflows list
-dn workflows install
-dn workflows update
-dn workflows validate --json
-dn workflows dispatch dn.kickstart_issue --repo owner/repo --json
-dn workflows exec dn.init_stack
-```
-
-`install` and `update` sync templates from the `dn` release. `validate --json`
-checks secrets and workflow shape. `dispatch` sends `repository_dispatch` events;
-`exec` runs a workflow job locally on a runner. Payloads and `--wait` are in
-[Headless use](/runners/headless-use/).
-
-## `dn init stack`
-
-Build a ranked kickstart queue from a GitHub milestone. Output lands in
-`plans/{owner}_{repo}_{milestone}.stack.md` and `.stack.json`. Commit those
-files if the team should share the queue.
-
-```bash
-dn init stack 42
-dn init stack https://github.com/owner/repo/milestone/3
-dn init stack 42 --refresh
-```
-
-`--refresh` updates an existing stack from GitHub. `dn kickstart --milestone 42`
-takes the next unchecked row. For CI dispatch, see
-[Headless use — Dispatch payloads](/runners/headless-use/#dispatch-payloads).
 
 ## `dn init`
 

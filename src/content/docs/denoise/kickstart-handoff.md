@@ -86,7 +86,7 @@ For queued jobs with no phases, start with [Runner logs](/runners/runner-logs/).
 
 | Situation                              | Practical next step                                                                                                                   |
 | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| PR exists, feedback is review-shaped   | Check out the branch; use [`dn fixup`](/dn/command-reference/#dn-fixup) or normal PR review                                           |
+| PR exists, feedback is review-shaped   | Check out the branch; use [`dn fixup`](/dn/github-context/#pull-requests-and-review) or normal PR review                                           |
 | Plan is wrong but issue is fixable     | [`dn meld`](/dn/command-reference/#plan-with-meld) → edit `plans/*.plan.md` → [`dn loop`](/dn/command-reference/#dn-loop) |
 | Kickstart left partial checklist items | Same plan file or `*.continuation.plan.md`; `dn loop` on the plan                                                                     |
 | No trustworthy plan                    | Re-meld from the issue; or narrow the issue and kickstart locally with `--publish none` before a new PR                               |
@@ -94,7 +94,7 @@ For queued jobs with no phases, start with [Runner logs](/runners/runner-logs/).
 | You own quality gates                  | [`dn until`](/dn/command-reference/#dn-until) or repo CI, then [`dn land`](/dn/command-reference/#dn-land) for leave-local work       |
 
 The split workflow (plan review separate from implementation) is documented in
-[Kickstart — Choose a workflow](/kickstart/#choose-a-workflow).
+[Kickstart — What kickstart does](/kickstart/#what-kickstart-does).
 That path is the default when PM kickstart is exploratory and engineering owns
 the merge bar.
 

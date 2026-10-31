@@ -20,7 +20,7 @@ the same lint, test, sync, and sandbox rules for every agent run in the repo.
 | `.agents/skills/dn/`, `.claude/skills/dn/`, `.cursor/skills/dn/` | `dn init agents --skill`               | Agent-native dn workflow instructions — see [Installation — Install dn as an agent skill](/dn/installation/#install-dn-as-an-agent-skill) |
 
 For `dn init stack` command detail, see
-[Command reference — `dn init stack`](/dn/command-reference/#dn-init-stack). For
+[Command reference — `dn init stack`](/dn/github-context/#milestones-and-queues). For
 `dn init agents` and agent skill setup, see
 [Installation — Install dn as an agent skill](/dn/installation/#install-dn-as-an-agent-skill).
 

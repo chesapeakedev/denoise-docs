@@ -21,7 +21,7 @@ runs share a clear contract between the team and your agents.
 | -------------------------------- | --------------------- | ------------------------------------------------------------------------------------------------ |
 | Respond to team & agent feedback | `dn fixup`            | Work in GitHub pull request comments; use agents to update the PR                               |
 | Work towards a goal              | `dn until`, `dn loop` | Bounded loops locally or a daily cadence with your agent in GitHub                               |
-| Kickstart or split plan/implement | See [Kickstart — Choose a workflow](/kickstart/#choose-a-workflow) | End-to-end issue work or review plan and implementation separately |
+| Kickstart or split plan/implement | See [Kickstart — What kickstart does](/kickstart/#what-kickstart-does) | End-to-end issue work or review plan and implementation separately |
 
 Before starting, authenticate to GitHub as described in
 [Installation — GitHub authentication](/dn/installation/#github-authentication).
@@ -59,7 +59,7 @@ dn kickstart 123 --steer "Prefer small modules; do not rename public exports"
 dn kickstart 123 --context-file notes.md --context-file src/parser.ts
 ```
 
-After the pull request is open, see [`dn fixup`](/dn/command-reference/#dn-fixup).
+After the pull request is open, see [`dn fixup`](/dn/github-context/#pull-requests-and-review).
 
 ## Milestone queues
 
