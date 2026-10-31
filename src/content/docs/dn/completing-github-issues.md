@@ -3,32 +3,25 @@ title: Completing GitHub Issues
 description: Understand the different flows to complete work in GitHub with dn
 ---
 
-For an overview of kickstart in the `dn` CLI and denoise, start with
-[Kickstart](/kickstart/). This page covers CLI variants for GitHub issues —
-pull-request kickstart, meld, fixup, and until.
+For kickstart commands, publish modes, and the choice between one-shot kickstart
+and `meld` → `loop` → `land`, start with
+[Kickstart](/kickstart/).
+
+This page covers GitHub-specific preparation, milestone queues, and CLI paths that
+sit beside kickstart — pull-request feedback with `fixup` and bounded work with
+`until`.
 
 The `dn` CLI gives you a non-conversational assistant interface to the harnesses
-you already use. Use the CLI to orient your workflow around durable plans,
-lining up targets for `dn kickstart`. Use `dn meld` and manual review to create
-GitHub issues and markdown plan files that lean towards specification. Treat
-these as a contract between the team and your agents.
+you already use. Use durable plans and well-scoped issues so kickstart and meld
+runs share a clear contract between the team and your agents.
 
 ## Choose the right handoff
 
-`dn` is useful at multiple parts of the GitHub issue lifecycle. If you focus on
-refining issues into well scoped & sized chunks of work, you can line up issues
-and land them through your team's CI/CD process very quickly. Alternatively, you
-can use the CLI to refine plans locally in git (from the repo top level `plans/`
-directory) or refine GitHub issues directly. Your team still owns the planning
-process, but agents can save quite a bit of time reducing ambiguity in issues &
-double checking requests against the current codebase.
-
-| Use this path                                 | Workflow                                    | When it is useful                                                                                         |
-| --------------------------------------------- | ------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| One-shot complete a GitHub Issue end to end   | `dn kickstart --publish pr <issue>`         | Create & refine the issue in Github, implement with `dn` locally or headlessly on a server                |
-| Review the plan and implementation separately | `dn meld` → `dn loop` → `dn land` → open PR | The work is ambiguous, high-risk, or needs consensus on approach; use agents to help plan collaboratively |
-| Respond to team & agent feedback              | `dn fixup`                                  | Work in GitHub pull request comments to build consensus on reviewed code; use agents to update the pr     |
-| Work towards a goal                           | `dn until`, `dn loop`                       | Created bounded loops locally or create a daily cadence with your agent in GitHub                         |
+| Use this path                    | Workflow              | When it is useful                                                                                |
+| -------------------------------- | --------------------- | ------------------------------------------------------------------------------------------------ |
+| Respond to team & agent feedback | `dn fixup`            | Work in GitHub pull request comments; use agents to update the PR                               |
+| Work towards a goal              | `dn until`, `dn loop` | Bounded loops locally or a daily cadence with your agent in GitHub                               |
+| Kickstart or split plan/implement | See [Kickstart — Choose a workflow](/kickstart/#choose-a-workflow) | End-to-end issue work or review plan and implementation separately |
 
 Before starting, authenticate to GitHub as described in
 [Installation — GitHub authentication](/dn/installation/#github-authentication).
@@ -66,57 +59,7 @@ dn kickstart 123 --steer "Prefer small modules; do not rename public exports"
 dn kickstart 123 --context-file notes.md --context-file src/parser.ts
 ```
 
-## Publish a pull request end to end
-
-Use `kickstart` when the issue is specific enough that you can review the result
-in a pull request:
-
-```bash
-dn kickstart --publish pr 123
-dn --agent codex kickstart --publish pr 123
-```
-
-In pull-request mode, `kickstart`:
-
-1. Resolves the issue context.
-2. Prepares a branch or bookmark.
-3. Writes and validates a named plan.
-4. Runs the implementation agent.
-5. Updates the acceptance criteria and writes continuation context if needed.
-6. Runs `dn ensure lint` so a fixer agent can clear fmt/lint.
-7. Commits, pushes, and opens a pull request. Host CI is the quality gate.
-
-This path has the fewest manual steps. It is useful for well-scoped issues when
-the branch and pull request provide enough isolation for review.
-
-After the pull request is open, see
-[After the pull request opens](/dn/command-reference/#dn-fixup).
-
-## Review the plan before implementation
-
-Use the explicit `meld → loop → land` lifecycle when the implementation approach
-needs its own review boundary.
-
-Plan with [`dn meld`](/dn/command-reference/#plan-with-meld), then implement
-with [`dn loop`](/dn/command-reference/#dn-loop).
-
-This path is useful when an issue combines several concerns, implementation risk
-is high, or another person needs to approve the plan before code changes begin.
-
-## Publish modes
-
-`kickstart` controls where an end-to-end run stops:
-
-| Mode         | Flag                       | Result                                 |
-| ------------ | -------------------------- | -------------------------------------- |
-| Local        | `--publish none` (default) | Changes and plan stay in the workspace |
-| Pull request | `--publish pr` or `--awp`  | Branch/bookmark, commit, push, and PR  |
-| Direct       | `--publish direct`         | Commit and push to the default branch  |
-
-CI must use `pr` or `direct` because a local-only workspace disappears with the
-runner. Use `direct` only when you intentionally want to bypass pull-request
-review. `dn sync` publishes trunk after Land on the leave-local path; it is not
-part of the pull-request path. See [Kickstart](/kickstart/).
+After the pull request is open, see [`dn fixup`](/dn/command-reference/#dn-fixup).
 
 ## Milestone queues
 

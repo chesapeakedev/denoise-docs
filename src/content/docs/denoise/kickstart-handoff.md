@@ -94,7 +94,7 @@ For queued jobs with no phases, start with [Runner logs](/runners/runner-logs/).
 | You own quality gates                  | [`dn until`](/dn/command-reference/#dn-until) or repo CI, then [`dn land`](/dn/command-reference/#dn-land) for leave-local work       |
 
 The split workflow (plan review separate from implementation) is documented in
-[Completing GitHub Issues — Choose the right handoff](/dn/completing-github-issues/#choose-the-right-handoff).
+[Kickstart — Choose a workflow](/kickstart/#choose-a-workflow).
 That path is the default when PM kickstart is exploratory and engineering owns
 the merge bar.
 

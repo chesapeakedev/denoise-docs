@@ -208,7 +208,7 @@ echo '{"schema_version":"1.0","dispatch_id":"'"$(uuidgen)"'","issue_number":42,"
 ```
 
 For local publish-mode details, see
-[Completing GitHub Issues — Publish modes](/dn/completing-github-issues/#publish-modes).
+[Kickstart — Publish modes](/kickstart/#publish-modes).
 
 ## Sandbox providers in CI
 

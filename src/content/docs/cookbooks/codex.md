@@ -254,4 +254,4 @@ Denoise and other integrators dispatch the same payload shapes from the UI.
   permissions
 - [OpenCode](/cookbooks/opencode/) — alternative harness using the same
   `OPENAI_API_KEY` secret name
-- [Completing GitHub Issues — Publish modes](/dn/completing-github-issues/#publish-modes)
+- [Kickstart — Publish modes](/kickstart/#publish-modes).

@@ -423,4 +423,4 @@ Denoise and other integrators dispatch the same payload shapes from the UI.
 - [Codex](/cookbooks/codex/) — alternative agent harness (same `OPENAI_API_KEY`
   secret)
 - [Cursor](/cookbooks/cursor/) — alternative agent harness
-- [Completing GitHub Issues — Publish modes](/dn/completing-github-issues/#publish-modes)
+- [Kickstart — Publish modes](/kickstart/#publish-modes).
