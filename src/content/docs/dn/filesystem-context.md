@@ -101,32 +101,17 @@ Supported harness names are `opencode`, `cursor`, `claude`, `codex`, and
 
 | Source | Typical use | Set with |
 | ------ | ----------- | -------- |
-| `.github/dn/config.json` | GitHub Actions and other headless runs when no root `dn.json` overrides | `dn init workflows --agent <name>` |
-| Root `dn.json` (`schema_version: "2.0"`, `agent` field) | Same agent for every local `dn` run in the repo | Edit `dn.json` or `dn init wizard --project` |
+| Root `dn.json` (`schema_version: "2.0"`, `agent` field) | Local runs and GitHub Actions in the repo | Edit `dn.json`, `dn init wizard --project`, or `dn init workflows --agent <name>` |
 | `~/.dn/config.json` | Personal default across repositories | `dn init wizard --user` or edit the file |
 | `DN_AGENT` or `--agent` | One invocation only | Environment or global flag — see [Global options and environment](/dn/command-reference/#global-options-and-environment) |
 
-Prefer a committed root **`dn.json`** when the team wants one file for agent
-policy, quality recipes, sync preflight, and sandbox settings. The `agent`
-field plays the same role as `.github/dn/config.json` for local runs; see
-[`dn.json`](#dnjson) below. Sandbox policy also belongs in `dn.json` — see
-[Sandbox execution](/runners/sandbox/).
-
-### GitHub Actions default (`.github/dn/config.json`)
-
-Canonical workflows read this file so dispatches do not need `--agent` on every
-run:
-
-```json
-{
-  "schema_version": "1.0",
-  "agent": "opencode"
-}
-```
-
-Re-run `dn init workflows --agent <name>` or edit the file, then commit.
-Repository secrets for each harness are in
+Commit root **`dn.json`** when the team wants one file for agent policy, quality
+recipes, sync preflight, and sandbox settings. Canonical workflows read the same
+file, so dispatches do not need `--agent` on every run. Repository secrets for
+each harness are in
 [Headless use — Set repository secrets](/runners/headless-use/#2-set-repository-secrets).
+Sandbox policy also belongs in `dn.json` — see
+[Sandbox execution](/runners/sandbox/).
 
 ### Single-run override
 
@@ -146,11 +131,10 @@ that checkout. It does not replace plan files — plans hold _what_ to build;
 `dn.json` holds _how_ to verify and publish work consistently.
 
 `dn` walks upward from the workspace root to find `dn.json`. Commit it so
-kickstart, loop, land, sync, and ensure behave the same for every contributor
-and runner. Personal overrides can live in `~/.dn/config.json`; GitHub Actions
-workflows use `.github/dn/config.json` when no root `dn.json` exists. Prefer
-`schema_version: "2.0"` on `dn.json` for agent and sandbox policy — see
-[Choose an agent](#choose-an-agent) and
+kickstart, loop, land, sync, ensure, and GitHub Actions workflows behave the
+same for every contributor and runner. Personal overrides can live in
+`~/.dn/config.json`. Use `schema_version: "2.0"` for agent and sandbox policy —
+see [Choose an agent](#choose-an-agent) and
 [Sandbox execution](/runners/sandbox/#configure-schema-11-and-dnjson-20).
 
 ### What to put in `dn.json` first
@@ -160,7 +144,7 @@ workflows use `.github/dn/config.json` when no root `dn.json` exists. Prefer
 | `ensure.<name>`        | `dn ensure`, kickstart, loop (after implement)                  | Named quality recipes — frozen `argv` arrays, no shell  |
 | `sync.preflight`       | `dn sync`                                                       | Commands that must pass before rebase and trunk publish |
 | `sandbox`              | `kickstart`, `loop`, `meld`, `until`, `ensure` with `--sandbox` | Docker or host isolation policy                         |
-| `agent` (schema `2.0`) | Default harness when `--agent` is omitted                       | Same idea as `.github/dn/config.json` for local runs    |
+| `agent` (schema `2.0`) | Default harness when `--agent` is omitted (local and CI)      | Set in root `dn.json` — see [Choose an agent](#choose-an-agent) |
 
 Start with **`ensure`** once you know which commands gate your repo (often lint
 and tests). Add **`sync.preflight`** when engineers use `dn sync` to land on
@@ -193,7 +177,7 @@ Example minimal file:
 Run `dn ensure` with no arguments to list recipe names defined in the file. See
 [`dn ensure`](/dn/command-reference/#dn-ensure) and
 [`dn sync`](/dn/command-reference/#dn-sync) (and
-[Landing — `dn sync`](/dn/task-list-and-sync/#dn-sync) for Git/Sapling
+[`dn sync`](/dn/command-reference/#dn-sync) for Git/Sapling
 behavior).
 
 Kickstart and loop invoke `dn ensure lint` after implementation when that recipe
