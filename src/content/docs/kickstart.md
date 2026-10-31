@@ -24,45 +24,41 @@ runner choices and prerequisites.
 
 ## What kickstart does
 
-Kickstart resolves the request, creates or uses a plan, and implements the
-planned work. For local CLI runs, the default publish mode keeps the changes in
-the workspace. The workflow can also publish a pull request or commit and push
-directly when you choose those modes.
+Kickstart resolves the request, plans the work, runs the implementation agent,
+and optionally publishes the result. Under the hood it chains the same steps you
+can run yourself with [`dn meld`](/dn/command-reference/#dn-meld),
+[`dn loop`](/dn/command-reference/#dn-loop), and
+[`dn land`](/dn/command-reference/#dn-land). Use **kickstart** when you want that
+pipeline in one command. Use the individual commands when you need a stop between
+phases.
+
+**Prefer kickstart** when the issue or spec is already scoped, you are comfortable
+reviewing the outcome in a pull request (or in the workspace with
+`--publish none`), and you do not need a separate plan review before code changes.
+On a runner or in CI, `dn kickstart --publish pr <issue>` is usually the shortest
+path from issue to open PR.
+
+**Split the phases** when planning deserves its own gate: ambiguous requirements,
+high implementation risk, or a teammate who must sign off on `plans/*.plan.md`
+before `loop` touches the tree. Typical sequence: `dn meld` to write or refresh the
+plan, edit the checklist if needed, `dn loop` on that plan (repeat while acceptance
+items stay open), then `dn land` when the checklist is complete and you want local
+commits before you push or open a PR. **`loop` alone** fits when a plan file already
+exists; **`land` alone** fits when implementation is done and you only need commits
+from the finished plan.
+
+For pull-request feedback after publication, use [`dn fixup`](/dn/github-context/#pull-requests-and-review).
+For bounded retries against a verifier, see [`dn until`](/dn/command-reference/#dn-until)
+and [Completing GitHub Issues](/dn/completing-github-issues/).
 
 Kickstart may run configured lint and formatting checks so the agent can fix
 issues before handing work back. It does not run tests as its final publish
 gate. For a pull request, the repository's CI checks the PR. For local work,
 review the changes, then use the repository's land and sync workflow as needed.
 
-## Publish modes
+### End-to-end pull request
 
-| Publish mode | CLI option                 | Result                                                        |
-| ------------ | -------------------------- | ------------------------------------------------------------- |
-| Local        | `--publish none` (default) | Changes stay in the workspace for review                      |
-| Pull request | `--publish pr` or `--awp`  | Creates a branch or bookmark, commits, pushes, and opens a PR |
-| Direct       | `--publish direct`         | Commits and pushes to the default branch                      |
-
-CI must use `pr` or `direct` because a local-only workspace disappears with the
-runner. Use `direct` only when you intentionally want to bypass pull-request
-review. On the local path, `dn land` commits from a finished plan and
-[`dn sync`](/dn/command-reference/#dn-sync) publishes trunk; sync is not part of
-the pull-request path.
-
-## Choose a workflow
-
-| Goal                                          | Workflow                                    | When it fits                                                                                              |
-| --------------------------------------------- | ------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| Complete a GitHub issue end to end            | `dn kickstart --publish pr <issue>`         | The issue is scoped; review the result in a pull request (locally or on a runner)                         |
-| Review the plan and implementation separately | `dn meld` → `dn loop` → `dn land` → open PR | The work is ambiguous, high-risk, or needs consensus on approach; use agents to plan before implementing |
-
-For PR review after publication, use [`dn fixup`](/dn/command-reference/#dn-fixup).
-For bounded local or scheduled loops, see [`dn until`](/dn/command-reference/#dn-until)
-and [Completing GitHub Issues](/dn/completing-github-issues/).
-
-### One-shot pull request
-
-Use `kickstart` when the issue is specific enough that you can review the result
-in a pull request:
+When the issue is specific enough to review in a PR:
 
 ```bash
 dn kickstart --publish pr 123
@@ -79,23 +75,21 @@ In pull-request mode, `kickstart`:
 6. Runs `dn ensure lint` so a fixer agent can clear fmt/lint.
 7. Commits, pushes, and opens a pull request. Host CI is the quality gate.
 
-This path has the fewest manual steps. It is useful for well-scoped issues when
-the branch and pull request provide enough isolation for review.
+After the pull request is open, see [`dn fixup`](/dn/github-context/#pull-requests-and-review).
 
-After the pull request is open, see [`dn fixup`](/dn/command-reference/#dn-fixup).
+## Publish modes
 
-### Plan, implement, and land separately
+| Publish mode | CLI option                 | Result                                                        |
+| ------------ | -------------------------- | ------------------------------------------------------------- |
+| Local        | `--publish none` (default) | Changes stay in the workspace for review                      |
+| Pull request | `--publish pr` or `--awp`  | Creates a branch or bookmark, commits, pushes, and opens a PR |
+| Direct       | `--publish direct`         | Commits and pushes to the default branch                      |
 
-Use the explicit `meld → loop → land` lifecycle when the implementation approach
-needs its own review boundary.
-
-Plan with [`dn meld`](/dn/command-reference/#dn-meld), implement with
-[`dn loop`](/dn/command-reference/#dn-loop), then commit with
-[`dn land`](/dn/command-reference/#dn-land) and open a pull request when you are
-ready.
-
-This path is useful when an issue combines several concerns, implementation risk
-is high, or another person needs to approve the plan before code changes begin.
+CI must use `pr` or `direct` because a local-only workspace disappears with the
+runner. Use `direct` only when you intentionally want to bypass pull-request
+review. On the local path, `dn land` commits from a finished plan and
+[`dn sync`](/dn/command-reference/#dn-sync) publishes trunk; sync is not part of
+the pull-request path.
 
 ## Continue after kickstart
 
