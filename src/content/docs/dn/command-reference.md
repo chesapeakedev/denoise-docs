@@ -164,19 +164,20 @@ resolution is unclear.
 ## `dn until`
 
 `until` repeats an implement step and re-runs your verifier until the primary
-check passes or `iterations` is exhausted. Define the work in a gambit file
-(JSON, TOML, or Markdown). Prefer a script verifier (`make precommit`,
-`deno task check`, a focused test command) whenever exit code 0 means done. Use
-a prompt verifier only when no command captures the rubric.
+check passes or `iterations` is exhausted. Define the work in a **TOML** file, a
+**Markdown** file with `+++` TOML frontmatter, or legacy JSON. Prefer a script
+verifier (`make precommit`, `deno task check`, a focused test command) whenever
+exit code 0 means done. Use a prompt verifier only when no command captures the
+rubric.
 
 Plan and implement GitHub issues with `meld`, `loop`, or kickstart first. Use
 `until` when the tree is close but the merge gate or a test script still fails.
 
 ```bash
-dn until validate .github/dn/gambit.json
-dn until run .github/dn/gambit.json
-dn until run .github/dn/gambit.json --once
-dn until run .github/dn/gambit.json --strict-verdict
+dn until validate ./goal.md
+dn until run ./goal.md
+dn until run ./goal.toml --once
+dn until run ./goal.md --strict-verdict
 dn until import 123
 dn until import https://github.com/owner/repo/issues/123 --split
 ```
@@ -184,7 +185,7 @@ dn until import https://github.com/owner/repo/issues/123 --split
 `validate` parses the file and prints how many gambits loaded. `run` repeats
 the primary gambit (index 0) until its verifier reports done, up to top-level
 `iterations` (default `10`) and optional `timeout_ms`. `--once` caps the run at
-one primary iteration. That is not the same as `one_shot: true` on a later
+one primary iteration. That is not the same as `one_shot = true` on a later
 gambit, which runs a tail pass after the primary verifier already succeeded.
 `--strict-verdict` fails the run when a prompt verifier skips or corrupts the
 verdict file instead of retrying. `import` writes a local goal from an issue;
@@ -193,10 +194,12 @@ body.
 
 The first gambit is always primary; it cannot set `one_shot`. Additional gambits
 use `interval` (with `align`, `at`, or `phase`) for satellite passes, or
-`one_shot: true` for a single tail after primary success. Each generator or
+`one_shot = true` for a single tail after primary success. Each generator or
 verifier action uses exactly one of `url`, `content` (JSON `prompt` is an alias),
-or `script`. A `.md` gambit file uses the file body as the generator goal.
-List secret names in `secrets`; never store values in the file. `metadata` replaces
+or `script`. In a one-file `.md` goal, omit `generator.url` and
+`generator.content` so the Markdown body becomes the primary generator. Put long
+goal prose in a file and reference it with `url`, not a huge TOML string. List
+secret names in `secrets`; never store values in the config. `metadata` replaces
 `{{key}}` in prompts.
 
 Interval verifier failures are logged and the primary loop continues. Primary and
@@ -204,29 +207,44 @@ one-shot tail verifier failures stop the run.
 
 ### Make the merge gate pass
 
-Point the primary verifier at the same commands your team runs before merge:
+Point the primary verifier at the same commands your team runs before merge.
+A one-file Markdown goal keeps the write-up in the body and the gate in
+frontmatter:
 
-```json
-{
-  "gambits": [
-    {
-      "name": "precommit-green",
-      "metadata": {
-        "goal": "Complete issue 123 and keep the repository gate green"
-      },
-      "generator": {
-        "prompt": "Implement {{goal}}. Prefer small, reviewable edits. Resolve failures reported by the verifier."
-      },
-      "verifier": { "script": "make precommit" }
-    }
-  ],
-  "iterations": 5,
-  "timeout_ms": 3600000
-}
+```markdown
++++
+iterations = 5
+timeout_ms = 3_600_000
+
+[metadata]
+goal = "Complete issue 123 and keep the repository gate green"
+
+[verifier]
+script = "make precommit"
++++
+
+Implement {{goal}}. Prefer small, reviewable edits. Resolve failures reported
+by the verifier.
 ```
 
 ```bash
-dn until run .github/dn/gambit.json
+dn until run ./goal.md
+```
+
+For a short goal, use standalone TOML and point at a Markdown file:
+
+```toml
+iterations = 5
+timeout_ms = 3_600_000
+
+[metadata]
+goal = "Complete issue 123 and keep the repository gate green"
+
+[generator]
+url = "./goal-body.md"
+
+[verifier]
+script = "make precommit"
 ```
 
 Swap `make precommit` for your gate, for example `deno task check` or
@@ -235,38 +253,36 @@ Swap `make precommit` for your gate, for example `deno task check` or
 ### One-shot tail after a narrow gate
 
 The first gambit stays primary until its verifier passes. A second gambit with
-`one_shot: true` runs once afterward, for example to run the full merge gate
+`one_shot = true` runs once afterward, for example to run the full merge gate
 after a narrow test passed:
 
-```json
-{
-  "gambits": [
-    {
-      "name": "feature",
-      "metadata": {
-        "goal": "Implement the verifier verdict-file path in cli/until.ts"
-      },
-      "generator": {
-        "prompt": "Implement {{goal}}. Keep changes in cli/ and matching tests."
-      },
-      "verifier": {
-        "script": "deno test cli/test_until.ts --allow-all"
-      }
-    },
-    {
-      "name": "ci-tail",
-      "one_shot": true,
-      "metadata": {
-        "goal": "Resolve type, lint, or format issues left by the feature gambit"
-      },
-      "generator": {
-        "prompt": "{{goal}}. Do not expand scope beyond making the merge gate pass."
-      },
-      "verifier": { "script": "make precommit" }
-    }
-  ],
-  "iterations": 8
-}
+```toml
+iterations = 8
+
+[[gambits]]
+name = "feature"
+
+[gambits.metadata]
+goal = "Implement the verifier verdict-file path in cli/until.ts"
+
+[gambits.generator]
+content = "Implement {{goal}}. Keep changes in cli/ and matching tests."
+
+[gambits.verifier]
+script = "deno test cli/test_until.ts --allow-all"
+
+[[gambits]]
+name = "ci-tail"
+one_shot = true
+
+[gambits.metadata]
+goal = "Resolve type, lint, or format issues left by the feature gambit"
+
+[gambits.generator]
+content = "{{goal}}. Do not expand scope beyond making the merge gate pass."
+
+[gambits.verifier]
+script = "make precommit"
 ```
 
 ### Interval reviews
@@ -277,41 +293,43 @@ Set `align` to `start`, `end`, or `spread`, or list explicit 1-based `at`
 indices. `phase` runs the satellite before or after the primary pass on that
 tick.
 
-```json
-{
-  "iterations": 8,
-  "timeout_ms": 3600000,
-  "gambits": [
-    {
-      "name": "raise-coverage",
-      "metadata": { "threshold": "80" },
-      "generator": {
-        "prompt": "Add focused tests that raise line coverage toward {{threshold}}%. Do not weaken assertions or exclude code."
-      },
-      "verifier": {
-        "script": "npm test -- --coverage && ./scripts/check-coverage 80"
-      }
-    },
-    {
-      "name": "review-tests",
-      "interval": 0.25,
-      "align": "spread",
-      "phase": "after",
-      "generator": {
-        "prompt": "Review the new tests for gaps, flakiness, duplication, and weak assertions. Fix clear problems."
-      },
-      "verifier": { "script": "npm test" }
-    },
-    {
-      "name": "final-review",
-      "one_shot": true,
-      "generator": {
-        "prompt": "Review the completed coverage change and fix remaining integration problems."
-      },
-      "verifier": { "script": "make precommit" }
-    }
-  ]
-}
+```toml
+iterations = 8
+timeout_ms = 3_600_000
+
+[[gambits]]
+name = "raise-coverage"
+
+[gambits.metadata]
+threshold = "80"
+
+[gambits.generator]
+content = "Add focused tests that raise line coverage toward {{threshold}}%. Do not weaken assertions or exclude code."
+
+[gambits.verifier]
+script = "npm test -- --coverage && ./scripts/check-coverage 80"
+
+[[gambits]]
+name = "review-tests"
+interval = 0.25
+align = "spread"
+phase = "after"
+
+[gambits.generator]
+content = "Review the new tests for gaps, flakiness, duplication, and weak assertions. Fix clear problems."
+
+[gambits.verifier]
+script = "npm test"
+
+[[gambits]]
+name = "final-review"
+one_shot = true
+
+[gambits.generator]
+content = "Review the completed coverage change and fix remaining integration problems."
+
+[gambits.verifier]
+script = "make precommit"
 ```
 
 ### Prompt verifier
@@ -328,26 +346,29 @@ checks, in order:
 `--strict-verdict`, a missing or unparseable verdict triggers another primary
 iteration.
 
-```json
-{
-  "gambits": [
-    {
-      "name": "docs-tone",
-      "metadata": { "audience": "dn CLI users" },
-      "generator": { "prompt": "Improve the docs tone for {{audience}}" },
-      "verifier": {
-        "prompt": "Judge whether the docs meet the rubric for {{audience}}.",
-        "verdict_path": ".dn/until-verdict.json"
-      }
-    }
-  ],
-  "iterations": 3
-}
+```toml
+iterations = 3
+
+[[gambits]]
+name = "docs-tone"
+
+[gambits.metadata]
+audience = "dn CLI users"
+
+[gambits.generator]
+content = "Improve the docs tone for {{audience}}"
+
+[gambits.verifier]
+content = "Judge whether the docs meet the rubric for {{audience}}."
+verdict_path = ".dn/until-verdict.json"
 ```
+
+Install the authoring skill with `dn init agents --skill dn-until --agent opencode`
+(or your harness). JSON gambit files remain valid for older configs.
 
 Do not use generators that only reformat code, prompt verifiers that require
 stdout to contain only JSON, or unbounded scripts with no timeout. Keep secrets
-out of the gambit file.
+out of the goal file.
 
 ### Import a goal from GitHub
 
@@ -360,143 +381,6 @@ config and a neighboring Markdown body. Import does not close the issue or start
 dn until import https://github.com/owner/repo/issues/123
 dn until import 123 --split
 ```
-
-## `dn ensure`
-
-Recipes in root `dn.json` under `ensure.<name>` run frozen `argv` lists (no
-shell). Kickstart and loop already call `dn ensure lint` after implement when
-that recipe exists. Use `dn ensure` with no name to list recipes, or pass a name
-to rerun one gate. On failure, `dn` runs a fixer agent unless you pass
-`--no-fix`.
-
-```bash
-dn ensure
-dn ensure lint
-dn ensure tests --no-fix
-```
-
-## `dn read`
-
-`read` prints a pull request brief (files, review comments, checks) without
-writing to the workspace or GitHub. Use it before `fixup` when you want context
-for you or an agent. `--json` suits scripts.
-
-```bash
-dn read https://github.com/owner/repo/pull/123
-dn read 123 --json
-```
-
-## `dn init stack`
-
-Build a ranked kickstart queue from a GitHub milestone. Output lands in
-`plans/{owner}_{repo}_{milestone}.stack.md` and `.stack.json`. Commit those
-files if the team should share the queue.
-
-```bash
-dn init stack 42
-dn init stack https://github.com/owner/repo/milestone/3
-dn init stack 42 --refresh
-```
-
-`--refresh` updates an existing stack from GitHub. `dn kickstart --milestone 42`
-takes the next unchecked row. For CI dispatch, see
-[Headless use — Dispatch payloads](/runners/headless-use/#dispatch-payloads).
-
-## `dn issue`
-
-Script issue CRUD and GitHub's relationship fields from the terminal. Set
-`--repo owner/repo` when numeric refs should target another repository than the
-checkout. Use `relationship` subcommands for blockers, sub-issues, and
-duplicates.
-
-```bash
-dn issue list
-dn issue list --repo owner/repo
-dn issue list --state closed --limit 10
-dn issue list --label bug
-dn issue show 123
-dn issue show 123 --repo owner/repo
-dn issue show 123 --no-comments
-dn issue create --title "Bug" --body-file report.md
-dn issue create --repo owner/repo --title "Bug" --body-file report.md
-dn issue create --title "Bug" --milestone 42
-dn issue edit 123 --title "New title"
-dn issue edit 123 --add-label bug
-dn issue edit 123 --milestone https://github.com/owner/repo/milestone/42
-dn issue edit 123 --clear-milestone
-dn issue close 123
-dn issue close 123 --reason not_planned
-dn issue close 123 --comment "Fixed in #456"
-dn issue reopen 123
-dn issue comment 123 --body-file update.md
-dn issue comment 123 --body-stdin
-dn issue relationship list 123
-dn issue relationship add blocked-by 123 456
-dn issue relationship add sub-issue 123 789
-dn issue relationship reprioritize sub-issue 123 789 --after 456
-dn issue relationship mark-duplicate 123 456
-```
-
-Issue references accept `123`, `#123`, or a full URL. `issue show` prints
-relationship metadata when GitHub exposes it (parent, sub-issues, blockers,
-duplicate-of). GraphQL paging limits related-issue lists to ten references per
-edge unless the summary reports more.
-
-## `dn milestone`
-
-Create milestones, list open ones, or publish a bulk issue plan from JSON.
-`publish` reads a version `1.0` file with `milestone` and `issues`, creates the
-milestone and issues, then applies each `blocked_by` link after every issue
-exists. Run `publish` with `--dry-run --json` to validate without writes.
-
-```bash
-dn milestone create --title "Q1 work"
-dn milestone create --title "Q1 work" --description-file milestone.md --due-on 2026-03-31
-dn milestone list --repo owner/repo --json
-dn milestone publish plans/auth-refactor.json --dry-run --json
-dn milestone publish plans/auth-refactor.json --repo owner/repo
-```
-
-dn milestone publish plans/auth-refactor.json --repo owner/repo
-```
-
-## `dn glance`
-
-`glance` reports issue and commit velocity for the repository tied to your
-checkout's `origin` remote (or `GITHUB_REPOSITORY` in CI). It uses the GitHub
-API, not local git history. Run it from a clone whose default remote is
-`github.com/owner/repo`.
-
-```bash
-dn glance
-dn glance --days 14
-dn glance --compact --no-urls
-```
-
-Each run compares the last **N** days (default 7) to the prior **N** days:
-open and close rates, commit count, label groupings, recent items, and per-user
-share. `--days` sets the window. `--compact` tightens spacing. `--no-urls`
-drops issue and commit links from the report.
-
-Use [`dn peek`](/dn/task-list-and-sync/#dn-peek) to rank what to work on next;
-use `glance` for a recent activity snapshot.
-
-## Milestone workflow
-
-Typical milestone sequence:
-
-```bash
-dn meld --milestone 42
-dn init stack 42
-dn kickstart --milestone 42 --once
-dn kickstart --publish pr --milestone 42 --complete
-```
-
-`meld --milestone` drafts a user-value description. `init stack` builds the
-ranked queue ([`dn init stack`](#dn-init-stack)). `milestone create`, `list`, and
-`publish` handle bulk plans ([`dn milestone`](#dn-milestone)). On kickstart,
-`--once` drains one stack row; `--complete` drains the rest and requires
-`--publish pr` or `--publish direct`.
 
 ## `dn sync`
 
