@@ -34,7 +34,7 @@ Example output:
 | `git`     | No `.sl` at root; **`.git`** at root (plain Git checkout).                       |
 | `unknown` | Not a recognized checkout; do not guess.                                         |
 
-Rules (same as [Landing — `dn sync`](/dn/task-list-and-sync/#dn-sync)):
+Rules (same as [`dn sync`](/dn/command-reference/#dn-sync)):
 
 - **`.sl` at root wins** over `.git` in dual-metadata trees.
 - **`sl` on PATH does not imply Sapling** — only `.sl` metadata does.

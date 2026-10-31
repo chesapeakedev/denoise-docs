@@ -16,6 +16,7 @@ export default defineConfig({
     "/dn/sandbox": "/runners/sandbox/",
     "/dn/until": "/dn/command-reference/#dn-until",
     "/dn/land": "/dn/command-reference/#dn-land",
+    "/dn/task-list-and-sync": "/dn/command-reference/",
     "/dn/opencode": "/cookbooks/opencode/",
     "/dn/claude": "/cookbooks/claude-code/",
     "/dn/codex": "/cookbooks/codex/",
@@ -83,10 +84,6 @@ export default defineConfig({
             {
               label: "Filesystem Context",
               slug: "dn/filesystem-context",
-            },
-            {
-              label: "Landing",
-              slug: "dn/task-list-and-sync",
             },
           ],
         },

@@ -23,7 +23,7 @@ Plan, implement, land, and retry until verifiers pass.
 | `loop`      | Implement an existing plan                | full      | [`dn loop`](#dn-loop)                                                       |
 | `land`      | Close out work into VCS commits           | full      | [`dn land`](#dn-land)                                                       |
 | `until`     | Bounded loops                             | full      | [`dn until`](#dn-until)                                                     |
-| `sync`      | Rebase onto trunk and publish             | full      | [`dn sync`](#dn-sync), [`dn sync`](/dn/task-list-and-sync/#dn-sync) |
+| `sync`      | Rebase onto trunk and publish             | full      | [`dn sync`](#dn-sync)                                                       |
 
 ### GitHub
 
@@ -57,9 +57,13 @@ Choose and groom local work queues without starting an agent run.
 
 | Subcommand | Purpose | Doc depth | Where |
 | ---------- | ------- | --------- | ----- |
-| `peek` | Heuristic next-issue ranking (no LLM) | full | [`dn peek`](/dn/task-list-and-sync/#dn-peek) |
-| `task` | Unified list at `~/.dn/todo.md` (Void native + kickstart queue) | full | [`dn task`](/dn/task-list-and-sync/#dn-task) |
-| `tidy` | Refresh task list; groom config and harness files | full | [`dn tidy`](/dn/task-list-and-sync/#dn-tidy), [`dn tidy` extras](#dn-tidy-extras) |
+| `peek` | Heuristic next-issue ranking (no LLM) | full | [`dn peek`](#dn-peek) |
+| `task` | Unified list at `~/.dn/todo.md` (Void native + kickstart queue) | full | [`dn task`](#dn-task) |
+| `tidy` | Refresh task list; groom config and harness files | full | [`dn tidy`](#dn-tidy), [`dn tidy` extras](#dn-tidy-extras) |
+
+`peek`, `task`, `tidy`, and `sync` in this group are **experimental**. Behavior and
+flags may change in future `dn` releases. They complement
+[kickstart](/kickstart/) and the core plan → implement → land flow above.
 
 ### Infrastructure and design docs
 
@@ -389,14 +393,54 @@ when you intend to land on trunk, not as the last step of a PR workflow.
 Preflight runs `sync.preflight` argv lists from `dn.json` unless you pass
 `--skip-preflight`.
 
+`dn` auto-detects **Sapling** or **Git** from the workspace:
+
+- **Sapling** — when the repo root contains `.sl` metadata (plain Git checkouts
+  with `sl` installed are not treated as Sapling)
+- **Git** — otherwise, when `git rev-parse --show-toplevel` succeeds
+
+Sapling takes precedence in dual-compatible repositories.
+
+### What each run does
+
+1. Optional **`sync.preflight`** from `dn.json` (this repo: `make lint` then
+   `make tests`; skip with `--skip-preflight`)
+2. **Rebase onto remote trunk**
+3. **Publish** only when local commits remain after the rebase
+
+**Sapling** (`sl`):
+
+1. `sl pull --rebase -d main`
+2. `sl restack` when obsolete children need restacking
+3. `sl push --to main` when draft commits exist on the main-line stack
+
+**Git** (`git`):
+
+1. Resolve the remote from `branch.main.remote`, or `origin` when that is not
+   set
+2. `git fetch <remote> main`
+3. `git rebase FETCH_HEAD`
+4. `git push <remote> HEAD:main` when `HEAD` is ahead of the fetched `main`
+
+When there is nothing to push, `dn sync` skips the push step and prints why.
+
+### Prerequisites
+
+- **`make`** and a `lint` target in the repository `Makefile` (unless you pass
+  `--skip-preflight`)
+- **Git** and/or **Sapling** on `PATH`, depending on the checkout type
+- A configured remote that can fetch and push `main` (Git uses the tracked
+  remote or `origin`; Sapling uses your existing `sl` remote config)
+
+`dn auth` configures GitHub API access for other commands. **VCS push and fetch
+use the credentials configured for your Git or Sapling remotes** — HTTPS
+credential helper, `gh auth` HTTPS, or SSH.
+
 ```bash
 dn sync
 dn sync --workspace-root /path/to/checkout
 dn sync --skip-preflight
 ```
-
-Git and Sapling detection, prerequisites, and exact rebase behavior are in
-[Landing — `dn sync`](/dn/task-list-and-sync/#dn-sync).
 
 ## `dn issue`
 
@@ -488,9 +532,6 @@ dn milestone publish plans/auth-refactor.json --dry-run --json
 dn milestone publish plans/auth-refactor.json --repo owner/repo
 ```
 
-dn milestone publish plans/auth-refactor.json --repo owner/repo
-```
-
 ## `dn glance`
 
 `glance` reports issue and commit velocity for the repository tied to your
@@ -509,8 +550,23 @@ open and close rates, commit count, label groupings, recent items, and per-user
 share. `--days` sets the window. `--compact` tightens spacing. `--no-urls`
 drops issue and commit links from the report.
 
-Use [`dn peek`](/dn/task-list-and-sync/#dn-peek) to rank what to work on next;
+Use [`dn peek`](#dn-peek) to rank what to work on next;
 use `glance` for a recent activity snapshot.
+
+## `dn peek`
+
+Suggests next open issues with a fixed heuristic scoring model. In conversation,
+this gives an agent a concrete way to propose what it should work on next:
+
+```bash
+dn peek
+dn peek --limit 5
+dn peek --fetch 200
+dn peek --verbose --no-urls
+```
+
+`peek` uses GitHub GraphQL issue paging only. It does not invoke the LLM-based
+kickstart readiness scorer.
 
 ## Milestone workflow
 
@@ -595,7 +651,7 @@ dn init wizard --project
 | Subcommand  | Role                                                                                        |
 | ----------- | ------------------------------------------------------------------------------------------- |
 | `stack`     | Milestone queue in `plans/*.stack.md` ([`dn init stack`](#dn-init-stack))                   |
-| `build`     | Install `.github/dn/config.json` and canonical workflow YAML files                          |
+| `build`     | Install root `dn.json` (when missing) and canonical workflow YAML files                     |
 | `workflows` | Same as `build`; pass `--agent` for harness in config                                       |
 | `agents`    | Create or refresh root `AGENTS.md` ([Filesystem Context](/dn/filesystem-context/#agentsmd)) |
 | `wizard`    | Guided project or user config (`--project`, `--yes`)                                        |
@@ -651,25 +707,67 @@ Add the line to `~/.bashrc` or your zsh config after `compinit`.
 
 ## `dn task`
 
-Local Denoise task documents under `~/.dn/tasks/` (JSON), separate from the
-kickstart issue queue in `~/.dn/todo.md`. Void task-sync and
-`dn kickstart --denoise-task` use these files.
+Manages the unified kickstart queue at `~/.dn/todo.md` (native Void tasks with
+embedded JSON plus GitHub issues and plan paths) and separate Denoise task
+documents under `~/.dn/tasks/` (JSON). Void task-sync and
+`dn kickstart --denoise-task` use the `tasks/` files.
 
 ```bash
 dn task list
 dn task show <id|ref>
 dn task upsert --file task.json
 dn task delete <id>
+
+# Mark queue items done (closes GitHub issue when applicable)
 dn task done
+dn task done 42
+dn task done https://github.com/owner/repo/issues/42
+dn task done plans/auth.plan.md
+
+# Inspect runner pairing / file lock (Void sync)
 dn task sync status
 ```
 
-See [The Void](/denoise/void/) and
-[Landing — `dn task`](/dn/task-list-and-sync/#dn-task).
+When the ref is a GitHub issue, `dn` closes the issue with a comment. Use this
+after `dn land` (or after `--publish direct` when you want the issue closed) to
+keep the list and GitHub in sync. Attended `dn kickstart` does not mark queue
+items done on exit.
+
+Void task-sync relays **native tasks only** to the browser; kickstart queue lines
+stay on your laptop. See [The Void](/denoise/void/) and
+[device runners](/runners/device-runners/#local-task-sync-void-free-plan).
+
+## No-ticket kickstart
+
+If you run `dn kickstart` without an issue URL, issue number, or `ISSUE`, `dn`
+reads the task list first. If unchecked items exist, it prompts once before
+running the top item. If the list is empty, it can search the current repository
+for open issues and plan files, score them, write the list, and suggest the
+first item.
+
+Attended kickstart exits after a successful run. It does not mark the queue item
+done or ask to continue. Review the changes, run `dn land` when you are ready to
+commit, then `dn task done` to check the item off and close the GitHub issue if
+applicable. For per-issue publish without a separate land step, use
+`--publish pr` or `--publish direct`.
+
+## `dn tidy`
+
+Refreshes and re-scores the task list:
+
+```bash
+dn tidy
+dn tidy --limit 10
+```
+
+From a repository with a GitHub remote, `tidy` fetches recent open issues and
+optional `plans/*.plan.md`, scores them for readiness, and updates
+`~/.dn/todo.md`. If the scorer suggests merging issues, `dn` prompts before any
+GitHub writes. When `EDITOR` is set, it opens the refreshed list.
 
 ## `dn tidy` extras
 
-[`dn tidy`](/dn/task-list-and-sync/#dn-tidy) refreshes `~/.dn/todo.md` from open
+[`dn tidy`](#dn-tidy) refreshes `~/.dn/todo.md` from open
 issues. These subcommands groom harness and config files:
 
 ```bash
