@@ -1,6 +1,6 @@
 ---
 title: Getting started
-description: Choose The Void for free solo tasks, or sign in to denoise for team planning.
+description: Choose Denoise Personal for free solo tasks, or sign in to denoise for team planning.
 ---
 
 Use this page to choose the right product surface, sign in, and create a first
@@ -8,14 +8,15 @@ task. Start here when you are using the app UI rather than the `dn` CLI.
 
 ## Choose Free or Pro
 
-| Product             | URL                                              | When to use it                                                         |
-| ------------------- | ------------------------------------------------ | ---------------------------------------------------------------------- |
-| **The Void** (Free) | [void.denoise.cloud](https://void.denoise.cloud) | Solo local tasks that sync to a paired laptop via `dn`. No milestones. |
-| **denoise** (Pro)   | [denoise.cloud](https://denoise.cloud)           | Workspace, milestones, GitHub sync, and kickstart from the app.        |
+| Product                     | URL                                                      | When to use it                                                         |
+| --------------------------- | -------------------------------------------------------- | ---------------------------------------------------------------------- |
+| **Denoise Personal** (Free) | [personal.denoise.cloud](https://personal.denoise.cloud) | Solo local tasks that sync to a paired laptop via `dn`. No milestones. |
+| **denoise** (Pro)           | [denoise.cloud](https://denoise.cloud)                   | Workspace, milestones, GitHub sync, and kickstart from the app.        |
 
 Signing in at denoise.cloud without Pro lands on `/subscribe`. Choose **Continue
-in The Void** for solo use, or subscribe for the collaboration and milestone
-tracking with **Workspaces**. See [The Void](/denoise/void/) and
+in Denoise Personal** for solo use, or subscribe for the collaboration and
+milestone tracking with **Workspaces**. See
+[Denoise Personal](/denoise/personal/) and
 [Subscription & Pro](/denoise/subscription-and-pro/).
 
 ## The Denoise Web App
@@ -52,26 +53,29 @@ has a few options:
 - Start a free Pro trial by clicking the recommended option
 - Create a Team account, which creates an organization that you can add users to
   (includes 6 seats)
-- **Continue in The Void** for free solo use, without a denoise subscription
+- **Continue in Denoise Personal** for free solo use, without a denoise
+  subscription
 
 All subscriptions are associated with a valid Github account, so in order to
 create an account and start a trial, team organization, etc you will need to
 authenticate with Github.
 
-Authentication cookies are shared across denoise.cloud and void.denoise.cloud.
-For sign-in behavior, repository access, and how the sync badge interacts with
-authentication, see [Authentication](/denoise/authentication/).
+Authentication cookies are shared across denoise.cloud and
+personal.denoise.cloud. For sign-in behavior, repository access, and how the
+sync badge interacts with authentication, see
+[Authentication](/denoise/authentication/).
 
 ## Creating your first task
 
-### Free — The Void
+### Free — Denoise Personal
 
-1. Open [void.denoise.cloud](https://void.denoise.cloud).
+1. Open [personal.denoise.cloud](https://personal.denoise.cloud).
 2. Optionally sign in and pair a device runner so tasks land under
    `~/.dn/todo.md` on your laptop.
 3. Type a task title and add it.
 
-See [The Void](/denoise/void/) for local sync and ticketless kickstart.
+See [Denoise Personal](/denoise/personal/) for local sync and ticketless
+kickstart.
 
 ### Pro — Denoise Workspace
 
@@ -106,7 +110,8 @@ the workspace, the tour points at the progress strip and the status filters.
 
 ## Next steps
 
-- Use [The Void](/denoise/void/) for free solo tasks and local `dn` sync.
+- Use [Denoise Personal](/denoise/personal/) for free solo tasks and local `dn`
+  sync.
 - Use [Features](/denoise/features/) to learn milestones, collaboration, and
   GitHub sync in the team app.
 - Use [GitHub integration](/denoise/github-integration/) when you want to link
@@ -115,5 +120,5 @@ the workspace, the tour points at the progress strip and the status filters.
   ranking, and per-task kickstart on GitHub-linked milestones.
 - Use [Subscription & Pro](/denoise/subscription-and-pro/) for Free vs Pro vs
   Team.
-- Use [Runners](/runners/device-runners/) when you want Void task-sync or Pro
-  kickstart on a trusted local checkout.
+- Use [Runners](/runners/device-runners/) when you want Personal task-sync or
+  Pro kickstart on a trusted local checkout.

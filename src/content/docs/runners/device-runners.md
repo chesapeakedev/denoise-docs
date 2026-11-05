@@ -7,9 +7,9 @@ Pair a device, connect exe.dev, or install GitHub Actions workflows from the
 milestone **Runners** dialog. For what a runner is, provider limits, and which
 doc to open next, see [Runners overview](/runners/overview/).
 
-On this page: device pairing and checkout registration, Void local task-sync,
-kickstart/land/sync from the UI, agent preference, exe.dev connect, security,
-and troubleshooting. GitHub Actions template install is also in
+On this page: device pairing and checkout registration, Personal local
+task-sync, kickstart/land/sync from the UI, agent preference, exe.dev connect,
+security, and troubleshooting. GitHub Actions template install is also in
 [GitHub integration](/denoise/github-integration/). Self-hosted Actions hardware
 is [Self-hosted runners](/runners/self-hosted-runners/). Logs:
 [Runner logs](/runners/runner-logs/).
@@ -26,14 +26,15 @@ The sections below focus on **device** and **exe.dev**. Actions enrollment is
 mostly workflow files in the **Runners** dialog; see
 [GitHub integration](/denoise/github-integration/) for repository setup.
 
-## Local task sync (The Void)
+## Local task sync (Denoise Personal)
 
 Denoise does not store free-plan task bodies long-term. When
-[The Void](/denoise/void/) creates or edits a ticketless task, denoise relays a
-short-lived envelope to the paired runner. `dn runner serve` merges native
-`DenoiseTaskDocument` payloads into `~/.dn/todo.md` on the laptop. The same file
-also holds the kickstart queue (GitHub issues and plan paths). Task-sync relays
-**native tasks only** to Void; queue lines stay on the device.
+[Denoise Personal](/denoise/personal/) creates or edits a ticketless task,
+denoise relays a short-lived envelope to the paired runner. `dn runner serve`
+merges native `DenoiseTaskDocument` payloads into `~/.dn/todo.md` on the laptop.
+The same file also holds the kickstart queue (GitHub issues and plan paths).
+Task-sync relays **native tasks only** to Denoise Personal; queue lines stay on
+the device.
 
 ```bash
 dn task list
@@ -45,9 +46,9 @@ dn task sync status
 
 Device and exe.dev runners count toward your plan limit — see
 [Subscription & Pro](/denoise/subscription-and-pro/). GitHub Actions does not
-use that slot. Pair from The Void **Devices** or from a GitHub-linked milestone
-(**Runners**). Profile **Runners** links to the milestone dialog; it does not
-issue pairing codes.
+use that slot. Pair from Denoise Personal **Devices** or from a GitHub-linked
+milestone (**Runners**). Profile **Runners** links to the milestone dialog; it
+does not issue pairing codes.
 
 ## Pair and prepare a device
 
@@ -56,7 +57,7 @@ repository kickstart), and a supported agent harness. Run the service as your
 normal login user.
 
 1. Open a GitHub-linked milestone and click **Runners**, or open **Devices** in
-   The Void. Click **Pair a device**.
+   Denoise Personal. Click **Pair a device**.
 2. Run the command denoise shows. Typical form:
 
    ```bash

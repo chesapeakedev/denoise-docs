@@ -118,7 +118,7 @@ When kickstart finishes but the result is wrong — or never produces a PR — s
 ### Device runner pairing or kickstart
 
 - Pair and approve from a GitHub-linked milestone (**Runners**) or from
-  **Devices** in The Void, then run `dn runner doctor` on the device.
+  **Devices** in Denoise Personal, then run `dn runner doctor` on the device.
 - Register each trusted checkout with `dn runner register` before selecting it
   as the **Execution checkout**. Denoise does not clone missing checkouts and
   does not store local paths.

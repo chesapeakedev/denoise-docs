@@ -5,8 +5,8 @@ description: Complete dn command inventory
 
 This page mirrors `dn --help` with short usage notes per subcommand. Global
 flags and environment variables are in
-[Global options and environment](#global-options-and-environment). Agent defaults
-are in [Choose an agent](/dn/filesystem-context/#choose-an-agent).
+[Global options and environment](#global-options-and-environment). Agent
+defaults are in [Choose an agent](/dn/filesystem-context/#choose-an-agent).
 
 Commands that call GitHub need a token from `gh auth login`, `dn auth`, or
 `GITHUB_TOKEN`. See
@@ -16,92 +16,94 @@ Commands that call GitHub need a token from `gh auth login`, `dn auth`, or
 
 Plan, implement, land, and retry until verifiers pass.
 
-| Subcommand  | Purpose                                   | Doc depth | Where                                                                         |
-| ----------- | ----------------------------------------- | --------- | ----------------------------------------------------------------------------- |
+| Subcommand  | Purpose                                   | Doc depth | Where                                              |
+| ----------- | ----------------------------------------- | --------- | -------------------------------------------------- |
 | `kickstart` | Plan and implement an issue or local spec | full      | [Kickstart](/kickstart/), [options](#dn-kickstart) |
-| `meld`      | Plan from one or more sources             | full      | [`dn meld`](#dn-meld)                                                       |
-| `loop`      | Implement an existing plan                | full      | [`dn loop`](#dn-loop)                                                       |
-| `land`      | Close out work into VCS commits           | full      | [`dn land`](#dn-land)                                                       |
-| `until`     | Bounded loops                             | full      | [`dn until`](#dn-until)                                                     |
-| `sync`      | Rebase onto trunk and publish             | full      | [`dn sync`](#dn-sync)                                                       |
+| `meld`      | Plan from one or more sources             | full      | [`dn meld`](#dn-meld)                              |
+| `loop`      | Implement an existing plan                | full      | [`dn loop`](#dn-loop)                              |
+| `land`      | Close out work into VCS commits           | full      | [`dn land`](#dn-land)                              |
+| `until`     | Bounded loops                             | full      | [`dn until`](#dn-until)                            |
+| `sync`      | Rebase onto trunk and publish             | full      | [`dn sync`](#dn-sync)                              |
 
 ### GitHub
 
-Issues, pull requests, milestones, releases, GitHub Actions, and activity on GitHub.
+Issues, pull requests, milestones, releases, GitHub Actions, and activity on
+GitHub.
 
-| Subcommand  | Purpose                                   | Doc depth | Where                             |
-| ----------- | ----------------------------------------- | --------- | --------------------------------- |
-| `issue`     | Manage issues and relationships           | full      | [GitHub context](/dn/github-context/#issues-and-relationships) |
-| `read`      | Read-only PR review brief                 | full      | [GitHub context](/dn/github-context/#pull-requests-and-review) |
-| `fixup`     | Address PR feedback locally               | full      | [GitHub context](/dn/github-context/#pull-requests-and-review) |
-| `milestone` | Create, list, publish milestones          | full      | [GitHub context](/dn/github-context/#milestones-and-queues) |
-| `glance`    | Project velocity overview                 | full      | [GitHub context](/dn/github-context/#releases-activity-and-actions) |
-| `release`   | Create, list, view, edit, delete releases | summary   | [GitHub context](/dn/github-context/#releases-activity-and-actions) |
+| Subcommand  | Purpose                                    | Doc depth | Where                                                                                                       |
+| ----------- | ------------------------------------------ | --------- | ----------------------------------------------------------------------------------------------------------- |
+| `issue`     | Manage issues and relationships            | full      | [GitHub context](/dn/github-context/#issues-and-relationships)                                              |
+| `read`      | Read-only PR review brief                  | full      | [GitHub context](/dn/github-context/#pull-requests-and-review)                                              |
+| `fixup`     | Address PR feedback locally                | full      | [GitHub context](/dn/github-context/#pull-requests-and-review)                                              |
+| `milestone` | Create, list, publish milestones           | full      | [GitHub context](/dn/github-context/#milestones-and-queues)                                                 |
+| `glance`    | Project velocity overview                  | full      | [GitHub context](/dn/github-context/#releases-activity-and-actions)                                         |
+| `release`   | Create, list, view, edit, delete releases  | summary   | [GitHub context](/dn/github-context/#releases-activity-and-actions)                                         |
 | `workflows` | Install, validate, dispatch GitHub Actions | summary   | [GitHub context](/dn/github-context/#releases-activity-and-actions), [Headless use](/runners/headless-use/) |
 
 ### Setup, context, and automation
 
 Repository bootstrap, `dn.json` recipes, and agent context files.
 
-| Subcommand   | Purpose                                    | Doc depth | Where                                                                                                    |
-| ------------ | ------------------------------------------ | --------- | -------------------------------------------------------------------------------------------------------- |
-| `init`       | Stack, workflows, agents, wizard           | summary   | [`dn init`](#dn-init)                                                                                  |
-| `ensure`     | Run a named `dn.json` recipe               | full      | [`dn ensure`](#dn-ensure)                                                                                |
-| `context`    | Inspect inherited `AGENTS.md` chain        | full      | [`dn context`](/dn/filesystem-context/#dn-context)                                  |
-| `auth`       | Complementary GitHub sign-in               | summary   | [`dn auth`](#dn-auth), [GitHub authentication](/dn/installation/#github-authentication) |
-| `completion` | Bash or zsh tab completion                 | summary   | [`dn completion`](#dn-completion)                                                                      |
+| Subcommand   | Purpose                             | Doc depth | Where                                                                                   |
+| ------------ | ----------------------------------- | --------- | --------------------------------------------------------------------------------------- |
+| `init`       | Stack, workflows, agents, wizard    | summary   | [`dn init`](#dn-init)                                                                   |
+| `ensure`     | Run a named `dn.json` recipe        | full      | [`dn ensure`](#dn-ensure)                                                               |
+| `context`    | Inspect inherited `AGENTS.md` chain | full      | [`dn context`](/dn/filesystem-context/#dn-context)                                      |
+| `auth`       | Complementary GitHub sign-in        | summary   | [`dn auth`](#dn-auth), [GitHub authentication](/dn/installation/#github-authentication) |
+| `completion` | Bash or zsh tab completion          | summary   | [`dn completion`](#dn-completion)                                                       |
 
 ### Triage, queues, and local tasks
 
 Choose and groom local work queues without starting an agent run.
 
-| Subcommand | Purpose | Doc depth | Where |
-| ---------- | ------- | --------- | ----- |
-| `peek` | Heuristic next-issue ranking (no LLM) | full | [`dn peek`](#dn-peek) |
-| `task` | Unified list at `~/.dn/todo.md` (Void native + kickstart queue) | full | [`dn task`](#dn-task) |
-| `tidy` | Refresh task list; groom config and harness files | full | [`dn tidy`](#dn-tidy), [`dn tidy` extras](#dn-tidy-extras) |
+| Subcommand | Purpose                                                             | Doc depth | Where                                                      |
+| ---------- | ------------------------------------------------------------------- | --------- | ---------------------------------------------------------- |
+| `peek`     | Heuristic next-issue ranking (no LLM)                               | full      | [`dn peek`](#dn-peek)                                      |
+| `task`     | Unified list at `~/.dn/todo.md` (Personal native + kickstart queue) | full      | [`dn task`](#dn-task)                                      |
+| `tidy`     | Refresh task list; groom config and harness files                   | full      | [`dn tidy`](#dn-tidy), [`dn tidy` extras](#dn-tidy-extras) |
 
-`peek`, `task`, `tidy`, and `sync` in this group are **experimental**. Behavior and
-flags may change in future `dn` releases. They complement
+`peek`, `task`, `tidy`, and `sync` in this group are **experimental**. Behavior
+and flags may change in future `dn` releases. They complement
 [kickstart](/kickstart/) and the core plan → implement → land flow above.
 
 ### Infrastructure and design docs
 
 Device runners and design RFCs tracked in the repository.
 
-| Subcommand | Purpose                                     | Doc depth | Where                                                               |
-| ---------- | ------------------------------------------- | --------- | ------------------------------------------------------------------- |
+| Subcommand | Purpose                                     | Doc depth | Where                                                             |
+| ---------- | ------------------------------------------- | --------- | ----------------------------------------------------------------- |
 | `runner`   | Pair this machine as Denoise infrastructure | summary   | [`dn runner`](#dn-runner), [Runners overview](/runners/overview/) |
 | `rfc`      | Request-for-comments documents in the repo  | summary   | [`dn rfc`](#dn-rfc)                                               |
 
 ## `dn kickstart`
 
 `kickstart` accepts a GitHub issue, local Markdown spec, denoise task, or a
-queued item. The workflow and publish modes are covered in the [Kickstart
-guide](/kickstart/); this section lists the CLI flags that shape the run.
+queued item. The workflow and publish modes are covered in the
+[Kickstart guide](/kickstart/); this section lists the CLI flags that shape the
+run.
 
-| Flag | Effect |
-| --- | --- |
-| `<issue\|path>` | Optional issue number/URL or local Markdown path. Omit to select from a queue. |
-| `--awp` | Alias for `--publish pr`. |
-| `--publish <none\|pr\|direct>` | Keep changes local (default), open a pull request, or commit and push to the default branch. |
-| `--allow-cross-repo`, `-A` | Allow an issue from another repository; unavailable with AWP publishing. |
-| `--steer <prompt>` | Add operator guidance to plan and implementation prompts. |
-| `--verbosity <low\|medium\|high>` | Set plan prompt detail; defaults to `medium`. |
-| `--skip-plan` | Skip plan generation and implement the target directly. |
-| `--plan-only` | Generate the plan and stop before implementation. |
-| `--skip-review` | Skip the configured second review pass. |
-| `--milestone <number\|URL>` | Select the milestone stack queue. |
-| `--saved-plan <name>` | Use the named saved plan artifact. |
-| `--workspace-root <path>` | Set the workspace root used by the workflow. |
-| `--once` | Run and complete one unchecked milestone stack item, then exit. Requires `--milestone`. |
-| `--complete` | Process all remaining milestone stack items. Requires `--milestone` and `--publish pr` or `--publish direct`. |
-| `--denoise-task <file>` | Use a task JSON file as ticketless input. |
-| `--cursor-cloud` | Run with Cursor Cloud Agent. |
-| `--ref <git-ref>` | Select the remote ref for Cursor Cloud Agent. |
-| `--sandbox <none\|docker\|exe.dev>` | Select the agent workflow sandbox. |
-| `--agent <name>` | Select the agent harness; see [Choose an agent](/dn/filesystem-context/#choose-an-agent). |
-| `--context-file <path>` | Add a file to agent context. |
+| Flag                                | Effect                                                                                                        |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `<issue\|path>`                     | Optional issue number/URL or local Markdown path. Omit to select from a queue.                                |
+| `--awp`                             | Alias for `--publish pr`.                                                                                     |
+| `--publish <none\|pr\|direct>`      | Keep changes local (default), open a pull request, or commit and push to the default branch.                  |
+| `--allow-cross-repo`, `-A`          | Allow an issue from another repository; unavailable with AWP publishing.                                      |
+| `--steer <prompt>`                  | Add operator guidance to plan and implementation prompts.                                                     |
+| `--verbosity <low\|medium\|high>`   | Set plan prompt detail; defaults to `medium`.                                                                 |
+| `--skip-plan`                       | Skip plan generation and implement the target directly.                                                       |
+| `--plan-only`                       | Generate the plan and stop before implementation.                                                             |
+| `--skip-review`                     | Skip the configured second review pass.                                                                       |
+| `--milestone <number\|URL>`         | Select the milestone stack queue.                                                                             |
+| `--saved-plan <name>`               | Use the named saved plan artifact.                                                                            |
+| `--workspace-root <path>`           | Set the workspace root used by the workflow.                                                                  |
+| `--once`                            | Run and complete one unchecked milestone stack item, then exit. Requires `--milestone`.                       |
+| `--complete`                        | Process all remaining milestone stack items. Requires `--milestone` and `--publish pr` or `--publish direct`. |
+| `--denoise-task <file>`             | Use a task JSON file as ticketless input.                                                                     |
+| `--cursor-cloud`                    | Run with Cursor Cloud Agent.                                                                                  |
+| `--ref <git-ref>`                   | Select the remote ref for Cursor Cloud Agent.                                                                 |
+| `--sandbox <none\|docker\|exe.dev>` | Select the agent workflow sandbox.                                                                            |
+| `--agent <name>`                    | Select the agent harness; see [Choose an agent](/dn/filesystem-context/#choose-an-agent).                     |
+| `--context-file <path>`             | Add a file to agent context.                                                                                  |
 
 `--once` and `--complete` are mutually exclusive. Queue handling, plan review,
 and publish behavior are described in the [Kickstart guide](/kickstart/).
@@ -139,8 +141,8 @@ https://github.com/owner/repo/issues/456
 ## `dn loop`
 
 `loop` is the implement step after planning. You need a plan from `meld`, from
-kickstart before implement, or a file under `plans/`. Each run is one agent pass;
-it does not merge sources or write a new plan.
+kickstart before implement, or a file under `plans/`. Each run is one agent
+pass; it does not merge sources or write a new plan.
 
 ```bash
 dn loop plans/issue-123.plan.md
@@ -161,9 +163,9 @@ plan, may add a `*.continuation.plan.md`, and exits. Run `loop` again on the
 same plan; checked items mark progress.
 
 Use `--publish pr` or `--publish direct` to commit, push, and open a PR or
-update the default branch in the same run when you do not want a separate
-`land` step. Use `--steer` to append operator guidance to the implement prompt.
-Use `--allow-cross-repo` when the issue URL targets another repository.
+update the default branch in the same run when you do not want a separate `land`
+step. Use `--steer` to append operator guidance to the implement prompt. Use
+`--allow-cross-repo` when the issue URL targets another repository.
 
 ## `dn land`
 
@@ -186,12 +188,12 @@ For commit, push, and pull request in one step on an issue, use
 `dn kickstart --publish pr` or `dn loop --publish pr` instead of land-first
 local work. See [Kickstart](/kickstart/) for publish modes.
 
-`--dry-run` previews commits and plan removal without writing. `--issue-testplan`
-upserts a `## Test Plan` checklist on the GitHub issue linked from the plan
-(URL, `issue-123.plan.md` filename, or `#123` in the body) before committing;
-`--test-plan <path>` adds local context for that step only. Trunk publish and
-repo preflight belong on [`dn sync`](#dn-sync), after you push a branch or
-bookmark the usual way.
+`--dry-run` previews commits and plan removal without writing.
+`--issue-testplan` upserts a `## Test Plan` checklist on the GitHub issue linked
+from the plan (URL, `issue-123.plan.md` filename, or `#123` in the body) before
+committing; `--test-plan <path>` adds local context for that step only. Trunk
+publish and repo preflight belong on [`dn sync`](#dn-sync), after you push a
+branch or bookmark the usual way.
 
 If commit creation fails after the plan was removed, `land` tries to restore the
 plan; inspect VCS state and rerun, or `--dry-run` first when plan or issue
@@ -218,8 +220,8 @@ dn until import 123
 dn until import https://github.com/owner/repo/issues/123 --split
 ```
 
-`validate` parses the file and prints how many gambits loaded. `run` repeats
-the primary gambit (index 0) until its verifier reports done, up to top-level
+`validate` parses the file and prints how many gambits loaded. `run` repeats the
+primary gambit (index 0) until its verifier reports done, up to top-level
 `iterations` (default `10`) and optional `timeout_ms`. `--once` caps the run at
 one primary iteration. That is not the same as `one_shot = true` on a later
 gambit, which runs a tail pass after the primary verifier already succeeded.
@@ -231,20 +233,20 @@ body.
 The first gambit is always primary; it cannot set `one_shot`. Additional gambits
 use `interval` (with `align`, `at`, or `phase`) for satellite passes, or
 `one_shot = true` for a single tail after primary success. Each generator or
-verifier action uses exactly one of `url`, `content` (JSON `prompt` is an alias),
-or `script`. In a one-file `.md` goal, omit `generator.url` and
+verifier action uses exactly one of `url`, `content` (JSON `prompt` is an
+alias), or `script`. In a one-file `.md` goal, omit `generator.url` and
 `generator.content` so the Markdown body becomes the primary generator. Put long
 goal prose in a file and reference it with `url`, not a huge TOML string. List
 secret names in `secrets`; never store values in the config. `metadata` replaces
 `{{key}}` in prompts.
 
-Interval verifier failures are logged and the primary loop continues. Primary and
-one-shot tail verifier failures stop the run.
+Interval verifier failures are logged and the primary loop continues. Primary
+and one-shot tail verifier failures stop the run.
 
 ### Make the merge gate pass
 
-Point the primary verifier at the same commands your team runs before merge.
-A one-file Markdown goal keeps the write-up in the body and the gate in
+Point the primary verifier at the same commands your team runs before merge. A
+one-file Markdown goal keeps the write-up in the body and the gate in
 frontmatter:
 
 ```markdown
@@ -259,8 +261,8 @@ goal = "Complete issue 123 and keep the repository gate green"
 script = "make precommit"
 +++
 
-Implement {{goal}}. Prefer small, reviewable edits. Resolve failures reported
-by the verifier.
+Implement {{goal}}. Prefer small, reviewable edits. Resolve failures reported by
+the verifier.
 ```
 
 ```bash
@@ -324,10 +326,9 @@ script = "make precommit"
 ### Interval reviews
 
 Satellite gambits use `interval` as a fraction of top-level `iterations`. Each
-interval fires `floor(iterations * interval)` times, capped by `iterations`.
-Set `align` to `start`, `end`, or `spread`, or list explicit 1-based `at`
-indices. `phase` runs the satellite before or after the primary pass on that
-tick.
+interval fires `floor(iterations * interval)` times, capped by `iterations`. Set
+`align` to `start`, `end`, or `spread`, or list explicit 1-based `at` indices.
+`phase` runs the satellite before or after the primary pass on that tick.
 
 ```toml
 iterations = 8
@@ -399,8 +400,9 @@ content = "Judge whether the docs meet the rubric for {{audience}}."
 verdict_path = ".dn/until-verdict.json"
 ```
 
-Install the authoring skill with `dn init agents --skill dn-until --agent opencode`
-(or your harness). JSON gambit files remain valid for older configs.
+Install the authoring skill with
+`dn init agents --skill dn-until --agent opencode` (or your harness). JSON
+gambit files remain valid for older configs.
 
 Do not use generators that only reformat code, prompt verifiers that require
 stdout to contain only JSON, or unbounded scripts with no timeout. Keep secrets
@@ -515,8 +517,8 @@ dn ensure tests --no-fix
 ## `dn auth`
 
 Complementary `login`, `status`, and `logout` when you need `dn`-managed GitHub
-sign-in. Token order, `gh` integration, CI variables, and required scopes are
-in [GitHub authentication](/dn/installation/#github-authentication).
+sign-in. Token order, `gh` integration, CI variables, and required scopes are in
+[GitHub authentication](/dn/installation/#github-authentication).
 
 ```bash
 dn auth
@@ -546,9 +548,9 @@ Add the line to `~/.bashrc` or your zsh config after `compinit`.
 
 ## `dn task`
 
-Manages the unified kickstart queue at `~/.dn/todo.md` (native Void tasks with
-embedded JSON plus GitHub issues and plan paths) and separate Denoise task
-documents under `~/.dn/tasks/` (JSON). Void task-sync and
+Manages the unified kickstart queue at `~/.dn/todo.md` (native Denoise Personal
+tasks with embedded JSON plus GitHub issues and plan paths) and separate Denoise
+task documents under `~/.dn/tasks/` (JSON). Personal task-sync and
 `dn kickstart --denoise-task` use the `tasks/` files.
 
 ```bash
@@ -563,7 +565,7 @@ dn task done 42
 dn task done https://github.com/owner/repo/issues/42
 dn task done plans/auth.plan.md
 
-# Inspect runner pairing / file lock (Void sync)
+# Inspect runner pairing / file lock (Personal sync)
 dn task sync status
 ```
 
@@ -572,9 +574,9 @@ after `dn land` (or after `--publish direct` when you want the issue closed) to
 keep the list and GitHub in sync. Attended `dn kickstart` does not mark queue
 items done on exit.
 
-Void task-sync relays **native tasks only** to the browser; kickstart queue lines
-stay on your laptop. See [The Void](/denoise/void/) and
-[device runners](/runners/device-runners/#local-task-sync-void-free-plan).
+Personal task-sync relays **native tasks only** to the browser; kickstart queue
+lines stay on your laptop. See [Denoise Personal](/denoise/personal/) and
+[device runners](/runners/device-runners/#local-task-sync-denoise-personal).
 
 ## No-ticket kickstart
 
@@ -606,8 +608,8 @@ GitHub writes. When `EDITOR` is set, it opens the refreshed list.
 
 ## `dn tidy` extras
 
-[`dn tidy`](#dn-tidy) refreshes `~/.dn/todo.md` from open
-issues. These subcommands groom harness and config files:
+[`dn tidy`](#dn-tidy) refreshes `~/.dn/todo.md` from open issues. These
+subcommands groom harness and config files:
 
 ```bash
 dn tidy agent --check
@@ -619,8 +621,8 @@ dn tidy runner --json
 dn tidy --all --with-backlog --json
 ```
 
-`--check` and `--fix` on `tidy agent` validate OpenCode phase configs.
-`--json` on config, workflows, context, and runner aids scripting.
+`--check` and `--fix` on `tidy agent` validate OpenCode phase configs. `--json`
+on config, workflows, context, and runner aids scripting.
 
 ## `dn runner`
 
@@ -669,7 +671,8 @@ Harness for agent-backed commands on this invocation (`opencode`, `claude`,
 - **Flag:** `--agent <harness[:model]>`
 - **Environment:** `DN_AGENT`
 
-File-based defaults: [Filesystem Context — Choose an agent](/dn/filesystem-context/#choose-an-agent).
+File-based defaults:
+[Filesystem Context — Choose an agent](/dn/filesystem-context/#choose-an-agent).
 
 ### Context files (`--context-file`)
 
@@ -684,11 +687,13 @@ Subcommands may still require `--yes` or `DN_YES=1`; that is not global.
 
 - **Flag:** `--unattended`
 
-[Headless use — Unattended output](/runners/headless-use/#unattended-output) covers CI color, trace, and publish defaults.
+[Headless use — Unattended output](/runners/headless-use/#unattended-output)
+covers CI color, trace, and publish defaults.
 
 ### Agent trace (`--trace`, `--no-trace`, `DN_AGENT_TRACE`)
 
-Live agent harness output. Attended TTY defaults to `--no-trace`; CI defaults to `--trace`.
+Live agent harness output. Attended TTY defaults to `--no-trace`; CI defaults to
+`--trace`.
 
 - **Flags:** `--trace`, `--no-trace`
 - **Environment:** `DN_AGENT_TRACE=1` or `0`

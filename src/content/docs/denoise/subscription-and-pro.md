@@ -1,28 +1,28 @@
 ---
 title: Subscription & Pro
-description: Free Void vs Denoise Pro vs Denoise Team — what each plan unlocks.
+description: Free Denoise Personal vs Denoise Pro vs Denoise Team — what each plan unlocks.
 ---
 
-**The Void** is free for solo local tasks. **Denoise Pro** unlocks the denoise
-team app — milestones, workspace, GitHub sync, and agent-backed automation from
-the UI. **Denoise Team** adds org seats and shared billing.
+**Denoise Personal** is free for solo local tasks. **Denoise Pro** unlocks the
+denoise team app — milestones, workspace, GitHub sync, and agent-backed
+automation from the UI. **Denoise Team** adds org seats and shared billing.
 
 ## Free vs Pro vs Team
 
-| Capability                                     | Free (The Void) | Denoise Pro            | Denoise Team           |
-| ---------------------------------------------- | --------------- | ---------------------- | ---------------------- |
-| Access to The Void                             | Yes             | Yes                    | Yes                    |
-| Local tasks via paired runner (`~/.dn/todo.md`) | Yes (1 runner)  | Yes (up to 10 runners) | Yes (up to 10 runners) |
-| Plan in web & handoff to agents                | No              | Yes                    | Yes                    |
-| Shared agent & human workspace                 | No              | Yes                    | Yes                    |
-| Orgs & shared billing                          | No              | No                     | Yes                    |
+| Capability                                      | Free (Denoise Personal) | Denoise Pro            | Denoise Team           |
+| ----------------------------------------------- | ----------------------- | ---------------------- | ---------------------- |
+| Access to Denoise Personal                      | Yes                     | Yes                    | Yes                    |
+| Local tasks via paired runner (`~/.dn/todo.md`) | Yes (1 runner)          | Yes (up to 10 runners) | Yes (up to 10 runners) |
+| Plan in web & handoff to agents                 | No                      | Yes                    | Yes                    |
+| Shared agent & human workspace                  | No                      | Yes                    | Yes                    |
+| Orgs & shared billing                           | No                      | No                     | Yes                    |
 
 Denoise Pro is **$10/month** with a **14-day free trial**. Denoise Team is
 **$20/month** for 6 seats plus **$2 per additional seat**. See in-app Plan &
 billing for the live price.
 
 Signing in at denoise.cloud without Pro lands on `/subscribe`. The gate shows
-the plan table and **Continue in The Void** for solo use.
+the plan table and **Continue in Denoise Personal** for solo use.
 
 ## What Pro includes
 
@@ -40,8 +40,8 @@ Pro unlocks the denoise team app and the automation around it:
   issues, and dispatch kickstart from the app. See
   [GitHub integration](/denoise/github-integration/) and
   [Milestone details](/denoise/milestone-details/).
-- **Void GitHub import** — Import or close GitHub issues from The Void. See
-  [The Void](/denoise/void/).
+- **Personal GitHub import** — Import or close GitHub issues from Denoise
+  Personal. See [Denoise Personal](/denoise/personal/).
 - **Early access** — Priority feedback channels and early access to new
   productivity features as they ship.
 
@@ -70,7 +70,7 @@ see [GitHub integration](/denoise/github-integration/) and
 
 ## Related pages
 
-- [The Void](/denoise/void/) — Free solo product and local task sync
+- [Denoise Personal](/denoise/personal/) — Free solo product and local task sync
 - [Features](/denoise/features/) — Tasks, milestones, collaboration
 - [Milestone details](/denoise/milestone-details/) — DN setup, init_stack,
   kickstart order, and per-task kickstart

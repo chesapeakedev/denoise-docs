@@ -1,20 +1,20 @@
 ---
 title: Features
-description: The Void for free solo tasks; denoise for milestones, focus timer, and Pro automation.
+description: Denoise Personal for free solo tasks; denoise for milestones, focus timer, and Pro automation.
 ---
 
 ## Overview
 
-Denoise is a planning stack for small software teams. **The Void** covers free
-solo tasks that stay on a paired laptop. **denoise** (Denoise Pro) is the
-collaborative workspace and milestone app with GitHub sync and dn-powered
+Denoise is a planning stack for small software teams. **Denoise Personal**
+covers free solo tasks that stay on a paired laptop. **denoise** (Denoise Pro)
+is the collaborative workspace and milestone app with GitHub sync and dn-powered
 automation.
 
 In the team app, the default experience is **workspace-first**: open the
 workspace to see milestones, then open a milestone to manage its tasks. A
 progress bar at the top shows how many tasks are completed. See
 [Getting started](/denoise/getting-started/) for Free vs Pro entry points and
-[The Void](/denoise/void/) for the free product.
+[Denoise Personal](/denoise/personal/) for the free product.
 
 ![Workspace with progress bar, workspace selector, and milestone list](../../../assets/screenshots/roadmap.png)
 
@@ -25,8 +25,8 @@ milestone view workflow.
 
 ## Core features
 
-- **The Void (Free)** — Solo local tasks that sync to a paired laptop. See
-  [The Void](/denoise/void/).
+- **Denoise Personal (Free)** — Solo local tasks that sync to a paired laptop.
+  See [Denoise Personal](/denoise/personal/).
 - **Workspace and milestones (Pro)** — Group tasks into milestones and track
   progress from the workspace. See [Getting started](/denoise/getting-started/).
 - **Focus timer** — Start a focused work session from **Focus** in the header.
@@ -145,11 +145,12 @@ collaborator search once they have created a denoise account. The user must be
 signed into the matching account to view milestones they have been added as a
 collaborator on.
 
-## The Void
+## Denoise Personal
 
-[The Void](/denoise/void/) is the free solo task list. Tasks sync to a paired
-laptop under `~/.dn/todo.md` via device runners; denoise does not keep a
-long-term cloud todo store for free tasks. There are no milestones in The Void.
+[Denoise Personal](/denoise/personal/) is the free solo task list. Tasks sync to
+a paired laptop under `~/.dn/todo.md` via device runners; denoise does not keep
+a long-term cloud todo store for free tasks. There are no milestones in Denoise
+Personal.
 
 See the dedicated page for pairing, Free vs Pro distinctions, and ticketless
 kickstart.

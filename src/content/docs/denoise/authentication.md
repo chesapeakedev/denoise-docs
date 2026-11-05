@@ -20,21 +20,22 @@ From the subscription page you can:
 - Create a **Team** account — that creates an organization you can add users to
   (includes 6 seats). See [Subscription & Pro](/denoise/subscription-and-pro/)
   for plan details and live pricing.
-- **Continue in The Void** for free solo use without a denoise subscription.
+- **Continue in Denoise Personal** for free solo use without a denoise
+  subscription.
 
 Sign-in starts GitHub-only OAuth (`flow=oauth_only`, with an account picker when
 you need to switch accounts). After GitHub finishes, you return to the app with
 a session cookie validated by the server. A trial counts as Pro for workbench
 access.
 
-Auth cookies are shared across denoise.cloud and void.denoise.cloud, so the same
-session works on both hosts.
+Auth cookies are shared across denoise.cloud and personal.denoise.cloud, so the
+same session works on both hosts.
 
 The only free product surface without a subscription is
-[The Void](/denoise/void/) — a solo task list with local `~/.dn/todo.md` sync,
-not the denoise workspace, milestones, or team collaboration. Open it from
-**Continue in The Void**, or go directly to
-[void.denoise.cloud](https://void.denoise.cloud).
+[Denoise Personal](/denoise/personal/) — a solo task list with local
+`~/.dn/todo.md` sync, not the denoise workspace, milestones, or team
+collaboration. Open it from **Continue in Denoise Personal**, or go directly to
+[personal.denoise.cloud](https://personal.denoise.cloud).
 
 ## GitHub App and repository access
 
@@ -95,16 +96,17 @@ denoise servers are down.
 
 ## Summary
 
-| Access                        | What you get                                                    |
-| ----------------------------- | --------------------------------------------------------------- |
-| Not signed in / no Pro        | Subscription page; **Continue in The Void** for free solo tasks |
-| Signed in + Pro + **Online**  | Full sync: milestones and todos, multi-device and collaboration |
-| Signed in + Pro + **Offline** | Local only; no server                                           |
+| Access                        | What you get                                                            |
+| ----------------------------- | ----------------------------------------------------------------------- |
+| Not signed in / no Pro        | Subscription page; **Continue in Denoise Personal** for free solo tasks |
+| Signed in + Pro + **Online**  | Full sync: milestones and todos, multi-device and collaboration         |
+| Signed in + Pro + **Offline** | Local only; no server                                                   |
 
 ## Related
 
 - [Getting started](/denoise/getting-started/) — product choice and first task
 - [Subscription & Pro](/denoise/subscription-and-pro/) — Free vs Pro vs Team
-- [The Void](/denoise/void/) — free solo tasks without a denoise subscription
+- [Denoise Personal](/denoise/personal/) — free solo tasks without a denoise
+  subscription
 - [GitHub integration](/denoise/github-integration/) — milestones, issues, and
   workflow dispatch
