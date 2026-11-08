@@ -30,14 +30,14 @@ Plan, implement, land, and retry until verifiers pass.
 Issues, pull requests, milestones, releases, GitHub Actions, and activity on
 GitHub.
 
-| Subcommand  | Purpose                                    | Doc depth | Where                                                                                                       |
-| ----------- | ------------------------------------------ | --------- | ----------------------------------------------------------------------------------------------------------- |
-| `issue`     | Manage issues and relationships            | full      | [GitHub context](/dn/github-context/#issues-and-relationships)                                              |
-| `read`      | Read-only PR review brief                  | full      | [GitHub context](/dn/github-context/#pull-requests-and-review)                                              |
-| `fixup`     | Address PR feedback locally                | full      | [GitHub context](/dn/github-context/#pull-requests-and-review)                                              |
-| `milestone` | Create, list, publish milestones           | full      | [GitHub context](/dn/github-context/#milestones-and-queues)                                                 |
-| `glance`    | Project velocity overview                  | full      | [GitHub context](/dn/github-context/#releases-activity-and-actions)                                         |
-| `release`   | Create, list, view, edit, delete releases  | summary   | [GitHub context](/dn/github-context/#releases-activity-and-actions)                                         |
+| Subcommand  | Purpose                                         | Doc depth | Where                                                                                                       |
+| ----------- | ----------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------- |
+| `issue`     | Manage issues and relationships                 | full      | [GitHub context](/dn/github-context/#issues-and-relationships)                                              |
+| `read`      | Read-only PR review brief                       | full      | [GitHub context](/dn/github-context/#pull-requests-and-review)                                              |
+| `fixup`     | Address PR feedback locally                     | full      | [GitHub context](/dn/github-context/#pull-requests-and-review)                                              |
+| `milestone` | GitHub milestones or Denoise cloud (`--denoise`) | full      | [GitHub context](/dn/github-context/#milestones-and-queues), [Workspace CRUD](/dn/workspace/)              |
+| `glance`    | Project velocity overview                       | full      | [GitHub context](/dn/github-context/#releases-activity-and-actions)                                         |
+| `release`   | Create, list, view, edit, delete releases        | summary   | [GitHub context](/dn/github-context/#releases-activity-and-actions)                                         |
 | `workflows` | Install, validate, dispatch GitHub Actions | summary   | [GitHub context](/dn/github-context/#releases-activity-and-actions), [Headless use](/runners/headless-use/) |
 
 ### Setup, context, and automation
@@ -56,11 +56,11 @@ Repository bootstrap, `dn.json` recipes, and agent context files.
 
 Choose and groom local work queues without starting an agent run.
 
-| Subcommand | Purpose                                                             | Doc depth | Where                                                      |
-| ---------- | ------------------------------------------------------------------- | --------- | ---------------------------------------------------------- |
-| `peek`     | Heuristic next-issue ranking (no LLM)                               | full      | [`dn peek`](#dn-peek)                                      |
-| `task`     | Unified list at `~/.dn/todo.md` (Personal native + kickstart queue) | full      | [`dn task`](#dn-task)                                      |
-| `tidy`     | Refresh task list; groom config and harness files                   | full      | [`dn tidy`](#dn-tidy), [`dn tidy` extras](#dn-tidy-extras) |
+| Subcommand | Purpose                                                                                                    | Doc depth | Where                                                                  |
+| ---------- | ---------------------------------------------------------------------------------------------------------- | --------- | ---------------------------------------------------------------------- |
+| `peek`     | Heuristic next-issue ranking (no LLM)                                                                      | full      | [`dn peek`](#dn-peek)                                                  |
+| `task`     | Local queue (Personal / Void), GitHub issues, or Denoise cloud (`--todo` / `--github` / `--denoise`)      | full      | [`dn task`](#dn-task), [Workspace CRUD](/dn/workspace/)                |
+| `tidy`     | Refresh task list; groom config and harness files                                                          | full      | [`dn tidy`](#dn-tidy), [`dn tidy` extras](#dn-tidy-extras)             |
 
 `peek`, `task`, `tidy`, and `sync` in this group are **experimental**. Behavior
 and flags may change in future `dn` releases. They complement
@@ -77,8 +77,8 @@ Device runners and design RFCs tracked in the repository.
 
 ## `dn kickstart`
 
-`kickstart` accepts a GitHub issue, local Markdown spec, denoise task, or a
-queued item. The workflow and publish modes are covered in the
+`kickstart` accepts a GitHub issue, Denoise task URL or task file, local Markdown
+spec, or a queued item. The workflow and publish modes are covered in the
 [Kickstart guide](/kickstart/); this section lists the CLI flags that shape the
 run.
 
@@ -548,34 +548,43 @@ Add the line to `~/.bashrc` or your zsh config after `compinit`.
 
 ## `dn task`
 
-Manages the unified kickstart queue at `~/.dn/todo.md` (native Denoise Personal
-tasks with embedded JSON plus GitHub issues and plan paths) and separate Denoise
-task documents under `~/.dn/tasks/` (JSON). Personal task-sync and
-`dn kickstart --denoise-task` use the `tasks/` files.
+Unified CRUD for three backends. Default is the **local** queue (`--todo`);
+use `--github` or `--denoise` (or `workspace.default_backend` in `dn.json`) for
+GitHub issues or Denoise Pro cloud tasks. See [Workspace CRUD](/dn/workspace/).
+
+The local queue at `~/.dn/todo.md` contains native Personal or Void tasks with
+embedded JSON, GitHub issues, and plan paths. Separate Denoise task documents
+under `~/.dn/tasks/` (JSON) support Personal task-sync and
+`dn kickstart --denoise-task`.
 
 ```bash
+# Local ~/.dn/todo.md (Denoise Personal / Void kickstart queue)
 dn task list
-dn task show <id|ref>
 dn task upsert --file task.json
 dn task delete <id>
-
-# Mark queue items done (closes GitHub issue when applicable)
-dn task done
-dn task done 42
 dn task done https://github.com/owner/repo/issues/42
 dn task done plans/auth.plan.md
 
-# Inspect runner pairing / file lock (Personal sync)
+# Personal task-sync runner pairing and file lock
 dn task sync status
+
+# GitHub (same as dn issue)
+dn task --github list --label bug
+dn task --github create --title "Bug" --body-file report.md
+dn task --github show 123
+
+# Denoise Pro cloud
+dn task create --denoise --milestone <uuid> --title "Brief title" --body-file desc.md
+dn task show --denoise https://denoise.cloud/task/<uuid>
+dn kickstart https://denoise.cloud/task/<uuid>
 ```
 
-When the ref is a GitHub issue, `dn` closes the issue with a comment. Use this
-after `dn land` (or after `--publish direct` when you want the issue closed) to
-keep the list and GitHub in sync. Attended `dn kickstart` does not mark queue
-items done on exit.
+`upsert`, `delete`, `done`, and `sync` stay on the **todo** backend. With
+`default_backend: denoise`, pass `--todo` explicitly for local queue work.
 
-Personal task-sync relays **native tasks only** to the browser; kickstart queue
-lines stay on your laptop. See [Denoise Personal](/denoise/personal/) and
+Personal and Void task-sync relay **native tasks only** to the browser; kickstart
+queue lines stay on your laptop. See [Denoise Personal](/denoise/personal/),
+[The Void](/denoise/void/), and
 [device runners](/runners/device-runners/#local-task-sync-denoise-personal).
 
 ## No-ticket kickstart

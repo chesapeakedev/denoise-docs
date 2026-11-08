@@ -83,6 +83,7 @@ export default defineConfig({
               slug: "dn/completing-github-issues",
             },
             { label: "Command reference", slug: "dn/command-reference" },
+            { label: "Workspace CRUD", slug: "dn/workspace" },
             { label: "GitHub context", slug: "dn/github-context" },
             {
               label: "Filesystem Context",
@@ -100,6 +101,10 @@ export default defineConfig({
             {
               label: "Milestone details",
               slug: "denoise/milestone-details",
+            },
+            {
+              label: "Task links and API",
+              slug: "denoise/task-links-and-api",
             },
             {
               label: "When kickstart needs an engineer",

@@ -14,9 +14,15 @@ dn kickstart https://github.com/chesapeakedev/dn/issues/8
 # a shorter form for a github issue
 dn kickstart 123
 
+# a denoise cloud task (native milestone task)
+dn kickstart https://denoise.cloud/task/<uuid>
+
 # a local plan file
 dn kickstart docs/spec.md
 ```
+
+Create cloud tasks from the terminal with `dn task create --denoise` (see
+[Workspace CRUD](/dn/workspace/)).
 
 In denoise, choose Kickstart on a task or issue in a milestone. The task needs
 an available runner. See [Kickstart runtimes](/runners/kickstart-runtimes/) for

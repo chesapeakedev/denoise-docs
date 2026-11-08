@@ -4,9 +4,10 @@ description: Understand the GitHub objects dn reads and updates, then find the c
 ---
 
 `dn` uses GitHub issues as work requests, milestones as grouped queues, and pull
-requests as review boundaries. It can read repository context to plan work,
-update issue relationships, and create or inspect pull requests. The commands
-below operate on GitHub directly; local implementation and VCS publishing still
+requests as review boundaries. For the same issue operations from `dn task`, use
+`dn task --github …` or keep using `dn issue …`. Denoise Pro cloud milestones
+and tasks use `dn task --denoise` and `dn milestone --denoise` instead—see
+[Workspace CRUD](/dn/workspace/). Local implementation and VCS publishing still
 happen in the current checkout.
 
 ## Authentication and repository selection
