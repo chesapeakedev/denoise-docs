@@ -68,8 +68,11 @@ and `issue` with issue URLs).
 1. **`GITHUB_TOKEN` environment variable** (or legacy `DANGEROUS_GITHUB_TOKEN`)
 2. **GitHub CLI** — if `gh` is installed and authenticated, `dn` shells out to
    `gh auth token`
+3. **Cached `dn auth` token** — used only when neither source above is
+   available; stored under `~/.config/dn/` on Unix-like systems or
+   `%APPDATA%\dn` on Windows
 
-For interactive use casese, install the [GitHub CLI](https://cli.github.com/)
+For interactive use, install the [GitHub CLI](https://cli.github.com/)
 and authenticate:
 
 ```bash
@@ -77,7 +80,9 @@ gh auth login
 ```
 
 No environment variable or configuration needed. `dn` detects `gh`
-automatically.
+automatically. If you do not use GitHub CLI, sign in with `dn auth`; it opens a
+browser device flow and caches a token for later commands. Use `dn auth status`
+to inspect the selected source and `dn auth logout` to clear only the dn cache.
 
 For CI, scripts, and automation, set `GITHUB_TOKEN`:
 

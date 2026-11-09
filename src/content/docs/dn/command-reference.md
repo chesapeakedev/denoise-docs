@@ -506,7 +506,9 @@ Recipes in root `dn.json` under `ensure.<name>` run frozen `argv` lists (no
 shell). Kickstart and loop already call `dn ensure lint` after implement when
 that recipe exists. Use `dn ensure` with no name to list recipes, or pass a name
 to rerun one gate. On failure, `dn` runs a fixer agent unless you pass
-`--no-fix`.
+`--no-fix`. While a fixer runs, `dn` sets `DN_ENSURE_ACTIVE` so a nested
+`dn ensure` call passes through without starting another fixer; do not set this
+variable manually.
 
 ```bash
 dn ensure

@@ -128,7 +128,8 @@ On paired device runners, Denoise can stamp a preferred agent while local
 
 `dn.json` at the repository root is the **team contract** for how `dn` runs in
 that checkout. It does not replace plan files — plans hold _what_ to build;
-`dn.json` holds _how_ to verify and publish work consistently.
+`dn.json` holds _how_ to verify and publish work consistently. For the opt-in
+RFC and repository policy checks, see [Strict mode](/dn/strict-mode/).
 
 `dn` walks upward from the workspace root to find `dn.json`. Commit it so
 kickstart, loop, land, sync, ensure, and GitHub Actions workflows behave the

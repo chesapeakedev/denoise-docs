@@ -83,6 +83,7 @@ export default defineConfig({
               slug: "dn/completing-github-issues",
             },
             { label: "Command reference", slug: "dn/command-reference" },
+            { label: "Strict mode", slug: "dn/strict-mode" },
             { label: "Workspace CRUD", slug: "dn/workspace" },
             { label: "GitHub context", slug: "dn/github-context" },
             {
@@ -126,6 +127,7 @@ export default defineConfig({
           items: [
             { label: "Overview", slug: "runners/overview" },
             { label: "Enroll runners", slug: "runners/device-runners" },
+            { label: "Device runner protocol", slug: "runners/device-runner-protocol" },
             {
               label: "Kickstart runtimes",
               slug: "runners/kickstart-runtimes",
