@@ -55,6 +55,14 @@ const segments = [
       },
     ],
   },
+  {
+    title: "If you're an agent",
+    description:
+      "Use dn to work through GitHub issues, follow repository context, and hand off changes.",
+    links: [
+      { title: "Read the agent guide", href: "/agent.md" },
+    ],
+  },
 ];
 
 const moreLinks = [
@@ -154,7 +162,13 @@ const moreLinks = [
 
   @media (min-width: 50rem) {
     .home-segments__grid {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 75rem) {
+    .home-segments__grid {
+      grid-template-columns: repeat(4, 1fr);
     }
   }
 

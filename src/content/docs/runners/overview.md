@@ -5,8 +5,9 @@ description: Use dn and denoise with enrolled device, GitHub Actions, or exe.dev
 
 A runner is compute you enroll so `dn` and your agent harness can work against a
 GitHub repository. Denoise does not run kickstart on the application host. You
-enroll a runner once, then pick it from **Kickstart** and the milestone
-**Runners** dialog.
+enroll a runner once, then configure defaults on **Runners → Devices** (pair,
+register repositories, set per-repo Kickstart defaults). Override a single issue
+from **Configure Kickstart** on that task.
 
 Use the provider table and Where to go next links to choose device, GitHub
 Actions, or exe.dev. Pairing, progress in the task panel, and workflow setup are
@@ -27,7 +28,11 @@ visible with a reason. Docker (`dn kickstart --sandbox docker`) is isolation on
 a machine you already have — not an enrolled runner. See
 [Sandbox execution](/runners/sandbox/).
 
-Pairing a device binds it to your signed-in account, not to one milestone.
+Pairing a device binds it to your signed-in account, not to one milestone. On
+**Runners → Devices**, pair the device, run `dn runner register` in each
+checkout, then open that registered checkout to set implement-in and publish
+defaults for **that device**. **Runners → GitHub** is only for installing dn
+workflows when kickstart uses GitHub Actions—not for laptop checkouts.
 GitHub Actions is scoped to the planning repository. exe.dev is account-scoped
 like a device and counts toward the same runner limit — see
 [Subscription & Pro](/denoise/subscription-and-pro/). GitHub Actions does not
